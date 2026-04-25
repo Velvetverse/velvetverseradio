@@ -581,6 +581,11 @@ function show(id,btn){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 </script>
+  <script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
+}
+</script>
 
 </body>
 </html>
