@@ -745,6 +745,53 @@ function show(id,btn){
 
 updateVVClock();
 setInterval(updateVVClock, 1000);
+
+  /* 🔴 LIVE AUTOMÁTICO */
+function updateLiveShow(){
+  const now = new Date();
+  const current = now.getHours() * 60 + now.getMinutes();
+
+  document.querySelectorAll(".vv-card").forEach(card => {
+    const start = card.getAttribute("data-start");
+    const end = card.getAttribute("data-end");
+
+    if(!start || !end) return;
+
+    const [sh, sm] = start.split(":").map(Number);
+    const [eh, em] = end.split(":").map(Number);
+
+    let startMin = sh * 60 + sm;
+    let endMin = eh * 60 + em;
+
+    // trata o caso 23:00 → 07:00
+    if(endMin < startMin){
+      if(current >= startMin || current <= endMin){
+        activateCard(card);
+      } else {
+        deactivateCard(card);
+      }
+    } else {
+      if(current >= startMin && current <= endMin){
+        activateCard(card);
+      } else {
+        deactivateCard(card);
+      }
+    }
+  });
+}
+
+function activateCard(card){
+  card.style.border = "2px solid red";
+  card.style.boxShadow = "0 0 30px red";
+}
+
+function deactivateCard(card){
+  card.style.border = "1px solid #a855f7";
+  card.style.boxShadow = "0 0 20px rgba(168,85,247,0.4)";
+}
+
+setInterval(updateLiveShow, 30000);
+updateLiveShow();
 </script>
   <script>
 if ('serviceWorker' in navigator) {
