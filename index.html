@@ -806,6 +806,13 @@ function activateCard(card){
   }
 }
 
+  function deactivateCard(card){
+  card.style.border = "1px solid #a855f7";
+  card.style.boxShadow = "0 0 25px rgba(168,85,247,0.5)";
+
+  const badge = card.querySelector(".live-badge");
+  if(badge) badge.remove();
+}
 setInterval(updateLiveShow, 30000);
 updateLiveShow();
 </script>
