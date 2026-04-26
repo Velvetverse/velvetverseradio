@@ -730,6 +730,23 @@ function show(id,btn){
 
   window.scrollTo({top:0, behavior:'smooth'});
 }
+
+  function updateVVClock(){
+  const clock = document.getElementById("vv-clock");
+  if(!clock) return;
+
+  const now = new Date();
+  const time = now.toLocaleTimeString("pt-PT", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  });
+
+  clock.textContent = "⏰ " + time;
+}
+
+updateVVClock();
+setInterval(updateVVClock, 1000);
 </script>
   <script>
 if ('serviceWorker' in navigator) {
