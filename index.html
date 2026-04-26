@@ -444,6 +444,29 @@ nav button.active-btn{
 </nav>
 
 <div class="main">
+  <div id="gallery" class="section">
+  <div class="panel">
+    <div class="panel-box">
+      <h1 style="text-align:center;">Photo Gallery</h1>
+
+      <div class="gallery-grid">
+        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
+        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
+        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
+        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
+        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
+        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
+      </div>
+
+      <div id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img id="lightbox-img" src="" alt="Expanded gallery photo">
+      </div>
+
+    </div>
+  </div>
+</div>
+
   <div id="schedule" class="section">
   <div class="panel">
     <div class="panel-box">
