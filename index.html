@@ -783,11 +783,13 @@ function updateLiveShow(){
 function activateCard(card){
   card.style.border = "2px solid red";
   card.style.boxShadow = "0 0 30px red";
-}
 
-function deactivateCard(card){
-  card.style.border = "1px solid #a855f7";
-  card.style.boxShadow = "0 0 20px rgba(168,85,247,0.4)";
+  if(!card.querySelector(".live-badge")){
+    const badge = document.createElement("div");
+    badge.className = "live-badge";
+    badge.innerText = "🔴 LIVE NOW";
+    card.appendChild(badge);
+  }
 }
 
 setInterval(updateLiveShow, 30000);
