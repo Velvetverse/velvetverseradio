@@ -341,6 +341,55 @@ nav button.active-btn{
   .footer{flex-direction:column;text-align:center;}
   .footer-left,.footer-right{min-width:0;justify-content:center;}
 }
+  .vv-schedule{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.vv-card{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  padding:20px;
+  border-radius:20px;
+  border:1px solid #a855f7;
+  background:linear-gradient(145deg,#0b0b0f,#1a0f2a);
+  box-shadow:0 0 20px rgba(168,85,247,0.4);
+}
+
+.vv-card img{
+  width:100px;
+  height:100px;
+  object-fit:contain;
+  background:#050509;
+  border-radius:12px;
+  border:2px solid #a855f7;
+}
+
+.vv-time{
+  font-size:20px;
+  font-weight:bold;
+  color:#a855f7;
+  text-align:center;
+  min-width:80px;
+}
+
+.vv-info h2{
+  margin:0;
+  color:#fff;
+}
+
+.vv-info p{
+  margin:4px 0;
+  color:#c084fc;
+  font-weight:bold;
+}
+
+.vv-info span{
+  font-size:14px;
+  opacity:0.8;
+}
 </style>
 </head>
 
@@ -372,12 +421,103 @@ nav button.active-btn{
 
 <nav>
   <button class="active-btn" onclick="show('home',this)">Home</button>
+  <button onclick="show('schedule',this)">Schedule</button>
   <button onclick="show('about',this)">About</button>
   <button onclick="show('contact',this)">Contact</button>
   <button onclick="show('comments',this)">Comments</button>
 </nav>
 
 <div class="main">
+  <div id="schedule" class="section">
+  <div class="panel">
+    <div class="panel-box">
+
+      <h1 style="text-align:center;">SCHEDULE</h1>
+
+      <div class="vv-schedule">
+
+        <!-- Adrian -->
+        <div class="vv-card">
+          <img src="adrian.png">
+          <div class="vv-time">07:00<br>10:00</div>
+          <div class="vv-info">
+            <h2>Ritmo Latino 🔥</h2>
+            <p>Adrian Vega (Noia)</p>
+            <span>Começa o teu dia com energia e ritmo latino!</span>
+          </div>
+        </div>
+
+        <!-- Suzy -->
+        <div class="vv-card">
+          <img src="suzy.png">
+          <div class="vv-time">10:00<br>13:00</div>
+          <div class="vv-info">
+            <h2>Alma Portuguesa 🇵🇹</h2>
+            <p>Suzy Mendes</p>
+            <span>Música portuguesa com alma e emoção.</span>
+          </div>
+        </div>
+
+        <!-- Carlos -->
+        <div class="vv-card">
+          <img src="carlos.png">
+          <div class="vv-time">13:00<br>16:00</div>
+          <div class="vv-info">
+            <h2>Corações & Memórias ❤️</h2>
+            <p>Carlos Moreira</p>
+            <span>Clássicos e romantismo dos anos 80/90.</span>
+          </div>
+        </div>
+
+        <!-- Lara -->
+        <div class="vv-card">
+          <img src="lara.png">
+          <div class="vv-time">16:00<br>19:00</div>
+          <div class="vv-info">
+            <h2>Coração Brasileiro 🇧🇷</h2>
+            <p>Lara Ingrid</p>
+            <span>Boa vibe brasileira para o fim do dia.</span>
+          </div>
+        </div>
+
+        <!-- Beto -->
+        <div class="vv-card">
+          <img src="beto.png">
+          <div class="vv-time">19:00<br>21:00</div>
+          <div class="vv-info">
+            <h2>Rock Sem Limites ⚡</h2>
+            <p>Beto Sousa</p>
+            <span>Rock clássico e energia máxima!</span>
+          </div>
+        </div>
+
+        <!-- VelvetVerse -->
+        <div class="vv-card">
+          <img src="velvetverse.png">
+          <div class="vv-time">21:00<br>23:00</div>
+          <div class="vv-info">
+            <h2>VelvetVerse Experience 🎶</h2>
+            <p>Rotativo</p>
+            <span>Programa oficial da banda.</span>
+          </div>
+        </div>
+
+        <!-- Auto DJ -->
+        <div class="vv-card">
+          <img src="logo.png">
+          <div class="vv-time">23:00<br>07:00</div>
+          <div class="vv-info">
+            <h2>Midnight Flow 🌙</h2>
+            <p>Auto DJ</p>
+            <span>Música nonstop pela noite fora.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
   <div id="home" class="section active">
     <div class="hero">
