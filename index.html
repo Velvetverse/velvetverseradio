@@ -510,6 +510,33 @@ nav button.active-btn{
   0% { background-position: 0% }
   100% { background-position: 200% }
 }
+  @media (max-width: 768px) {
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .nav-menu button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .menu-band-btn {
+    position: static;
+    margin-top: 5px;
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+
+}
 </style>
 </head>
 
