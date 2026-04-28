@@ -458,6 +458,51 @@ nav button.active-btn{
   color:white;
   cursor:pointer;
 }
+  /* NAVBAR CENTRADA */
+.navbar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* MENU CENTRO */
+.nav-menu {
+  display: flex;
+  gap: 10px;
+}
+
+/* BOTÃO DA BANDA (DIREITA) */
+.menu-band-btn {
+  position: absolute;
+  right: 10px;
+
+  padding: 10px 26px;
+  border-radius: 999px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+
+  background: linear-gradient(90deg, #ff007a, #7b2cff, #ff007a);
+  background-size: 200%;
+
+  box-shadow: 0 0 12px rgba(255,0,120,0.4);
+
+  animation: glowMove 3.5s linear infinite;
+  transition: 0.3s;
+}
+
+/* HOVER */
+.menu-band-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255,0,120,0.8);
+}
+
+/* ANIMAÇÃO */
+@keyframes glowMove {
+  0% { background-position: 0% }
+  100% { background-position: 200% }
+}
 </style>
 </head>
 
@@ -487,15 +532,20 @@ nav button.active-btn{
   </div>
 </div>
 
-<nav>
-  <button class="active-btn" onclick="show('home',this)">Home</button>
-  <button onclick="show('schedule',this)">Schedule</button>
-  <button onclick="show('gallery',this)">Gallery</button>
-  <button onclick="show('about',this)">About</button>
-  <button onclick="show('contact',this)">Contact</button>
-  <button onclick="show('comments',this)">Comments</button>
-</nav>
+<nav class="navbar">
+  <div class="nav-menu">
+    <button class="active-btn" onclick="show('home',this)">Home</button>
+    <button onclick="show('schedule',this)">Schedule</button>
+    <button onclick="show('gallery',this)">Gallery</button>
+    <button onclick="show('about',this)">About</button>
+    <button onclick="show('contact',this)">Contact</button>
+    <button onclick="show('comments',this)">Comments</button>
+  </div>
 
+  <a href="https://velvetverseband.com" target="_blank" class="menu-band-btn">
+    Discover VelvetVerse
+  </a>
+</nav>
 <div class="main">
   <div id="gallery" class="section">
   <div class="panel">
