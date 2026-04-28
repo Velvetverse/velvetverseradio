@@ -459,13 +459,21 @@ nav button.active-btn{
   cursor:pointer;
 }
   /* NAVBAR CENTRADA */
+
 .navbar {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
+  padding: 10px 0;
+  background: rgba(10, 10, 20, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
 /* MENU CENTRO */
 .nav-menu {
   display: flex;
