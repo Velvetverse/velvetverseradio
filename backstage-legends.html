@@ -1,135 +1,240 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Backstage Legends | VelvetVerse Radio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    *{box-sizing:border-box;}
+<title>Backstage Legends | VelvetVerse Radio</title>
 
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:#0b0b0f;
-      color:white;
-      min-height:100vh;
-      padding:20px;
-    }
+<style>
 
-    .page{
-      max-width:1100px;
-      margin:0 auto;
-      padding:30px;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    .back-btn{
-      display:inline-block;
-      margin-bottom:25px;
-      padding:10px 22px;
-      border-radius:999px;
-      background:#111827;
-      color:white;
-      text-decoration:none;
-      border:1px solid #8555f7;
-    }
+body{
+font-family:Arial,sans-serif;
+background:#090909;
+color:white;
+min-height:100vh;
+padding:30px;
+}
 
-    .hero{
-      text-align:center;
-      padding:45px 20px;
-      border-radius:24px;
-      background:linear-gradient(135deg,#1b102f,#0b0b0f,#2a0f1f);
-      box-shadow:0 0 35px rgba(133,85,247,0.35);
-    }
+.container{
+max-width:1200px;
+margin:auto;
+}
 
-    .hero h1{
-      font-size:42px;
-      margin:0 0 12px;
-    }
+.back-btn{
+display:inline-block;
+margin-bottom:30px;
+padding:12px 24px;
+border-radius:999px;
+background:#151515;
+border:1px solid #444;
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
 
-    .hero p{
-      color:#d1d5db;
-      font-size:18px;
-    }
+.back-btn:hover{
+background:#222;
+}
 
-    .podcast-card{
-      margin-top:35px;
-      display:grid;
-      grid-template-columns:260px 1fr;
-      gap:25px;
-      background:#111827;
-      padding:25px;
-      border-radius:22px;
-      border:1px solid rgba(255,255,255,0.12);
-    }
+.hero{
+background:linear-gradient(135deg,#2a1608,#111,#1b0f08);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:30px;
+padding:40px;
+display:flex;
+align-items:center;
+gap:35px;
+margin-bottom:40px;
+box-shadow:0 0 40px rgba(255,140,0,0.15);
+}
 
-    .podcast-cover{
-      width:100%;
-      border-radius:18px;
-      background:#222;
-    }
+.hero-logo{
+width:260px;
+border-radius:20px;
+}
 
-    .host-photo{
-      width:90px;
-      height:90px;
-      border-radius:50%;
-      object-fit:cover;
-      border:3px solid #8555f7;
-      margin-top:15px;
-    }
+.hero-content{
+flex:1;
+}
 
-    audio{
-      width:100%;
-      margin-top:20px;
-    }
+.hero-content h1{
+font-size:50px;
+margin-bottom:15px;
+}
 
-    @media(max-width:700px){
-      .podcast-card{
-        grid-template-columns:1fr;
-      }
+.hero-content p{
+color:#ccc;
+line-height:1.7;
+margin-bottom:25px;
+}
 
-      .hero h1{
-        font-size:32px;
-      }
-    }
-  </style>
+.host{
+display:flex;
+align-items:center;
+gap:15px;
+}
+
+.host img{
+width:75px;
+height:75px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #c58b45;
+}
+
+.host-info span{
+display:block;
+color:#aaa;
+font-size:14px;
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:25px;
+}
+
+.episode-card{
+background:#141414;
+border-radius:25px;
+overflow:hidden;
+display:flex;
+gap:25px;
+padding:25px;
+border:1px solid rgba(255,255,255,0.08);
+margin-bottom:25px;
+transition:0.3s;
+}
+
+.episode-card:hover{
+transform:translateY(-4px);
+box-shadow:0 0 30px rgba(255,140,0,0.15);
+}
+
+.episode-cover{
+width:240px;
+border-radius:18px;
+object-fit:cover;
+}
+
+.episode-content{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.episode-content h3{
+font-size:30px;
+margin-bottom:12px;
+}
+
+.episode-content p{
+color:#bbb;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+audio{
+width:100%;
+}
+
+@media(max-width:900px){
+
+.hero{
+flex-direction:column;
+text-align:center;
+}
+
+.host{
+justify-content:center;
+}
+
+.episode-card{
+flex-direction:column;
+}
+
+.episode-cover{
+width:100%;
+}
+
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="page">
+<div class="container">
 
-    <a class="back-btn" href="index.html">← Back to VelvetVerse Radio</a>
+<a class="back-btn" href="index.html">
+← Back to VelvetVerse Radio
+</a>
 
-    <section class="hero">
-      <h1>🎙️ Backstage Legends</h1>
-      <p>Histórias reais, memórias e lendas por trás da música.</p>
-    </section>
+<section class="hero">
 
-    <section class="podcast-card">
+<img class="hero-logo" src="backstage-legends-logo.png">
 
-      <div>
-        <img class="podcast-cover" src="logo.png" alt="Backstage Legends Cover">
-        <img class="host-photo" src="logo.png" alt="Ricky Sousa">
-      </div>
+<div class="hero-content">
 
-      <div>
-        <h2>Primeiro Episódio</h2>
-        <p><strong>Com Ricky Sousa</strong></p>
-        <p>
-          Neste episódio, entramos no backstage das grandes histórias,
-          memórias e momentos que marcaram a música.
-        </p>
+<h1>Backstage Legends</h1>
 
-        <audio controls>
-         <source src="leo-sayer-episodio-01-ricky-sousa.mp3" type="audio/mpeg">
-          O teu browser não suporta áudio.
-        </audio>
-      </div>
+<p>
+Histórias reais, memórias inesquecíveis e os bastidores
+das maiores lendas da música mundial.
+Uma rubrica especial apresentada por Ricky Sousa.
+</p>
 
-    </section>
+<div class="host">
 
-  </div>
+<img src="ricky-sousa-profile.png">
+
+<div class="host-info">
+<strong>Ricky Sousa</strong>
+<span>Host • Backstage Legends</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<h2 class="section-title">
+Últimos Episódios
+</h2>
+
+<section class="episode-card">
+
+<img class="episode-cover"
+src="leo-sayer-backstage-legends.png">
+
+<div class="episode-content">
+
+<h3>Leo Sayer</h3>
+
+<p>
+A incrível história de Leo Sayer,
+os bastidores da carreira,
+os grandes sucessos e os momentos
+que marcaram gerações.
+</p>
+
+<audio controls>
+<source src="leo-sayer-episodio-01-ricky-sousa.mp3" type="audio/mpeg">
+</audio>
+
+</div>
+
+</section>
+
+</div>
 
 </body>
 </html>
