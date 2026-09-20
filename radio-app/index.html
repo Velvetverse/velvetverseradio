@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#09040f">
+  <meta name="description" content="VelvetVerse Radio — emissão ao vivo">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <title>VelvetVerse Radio</title>
+  <style>
+    :root{--purple:#aa45ff;--purple2:#7026dd;--ink:#08050e;--muted:#c9c1d5}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#07040c;color:#fff;font-family:Arial,Helvetica,sans-serif}
+    body{min-height:100dvh;display:grid;place-items:center;overflow-x:hidden;background:
+      radial-gradient(circle at 50% 28%,rgba(112,38,221,.2),transparent 35%),
+      radial-gradient(circle at 50% 82%,rgba(170,69,255,.12),transparent 35%),#07040c}
+    button,input{font:inherit}
+    .app{width:min(100%,470px);min-height:100dvh;padding:24px 20px calc(26px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center}
+    .brand{display:flex;align-items:center;gap:11px;text-transform:uppercase;letter-spacing:3px;font-size:21px;font-weight:700;white-space:nowrap}
+    .brand strong{color:var(--purple);font-weight:600;letter-spacing:5px}
+    .brand-mark{display:flex;align-items:center;gap:4px;height:30px}
+    .brand-mark i{display:block;width:3px;border-radius:3px;background:linear-gradient(#c462ff,#6b30f3);box-shadow:0 0 9px #8c37ff}
+    .brand-mark i:nth-child(1){height:12px}.brand-mark i:nth-child(2){height:23px}.brand-mark i:nth-child(3){height:31px}.brand-mark i:nth-child(4){height:20px}
+    .live{margin:17px 0 20px;display:flex;align-items:center;gap:10px;color:#ff3949;font-size:22px;font-weight:800;letter-spacing:1px}
+    .live-dot{width:15px;height:15px;border-radius:50%;background:#ff3344;box-shadow:0 0 14px #ff263d;animation:pulse 1.5s infinite}
+    @keyframes pulse{50%{opacity:.45;transform:scale(.86)}}
+    .cover-shell{width:min(78vw,325px);aspect-ratio:1;border:3px solid #9b4df5;border-radius:12px;padding:14px;background:linear-gradient(145deg,rgba(121,59,222,.36),rgba(31,19,56,.7));box-shadow:0 0 25px rgba(153,61,255,.65)}
+    .cover-shell img{width:100%;height:100%;object-fit:cover;border-radius:5px;background:#171020;display:block}
+    .track{text-align:center;width:100%;margin:22px 0 13px;min-height:69px}
+    .artist{font-size:30px;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .song{margin-top:6px;font-size:21px;font-weight:300;color:#f1edf5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .play{width:104px;height:104px;border-radius:50%;border:3px solid #ad55ff;background:rgba(90,34,150,.36);box-shadow:0 0 25px rgba(139,53,247,.6),inset 0 0 24px rgba(141,53,239,.2);display:grid;place-items:center;cursor:pointer}
+    .play:active{transform:scale(.97)}
+    .play-icon{width:0;height:0;border-top:20px solid transparent;border-bottom:20px solid transparent;border-left:31px solid white;margin-left:8px;filter:drop-shadow(0 0 3px #fff)}
+    .play.playing .play-icon{width:27px;height:35px;border:0;margin:0;background:linear-gradient(90deg,#fff 0 35%,transparent 35% 64%,#fff 64%)}
+    .status{height:20px;margin:8px 0 2px;color:#cdb7e0;font-size:13px}
+    .volume{width:100%;display:grid;grid-template-columns:25px 1fr 27px;gap:11px;align-items:center}
+    .volume svg{width:25px;height:25px;fill:#fff}
+    input[type=range]{appearance:none;width:100%;height:6px;border-radius:5px;background:linear-gradient(90deg,var(--purple) 70%,#3a3541 70%);outline:0}
+    input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;border-radius:50%;background:#a74dff;box-shadow:0 0 10px #8d3cff}
+    input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#a74dff}
+    .equalizer{height:57px;width:100%;display:flex;align-items:end;justify-content:center;gap:5px;margin:17px 0 15px;filter:drop-shadow(0 0 6px #8a2fff)}
+    .equalizer i{width:7px;height:15%;background:linear-gradient(#d556ff,#6238f2);border-radius:2px 2px 0 0;animation:eq .85s ease-in-out infinite alternate;animation-play-state:paused}
+    .equalizer.active i{animation-play-state:running}
+    @keyframes eq{to{height:var(--h)}}
+    .host-card{display:flex;align-items:center;justify-content:center;gap:17px;min-height:84px;width:100%;margin-top:1px}
+    .host-card img{width:78px;height:78px;border-radius:50%;object-fit:cover;border:3px solid #a849ff;box-shadow:0 0 16px rgba(161,65,255,.72)}
+    .show-copy{min-width:0;text-align:left}
+    .show-name{font-size:23px;font-weight:800;line-height:1.08}
+    .host-name{font-size:18px;font-weight:300;color:#e8e0ed;margin-top:6px}
+    .site{margin-top:18px;color:#bdb3c5;font-size:12px;letter-spacing:4px;text-decoration:none}
+    .socials{display:flex;gap:29px;margin-top:18px}
+    .socials a{width:42px;height:42px;border:1px solid #9847e7;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font-weight:bold;font-size:19px;box-shadow:0 0 8px rgba(154,67,239,.26)}
+    .tagline{display:flex;align-items:center;gap:16px;margin-top:25px;color:#b95cff;font-size:10px;letter-spacing:5px;white-space:nowrap}
+    .tagline:before,.tagline:after{content:"";width:70px;height:1px;background:#9d45ec}
+    @media(max-width:370px){.app{padding-left:14px;padding-right:14px}.brand{font-size:17px;letter-spacing:2px}.brand strong{letter-spacing:3px}.artist{font-size:25px}.song{font-size:18px}.show-name{font-size:20px}.host-card img{width:68px;height:68px}.tagline{letter-spacing:3px}}
+    @media(min-height:900px){.app{justify-content:center}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="brand"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>VelvetVerse</span><strong>Radio</strong></div>
+    <div class="live"><span class="live-dot"></span>LIVE</div>
+
+    <div class="cover-shell"><img id="artwork" src="https://artwork.rcast.net/73595" alt="Capa da música atual"></div>
+
+    <div class="track" aria-live="polite">
+      <div class="artist" id="artist">VelvetVerse Radio</div>
+      <div class="song" id="song">A carregar música atual…</div>
+    </div>
+
+    <button class="play" id="play" aria-label="Ouvir emissão"><span class="play-icon"></span></button>
+    <div class="status" id="status">Toque para ouvir</div>
+
+    <div class="volume">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/></svg>
+      <input id="volume" type="range" min="0" max="100" value="70" aria-label="Volume">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zm-2.5-8.8v2.1a7 7 0 0 1 0 13.4v2.1A9 9 0 0 0 14 3.2z"/></svg>
+    </div>
+
+    <div class="equalizer" id="equalizer" aria-hidden="true"></div>
+
+    <section class="host-card" aria-live="polite">
+      <img id="hostPhoto" src="../beto.png" alt="Locutor atual">
+      <div class="show-copy">
+        <div class="show-name" id="showName">Rock Sem Limites</div>
+        <div class="host-name" id="hostName">com Beto Sousa</div>
+      </div>
+    </section>
+
+    <a class="site" href="../index.html">WWW.VELVETVERSERADIO.COM</a>
+    <div class="socials">
+      <a href="https://www.instagram.com/velvetverseband/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+      <a href="https://www.facebook.com/profile.php?id=61582322366506" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://www.youtube.com/channel/UC7P8KDw1vb1OsfIO4uPBWdA" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+    </div>
+    <div class="tagline">MUSIC LIVES HERE</div>
+  </main>
+
+  <audio id="radio" preload="none" src="https://stream.rcast.net/73595"></audio>
+  <script>
+    const radio = document.getElementById('radio');
+    const play = document.getElementById('play');
+    const statusEl = document.getElementById('status');
+    const volume = document.getElementById('volume');
+    const eq = document.getElementById('equalizer');
+    const artwork = document.getElementById('artwork');
+    const artistEl = document.getElementById('artist');
+    const songEl = document.getElementById('song');
+
+    for(let n=0;n<28;n++){
+      const bar=document.createElement('i');
+      bar.style.setProperty('--h',(25+Math.random()*75)+'%');
+      bar.style.animationDelay=(-Math.random())+'s';
+      eq.appendChild(bar);
+    }
+
+    radio.volume=.7;
+    play.addEventListener('click',async()=>{
+      if(!radio.paused){radio.pause();return}
+      statusEl.textContent='A ligar à emissão…';
+      radio.src='https://stream.rcast.net/73595?ts='+Date.now();
+      try{await radio.play()}catch(e){statusEl.textContent='Não foi possível iniciar. Toque novamente.'}
+    });
+    radio.addEventListener('playing',()=>{play.classList.add('playing');eq.classList.add('active');statusEl.textContent='Emissão ao vivo'});
+    radio.addEventListener('pause',()=>{play.classList.remove('playing');eq.classList.remove('active');statusEl.textContent='Emissão em pausa'});
+    radio.addEventListener('waiting',()=>statusEl.textContent='A ligar à emissão…');
+    radio.addEventListener('error',()=>{play.classList.remove('playing');eq.classList.remove('active');statusEl.textContent='Ligação interrompida. Toque para tentar novamente.'});
+    volume.addEventListener('input',()=>{
+      radio.volume=volume.value/100;
+      volume.style.background=`linear-gradient(90deg,var(--purple) ${volume.value}%,#3a3541 ${volume.value}%)`;
+    });
+
+    function splitTrack(text){
+      const clean=(text||'').trim();
+      const at=clean.indexOf(' - ');
+      return at>0?[clean.slice(0,at),clean.slice(at+3)]:['VelvetVerse Radio',clean||'Emissão ao vivo'];
+    }
+    async function updateTrack(){
+      try{
+        const res=await fetch('https://status.rcast.net/73595?ts='+Date.now(),{cache:'no-store'});
+        if(!res.ok) throw new Error('metadata');
+        const [artist,song]=splitTrack(await res.text());
+        artistEl.textContent=artist;
+        songEl.textContent=song;
+        artwork.src='https://artwork.rcast.net/73595?ts='+Date.now();
+      }catch(e){/* mantém a última informação válida */}
+    }
+
+    const shows=[
+      {start:420,end:600,name:'Ritmo Latino',host:'Adrian Vega (Noia)',photo:'../adrian.png'},
+      {start:600,end:780,name:'Alma Portuguesa',host:'Suzy Mendes',photo:'../suzy.png'},
+      {start:780,end:960,name:'Corações & Memórias',host:'Carlos Moreira',photo:'../carlos.png'},
+      {start:960,end:1140,name:'Coração Brasileiro',host:'Lara Ingrid',photo:'../lara.png'},
+      {start:1140,end:1260,name:'Rock Sem Limites',host:'Beto Sousa',photo:'../beto.png'},
+      {start:1260,end:1380,name:'VelvetVerse Experience',host:'Rui Freitas',photo:'../rui-freitas-velvetverse-experience.png'},
+      {start:1380,end:1440,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png'},
+      {start:0,end:180,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png'},
+      {start:180,end:420,name:'Midnight Flow',host:'VelvetVerse Radio',photo:'../velvetverse.png'}
+    ];
+    function torontoMinutes(){
+      const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+      const get=t=>Number(parts.find(p=>p.type===t).value);
+      return get('hour')*60+get('minute');
+    }
+    function updateShow(){
+      const now=torontoMinutes();
+      const show=shows.find(s=>now>=s.start&&now<s.end)||shows[0];
+      document.getElementById('showName').textContent=show.name;
+      document.getElementById('hostName').textContent='com '+show.host;
+      const photo=document.getElementById('hostPhoto');
+      photo.src=show.photo; photo.alt=show.host;
+    }
+
+    artwork.addEventListener('error',()=>artwork.src='../logo.png');
+    updateTrack(); updateShow();
+    setInterval(updateTrack,15000); setInterval(updateShow,60000);
+    if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js'));
+  </script>
+</body>
+</html>
