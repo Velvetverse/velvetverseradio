@@ -63,7 +63,7 @@
     <div class="brand"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>VelvetVerse</span><strong>Radio</strong></div>
     <div class="live"><span class="live-dot"></span>LIVE</div>
 
-    <div class="cover-shell"><img id="artwork" src="https://artwork.rcast.net/73595" alt="Capa da música atual"></div>
+    <div class="cover-shell"><img id="artwork" src="../logo.png" alt="Capa da música atual"></div>
 
     <div class="track" aria-live="polite">
       <div class="artist" id="artist">VelvetVerse Radio</div>
@@ -132,19 +132,34 @@
       volume.style.background=`linear-gradient(90deg,var(--purple) ${volume.value}%,#3a3541 ${volume.value}%)`;
     });
 
-    function splitTrack(text){
-      const clean=(text||'').trim();
-      const at=clean.indexOf(' - ');
-      return at>0?[clean.slice(0,at),clean.slice(at+3)]:['VelvetVerse Radio',clean||'Emissão ao vivo'];
+    let lastTrack='';
+    async function updateArtwork(artist,song){
+      const key=(artist+'|'+song).toLowerCase();
+      if(key===lastTrack) return;
+      lastTrack=key;
+      artwork.src='../logo.png';
+      try{
+        const term=encodeURIComponent(artist+' '+song);
+        const res=await fetch(`https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,{cache:'no-store'});
+        if(!res.ok) throw new Error('artwork');
+        const data=await res.json();
+        const image=data.results?.[0]?.artworkUrl100;
+        if(image) artwork.src=image.replace('100x100bb','600x600bb');
+      }catch(e){/* mantém o logótipo quando não existe capa */}
     }
     async function updateTrack(){
       try{
-        const res=await fetch('https://status.rcast.net/73595?ts='+Date.now(),{cache:'no-store'});
+        const res=await fetch('https://live3.rcast.net/api/v1/stations/73595/now-playing?ts='+Date.now(),{cache:'no-store'});
         if(!res.ok) throw new Error('metadata');
-        const [artist,song]=splitTrack(await res.text());
+        const json=await res.json();
+        const current=json.data||{};
+        const artist=(current.artist||'VelvetVerse Radio').trim();
+        let song=(current.title||current.raw||'Emissão ao vivo').trim();
+        const prefix=artist+' - ';
+        if(song.toLowerCase().startsWith(prefix.toLowerCase())) song=song.slice(prefix.length).trim();
         artistEl.textContent=artist;
         songEl.textContent=song;
-        artwork.src='https://artwork.rcast.net/73595?ts='+Date.now();
+        updateArtwork(artist,song);
       }catch(e){/* mantém a última informação válida */}
     }
 
@@ -173,9 +188,9 @@
       photo.src=show.photo; photo.alt=show.host;
     }
 
-    artwork.addEventListener('error',()=>artwork.src='../logo.png');
+    artwork.addEventListener('error',()=>{if(!artwork.src.endsWith('/logo.png')) artwork.src='../logo.png'});
     updateTrack(); updateShow();
-    setInterval(updateTrack,15000); setInterval(updateShow,60000);
+    setInterval(updateTrack,10000); setInterval(updateShow,60000);
     if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js'));
   </script>
 </body>
