@@ -1,1100 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VelvetVerse Radio | Live 24/7 Music</title>
-
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0b0b0f">
-
-<style>
-*{box-sizing:border-box;}
-
-html,body{
-  margin:0;
-  width:100%;
-  min-height:100%;
-  overflow-x:hidden;
-  overflow-y:auto;
-  font-family:Arial,sans-serif;
-  background:#0b0b0f;
-  color:white;
-  padding-top:10px;
-}
-
-.topbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:136px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:10px 14px;
-  background:#0b0b0f;
-  border-bottom:2px solid #a855f7;
-  box-shadow:0 0 15px #a855f7;
-  z-index:2000;
-}
-
-.logo-wrap{display:flex;align-items:center;gap:10px;}
-.logo-img{width:60px;height:60px;border-radius:50%;}
-.logo-main{color:#a855f7;font-weight:bold;font-size:18px;}
-.logo-sub{font-size:11px;opacity:0.8;}
-
-.player{flex:1;}
-.player iframe{width:100%;height:115px;border:none;display:block;overflow:hidden;}
-
-.listen-btn{
-  position:relative;
-  padding:10px 18px;
-  border-radius:26px;
-  background:#0b0b0f;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  text-transform:uppercase;
-  overflow:hidden;
-  z-index:1;
-}
-.listen-btn::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:30px;
-  background:linear-gradient(90deg,#a855f7,#ff0000,#a855f7);
-  background-size:300% 300%;
-  animation:neonBorder 2s linear infinite;
-  z-index:-2;
-}
-.listen-btn::after{
-  content:"";
-  position:absolute;
-  inset:3px;
-  border-radius:24px;
-  background:#0b0b0f;
-  z-index:-1;
-}
-@keyframes neonBorder{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-.onair{
-  background:#7f1d1d;
-  padding:8px 12px;
-  border-radius:18px;
-  font-size:11px;
-  font-weight:bold;
-  animation:liveFlash 1s infinite;
-}
-@keyframes liveFlash{
-  0%,100%{background:#7f1d1d;box-shadow:0 0 8px red;}
-  50%{background:#ff0000;box-shadow:0 0 25px red,0 0 40px red;}
-}
-
-.history{width:360px;}
-.history iframe{width:100%;height:100px;border:none;display:block;}
-
-nav{
-  position:fixed;
-  top:134px;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  background:#111;
-  padding:10px 0;
-  z-index:1500;
-}
-nav button{
-  background:#0b0b0f;
-  color:white;
-  border:1px solid #a855f7;
-  padding:10px 18px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:600;
-  transition:0.25s;
-}
-nav button:hover{
-  background:#1a1a2e;
-  box-shadow:0 0 14px #a855f7;
-  transform:translateY(-2px);
-}
-nav button.active-btn{
-  background:#a855f7;
-  color:#000;
-  box-shadow:0 0 20px #a855f7;
-}
-  .dropdown{
-  position:relative;
-  display:inline-block;
-}
-
-.dropbtn{
-  background:#0b0b0f;
-  color:white;
-  border:1px solid #a855f7;
-  padding:10px 18px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:600;
-  transition:0.25s;
-}
-
-.dropbtn:hover{
-  background:#1a1a2e;
-  box-shadow:0 0 14px #a855f7;
-  transform:translateY(-2px);
-}
-
-.dropdown-content{
-  display:none;
-  position:absolute;
-  background:#111;
-  min-width:220px;
-  border-radius:10px;
-  overflow:hidden;
-  z-index:999;
-  box-shadow:0 0 15px rgba(168,85,247,0.4);
-}
-
-.dropdown-content a{
-  color:white;
-  padding:12px 16px;
-  text-decoration:none;
-  display:block;
-  transition:0.2s;
-}
-
-.dropdown-content a:hover{
-  background:#a855f7;
-  color:#000;
-}
-
-.dropdown:hover .dropdown-content{
-  display:block;
-}
-
-.main{
-  margin-top:180px;
-  width:100%;
-  min-height:calc(100vh - 180px);
-}
-
-.section{display:none;}
-.section.active{display:block;}
-
-.hero{
-  height:calc(100vh - 180px);
-  background:url("studio-group.png") center/cover no-repeat;
-  position:relative;
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.38);
-}
-.cards{
-  position:absolute;
-  bottom:19%;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  padding:0 20px;
-}
-.card{
-  background:rgba(0,0,0,0.25);
-  padding:10px;
-  border:1px solid #a855f7;
-  border-radius:12px;
-}
-.hero-text{
-  position:absolute;
-  bottom:10%;
-  width:100%;
-  text-align:center;
-  padding:0 20px;
-}
-.hero-text h1{font-size:34px;margin:0;}
-.hero-text p{margin:5px 0 0;}
-.vibe{
-  position:absolute;
-  bottom:3%;
-  width:100%;
-  text-align:center;
-  padding:0 20px;
-}
-
-.panel{
-  padding:40px 20px;
-  background:#0b0b0f;
-}
-.panel-box{
-  max-width:1000px;
-  margin:auto;
-  border:1px solid #a855f7;
-  border-radius:16px;
-  padding:35px;
-  box-shadow:0 0 15px rgba(168,85,247,0.35);
-  line-height:1.7;
-}
-.panel-box h1,.panel-box h2{color:#a855f7;}
-.panel-box hr{
-  border:none;
-  border-top:1px solid rgba(168,85,247,0.5);
-  margin:35px 0;
-}
-.panel-box a{color:#a855f7;}
-
-.contact-form input,
-.contact-form textarea{
-  width:100%;
-  padding:12px;
-  margin-bottom:14px;
-  border-radius:10px;
-  border:1px solid #a855f7;
-  background:#0b0b0f;
-  color:white;
-  font-size:15px;
-}
-
-.contact-form textarea{
-  height:130px;
-  resize:vertical;
-}
-
-.contact-form button{
-  padding:12px 24px;
-  border-radius:26px;
-  background:#a855f7;
-  color:#000;
-  border:none;
-  font-weight:bold;
-  cursor:pointer;
-  font-size:15px;
-  box-shadow:0 0 15px rgba(168,85,247,0.6);
-}
-
-.contact-form button:hover{
-  background:#c084fc;
-}
-
-/* APPROVED COMMENTS */
-.approved-comments{
-  display:grid;
-  gap:18px;
-  margin-top:20px;
-}
-
-.comment-card{
-  display:flex;
-  gap:16px;
-  align-items:flex-start;
-  background:linear-gradient(145deg,rgba(11,11,15,0.95),rgba(25,10,35,0.85));
-  border:1px solid #a855f7;
-  border-radius:18px;
-  padding:18px;
-  box-shadow:
-    0 0 18px rgba(168,85,247,0.45),
-    inset 0 0 14px rgba(168,85,247,0.08);
-  transition:0.3s ease;
-}
-
-.comment-card:hover{
-  transform:translateY(-4px);
-  box-shadow:
-    0 0 28px rgba(168,85,247,0.85),
-    0 0 55px rgba(168,85,247,0.35),
-    inset 0 0 18px rgba(168,85,247,0.12);
-}
-
-.comment-card img{
-  width:66px;
-  height:66px;
-  border-radius:50%;
-  object-fit:cover;
-  border:2px solid #a855f7;
-  box-shadow:
-    0 0 14px rgba(168,85,247,0.85),
-    0 0 28px rgba(168,85,247,0.35);
-  flex-shrink:0;
-}
-
-.comment-content strong{
-  color:#c084fc;
-  font-size:18px;
-  display:block;
-  text-shadow:0 0 8px rgba(168,85,247,0.8);
-}
-
-.comment-date{
-  font-size:12px;
-  opacity:0.65;
-  margin-top:2px;
-}
-
-.comment-content p{
-  margin:8px 0 0;
-  line-height:1.5;
-}
-
-.comment-note{
-  font-size:14px;
-  opacity:0.75;
-}
-
-.footer{
-  width:100%;
-  min-height:58px;
-  background:#0b0b0f;
-  border-top:1px solid #a855f7;
-  box-shadow:0 0 12px rgba(168,85,247,0.35);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  font-size:12px;
-  padding:12px 22px;
-}
-.footer-left{min-width:220px;}
-.footer-left a,.footer-center a{color:#a855f7;text-decoration:none;}
-.footer-center{text-align:center;flex:1;}
-.footer-right{
-  min-width:220px;
-  display:flex;
-  justify-content:flex-end;
-  gap:14px;
-}
-.social-icon svg{width:24px;height:24px;fill:#a855f7;}
-
-@media(max-width:900px){
-  .topbar{
-    position:relative;
-    height:auto;
-    flex-direction:column;
-    align-items:center;
-  }
-  .player,.history{width:100%;}
-  nav{position:relative;top:0;}
-  .main{margin-top:0;}
-  .hero{min-height:100vh;height:auto;}
-  .comment-card{flex-direction:column;text-align:center;align-items:center;}
-  .footer{flex-direction:column;text-align:center;}
-  .footer-left,.footer-right{min-width:0;justify-content:center;}
-}
-  .vv-schedule{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
-}
-
-.vv-card{
-  position:relative;
-  display:flex;
-  align-items:center;
-  gap:30px;
-  padding:30px;
-  border-radius:20px;
-  border:1px solid #a855f7;
-  background:linear-gradient(145deg,#0b0b0f,#1a0f2a);
-  box-shadow:0 0 25px rgba(168,85,247,0.5);
-}
-
-.vv-card img{
-  width:200px;
-  height:200px;
-  object-fit:contain;
-  background:#050509;
-  border-radius:12px;
-  border:2px solid #a855f7;
-
-}
-
-.vv-time{
-  font-size:20px;
-  font-weight:bold;
-  color:#a855f7;
-  text-align:center;
-  min-width:80px;
-}
-
-.vv-info h2{
-  margin:0;
-  color:#fff;
-}
-
-.vv-info p{
-  margin:4px 0;
-  color:#c084fc;
-  font-weight:bold;
-}
-
-.vv-info span{
-  font-size:14px;
-  opacity:0.8;
-}
-
-  .live-badge{
-  position:absolute;
-  top:10px;
-  right:15px;
-  background:red;
-  color:white;
-  font-weight:bold;
-  padding:5px 10px;
-  border-radius:10px;
-  font-size:12px;
-  box-shadow:0 0 10px red;
-}
-  /* 📸 GALLERY GRID */
-.gallery-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-  margin-top:20px;
-}
-
-.gallery-grid img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:12px;
-  cursor:pointer;
-  border:2px solid #a855f7;
-  transition:0.3s;
-  box-shadow:0 0 10px rgba(168,85,247,0.4);
-}
-
-.gallery-grid img:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 25px #a855f7;
-}
-
-/* 🔥 LIGHTBOX */
-#lightbox{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-#lightbox img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:12px;
-  box-shadow:0 0 30px black;
-}
-
-.lightbox-close{
-  position:absolute;
-  top:20px;
-  right:30px;
-  font-size:40px;
-  color:white;
-  cursor:pointer;
-}
-  /* NAVBAR CENTRADA */
-
-.navbar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 130px; /* ajusta este número até ficar onde estava antes */
-
-  z-index: 9999;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* MENU CENTRO */
-.nav-menu {
-  display: flex;
-  gap: 10px;
-}
-
-/* BOTÃO DA BANDA (DIREITA) */
-.menu-band-btn {
-  position: absolute;
-  right: 10px;
-
-  padding: 10px 26px;
-  border-radius: 999px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-
-  background: linear-gradient(90deg, #ff007a, #7b2cff, #ff007a);
-  background-size: 200%;
-
-  box-shadow: 0 0 12px rgba(255,0,120,0.4);
-
-  animation: glowMove 3.5s linear infinite;
-  transition: 0.3s;
-}
-
-/* HOVER */
-.menu-band-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(255,0,120,0.8);
-}
-
-/* ANIMAÇÃO */
-@keyframes glowMove {
-  0% { background-position: 0% }
-  100% { background-position: 200% }
-}
- @media (max-width: 768px) {
-
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .nav-menu {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .nav-menu button {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .menu-band-btn {
-    position: static;
-    margin-top: 2px;
-    font-size: 11px;
-    padding: 6px 14px;
-  }
-
-}
-</style>
-</head>
-
-<body>
-
-<div class="topbar">
-  <div class="logo-wrap">
-    <img src="logo.png" class="logo-img" alt="Logo">
-    <div>
-      <div class="logo-main">VelvetVerse</div>
-      <div class="logo-sub">RADIO LIVE</div>
-    </div>
-  </div>
-
-  <div class="player">
-    <iframe src="https://players.rcast.net/fantastic/73595" scrolling="no"></iframe>
-  </div>
-
-  <div onclick="window.open('https://players.rcast.net/popup2/73595','https://players.rcast.net/popup2/73595','scrollbars=no,menubar=no,width=784,height=508,resizable=yes,toolbar=no,location=no,status=no')">
-    <div class="listen-btn">Listen Live</div>
-  </div>
-
-  <div class="onair">LIVE</div>
-
-  <div class="history">
-    <iframe src="https://players.rcast.net/playlisthistory3/73595" scrolling="yes"></iframe>
-  </div>
-</div>
-
-<nav class="navbar">
-  <div class="nav-menu">
-    <button class="active-btn" onclick="show('home',this)">Home</button>
-    <button onclick="show('schedule',this)">Schedule</button>
-    <button onclick="show('gallery',this)">Gallery</button>
-    <button onclick="show('about',this)">About</button>
-    <button onclick="show('contact',this)">Contact</button>
-    <button onclick="show('comments',this)">Comments</button>
-    <div class="dropdown">
-  <button class="dropbtn">Podcasts</button>
-
-  <div class="dropdown-content">
-    <a href="backstage-legends.html">Backstage Legends</a>
-    <a href="inside-velvetverse.html">Inside VelvetVerse</a>
-  </div>
-</div>
-  
-
-  <a href="https://velvetverseband.com" target="_blank" class="menu-band-btn">
-    Discover VelvetVerse
-  </a>
-</nav>
-<div class="main">
-  <div id="gallery" class="section">
-  <div class="panel">
-    <div class="panel-box">
-      <h1 style="text-align:center;">Photo Gallery</h1>
-
-      <div class="gallery-grid">
-        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
-        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
-        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
-        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
-        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
-        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
-        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Gallery photo 7">
-        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Gallery photo 8">
-        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Gallery photo 9">
-        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Gallery photo 10">
-      </div>
-
-      <div id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">×</span>
-        <img id="lightbox-img" src="" alt="Expanded gallery photo">
-      </div>
-
-    </div>
-  </div>
-</div>
-
-  <div id="schedule" class="section">
-  <div class="panel">
-    <div class="panel-box">
-      <div id="vv-clock" style="
-  text-align:right;
-  font-size:18px;
-  color:#a855f7;
-  margin-bottom:20px;
-  font-weight:bold;
-">
-  --:--:--
-</div>
-
-      <h1 style="text-align:center;">SCHEDULE</h1>
-
-      <div class="vv-schedule">
-
-        <!-- Adrian -->
-        <div class="vv-card" data-start="07:00" data-end="10:00">
-  <img src="adrian.png">
-  <div class="vv-time">07:00<br>10:00</div>
-  <div class="vv-info">
-    <h2>Ritmo Latino 🔥</h2>
-    <p>Adrian Vega (Noia)</p>
-    <span>Começa o teu dia com energia e ritmo latino!</span>
-  </div>
-</div>
-        <!-- Suzy -->
-        <div class="vv-card" data-start="10:00" data-end="13:00">
-  <img src="suzy.png">
-  <div class="vv-time">10:00<br>13:00</div>
-  <div class="vv-info">
-    <h2>Alma Portuguesa 🇵🇹</h2>
-    <p>Suzy Mendes</p>
-    <span>Música portuguesa com alma e emoção.</span>
-    <br><br>
-
-📖 Baú de História<br>
-<p>Temporariamente em pausa.<br>
-Regressa em breve.</p>
-Todos os dias • 11:30
-  </div>
-</div>
-
-        <!-- Carlos -->
-     <div class="vv-card" data-start="13:00" data-end="16:00">
-  <img src="carlos.png">
-  <div class="vv-time">13:00<br>16:00</div>
-  <div class="vv-info">
-    <h2>Corações & Memórias ❤️</h2>
-    <p>Carlos Moreira</p>
-    <span>Clássicos e romantismo dos anos 80/90.</span>
-
-    <br><br>
-🎙️ Backstage Legends<br>
-<p>Ricky Sousa</p>
-Todos os Domingos • 14:30
-  </div>
-</div>
-
-        <!-- Lara -->
-       <div class="vv-card" data-start="16:00" data-end="19:00">
-  <img src="lara.png">
-  <div class="vv-time">16:00<br>19:00</div>
-  <div class="vv-info">
-    <h2>Coração Brasileiro 🇧🇷</h2>
-    <p>Lara Ingrid</p>
-    <span>Boa vibe brasileira para o fim do dia.</span>
-  </div>
-</div>
-
-        <!-- Beto -->
-       <div class="vv-card" data-start="19:00" data-end="21:00">
-  <img src="beto.png">
-  <div class="vv-time">19:00<br>21:00</div>
-  <div class="vv-info">
-    <h2>Rock Sem Limites ⚡</h2>
-    <p>Beto Sousa</p>
-    <span>Rock clássico e energia máxima!</span>
-  </div>
-</div>
-        <!-- VelvetVerse -->
-     <div class="vv-card" data-start="21:00" data-end="23:00">
-  <img src="rui-freitas-velvetverse-experience.png">
-  <div class="vv-time">21:00<br>23:00</div>
-  <div class="vv-info">
-    <h2>VelvetVerse Experience 🎶</h2>
-    <p>Rui Freitas</p>
-    <span>Programa oficial da banda.</span>
-<br><br>
-
-    <span>🎙️ Inside VelvetVerse</span><br>
-<span>Entrevistas, bastidores e histórias da banda</span>
-
-  </div>
-</div>
-
-  <!-- Velvet After Dark -->
-<div class="vv-card" data-start="23:00" data-end="03:00">
-<img src="velvetverse.png">
-<div class="vv-time">23:00<br>03:00</div>
-<div class="vv-info">
-
-<h2>Velvet After Dark 🌙</h2>
-
-<p>VelvetVerse Radio</p>
-
-<span>
-Rock suave, clássicos nocturnos,
-late night vibes, emoções,
-atmosferas e viagens sonoras.
-</span>
-
-</div>
-</div>
-
-<!-- Midnight Flow -->
-<div class="vv-card" data-start="03:00" data-end="07:00">
-<img src="logo.png">
-<div class="vv-time">03:00<br>07:00</div>
-<div class="vv-info">
-
-<h2>Midnight Flow 🌙</h2>
-
-<p>Auto DJ</p>
-
-<span>
-Música ambiente, instrumental
-e deep night soundscape.
-</span>
-
-</div>
-</div>
-
-      </div>
-
-    </div>
-  </div>
-</div>
-
-  <div id="home" class="section active">
-    <div class="hero">
-      <div class="cards">
-        <div class="card">🎧 Non-stop</div>
-        <div class="card">🌍 Global</div>
-        <div class="card">🔊 Quality</div>
-        <div class="card">🚫 No ads</div>
-      </div>
-
-      <div class="hero-text">
-        <h1>VelvetVerse Radio — Music Never Stops</h1>
-        <p>Streaming 24/7 • No Ads • Pure Sound</p>
-      </div>
-
-      <div class="vibe">
-        “Sem pausas, sem filtros, só vibração.”
-      </div>
-    </div>
-  </div>
-
-  <div id="about" class="section">
-    <div class="panel">
-      <div class="panel-box">
-        <h1>About Us</h1>
-
-        <h2>Português</h2>
-
-        <p>A VelvetVerse nasceu da paixão pela música e da vontade de criar algo que vai além de uma banda tradicional. Somos um projeto musical de estúdio, formado por artistas com décadas de experiência, unidos pela criação sonora sem limites de palco ou fronteiras físicas.</p>
-
-        <p>Não somos uma banda de atuações ao vivo — somos um estúdio criativo, onde cada faixa é construída com detalhe, emoção e uma identidade própria.</p>
-
-        <p>A nossa música está disponível em plataformas digitais, chegando a ouvintes em todo o mundo. Mas sentimos que a nossa expressão artística precisava de ir mais longe.</p>
-
-        <p>Foi assim que nasceu a <strong>VelvetVerse Radio</strong>, um prolongamento natural do projeto, onde partilhamos não só as nossas criações originais, mas também uma seleção cuidada de música que reflete as nossas influências e o nosso universo sonoro.</p>
-
-        <p>A nossa rádio é mais do que uma transmissão — é uma experiência. Cerca de 50% da programação é dedicada às nossas produções, enquanto o restante é preenchido por sons que representam a nossa identidade musical.</p>
-
-        <p>A VelvetVerse é composta por:<br><br>
-        <strong>Lara Ingrid, Suzy Mendes, Carlos Moreira, Beto Sousa e Noia.</strong></p>
-
-        <p>Com uma base sólida construída ao longo de décadas, incluindo atuações em Portugal e no estrangeiro e partilhas de palco com nomes consagrados da música portuguesa, o projeto reúne experiência, maturidade e paixão num só espaço criativo.</p>
-
-        <p>Aqui, não existem fronteiras entre artista e ouvinte — apenas música, emoção e conexão.</p>
-
-        <p>Mais do que uma banda com uma rádio, somos um projeto em constante evolução, onde a música é a nossa linguagem e o estúdio é o nosso palco.</p>
-
-        <p><strong>Bem-vindo ao nosso mundo.</strong></p>
-
-        <hr>
-
-        <h2>English</h2>
-
-        <p>VelvetVerse was born from a deep passion for music and the desire to create something beyond a traditional band. We are a studio-based music project formed by artists with decades of experience, driven by sonic creation without stage boundaries or physical limits.</p>
-
-        <p>We are not a live-performing band — we are a creative studio where every track is crafted with detail, emotion, and a unique identity.</p>
-
-        <p>Our music is available across digital platforms, reaching listeners worldwide. But we felt the need to go further in our artistic expression.</p>
-
-        <p>This led to the creation of <strong>VelvetVerse Radio</strong>, a natural extension of the project, where we share not only our original productions but also a carefully curated selection of music that reflects our influences and sonic universe.</p>
-
-        <p>Our radio is more than a broadcast — it is an experience. Around 50% of the programming features our original work, while the rest showcases music that represents our artistic identity.</p>
-
-        <p>VelvetVerse consists of:<br><br>
-        <strong>Lara Ingrid, Suzy Mendes, Carlos Moreira, Beto Sousa, and Noia.</strong></p>
-
-        <p>Built on decades of experience, including performances across Portugal and internationally, and sharing stages with renowned Portuguese artists, the project brings together maturity, creativity, and passion.</p>
-
-        <p>Here, there are no boundaries between artist and listener — only music, emotion, and connection.</p>
-
-        <p>More than just a band with a radio station, we are an evolving creative project where music is our language and the studio is our stage.</p>
-
-        <p><strong>Welcome to our world.</strong></p>
-      </div>
-    </div>
-  </div>
-
-  <div id="contact" class="section">
-    <div class="panel">
-      <div class="panel-box">
-        <h1>Contact Us</h1>
-
-        <p>For music, radio, collaborations or general enquiries, feel free to contact VelvetVerse Radio.</p>
-
-        <form class="contact-form" action="https://formsubmit.co/velvetverseradio@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New Message from VelvetVerse Radio">
-          <input type="hidden" name="_captcha" value="false">
-
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="email" name="email" placeholder="Your Email" required>
-          <textarea name="message" placeholder="Your Message" required></textarea>
-
-          <button type="submit">Send Message</button>
-        </form>
-
-        <p style="margin-top:20px;">
-          Or email us directly:<br>
-          <a href="mailto:velvetverseradio@gmail.com">velvetverseradio@gmail.com</a>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div id="comments" class="section">
-    <div class="panel">
-      <div class="panel-box">
-        <h1>Comments</h1>
-
-        <h2>Leave a Comment</h2>
-        <p>Comments are reviewed before being published on this page.</p>
-
-        <form class="contact-form" action="https://formsubmit.co/velvetverseradio+comments@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New Comment for VelvetVerse Radio">
-          <input type="hidden" name="_captcha" value="false">
-
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="url" name="photo" placeholder="Profile Photo Link (optional)">
-          <textarea name="comment" placeholder="Your Comment" required></textarea>
-
-          <button type="submit">Send Comment</button>
-        </form>
-
-        <hr>
-
-        <h2>Approved Comments</h2>
-
-        <div class="approved-comments">
-
-          <div class="comment-card">
-            <img src="lurdes-ribeiro.png" alt="Lurdes Ribeiro">
-            <div class="comment-content">
-              <strong>Lurdes Ribeiro</strong>
-              <div class="comment-date">April 2026</div>
-              <p>Uma rádio com muito bom gosto, excelente energia e uma seleção musical que dá mesmo vontade de continuar a ouvir. Parabéns à VelvetVerse Radio!</p>
-            </div>
-          </div>
-
-          <div class="comment-card">
-            <img src="https://ui-avatars.com/api/?name=Liam+Thompson&background=0b0b0f&color=a855f7" alt="Liam Thompson">
-            <div class="comment-content">
-              <strong>Liam Thompson</strong>
-              <div class="comment-date">April 2026</div>
-              <p>Great sound, beautiful vibe and a very professional radio experience. VelvetVerse Radio has a unique identity. Keep it going!</p>
-            </div>
-          </div>
-
-          <!-- EXEMPLO PARA QUANDO QUISERES ADICIONAR MAIS COMENTÁRIOS APROVADOS:
-
-          <div class="comment-card">
-            <img src="https://ui-avatars.com/api/?name=Maria+Silva&background=0b0b0f&color=a855f7" alt="Maria Silva">
-            <div class="comment-content">
-              <strong>Maria Silva</strong>
-              <div class="comment-date">April 2026</div>
-              <p>Adoro esta rádio! Excelente som e muita boa energia.</p>
-            </div>
-          </div>
-
-          -->
-
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<footer class="footer">
-  <div class="footer-left">
-    <a href="mailto:velvetverseradio@gmail.com">velvetverseradio@gmail.com</a>
-  </div>
-
-  <div class="footer-center">
-    Use of this Website assumes acceptance of
-    <a href="terms.html" target="_blank">Terms & Conditions</a>
-    and @2026
-    <a href="privacy.html" target="_blank">Privacy Policy</a>
-  </div>
-
-  <div class="footer-right">
-    <a class="social-icon" href="https://www.facebook.com/profile.php?id=61582322366506" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5v2h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
-    </a>
-    <a class="social-icon" href="https://open.spotify.com/artist/030PPRKkOCnRO1vkxLLfbw/discography/all" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M12 1.8A10.2 10.2 0 1 0 12 22.2 10.2 10.2 0 0 0 12 1.8z"/></svg>
-    </a>
-    <a class="social-icon" href="https://www.youtube.com/channel/UC7P8KDw1vb1OsfIO4uPBWdA" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.2-1.7-.9-2.4c-.9-.9-1.9-.9-2.4-1C16.8 2.5 12 2.5 12 2.5s-4.8 0-8.2.3c-.5.1-1.5.1-2.4 1C.7 4.5.5 6.2.5 6.2S.2 8.2.2 10.3v1.9c0 2.1.3 4.1.3 4.1s.2 1.7.9 2.4c.9.9 2.1.9 2.6 1 1.9.2 8 .3 8 .3s4.8 0 8.2-.3c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.4.9-2.4s.3-2.1.3-4.1v-1.9c0-2.1-.3-4.1-.3-4.1zM9.7 14.8V7.7l6.3 3.6-6.3 3.5z"/></svg>
-    </a>
-  </div>
-</footer>
-
-<script>
-function show(id,btn){
-  document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active-btn'));
-  btn.classList.add('active-btn');
-
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-  function updateVVClock(){
-  const clock = document.getElementById("vv-clock");
-  if(!clock) return;
-
-  const now = new Date();
-  const time = now.toLocaleTimeString("pt-PT", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  });
-
-  clock.textContent = "⏰ " + time;
-}
-
-updateVVClock();
-setInterval(updateVVClock, 1000);
-
-  /* 🔴 LIVE AUTOMÁTICO */
-function updateLiveShow(){
-  const now = new Date();
-  const current = now.getHours() * 60 + now.getMinutes();
-
-  document.querySelectorAll(".vv-card").forEach(card => {
-    const start = card.getAttribute("data-start");
-    const end = card.getAttribute("data-end");
-
-    if(!start || !end) return;
-
-    const [sh, sm] = start.split(":").map(Number);
-    const [eh, em] = end.split(":").map(Number);
-
-    let startMin = sh * 60 + sm;
-    let endMin = eh * 60 + em;
-
-    // trata o caso 23:00 → 07:00
-    if(endMin < startMin){
-      if(current >= startMin || current <= endMin){
-        activateCard(card);
-      } else {
-        deactivateCard(card);
-      }
-    } else {
-      if(current >= startMin && current <= endMin){
-        activateCard(card);
-      } else {
-        deactivateCard(card);
-      }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#09040f">
+  <meta name="description" content="VelvetVerse Radio — emissão ao vivo">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <title>VelvetVerse Radio</title>
+  <style>
+    :root{--purple:#aa45ff;--purple2:#7026dd;--ink:#08050e;--muted:#c9c1d5}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:#07040c;color:#fff;font-family:Arial,Helvetica,sans-serif}
+    body{min-height:100dvh;display:grid;place-items:center;overflow-x:hidden;background:
+      radial-gradient(circle at 50% 28%,rgba(112,38,221,.2),transparent 35%),
+      radial-gradient(circle at 50% 82%,rgba(170,69,255,.12),transparent 35%),#07040c}
+    button,input{font:inherit}
+    .app{width:min(100%,470px);min-height:100dvh;padding:24px 20px calc(26px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center}
+    .brand{display:flex;align-items:center;gap:11px;text-transform:uppercase;letter-spacing:3px;font-size:21px;font-weight:700;white-space:nowrap}
+    .brand strong{color:var(--purple);font-weight:600;letter-spacing:5px}
+    .brand-mark{display:flex;align-items:center;gap:4px;height:30px}
+    .brand-mark i{display:block;width:3px;border-radius:3px;background:linear-gradient(#c462ff,#6b30f3);box-shadow:0 0 9px #8c37ff}
+    .brand-mark i:nth-child(1){height:12px}.brand-mark i:nth-child(2){height:23px}.brand-mark i:nth-child(3){height:31px}.brand-mark i:nth-child(4){height:20px}
+    .live{margin:17px 0 20px;display:flex;align-items:center;gap:10px;color:#ff3949;font-size:22px;font-weight:800;letter-spacing:1px}
+    .live-dot{width:15px;height:15px;border-radius:50%;background:#ff3344;box-shadow:0 0 14px #ff263d;animation:pulse 1.5s infinite}
+    @keyframes pulse{50%{opacity:.45;transform:scale(.86)}}
+    .cover-shell{width:min(78vw,325px);aspect-ratio:1;border:3px solid #9b4df5;border-radius:12px;padding:14px;background:linear-gradient(145deg,rgba(121,59,222,.36),rgba(31,19,56,.7));box-shadow:0 0 25px rgba(153,61,255,.65)}
+    .cover-shell img{width:100%;height:100%;object-fit:cover;border-radius:5px;background:#171020;display:block}
+    .track{text-align:center;width:100%;margin:22px 0 13px;min-height:69px}
+    .artist{font-size:30px;font-weight:800;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .song{margin-top:6px;font-size:21px;font-weight:300;color:#f1edf5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .play{width:104px;height:104px;border-radius:50%;border:3px solid #ad55ff;background:rgba(90,34,150,.36);box-shadow:0 0 25px rgba(139,53,247,.6),inset 0 0 24px rgba(141,53,239,.2);display:grid;place-items:center;cursor:pointer}
+    .play:active{transform:scale(.97)}
+    .play-icon{width:0;height:0;border-top:20px solid transparent;border-bottom:20px solid transparent;border-left:31px solid white;margin-left:8px;filter:drop-shadow(0 0 3px #fff)}
+    .play.playing .play-icon{width:27px;height:35px;border:0;margin:0;background:linear-gradient(90deg,#fff 0 35%,transparent 35% 64%,#fff 64%)}
+    .status{height:20px;margin:8px 0 2px;color:#cdb7e0;font-size:13px}
+    .volume{width:100%;display:grid;grid-template-columns:25px 1fr 27px;gap:11px;align-items:center}
+    .volume svg{width:25px;height:25px;fill:#fff}
+    input[type=range]{appearance:none;width:100%;height:6px;border-radius:5px;background:linear-gradient(90deg,var(--purple) 70%,#3a3541 70%);outline:0}
+    input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;border-radius:50%;background:#a74dff;box-shadow:0 0 10px #8d3cff}
+    input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#a74dff}
+    .equalizer{height:57px;width:100%;display:flex;align-items:end;justify-content:center;gap:5px;margin:17px 0 15px;filter:drop-shadow(0 0 6px #8a2fff)}
+    .equalizer i{width:7px;height:15%;background:linear-gradient(#d556ff,#6238f2);border-radius:2px 2px 0 0;animation:eq .85s ease-in-out infinite alternate;animation-play-state:paused}
+    .equalizer.active i{animation-play-state:running}
+    @keyframes eq{to{height:var(--h)}}
+    .host-card{display:flex;align-items:center;justify-content:center;gap:17px;min-height:84px;width:100%;margin-top:1px}
+    .host-card img{width:78px;height:78px;border-radius:50%;object-fit:cover;border:3px solid #a849ff;box-shadow:0 0 16px rgba(161,65,255,.72)}
+    .show-copy{min-width:0;text-align:left}
+    .show-name{font-size:23px;font-weight:800;line-height:1.08}
+    .host-name{font-size:18px;font-weight:300;color:#e8e0ed;margin-top:6px}
+    .site{margin-top:18px;color:#bdb3c5;font-size:12px;letter-spacing:4px;text-decoration:none}
+    .socials{display:flex;gap:29px;margin-top:18px}
+    .socials a{width:42px;height:42px;border:1px solid #9847e7;border-radius:50%;display:grid;place-items:center;color:#fff;text-decoration:none;font-weight:bold;font-size:19px;box-shadow:0 0 8px rgba(154,67,239,.26)}
+    .tagline{display:flex;align-items:center;gap:16px;margin-top:25px;color:#b95cff;font-size:10px;letter-spacing:5px;white-space:nowrap}
+    .tagline:before,.tagline:after{content:"";width:70px;height:1px;background:#9d45ec}
+    @media(max-width:600px){
+      body{display:block}
+      .app{width:100%;min-height:100svh;padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+      .brand{gap:8px;font-size:16px;letter-spacing:2px}
+      .brand strong{letter-spacing:3px}
+      .brand-mark{height:24px}.brand-mark i{width:2px}
+      .brand-mark i:nth-child(1){height:9px}.brand-mark i:nth-child(2){height:18px}.brand-mark i:nth-child(3){height:24px}.brand-mark i:nth-child(4){height:15px}
+      .live{margin:9px 0 11px;gap:7px;font-size:17px}.live-dot{width:11px;height:11px}
+      .cover-shell{width:min(55vw,210px);padding:9px;border-width:2px;border-radius:9px}
+      .track{margin:11px 0 8px;min-height:49px}
+      .artist{font-size:22px}.song{margin-top:4px;font-size:17px}
+      .play{width:72px;height:72px;border-width:2px}
+      .play-icon{border-top-width:14px;border-bottom-width:14px;border-left-width:22px;margin-left:5px}
+      .play.playing .play-icon{width:21px;height:28px}
+      .status{height:17px;margin:5px 0 1px;font-size:12px}
+      .volume{grid-template-columns:21px 1fr 23px;gap:8px}.volume svg{width:21px;height:21px}
+      input[type=range]::-webkit-slider-thumb{width:19px;height:19px}
+      input[type=range]::-moz-range-thumb{width:19px;height:19px}
+      .equalizer{height:37px;gap:3px;margin:10px 0 9px}.equalizer i{width:5px}
+      .host-card{gap:12px;min-height:58px}.host-card img{width:56px;height:56px;border-width:2px}
+      .show-name{font-size:18px}.host-name{font-size:15px;margin-top:4px}
+      .site{margin-top:10px;font-size:9px;letter-spacing:2px}
+      .socials{gap:22px;margin-top:10px}.socials a{width:34px;height:34px;font-size:16px}
+      .tagline{gap:10px;margin-top:13px;font-size:8px;letter-spacing:3px}.tagline:before,.tagline:after{width:38px}
     }
-  });
-}
+    @media(max-width:350px){.brand{font-size:14px}.artist{font-size:20px}.site{font-size:8px;letter-spacing:1.5px}}
+    @media(min-height:900px){.app{justify-content:center}}
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="brand"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>VelvetVerse</span><strong>Radio</strong></div>
+    <div class="live"><span class="live-dot"></span>LIVE</div>
 
-function activateCard(card){
-  card.style.border = "2px solid red";
-  card.style.boxShadow = "0 0 30px red";
+    <div class="cover-shell"><img id="artwork" src="../logo.png" alt="Capa da música atual"></div>
 
-  if(!card.querySelector(".live-badge")){
-    const badge = document.createElement("div");
-    badge.className = "live-badge";
-    badge.innerText = "🔴 LIVE NOW";
-    card.appendChild(badge);
-  }
-}
+    <div class="track" aria-live="polite">
+      <div class="artist" id="artist">VelvetVerse Radio</div>
+      <div class="song" id="song">A carregar música atual…</div>
+    </div>
 
-  function deactivateCard(card){
-  card.style.border = "1px solid #a855f7";
-  card.style.boxShadow = "0 0 25px rgba(168,85,247,0.5)";
+    <button class="play" id="play" aria-label="Ouvir emissão"><span class="play-icon"></span></button>
+    <div class="status" id="status">Toque para ouvir</div>
 
-  const badge = card.querySelector(".live-badge");
-  if(badge) badge.remove();
-}
-setInterval(updateLiveShow, 30000);
-updateLiveShow();
-  /* 📸 LIGHTBOX */
-function openLightbox(src){
-  document.getElementById("lightbox").style.display = "flex";
-  document.getElementById("lightbox-img").src = src;
-}
+    <div class="volume">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/></svg>
+      <input id="volume" type="range" min="0" max="100" value="70" aria-label="Volume">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zm-2.5-8.8v2.1a7 7 0 0 1 0 13.4v2.1A9 9 0 0 0 14 3.2z"/></svg>
+    </div>
 
-function closeLightbox(){
-  document.getElementById("lightbox").style.display = "none";
-}
-</script>
+    <div class="equalizer" id="equalizer" aria-hidden="true"></div>
+
+    <section class="host-card" aria-live="polite">
+      <img id="hostPhoto" src="../beto.png" alt="Locutor atual">
+      <div class="show-copy">
+        <div class="show-name" id="showName">Rock Sem Limites</div>
+        <div class="host-name" id="hostName">com Beto Sousa</div>
+      </div>
+    </section>
+
+    <a class="site" href="../index.html">WWW.VELVETVERSERADIO.COM</a>
+    <div class="socials">
+      <a href="https://www.instagram.com/velvetverseband/" target="_blank" rel="noopener" aria-label="Instagram">◎</a>
+      <a href="https://www.facebook.com/profile.php?id=61582322366506" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://www.youtube.com/channel/UC7P8KDw1vb1OsfIO4uPBWdA" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+    </div>
+    <div class="tagline">MUSIC LIVES HERE</div>
+  </main>
+
+  <audio id="radio" preload="none" src="https://stream.rcast.net/73595"></audio>
   <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js');
-}
-</script>
+    const radio = document.getElementById('radio');
+    const play = document.getElementById('play');
+    const statusEl = document.getElementById('status');
+    const volume = document.getElementById('volume');
+    const eq = document.getElementById('equalizer');
+    const artwork = document.getElementById('artwork');
+    const artistEl = document.getElementById('artist');
+    const songEl = document.getElementById('song');
 
+    for(let n=0;n<28;n++){
+      const bar=document.createElement('i');
+      bar.style.setProperty('--h',(25+Math.random()*75)+'%');
+      bar.style.animationDelay=(-Math.random())+'s';
+      eq.appendChild(bar);
+    }
+
+    radio.volume=.7;
+    play.addEventListener('click',async()=>{
+      if(!radio.paused){radio.pause();return}
+      statusEl.textContent='A ligar à emissão…';
+      radio.src='https://stream.rcast.net/73595?ts='+Date.now();
+      try{await radio.play()}catch(e){statusEl.textContent='Não foi possível iniciar. Toque novamente.'}
+    });
+    radio.addEventListener('playing',()=>{play.classList.add('playing');eq.classList.add('active');statusEl.textContent='Emissão ao vivo'});
+    radio.addEventListener('pause',()=>{play.classList.remove('playing');eq.classList.remove('active');statusEl.textContent='Emissão em pausa'});
+    radio.addEventListener('waiting',()=>statusEl.textContent='A ligar à emissão…');
+    radio.addEventListener('error',()=>{play.classList.remove('playing');eq.classList.remove('active');statusEl.textContent='Ligação interrompida. Toque para tentar novamente.'});
+    volume.addEventListener('input',()=>{
+      radio.volume=volume.value/100;
+      volume.style.background=`linear-gradient(90deg,var(--purple) ${volume.value}%,#3a3541 ${volume.value}%)`;
+    });
+
+    let lastTrack='';
+    async function updateArtwork(artist,song){
+      const key=(artist+'|'+song).toLowerCase();
+      if(key===lastTrack) return;
+      lastTrack=key;
+      artwork.src='../logo.png';
+      try{
+        const term=encodeURIComponent(artist+' '+song);
+        const res=await fetch(`https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,{cache:'no-store'});
+        if(!res.ok) throw new Error('artwork');
+        const data=await res.json();
+        const image=data.results?.[0]?.artworkUrl100;
+        if(image) artwork.src=image.replace('100x100bb','600x600bb');
+      }catch(e){/* mantém o logótipo quando não existe capa */}
+    }
+    async function updateTrack(){
+      try{
+        const res=await fetch('https://live3.rcast.net/api/v1/stations/73595/now-playing?ts='+Date.now(),{cache:'no-store'});
+        if(!res.ok) throw new Error('metadata');
+        const json=await res.json();
+        const current=json.data||{};
+        const artist=(current.artist||'VelvetVerse Radio').trim();
+        let song=(current.title||current.raw||'Emissão ao vivo').trim();
+        const prefix=artist+' - ';
+        if(song.toLowerCase().startsWith(prefix.toLowerCase())) song=song.slice(prefix.length).trim();
+        artistEl.textContent=artist;
+        songEl.textContent=song;
+        updateArtwork(artist,song);
+      }catch(e){/* mantém a última informação válida */}
+    }
+
+    const shows=[
+      {start:420,end:600,name:'Ritmo Latino',host:'Adrian Vega (Noia)',photo:'../adrian.png'},
+      {start:600,end:780,name:'Alma Portuguesa',host:'Suzy Mendes',photo:'../suzy.png'},
+      {start:780,end:960,name:'Corações & Memórias',host:'Carlos Moreira',photo:'../carlos.png'},
+      {start:960,end:1140,name:'Coração Brasileiro',host:'Lara Ingrid',photo:'../lara.png'},
+      {start:1140,end:1260,name:'Rock Sem Limites',host:'Beto Sousa',photo:'../beto.png'},
+      {start:1260,end:1380,name:'VelvetVerse Experience',host:'Rui Freitas',photo:'../rui-freitas-velvetverse-experience.png'},
+      {start:1380,end:1440,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png'},
+      {start:0,end:180,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png'},
+      {start:180,end:420,name:'Midnight Flow',host:'VelvetVerse Radio',photo:'../velvetverse.png'}
+    ];
+    function torontoMinutes(){
+      const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+      const get=t=>Number(parts.find(p=>p.type===t).value);
+      return get('hour')*60+get('minute');
+    }
+    function updateShow(){
+      const now=torontoMinutes();
+      const show=shows.find(s=>now>=s.start&&now<s.end)||shows[0];
+      document.getElementById('showName').textContent=show.name;
+      document.getElementById('hostName').textContent='com '+show.host;
+      const photo=document.getElementById('hostPhoto');
+      photo.src=show.photo; photo.alt=show.host;
+    }
+
+    artwork.addEventListener('error',()=>{if(!artwork.src.endsWith('/logo.png')) artwork.src='../logo.png'});
+    updateTrack(); updateShow();
+    setInterval(updateTrack,10000); setInterval(updateShow,60000);
+    if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js'));
+  </script>
 </body>
 </html>
