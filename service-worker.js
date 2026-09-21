@@ -1,4 +1,4 @@
-const CACHE='velvetverse-radio-player-v3';
+const CACHE='velvetverse-radio-player-v4';
 const LOCAL=['./','./index.html','./manifest.json','../logo.png','../icon-192.png','../icon-512.png','../apple-touch-icon.png','../adrian.png','../suzy.png','../carlos.png','../lara.png','../beto.png','../rui-freitas-velvetverse-experience.png','../velvetverse.png'];
 
 self.addEventListener('install',event=>{
