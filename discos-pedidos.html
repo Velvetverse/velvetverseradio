@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08080d">
+  <meta name="description" content="Pede a tua música para o programa Discos Pedidos da VelvetVerse Radio.">
+  <title>Discos Pedidos | VelvetVerse Radio</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root{
+      --bg:#07070b;
+      --panel:#0d0e14;
+      --panel-2:#12131a;
+      --line:#7c27dc;
+      --purple:#a83dff;
+      --pink:#f300a5;
+      --text:#f7f4fb;
+      --muted:#c1b9ce;
+      --danger:#ff395d;
+    }
+
+    *{box-sizing:border-box;}
+
+    html{scroll-behavior:smooth;}
+
+    body{
+      margin:0;
+      min-width:320px;
+      min-height:100vh;
+      overflow-x:hidden;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 18% 28%,rgba(102,21,178,.12),transparent 28%),
+        radial-gradient(circle at 82% 62%,rgba(222,0,165,.08),transparent 24%),
+        var(--bg);
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    button,input,textarea{font:inherit;}
+
+    .topbar{
+      min-height:98px;
+      display:grid;
+      grid-template-columns:190px minmax(380px,1fr) auto auto minmax(280px,360px);
+      align-items:center;
+      gap:12px;
+      padding:8px 20px;
+      background:#0a0b0f;
+      border-bottom:1px solid #20212a;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:#fff;
+    }
+
+    .brand img{
+      width:64px;
+      height:64px;
+      border-radius:50%;
+      filter:drop-shadow(0 0 9px rgba(211,0,255,.45));
+    }
+
+    .brand-name{font-size:18px;font-weight:800;color:#d450ff;line-height:1.05;}
+    .brand-sub{font-size:12px;letter-spacing:1.1px;color:#d8d2e0;margin-top:3px;}
+
+    .player iframe,.history iframe{
+      width:100%;
+      border:0;
+      display:block;
+    }
+
+    .player iframe{height:82px;}
+    .history iframe{height:82px;}
+
+    .listen{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:120px;
+      padding:10px 17px;
+      border:2px solid #ff008c;
+      border-radius:999px;
+      color:#fff;
+      background:#0c0c11;
+      text-decoration:none;
+      text-transform:uppercase;
+      font-size:13px;
+      font-weight:800;
+      box-shadow:0 0 14px rgba(255,0,140,.35),inset 0 0 12px rgba(255,0,140,.08);
+      transition:.2s ease;
+    }
+
+    .listen:hover{transform:translateY(-2px);box-shadow:0 0 22px rgba(255,0,140,.65);}
+
+    .live{
+      padding:9px 13px;
+      border-radius:999px;
+      background:#df1036;
+      font-size:11px;
+      font-weight:900;
+      box-shadow:0 0 16px rgba(255,0,47,.72);
+      animation:pulse 1.3s ease-in-out infinite;
+    }
+
+    @keyframes pulse{50%{box-shadow:0 0 27px rgba(255,0,47,1);}}
+
+    .navbar{
+      min-height:57px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      gap:10px;
+      padding:9px 210px 9px 18px;
+      background:#0c0d11;
+      border-bottom:1px solid #191a22;
+      z-index:5;
+    }
+
+    .nav-menu{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;}
+
+    .nav-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:8px 18px;
+      border:1px solid #6f34a3;
+      border-radius:8px;
+      color:#fff;
+      background:#0b0b10;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:700;
+      transition:.2s ease;
+    }
+
+    .nav-link:hover{border-color:#c64cff;box-shadow:0 0 14px rgba(168,61,255,.45);transform:translateY(-1px);}
+
+    .nav-link.active{
+      color:#08080c;
+      border-color:#be52ff;
+      background:linear-gradient(135deg,#8e39e8,#c74cff);
+      box-shadow:0 0 19px rgba(173,61,255,.65);
+    }
+
+    .discover{
+      position:absolute;
+      right:20px;
+      top:50%;
+      transform:translateY(-50%);
+      padding:10px 25px;
+      border-radius:999px;
+      color:#fff;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:800;
+      background:linear-gradient(90deg,#f00091,#7118ff,#f00091);
+      background-size:200%;
+      box-shadow:0 0 18px rgba(239,0,145,.46);
+      animation:glowMove 3.5s linear infinite;
+    }
+
+    @keyframes glowMove{to{background-position:200%;}}
+
+    .hero{
+      position:relative;
+      min-height:280px;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      isolation:isolate;
+      background-image:url('discos-pedidos-mockup.png');
+      background-repeat:no-repeat;
+      background-size:100% auto;
+      background-position:center 19%;
+      border-bottom:1px solid rgba(168,61,255,.25);
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:-1;
+      background:linear-gradient(90deg,#050509 0%,#050509 47%,rgba(5,5,9,.94) 53%,rgba(5,5,9,.28) 72%,rgba(5,5,9,.08) 100%);
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto 0 0;
+      height:90px;
+      z-index:-1;
+      background:linear-gradient(transparent,var(--bg));
+    }
+
+    .hero-content{
+      width:min(1400px,100%);
+      margin:0 auto;
+      padding:34px 6.8% 42px;
+    }
+
+    .hero h1{
+      margin:0;
+      font-size:clamp(48px,5.2vw,78px);
+      line-height:.98;
+      letter-spacing:-2.5px;
+      text-shadow:0 5px 25px #000;
+    }
+
+    .hero h1 span{
+      color:#e600bd;
+      background:linear-gradient(135deg,#f000b1,#9d2dff);
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .tagline{
+      margin:12px 0 21px;
+      color:#e8e0ef;
+      font-size:clamp(14px,1.45vw,22px);
+      letter-spacing:8px;
+      text-transform:uppercase;
+    }
+
+    .hero-lead{margin:0 0 6px;font-size:clamp(18px,1.5vw,24px);font-weight:800;}
+    .hero-copy{max-width:650px;margin:0;color:#e2dce7;font-size:clamp(15px,1.25vw,19px);line-height:1.45;}
+
+    .page-content{
+      width:min(1400px,calc(100% - 64px));
+      margin:0 auto;
+      padding:0 0 22px;
+    }
+
+    .content-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
+      gap:16px;
+      align-items:start;
+    }
+
+    .side-column{display:grid;gap:16px;}
+
+    .card{
+      position:relative;
+      overflow:hidden;
+      padding:27px 30px;
+      border:1px solid rgba(152,48,238,.86);
+      border-radius:11px;
+      background:linear-gradient(145deg,rgba(14,15,21,.98),rgba(8,9,13,.98));
+      box-shadow:0 11px 35px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.025);
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      right:-110px;
+      top:-120px;
+      border-radius:50%;
+      background:rgba(162,38,255,.09);
+      filter:blur(8px);
+    }
+
+    .card-title{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin:0 0 7px;
+      font-size:clamp(24px,2.1vw,34px);
+      line-height:1.1;
+    }
+
+    .card-title.small{font-size:clamp(22px,1.75vw,29px);}
+    .card-title .accent{color:#bd43ff;}
+    .title-icon{color:#b840ff;font-size:35px;line-height:1;filter:drop-shadow(0 0 10px rgba(183,57,255,.5));}
+
+    .card-intro{margin:0 0 20px;color:#d6cfdd;font-size:16px;line-height:1.45;}
+    .card-intro em{color:#f2ebf7;}
+
+    .form-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:17px 18px;}
+    .field{grid-column:span 2;}
+    .field.half{grid-column:span 3;}
+    .field.full{grid-column:1/-1;}
+
+    label{display:block;margin:0 0 8px;font-size:15px;font-weight:800;}
+    .required{color:#ff3158;margin-left:3px;}
+    .optional{font-weight:400;color:#d6ccdf;margin-left:7px;}
+
+    input,textarea{
+      width:100%;
+      color:#fff;
+      background:linear-gradient(145deg,#161820,#111219);
+      border:1px solid #4b4f5d;
+      border-radius:7px;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    input{height:48px;padding:0 15px;}
+    textarea{min-height:86px;padding:14px 15px;resize:vertical;}
+    input::placeholder,textarea::placeholder{color:#9b97a4;}
+    input:focus,textarea:focus{border-color:#bd43ff;box-shadow:0 0 0 3px rgba(173,59,255,.14),0 0 18px rgba(173,59,255,.13);}
+
+    .form-message{
+      display:none;
+      align-items:center;
+      gap:14px;
+      grid-column:1/-1;
+      min-height:47px;
+      padding:10px 15px;
+      border:1px solid var(--danger);
+      border-radius:7px;
+      color:#ff9aac;
+      background:linear-gradient(90deg,rgba(139,7,33,.45),rgba(70,5,24,.28));
+      box-shadow:inset 0 0 20px rgba(255,24,75,.08),0 0 14px rgba(255,24,75,.09);
+    }
+
+    .form-message.show{display:flex;}
+    .form-message.success{
+      border-color:#21d68b;
+      color:#b9f8dc;
+      background:linear-gradient(90deg,rgba(8,106,70,.45),rgba(5,59,43,.28));
+      box-shadow:inset 0 0 20px rgba(33,214,139,.08),0 0 14px rgba(33,214,139,.09);
+    }
+    .form-message.success .message-icon{color:#00170e;background:#21d68b;}
+    .message-icon{display:inline-grid;place-items:center;flex:0 0 29px;height:29px;border-radius:50%;color:#180009;background:#ff3158;font-weight:900;}
+
+    .submit{
+      grid-column:1/-1;
+      min-height:53px;
+      border:0;
+      border-radius:8px;
+      color:#fff;
+      cursor:pointer;
+      font-size:18px;
+      font-weight:900;
+      background:linear-gradient(100deg,#ef009d,#7122ff);
+      box-shadow:0 0 22px rgba(181,21,255,.3);
+      transition:.2s ease;
+    }
+
+    .submit:hover{transform:translateY(-2px);box-shadow:0 0 30px rgba(205,26,255,.52);}
+    .submit:disabled{cursor:wait;opacity:.68;transform:none;box-shadow:none;}
+    .submit span{margin-right:11px;font-size:21px;}
+
+    .privacy-note{
+      grid-column:1/-1;
+      margin:0;
+      text-align:center;
+      color:#b8afc4;
+      font-size:12px;
+    }
+
+    .rules{margin-top:10px;border-top:1px solid #353641;}
+    .rule{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:14px;padding:13px 7px;border-bottom:1px solid #353641;}
+    .rule:last-child{border-bottom:0;padding-bottom:0;}
+    .rule-number{display:grid;place-items:center;width:45px;height:45px;border-radius:50%;font-size:20px;font-weight:900;background:linear-gradient(145deg,#5c1f83,#8e147e);box-shadow:0 0 12px rgba(170,38,255,.18);}
+    .rule p{margin:0;color:#f0ebf4;font-size:15px;line-height:1.4;}
+
+    .requested-subtitle{margin:-2px 0 14px 53px;color:#d2c9db;font-size:14px;}
+    .request-list{display:grid;gap:8px;}
+
+    .request-item{
+      display:grid;
+      grid-template-columns:34px auto 20px 1fr;
+      align-items:center;
+      gap:10px;
+      min-height:43px;
+      padding:6px 11px;
+      border:1px solid #464955;
+      border-radius:7px;
+      background:linear-gradient(145deg,#171920,#121319);
+    }
+
+    .request-number{display:grid;place-items:center;width:29px;height:29px;border-radius:50%;background:#3a3e49;font-size:14px;font-weight:900;box-shadow:inset 0 1px rgba(255,255,255,.12);}
+    .request-artist{font-weight:900;white-space:nowrap;}
+    .request-separator{color:#81788c;text-align:center;}
+    .request-song{color:#ded6e5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .empty-state{padding:18px;text-align:center;border:1px dashed #4c4058;border-radius:8px;color:#bdb3c8;}
+
+    .footer{
+      display:grid;
+      grid-template-columns:240px 1fr 240px;
+      align-items:center;
+      gap:18px;
+      min-height:102px;
+      padding:18px 38px;
+      border-top:1px solid #29212f;
+      background:#08090d;
+    }
+
+    .footer-brand{display:flex;align-items:center;gap:12px;color:#d34aff;font-size:18px;font-weight:900;}
+    .footer-brand img{width:58px;height:58px;border-radius:50%;}
+    .footer-brand small{display:block;color:#ddd3e4;font-size:12px;font-weight:400;letter-spacing:1px;}
+    .footer-center{text-align:center;color:#fff;font-weight:800;}
+    .footer-center small{display:block;margin-top:10px;color:#9f92b0;font-size:11px;letter-spacing:4px;font-weight:400;}
+    .socials{display:flex;align-items:center;justify-content:flex-end;gap:10px;}
+    .socials a{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;color:#fff;text-decoration:none;font-size:13px;font-weight:900;background:linear-gradient(145deg,#5930c7,#cf168f);box-shadow:0 0 11px rgba(159,33,255,.25);}
+
+    @media(max-width:1180px){
+      .topbar{grid-template-columns:180px 1fr auto auto;}
+      .history{display:none;}
+      .navbar{padding-right:18px;}
+      .discover{position:static;transform:none;}
+      .content-grid{grid-template-columns:1fr;}
+      .side-column{grid-template-columns:1fr 1fr;}
+    }
+
+    @media(max-width:850px){
+      .topbar{grid-template-columns:1fr auto auto;}
+      .player{grid-column:1/-1;grid-row:2;}
+      .player iframe{height:94px;}
+      .navbar{flex-direction:column;}
+      .nav-menu{gap:6px;}
+      .nav-link{padding:7px 10px;font-size:12px;}
+      .discover{padding:8px 18px;}
+      .hero{min-height:390px;background-size:auto 720px;background-position:63% 20%;align-items:flex-end;}
+      .hero::before{background:linear-gradient(0deg,#050509 0%,rgba(5,5,9,.96) 52%,rgba(5,5,9,.25) 100%);}
+      .hero-content{padding:120px 25px 38px;}
+      .hero h1{font-size:48px;letter-spacing:-1.5px;}
+      .tagline{font-size:12px;letter-spacing:4px;}
+      .page-content{width:min(100% - 28px,1400px);}
+      .side-column{grid-template-columns:1fr;}
+      .footer{grid-template-columns:1fr;text-align:center;}
+      .footer-brand,.socials{justify-content:center;}
+    }
+
+    @media(max-width:600px){
+      .topbar{padding:8px 12px;grid-template-columns:1fr auto;}
+      .brand img{width:52px;height:52px;}
+      .brand-name{font-size:16px;}
+      .live{display:none;}
+      .listen{min-width:auto;padding:9px 12px;font-size:11px;}
+      .card{padding:23px 18px;}
+      .card-title{font-size:26px;}
+      .form-grid{display:block;}
+      .field,.form-message,.submit,.privacy-note{margin-bottom:16px;}
+      .privacy-note{margin-bottom:0;}
+      .request-item{grid-template-columns:32px 1fr;gap:5px 10px;padding:8px;}
+      .request-artist,.request-song{white-space:normal;}
+      .request-separator{display:none;}
+      .request-song{grid-column:2;}
+      .requested-subtitle{margin-left:0;}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="VelvetVerse Radio — página inicial">
+      <img src="logo.png" alt="VelvetVerse Radio">
+      <span>
+        <span class="brand-name">VelvetVerse</span>
+        <span class="brand-sub">RADIO LIVE</span>
+      </span>
+    </a>
+
+    <div class="player">
+      <iframe src="https://players.rcast.net/fantastic/73595" scrolling="no" title="VelvetVerse Radio — emissão em direto"></iframe>
+    </div>
+
+    <a class="listen" href="https://players.rcast.net/popup2/73595" target="_blank" rel="noopener">Listen Live</a>
+    <span class="live">LIVE</span>
+
+    <div class="history">
+      <iframe src="https://players.rcast.net/playlisthistory3/73595" scrolling="yes" title="Músicas tocadas recentemente"></iframe>
+    </div>
+  </header>
+
+  <nav class="navbar" aria-label="Navegação principal">
+    <div class="nav-menu">
+      <a class="nav-link" href="index.html#home">Home</a>
+      <a class="nav-link" href="index.html#schedule">Schedule</a>
+      <a class="nav-link" href="index.html#gallery">Gallery</a>
+      <a class="nav-link" href="index.html#about">About</a>
+      <a class="nav-link" href="index.html#contact">Contact</a>
+      <a class="nav-link" href="index.html#comments">Comments</a>
+      <a class="nav-link" href="backstage-legends.html">Podcasts</a>
+      <a class="nav-link active" href="discos-pedidos.html" aria-current="page">Discos Pedidos</a>
+    </div>
+    <a class="discover" href="https://velvetverseband.com" target="_blank" rel="noopener">Discover VelvetVerse</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Discos <span>Pedidos</span></h1>
+        <p class="tagline">A tua música. A nossa rádio.</p>
+        <p class="hero-lead">Pede a tua música e ouve-a no nosso programa de domingo!</p>
+        <p class="hero-copy">Na VelvetVerse Radio, a tua voz também toca. Envia o teu pedido e faz parte da nossa emissão especial de domingo.</p>
+      </div>
+    </section>
+
+    <div class="page-content">
+      <div class="content-grid">
+        <section class="card request-card" aria-labelledby="request-title">
+          <h2 class="card-title" id="request-title"><span class="title-icon">♫</span> Faz o teu <span class="accent">pedido</span></h2>
+          <p class="card-intro">Preenche o formulário abaixo e pede <em>a tua música</em> para o nosso programa de domingo.</p>
+
+          <form id="request-form" class="form-grid">
+            <div class="field">
+              <label for="name">Nome <span class="required">*</span></label>
+              <input id="name" name="name" type="text" placeholder="O teu nome" autocomplete="name" maxlength="100" required>
+            </div>
+
+            <div class="field">
+              <label for="city">Cidade <span class="required">*</span></label>
+              <input id="city" name="city" type="text" placeholder="A tua cidade" autocomplete="address-level2" maxlength="100" required>
+            </div>
+
+            <div class="field">
+              <label for="country">País <span class="required">*</span></label>
+              <input id="country" name="country" type="text" placeholder="O teu país" autocomplete="country-name" maxlength="100" required>
+            </div>
+
+            <div class="field half">
+              <label for="artist">Artista <span class="required">*</span></label>
+              <input id="artist" name="artist" type="text" placeholder="Nome do artista" maxlength="150" required>
+            </div>
+
+            <div class="field half">
+              <label for="song">Música <span class="required">*</span></label>
+              <input id="song" name="song" type="text" placeholder="Nome da música" maxlength="150" required>
+            </div>
+
+            <div class="field full">
+              <label for="dedication">Dedicatória <span class="optional">(Opcional)</span></label>
+              <textarea id="dedication" name="dedication" placeholder="Deixa aqui a tua dedicatória..." maxlength="500"></textarea>
+            </div>
+
+            <div id="form-message" class="form-message" role="status" aria-live="polite">
+              <span class="message-icon">!</span>
+              <span id="form-message-text"></span>
+            </div>
+
+            <button class="submit" type="submit"><span>➤</span> Enviar Pedido</button>
+            <p class="privacy-note">🔒 O teu pedido será analisado pela nossa equipa. Obrigado por ouvires a VelvetVerse Radio!</p>
+          </form>
+        </section>
+
+        <aside class="side-column">
+          <section class="card" aria-labelledby="rules-title">
+            <h2 class="card-title small" id="rules-title"><span class="title-icon">ⓘ</span> Regras <span class="accent">dos Pedidos</span></h2>
+            <div class="rules">
+              <div class="rule">
+                <span class="rule-number">1</span>
+                <p>Pedidos enviados de segunda a sábado entram para o próximo domingo.</p>
+              </div>
+              <div class="rule">
+                <span class="rule-number">2</span>
+                <p>Pedidos enviados ao domingo passam automaticamente para o domingo seguinte.</p>
+              </div>
+              <div class="rule">
+                <span class="rule-number">3</span>
+                <p>Músicas repetidas não serão aceites.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="requested-title">
+            <h2 class="card-title small" id="requested-title"><span class="title-icon">♫</span> Já pedidas para <span class="accent" id="target-sunday-label">este domingo</span></h2>
+            <p class="requested-subtitle">Estas músicas já foram pedidas pelos nossos ouvintes.</p>
+            <div id="request-list" class="request-list">
+              <div class="empty-state">A carregar a lista de músicas...</div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="logo.png" alt="">
+      <span>VelvetVerse<small>RADIO</small></span>
+    </div>
+    <div class="footer-center">
+      VelvetVerse Radio — Music Never Stops
+      <small>MÚSICA · PESSOAS · EMOÇÕES · SEMPRE CONTIGO</small>
+    </div>
+    <div class="socials" aria-label="Redes sociais">
+      <a href="https://www.facebook.com/profile.php?id=61582322366506" target="_blank" rel="noopener" aria-label="Facebook">f</a>
+      <a href="https://www.youtube.com/channel/UC7P8KDw1vb1OsfIO4uPBWdA" target="_blank" rel="noopener" aria-label="YouTube">▶</a>
+      <a href="https://open.spotify.com/artist/030PPRKkOCnRO1vkxLLfbw/discography/all" target="_blank" rel="noopener" aria-label="Spotify">●</a>
+    </div>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = 'https://bxndpplrxplszhaxules.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+    const requestForm = document.getElementById('request-form');
+    const submitButton = requestForm.querySelector('.submit');
+    const formMessage = document.getElementById('form-message');
+    const formMessageText = document.getElementById('form-message-text');
+    const requestList = document.getElementById('request-list');
+
+    async function callSupabase(functionName, body = {}){
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
+        method:'POST',
+        headers:{
+          'apikey':SUPABASE_PUBLISHABLE_KEY,
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify(body)
+      });
+
+      if(!response.ok){
+        throw new Error(`Supabase respondeu com o código ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    function showMessage(message, success = false){
+      formMessageText.textContent = message;
+      formMessage.classList.toggle('success', success);
+      formMessage.querySelector('.message-icon').textContent = success ? '✓' : '!';
+      formMessage.classList.add('show');
+      formMessage.scrollIntoView({behavior:'smooth', block:'nearest'});
+    }
+
+    function formatSunday(dateText){
+      const date = new Date(`${dateText}T12:00:00`);
+      return date.toLocaleDateString('pt-PT', {
+        day:'numeric',
+        month:'long',
+        timeZone:'America/Toronto'
+      });
+    }
+
+    async function loadTargetSunday(){
+      try{
+        const targetSunday = await callSupabase('next_request_sunday');
+        document.getElementById('target-sunday-label').textContent = formatSunday(targetSunday);
+      }catch(error){
+        console.error('Não foi possível obter a data do próximo domingo.', error);
+      }
+    }
+
+    async function loadRequestedSongs(){
+      requestList.innerHTML = '<div class="empty-state">A carregar a lista de músicas...</div>';
+
+      try{
+        const songs = await callSupabase('get_requested_songs');
+        requestList.replaceChildren();
+
+        if(!songs.length){
+          requestList.innerHTML = '<div class="empty-state">Ainda não existem músicas pedidas para este domingo.</div>';
+          return;
+        }
+
+        songs.forEach((item, index) => {
+          const row = document.createElement('div');
+          row.className = 'request-item';
+
+          const number = document.createElement('span');
+          number.className = 'request-number';
+          number.textContent = index + 1;
+
+          const artist = document.createElement('span');
+          artist.className = 'request-artist';
+          artist.textContent = item.artist;
+
+          const separator = document.createElement('span');
+          separator.className = 'request-separator';
+          separator.textContent = '—';
+
+          const song = document.createElement('span');
+          song.className = 'request-song';
+          song.textContent = item.song;
+
+          row.append(number, artist, separator, song);
+          requestList.appendChild(row);
+        });
+      }catch(error){
+        console.error('Não foi possível carregar a lista.', error);
+        requestList.innerHTML = '<div class="empty-state">Não foi possível carregar a lista. Tenta novamente dentro de momentos.</div>';
+      }
+    }
+
+    requestForm.addEventListener('submit', async function(event){
+      event.preventDefault();
+      formMessage.classList.remove('show');
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<span>◌</span> A enviar...';
+
+      const formData = new FormData(requestForm);
+
+      try{
+        const result = await callSupabase('submit_song_request', {
+          p_listener_name:formData.get('name'),
+          p_city:formData.get('city'),
+          p_country:formData.get('country'),
+          p_artist:formData.get('artist'),
+          p_song:formData.get('song'),
+          p_dedication:formData.get('dedication') || null
+        });
+
+        showMessage(result.message, result.success === true);
+
+        if(result.success){
+          requestForm.reset();
+          await loadRequestedSongs();
+        }
+      }catch(error){
+        console.error('Não foi possível enviar o pedido.', error);
+        showMessage('Não foi possível enviar o pedido. Tenta novamente dentro de momentos.');
+      }finally{
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<span>➤</span> Enviar Pedido';
+      }
+    });
+
+    loadTargetSunday();
+    loadRequestedSongs();
+
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>

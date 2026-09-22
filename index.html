@@ -632,7 +632,8 @@ nav button.active-btn{
     <a href="inside-velvetverse.html">Inside VelvetVerse</a>
   </div>
 </div>
-  
+    <button onclick="window.location.href='discos-pedidos.html'">Discos Pedidos</button>
+
 
   <a href="https://velvetverseband.com" target="_blank" class="menu-band-btn">
     Discover VelvetVerse
@@ -1013,6 +1014,22 @@ function show(id,btn){
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
+window.addEventListener('DOMContentLoaded', function(){
+  const sectionId = window.location.hash.replace('#','');
+  if(!sectionId) return;
+
+  const allowedSections = ['home','schedule','gallery','about','contact','comments'];
+  if(!allowedSections.includes(sectionId)) return;
+
+  const button = Array.from(document.querySelectorAll('.nav-menu button')).find(function(item){
+    return (item.getAttribute('onclick') || '').includes("'" + sectionId + "'");
+  });
+
+  if(document.getElementById(sectionId) && button){
+    show(sectionId, button);
+  }
+});
+
   function updateVVClock(){
   const clock = document.getElementById("vv-clock");
   if(!clock) return;
@@ -1097,7 +1114,7 @@ function closeLightbox(){
 </script>
   <script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js');
+  navigator.serviceWorker.register('service-worker.js');
 }
 </script>
 
