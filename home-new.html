@@ -867,8 +867,9 @@
 
     <div class="live-cover-wrap">
       <img
-        src="https://placehold.co/500x500/14395c/ffffff?text=Album+Cover"
-        alt="Capa da música"
+        id="liveArtwork"
+        src="logo.png"
+        alt="Capa da música atual"
         class="live-cover"
       >
     </div>
@@ -877,37 +878,53 @@
 
       <div class="now-playing-label">NOW PLAYING</div>
 
-      <div class="song-title">As Baleias</div>
+      <div class="song-title" id="liveSong">
+        A carregar...
+      </div>
 
-      <div class="artist-name">Roberto Carlos</div>
+      <div class="artist-name" id="liveArtist">
+        VelvetVerse Radio
+      </div>
 
       <div class="fake-progress">
         <div></div>
       </div>
 
-      <div class="time-row">
-        <span>2:18</span>
-        <span>4:32</span>
-      </div>
-
       <div class="player-controls">
 
-  <button class="play-main" aria-label="Play Pause">
-    ❚❚
-  </button>
+        <button
+          class="play-main"
+          id="livePlay"
+          aria-label="Play Pause">
+          ▶
+        </button>
 
-</div>
+      </div>
+
       <div class="volume-row">
+
         <span>🔊</span>
 
-        <div class="volume-bar">
-          <div></div>
-        </div>
+        <input
+          id="liveVolume"
+          type="range"
+          min="0"
+          max="100"
+          value="70"
+          aria-label="Volume"
+        >
+
       </div>
 
     </div>
 
   </div>
+
+  <audio
+    id="liveRadio"
+    preload="none"
+    src="https://stream.rcast.net/73595">
+  </audio>
 
 </div>
 
@@ -1122,6 +1139,129 @@
     </footer>
 
   </main>
+
+  <script>
+const liveRadio = document.getElementById('liveRadio');
+const livePlay = document.getElementById('livePlay');
+const liveVolume = document.getElementById('liveVolume');
+const liveArtwork = document.getElementById('liveArtwork');
+const liveArtist = document.getElementById('liveArtist');
+const liveSong = document.getElementById('liveSong');
+
+liveRadio.volume = 0.7;
+
+livePlay.addEventListener('click', async () => {
+  if (!liveRadio.paused) {
+    liveRadio.pause();
+    return;
+  }
+
+  liveRadio.src = 'https://stream.rcast.net/73595?ts=' + Date.now();
+
+  try {
+    await liveRadio.play();
+  } catch (e) {
+    console.log('Não foi possível iniciar a emissão.');
+  }
+});
+
+liveRadio.addEventListener('playing', () => {
+  livePlay.textContent = '❚❚';
+});
+
+liveRadio.addEventListener('pause', () => {
+  livePlay.textContent = '▶';
+});
+
+liveVolume.addEventListener('input', () => {
+  liveRadio.volume = liveVolume.value / 100;
+});
+
+let liveLastTrack = '';
+
+async function updateLiveArtwork(artist, song) {
+
+  const key = (artist + '|' + song).toLowerCase();
+
+  if (key === liveLastTrack) return;
+
+  liveLastTrack = key;
+
+  liveArtwork.src = 'logo.png';
+
+  try {
+
+    const term = encodeURIComponent(artist + ' ' + song);
+
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('artwork');
+
+    const data = await res.json();
+
+    const image = data.results?.[0]?.artworkUrl100;
+
+    if (image) {
+      liveArtwork.src = image.replace('100x100bb', '600x600bb');
+    }
+
+  } catch (e) {
+    liveArtwork.src = 'logo.png';
+  }
+}
+
+async function updateLiveTrack() {
+
+  try {
+
+    const res = await fetch(
+      'https://live3.rcast.net/api/v1/stations/73595/now-playing?ts=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('metadata');
+
+    const json = await res.json();
+
+    const current = json.data || {};
+
+    const artist = (current.artist || 'VelvetVerse Radio').trim();
+
+    let song = (
+      current.title ||
+      current.raw ||
+      'Emissão ao vivo'
+    ).trim();
+
+    const prefix = artist + ' - ';
+
+    if (song.toLowerCase().startsWith(prefix.toLowerCase())) {
+      song = song.slice(prefix.length).trim();
+    }
+
+    liveArtist.textContent = artist;
+    liveSong.textContent = song;
+
+    updateLiveArtwork(artist, song);
+
+  } catch (e) {
+    console.log('Erro ao atualizar metadata.');
+  }
+}
+
+liveArtwork.addEventListener('error', () => {
+  if (!liveArtwork.src.endsWith('/logo.png')) {
+    liveArtwork.src = 'logo.png';
+  }
+});
+
+updateLiveTrack();
+
+setInterval(updateLiveTrack, 10000);
+</script>
 
 </body>
 </html>
