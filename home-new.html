@@ -26,10 +26,6 @@
       min-height: 100vh;
     }
 
-    /* =========================
-       HEADER FIXO
-    ========================= */
-
     .top-header {
       position: fixed;
       top: 0;
@@ -37,16 +33,12 @@
       width: 100%;
       height: 92px;
       z-index: 9999;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       padding: 0 34px;
-
       background: rgba(6, 6, 12, 0.94);
       backdrop-filter: blur(14px);
-
       border-bottom: 1px solid rgba(183, 51, 255, 0.35);
       box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
     }
@@ -132,15 +124,11 @@
       box-shadow: 0 0 24px rgba(183, 40, 255, 0.35);
     }
 
-    /* =========================
-       CONTEÚDO
-    ========================= */
-
     .page-content {
       padding-top: 118px;
       padding-left: 36px;
       padding-right: 36px;
-      padding-bottom: 60px;
+      padding-bottom: 0;
       max-width: 1900px;
       margin: 0 auto;
     }
@@ -319,10 +307,8 @@
       grid-template-columns: 38px 48px 1fr 1fr 60px;
       gap: 10px;
       align-items: center;
-
       min-height: 52px;
       padding: 7px 10px;
-
       background: rgba(255,255,255,.025);
       border: 1px solid rgba(255,255,255,.06);
       border-radius: 8px;
@@ -358,10 +344,6 @@
       color: #c4c0df;
       font-size: 13px;
     }
-
-    /* =========================
-       SEGUNDA LINHA
-    ========================= */
 
     .lower-grid {
       display: grid;
@@ -472,10 +454,6 @@
       justify-content: center;
     }
 
-    /* =========================
-       ZONA PARA CRESCER
-    ========================= */
-
     .future-block {
       margin-top: 18px;
       min-height: 260px;
@@ -488,20 +466,52 @@
       border-style: dashed;
     }
 
-    footer {
+    .site-footer {
+      width: 100%;
+      min-height: 64px;
       margin-top: 26px;
-      border-top: 1px solid rgba(170, 60, 255, 0.34);
-      padding-top: 22px;
-      color: #c4c0d7;
-      display: flex;
-      justify-content: space-between;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      align-items: center;
       gap: 20px;
-      flex-wrap: wrap;
+      background: #08080f;
+      border-top: 1px solid #7b25b6;
+      color: #ffffff;
+      font-size: 12px;
     }
 
-    /* =========================
-       RESPONSIVO
-    ========================= */
+    .footer-left {
+      text-align: left;
+    }
+
+    .footer-left a {
+      color: #a64cff;
+      text-decoration: none;
+    }
+
+    .footer-center {
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .footer-center a {
+      color: #a64cff;
+      text-decoration: none;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .footer-social a {
+      color: #b851f5;
+      text-decoration: none;
+      font-size: 20px;
+    }
 
     @media (max-width: 1450px) {
       .main-nav {
@@ -517,6 +527,22 @@
 
       .header-actions .discover-btn {
         display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-left,
+      .footer-center {
+        text-align: center;
+      }
+
+      .footer-social {
+        justify-content: center;
       }
     }
 
@@ -625,13 +651,9 @@
 
             <div class="now-playing-label">NOW PLAYING</div>
 
-            <div class="song-title">
-              As Baleias
-            </div>
+            <div class="song-title">As Baleias</div>
 
-            <div class="artist-name">
-              Roberto Carlos
-            </div>
+            <div class="artist-name">Roberto Carlos</div>
 
             <div class="fake-progress">
               <div></div>
@@ -646,9 +668,7 @@
               <span>↝</span>
               <span>◀</span>
 
-              <div class="play-main">
-                ❚❚
-              </div>
+              <div class="play-main">❚❚</div>
 
               <span>▶</span>
               <span>↻</span>
@@ -825,9 +845,27 @@
       A página continuará a crescer verticalmente e o header continuará fixo no topo.
     </section>
 
-    <footer>
-      <div>VelvetVerse Radio — Music Never Stops</div>
-      <div>A tua rádio. Sempre contigo.</div>
+    <footer class="site-footer">
+
+      <div class="footer-left">
+        <a href="mailto:velvetverseradio@gmail.com">
+          velvetverseradio@gmail.com
+        </a>
+      </div>
+
+      <div class="footer-center">
+        Use of this Website assumes acceptance of
+        <a href="terms.html">Terms &amp; Conditions</a>
+        and @2026
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">●</a>
+        <a href="#" aria-label="Spotify">●</a>
+        <a href="#" aria-label="YouTube">▶</a>
+      </div>
+
     </footer>
 
   </main>
