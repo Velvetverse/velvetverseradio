@@ -3,9 +3,834 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VelvetVerse Radio - Nova Home</title>
+  <title>VelvetVerse Radio</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(125, 0, 255, 0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(255, 0, 140, 0.12), transparent 30%),
+        #07070d;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* =========================
+       HEADER FIXO
+    ========================= */
+
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 92px;
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 34px;
+
+      background: rgba(6, 6, 12, 0.94);
+      backdrop-filter: blur(14px);
+
+      border-bottom: 1px solid rgba(183, 51, 255, 0.35);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff008c;
+      box-shadow: 0 0 20px rgba(255, 0, 140, 0.45);
+    }
+
+    .brand-text h1 {
+      font-size: 24px;
+      color: #d95cff;
+      line-height: 1;
+    }
+
+    .brand-text p {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #e6e6ee;
+      letter-spacing: 1.4px;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border: 1px solid rgba(179, 76, 255, 0.45);
+      border-radius: 8px;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      background: linear-gradient(135deg, #bd3cff, #7d24ff);
+      border-color: transparent;
+      box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: white;
+      font-weight: 800;
+      border-radius: 28px;
+      padding: 14px 22px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .listen-btn {
+      border: 2px solid #ff006e;
+      background: rgba(255, 0, 110, 0.06);
+    }
+
+    .discover-btn {
+      background: linear-gradient(135deg, #ff008c, #7928ff);
+      box-shadow: 0 0 24px rgba(183, 40, 255, 0.35);
+    }
+
+    /* =========================
+       CONTEÚDO
+    ========================= */
+
+    .page-content {
+      padding-top: 118px;
+      padding-left: 36px;
+      padding-right: 36px;
+      padding-bottom: 60px;
+      max-width: 1900px;
+      margin: 0 auto;
+    }
+
+    .tagline {
+      color: #cfc7ff;
+      font-size: 13px;
+      letter-spacing: 8px;
+      margin-bottom: 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(20, 17, 34, 0.92),
+          rgba(9, 9, 18, 0.95)
+        );
+      border: 1px solid rgba(167, 52, 255, 0.62);
+      border-radius: 14px;
+      box-shadow: 0 0 24px rgba(104, 0, 180, 0.12);
+    }
+
+    .live-panel {
+      min-height: 420px;
+      padding: 24px;
+    }
+
+    .live-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .live-badge {
+      background: linear-gradient(135deg, #ff003c, #ff005d);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 900;
+      box-shadow: 0 0 22px rgba(255, 0, 74, 0.4);
+    }
+
+    .live-title span:last-child {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .player-area {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .cover-placeholder {
+      width: 230px;
+      height: 230px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(120, 0, 255, 0.35)),
+        #111726;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .now-playing-label {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 2px solid #cf38ff;
+      border-radius: 20px;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .song-title {
+      font-size: 38px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .artist-name {
+      font-size: 22px;
+      color: #bdb7e8;
+      margin-bottom: 26px;
+    }
+
+    .fake-progress {
+      width: 100%;
+      height: 7px;
+      background: #262638;
+      border-radius: 6px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .fake-progress > div {
+      width: 48%;
+      height: 100%;
+      background: linear-gradient(90deg, #e72cff, #8d35ff);
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: #cbc8df;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      font-size: 25px;
+    }
+
+    .play-main {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #ff008c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(255,0,140,.18), rgba(91,0,255,.2));
+      box-shadow: 0 0 20px rgba(255, 0, 140, 0.35);
+      font-size: 26px;
+    }
+
+    .recent-panel {
+      padding: 20px;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .panel-heading h2 {
+      font-size: 24px;
+    }
+
+    .panel-heading a {
+      color: #dc62ff;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .track {
+      display: grid;
+      grid-template-columns: 38px 48px 1fr 1fr 60px;
+      gap: 10px;
+      align-items: center;
+
+      min-height: 52px;
+      padding: 7px 10px;
+
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+    }
+
+    .track:first-child {
+      background: linear-gradient(90deg, rgba(124, 38, 171, 0.45), rgba(80, 24, 104, 0.28));
+    }
+
+    .track-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.06);
+    }
+
+    .track-cover {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #194d70, #702d85);
+    }
+
+    .track-song {
+      font-weight: 800;
+    }
+
+    .track-artist,
+    .track-time {
+      color: #c4c0df;
+      font-size: 13px;
+    }
+
+    /* =========================
+       SEGUNDA LINHA
+    ========================= */
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .info-panel {
+      min-height: 320px;
+      padding: 20px;
+    }
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .schedule-item:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-time {
+      color: #d8d3ff;
+      font-weight: 700;
+    }
+
+    .schedule-name {
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .schedule-desc {
+      color: #a9a5c4;
+      font-size: 13px;
+    }
+
+    .request-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .request-form input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 7px;
+      border: 1px solid rgba(162, 105, 255, .3);
+      background: #141421;
+      color: white;
+      outline: none;
+    }
+
+    .request-button {
+      grid-column: 1 / -1;
+      padding: 14px;
+      margin-top: 4px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #ff008c, #7a20ff);
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .podcast-card {
+      display: grid;
+      grid-template-columns: 72px 1fr 44px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .podcast-card:last-child {
+      border-bottom: none;
+    }
+
+    .podcast-cover {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff0066, #3d045c);
+    }
+
+    .podcast-title {
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .podcast-desc {
+      color: #aaa5c0;
+      font-size: 13px;
+    }
+
+    .round-play {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ff00aa, #9f18ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* =========================
+       ZONA PARA CRESCER
+    ========================= */
+
+    .future-block {
+      margin-top: 18px;
+      min-height: 260px;
+      padding: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #aaa7c2;
+      border-style: dashed;
+    }
+
+    footer {
+      margin-top: 26px;
+      border-top: 1px solid rgba(170, 60, 255, 0.34);
+      padding-top: 22px;
+      color: #c4c0d7;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================= */
+
+    @media (max-width: 1450px) {
+      .main-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-actions .discover-btn {
+        display: none;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .top-header {
+        padding: 0 14px;
+        height: 78px;
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      .brand-text h1 {
+        font-size: 18px;
+      }
+
+      .brand-text p {
+        font-size: 10px;
+      }
+
+      .page-content {
+        padding-top: 100px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .player-area {
+        grid-template-columns: 1fr;
+      }
+
+      .cover-placeholder {
+        width: 100%;
+        max-width: 280px;
+        height: 280px;
+        margin: 0 auto;
+      }
+
+      .request-form {
+        grid-template-columns: 1fr;
+      }
+
+      .track {
+        grid-template-columns: 34px 44px 1fr 55px;
+      }
+
+      .track-artist {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>VelvetVerse Radio - Nova Home</h1>
+
+  <header class="top-header">
+
+    <div class="brand">
+      <img src="icon-192.png" alt="VelvetVerse Radio" class="brand-logo">
+
+      <div class="brand-text">
+        <h1>VelvetVerse</h1>
+        <p>RADIO LIVE</p>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#" class="active">Home</a>
+      <a href="#">Schedule</a>
+      <a href="#">Gallery</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Comments</a>
+      <a href="#">Podcasts</a>
+      <a href="#">Discos Pedidos</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#" class="btn listen-btn">◉ LISTEN LIVE</a>
+      <a href="#" class="btn discover-btn">Discover VelvetVerse</a>
+    </div>
+
+  </header>
+
+  <main class="page-content">
+
+    <div class="tagline">MUSIC NEVER STOPS</div>
+
+    <section class="hero-grid">
+
+      <div class="panel live-panel">
+
+        <div class="live-title">
+          <div class="live-badge">◉ LIVE NOW</div>
+          <span>VelvetVerse Radio</span>
+        </div>
+
+        <div class="player-area">
+
+          <div class="cover-placeholder">
+            CAPA DA MÚSICA
+          </div>
+
+          <div>
+
+            <div class="now-playing-label">NOW PLAYING</div>
+
+            <div class="song-title">
+              As Baleias
+            </div>
+
+            <div class="artist-name">
+              Roberto Carlos
+            </div>
+
+            <div class="fake-progress">
+              <div></div>
+            </div>
+
+            <div class="time-row">
+              <span>2:18</span>
+              <span>4:32</span>
+            </div>
+
+            <div class="player-controls">
+              <span>↝</span>
+              <span>◀</span>
+
+              <div class="play-main">
+                ❚❚
+              </div>
+
+              <span>▶</span>
+              <span>↻</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel recent-panel">
+
+        <div class="panel-heading">
+          <h2>♫ Últimas 5 músicas</h2>
+          <a href="#">Ver histórico completo →</a>
+        </div>
+
+        <div class="track-list">
+
+          <div class="track">
+            <div class="track-number">1</div>
+            <div class="track-cover"></div>
+            <div class="track-song">As Baleias</div>
+            <div class="track-artist">Roberto Carlos</div>
+            <div class="track-time">14:27</div>
+          </div>
+
+          <div class="track">
+            <div class="track-number">2</div>
+            <div class="track-cover"></div>
+            <div class="track-song">Evidências</div>
+            <div class="track-artist">Chitãozinho & Xororó</div>
+            <div class="track-time">14:23</div>
+          </div>
+
+          <div class="track">
+            <div class="track-number">3</div>
+            <div class="track-cover"></div>
+            <div class="track-song">Someone You Loved</div>
+            <div class="track-artist">Lewis Capaldi</div>
+            <div class="track-time">14:19</div>
+          </div>
+
+          <div class="track">
+            <div class="track-number">4</div>
+            <div class="track-cover"></div>
+            <div class="track-song">Easy On Me</div>
+            <div class="track-artist">Adele</div>
+            <div class="track-time">14:15</div>
+          </div>
+
+          <div class="track">
+            <div class="track-number">5</div>
+            <div class="track-cover"></div>
+            <div class="track-song">Believer</div>
+            <div class="track-artist">Imagine Dragons</div>
+            <div class="track-time">14:12</div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="lower-grid">
+
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>Programação de Hoje</h2>
+          <a href="#">Ver programação completa →</a>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-time">14:00 - 16:00</div>
+          <div>
+            <div class="schedule-name">Tarde Velvet</div>
+            <div class="schedule-desc">Os maiores sucessos para o teu dia!</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-time">16:00 - 18:00</div>
+          <div>
+            <div class="schedule-name">Flashback</div>
+            <div class="schedule-desc">Clássicos que marcaram gerações</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-time">18:00 - 20:00</div>
+          <div>
+            <div class="schedule-name">Velvet Hits</div>
+            <div class="schedule-desc">O melhor do momento</div>
+          </div>
+        </div>
+
+        <div class="schedule-item">
+          <div class="schedule-time">20:00 - 22:00</div>
+          <div>
+            <div class="schedule-name">Love Songs</div>
+            <div class="schedule-desc">Músicas que tocam o coração</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>♫ Pede a tua música</h2>
+          <a href="discos-pedidos.html">Ir para Discos Pedidos →</a>
+        </div>
+
+        <p style="color:#c6c1dc; line-height:1.6;">
+          Escolhe a música que gostarias de ouvir na VelvetVerse Radio!
+        </p>
+
+        <div class="request-form">
+          <input type="text" placeholder="O teu nome">
+          <input type="text" placeholder="Cidade">
+          <input type="text" placeholder="Artista">
+          <input type="text" placeholder="Música">
+
+          <button class="request-button">
+            Enviar Pedido
+          </button>
+        </div>
+
+      </div>
+
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>Podcasts / Episódios</h2>
+          <a href="#">Ver todos os episódios →</a>
+        </div>
+
+        <div class="podcast-card">
+          <div class="podcast-cover"></div>
+          <div>
+            <div class="podcast-title">VelvetVerse Talk</div>
+            <div class="podcast-desc">Conversas sobre música, cultura e muito mais!</div>
+          </div>
+          <div class="round-play">▶</div>
+        </div>
+
+        <div class="podcast-card">
+          <div class="podcast-cover"></div>
+          <div>
+            <div class="podcast-title">Hits Sem Fim</div>
+            <div class="podcast-desc">Os maiores sucessos, as melhores histórias.</div>
+          </div>
+          <div class="round-play">▶</div>
+        </div>
+
+        <div class="podcast-card">
+          <div class="podcast-cover"></div>
+          <div>
+            <div class="podcast-title">Love On Air</div>
+            <div class="podcast-desc">Músicas que tocam o coração.</div>
+          </div>
+          <div class="round-play">▶</div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="panel future-block">
+      Esta área fica preparada para acrescentarmos novos blocos no futuro.<br>
+      A página continuará a crescer verticalmente e o header continuará fixo no topo.
+    </section>
+
+    <footer>
+      <div>VelvetVerse Radio — Music Never Stops</div>
+      <div>A tua rádio. Sempre contigo.</div>
+    </footer>
+
+  </main>
+
 </body>
 </html>
