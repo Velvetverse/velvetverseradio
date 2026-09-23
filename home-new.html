@@ -1012,49 +1012,49 @@ max-width: 5px;
           <a href="#">Ver histórico completo →</a>
         </div>
 
-        <div class="track-list">
+        <div class="track-list" id="recentTracks">
 
-          <div class="track">
-            <div class="track-number">1</div>
-            <div class="track-cover"></div>
-            <div class="track-song">As Baleias</div>
-            <div class="track-artist">Roberto Carlos</div>
-            <div class="track-time">14:27</div>
-          </div>
+  <div class="track">
+    <div class="track-number">1</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
 
-          <div class="track">
-            <div class="track-number">2</div>
-            <div class="track-cover"></div>
-            <div class="track-song">Evidências</div>
-            <div class="track-artist">Chitãozinho & Xororó</div>
-            <div class="track-time">14:23</div>
-          </div>
+  <div class="track">
+    <div class="track-number">2</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
 
-          <div class="track">
-            <div class="track-number">3</div>
-            <div class="track-cover"></div>
-            <div class="track-song">Someone You Loved</div>
-            <div class="track-artist">Lewis Capaldi</div>
-            <div class="track-time">14:19</div>
-          </div>
+  <div class="track">
+    <div class="track-number">3</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
 
-          <div class="track">
-            <div class="track-number">4</div>
-            <div class="track-cover"></div>
-            <div class="track-song">Easy On Me</div>
-            <div class="track-artist">Adele</div>
-            <div class="track-time">14:15</div>
-          </div>
+  <div class="track">
+    <div class="track-number">4</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
 
-          <div class="track">
-            <div class="track-number">5</div>
-            <div class="track-cover"></div>
-            <div class="track-song">Believer</div>
-            <div class="track-artist">Imagine Dragons</div>
-            <div class="track-time">14:12</div>
-          </div>
+  <div class="track">
+    <div class="track-number">5</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
 
-        </div>
+</div>
 
       </div>
 
@@ -1341,6 +1341,120 @@ liveArtwork.addEventListener('error', () => {
 updateLiveTrack();
 
 setInterval(updateLiveTrack, 10000);
+    async function getRecentArtwork(artist, song) {
+  try {
+    const term = encodeURIComponent(artist + ' ' + song);
+
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('artwork');
+
+    const data = await res.json();
+    const image = data.results?.[0]?.artworkUrl100;
+
+    if (image) {
+      return image.replace('100x100bb', '300x300bb');
+    }
+  } catch (e) {}
+
+  return 'logo.png';
+}
+
+function formatRecentTime(value) {
+  if (!value) return '--:--';
+
+  try {
+    const date = new Date(value);
+
+    return new Intl.DateTimeFormat('pt-PT', {
+      timeZone: 'America/Toronto',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).format(date);
+  } catch (e) {
+    return '--:--';
+  }
+}
+
+async function updateRecentTracks() {
+  try {
+    const res = await fetch(
+      'https://live3.rcast.net/api/v1/stations/73595/history?ts=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('history');
+
+    const json = await res.json();
+
+    const history =
+      json.data ||
+      json.history ||
+      json.items ||
+      [];
+
+    const tracks = Array.isArray(history)
+      ? history.slice(0, 5)
+      : [];
+
+    const rows = document.querySelectorAll('#recentTracks .track');
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const item = tracks[i];
+
+      if (!item) continue;
+
+      let artist = (
+        item.artist ||
+        item.songartist ||
+        item.performer ||
+        'Unknown Artist'
+      ).trim();
+
+      let song = (
+        item.title ||
+        item.song ||
+        item.track ||
+        item.raw ||
+        'Unknown Track'
+      ).trim();
+
+      const prefix = artist + ' - ';
+
+      if (song.toLowerCase().startsWith(prefix.toLowerCase())) {
+        song = song.slice(prefix.length).trim();
+      }
+
+      row.querySelector('.track-song').textContent = song;
+      row.querySelector('.track-artist').textContent = artist;
+
+      const timeValue =
+        item.played_at ||
+        item.timestamp ||
+        item.time ||
+        item.date ||
+        '';
+
+      row.querySelector('.track-time').textContent =
+        formatRecentTime(timeValue);
+
+      const cover = row.querySelector('.track-cover');
+      cover.src = await getRecentArtwork(artist, song);
+    }
+
+  } catch (e) {
+    console.log('Erro ao atualizar histórico.');
+  }
+}
+
+updateRecentTracks();
+
+setInterval(updateRecentTracks, 30000);
 </script>
 
 </body>
