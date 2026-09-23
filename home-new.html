@@ -176,8 +176,19 @@
       padding: 12px 18px;
       font-weight: 900;
       box-shadow: 0 0 22px rgba(255, 0, 74, 0.4);
+      animation: liveBlink 1.2s ease-in-out infinite;
     }
+@keyframes liveBlink {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 22px rgba(255, 0, 74, 0.65);
+  }
 
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 8px rgba(255, 0, 74, 0.25);
+  }
+}
     .live-title span:last-child {
       font-size: 20px;
       font-weight: 800;
