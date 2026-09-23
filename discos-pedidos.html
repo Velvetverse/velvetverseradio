@@ -525,12 +525,12 @@
 
             <div class="field half">
               <label for="artist">Artista <span class="required">*</span></label>
-              <input id="artist" name="artist" type="text" placeholder="Nome do artista" maxlength="150" required>
+              <input id="artist" name="artist" type="text" placeholder="Nome do artista" maxlength="150" required oninput="this.value=this.value.toUpperCase()">
             </div>
 
             <div class="field half">
               <label for="song">Música <span class="required">*</span></label>
-              <input id="song" name="song" type="text" placeholder="Nome da música" maxlength="150" required>
+              <input id="song" name="song" type="text" placeholder="Nome da música" maxlength="150" required oninput="this.value=this.value.toUpperCase()">
             </div>
 
             <div class="field full">
