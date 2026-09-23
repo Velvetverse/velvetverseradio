@@ -525,6 +525,210 @@
 .social-icon:hover {
   color: #ec72ff;
 }
+    /* =========================
+   LIVE NOW - CONCEITO 2
+========================= */
+
+.live-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  padding: 24px;
+  isolation: isolate;
+}
+
+.live-panel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 7, 14, 0.96) 0%,
+      rgba(10, 8, 20, 0.82) 45%,
+      rgba(12, 7, 24, 0.56) 100%
+    ),
+    url("radio-studio.jpg");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.live-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at 75% 35%,
+      rgba(179, 0, 255, 0.20),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.10),
+      rgba(0, 0, 0, 0.34)
+    );
+}
+
+.live-title,
+.player-area {
+  position: relative;
+  z-index: 2;
+}
+
+.live-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.live-slogan {
+  margin-left: auto;
+  color: #d7d0ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  white-space: nowrap;
+}
+
+.live-cover-wrap {
+  width: 230px;
+  height: 230px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.50),
+    0 0 26px rgba(134, 35, 255, 0.16);
+}
+
+.live-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.live-player-info {
+  min-width: 0;
+}
+
+.control-btn {
+  border: none;
+  background: transparent;
+  color: white;
+
+  width: 38px;
+  height: 38px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+  cursor: pointer;
+
+  opacity: 0.92;
+}
+
+.control-btn:hover {
+  color: #ef52ff;
+}
+
+.play-main {
+  border: 2px solid #ff008c;
+  color: white;
+  cursor: pointer;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 0, 140, 0.24),
+      rgba(91, 0, 255, 0.24)
+    );
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 140, 0.35),
+    inset 0 0 12px rgba(255,255,255,0.05);
+
+  font-size: 25px;
+}
+
+.volume-row {
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  color: white;
+}
+
+.volume-bar {
+  width: 180px;
+  height: 7px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+  background: rgba(255,255,255,0.14);
+}
+
+.volume-bar > div {
+  width: 66%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dd2cff,
+      #8b35ff
+    );
+}
+
+@media (max-width: 900px) {
+
+  .live-slogan {
+    display: none;
+  }
+
+  .live-cover-wrap {
+    width: 200px;
+    height: 200px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .live-cover-wrap {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .volume-row {
+    justify-content: center;
+  }
+
+}
 
     @media (max-width: 1450px) {
       .main-nav {
@@ -647,51 +851,74 @@
 
     <section class="hero-grid">
 
-      <div class="panel live-panel">
+<div class="panel live-panel">
 
-        <div class="live-title">
-          <div class="live-badge">◉ LIVE NOW</div>
-          <span>VelvetVerse Radio</span>
-        </div>
+  <div class="live-panel-bg"></div>
 
-        <div class="player-area">
+  <div class="live-overlay"></div>
 
-          <div class="cover-placeholder">
-            CAPA DA MÚSICA
-          </div>
+  <div class="live-title">
+    <div class="live-badge">◉ LIVE NOW</div>
+    <span>VelvetVerse Radio</span>
+    <div class="live-slogan">MUSIC NEVER STOPS</div>
+  </div>
 
-          <div>
+  <div class="player-area">
 
-            <div class="now-playing-label">NOW PLAYING</div>
+    <div class="live-cover-wrap">
+      <img
+        src="https://placehold.co/500x500/14395c/ffffff?text=Album+Cover"
+        alt="Capa da música"
+        class="live-cover"
+      >
+    </div>
 
-            <div class="song-title">As Baleias</div>
+    <div class="live-player-info">
 
-            <div class="artist-name">Roberto Carlos</div>
+      <div class="now-playing-label">NOW PLAYING</div>
 
-            <div class="fake-progress">
-              <div></div>
-            </div>
+      <div class="song-title">As Baleias</div>
 
-            <div class="time-row">
-              <span>2:18</span>
-              <span>4:32</span>
-            </div>
+      <div class="artist-name">Roberto Carlos</div>
 
-            <div class="player-controls">
-              <span>↝</span>
-              <span>◀</span>
+      <div class="fake-progress">
+        <div></div>
+      </div>
 
-              <div class="play-main">❚❚</div>
+      <div class="time-row">
+        <span>2:18</span>
+        <span>4:32</span>
+      </div>
 
-              <span>▶</span>
-              <span>↻</span>
-            </div>
+      <div class="player-controls">
 
-          </div>
+        <button class="control-btn" aria-label="Shuffle">⤨</button>
 
-        </div>
+        <button class="control-btn" aria-label="Previous">◀</button>
+
+        <button class="play-main" aria-label="Pause">
+          ❚❚
+        </button>
+
+        <button class="control-btn" aria-label="Next">▶</button>
+
+        <button class="control-btn" aria-label="Repeat">↻</button>
 
       </div>
+
+      <div class="volume-row">
+        <span>🔊</span>
+
+        <div class="volume-bar">
+          <div></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
 
       <div class="panel recent-panel">
 
