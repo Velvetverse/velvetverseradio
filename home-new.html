@@ -230,20 +230,53 @@
       margin-bottom: 26px;
     }
 
-    .fake-progress {
-      width: 100%;
-      height: 7px;
-      background: #262638;
-      border-radius: 6px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
+    .live-wave {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 8px 0 16px;
+  overflow: hidden;
+}
 
-    .fake-progress > div {
-      width: 48%;
-      height: 100%;
-      background: linear-gradient(90deg, #e72cff, #8d35ff);
-    }
+.live-wave span {
+  display: block;
+  width: 5px;
+  height: 8px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #ff2bd6, #8f35ff);
+  box-shadow: 0 0 8px rgba(210, 45, 255, 0.55);
+  transform-origin: center;
+}
+
+.live-wave.playing span {
+  animation: liveWaveMove 0.8s ease-in-out infinite alternate;
+}
+
+.live-wave.playing span:nth-child(2)  { animation-delay: 0.08s; }
+.live-wave.playing span:nth-child(3)  { animation-delay: 0.16s; }
+.live-wave.playing span:nth-child(4)  { animation-delay: 0.24s; }
+.live-wave.playing span:nth-child(5)  { animation-delay: 0.32s; }
+.live-wave.playing span:nth-child(6)  { animation-delay: 0.40s; }
+.live-wave.playing span:nth-child(7)  { animation-delay: 0.48s; }
+.live-wave.playing span:nth-child(8)  { animation-delay: 0.56s; }
+.live-wave.playing span:nth-child(9)  { animation-delay: 0.64s; }
+.live-wave.playing span:nth-child(10) { animation-delay: 0.72s; }
+.live-wave.playing span:nth-child(11) { animation-delay: 0.80s; }
+.live-wave.playing span:nth-child(12) { animation-delay: 0.88s; }
+
+@keyframes liveWaveMove {
+  from {
+    height: 7px;
+    opacity: 0.65;
+  }
+
+  to {
+    height: 32px;
+    opacity: 1;
+  }
+}
 
     .time-row {
       display: flex;
@@ -886,9 +919,20 @@
         VelvetVerse Radio
       </div>
 
-      <div class="fake-progress">
-        <div></div>
-      </div>
+      <div class="live-wave" id="liveWave" aria-hidden="true">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
       <div class="player-controls">
 
@@ -1147,6 +1191,7 @@ const liveVolume = document.getElementById('liveVolume');
 const liveArtwork = document.getElementById('liveArtwork');
 const liveArtist = document.getElementById('liveArtist');
 const liveSong = document.getElementById('liveSong');
+const liveWave = document.getElementById('liveWave');
 
 liveRadio.volume = 0.7;
 
@@ -1167,10 +1212,12 @@ livePlay.addEventListener('click', async () => {
 
 liveRadio.addEventListener('playing', () => {
   livePlay.textContent = '❚❚';
+  liveWave.classList.add('playing');
 });
 
 liveRadio.addEventListener('pause', () => {
   livePlay.textContent = '▶';
+  liveWave.classList.remove('playing');
 });
 
 liveVolume.addEventListener('input', () => {
