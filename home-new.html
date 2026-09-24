@@ -24,6 +24,13 @@
       font-family: Arial, Helvetica, sans-serif;
       min-height: 100vh;
     }
+    .section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
 
     .top-header {
       position: fixed;
@@ -910,7 +917,7 @@ max-width: 5px;
 
     <nav class="main-nav">
       <a href="home-new.html" class="active">Home</a>
-      <a href="#">Schedule</a>
+      <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
       <a href="#">Gallery</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
@@ -926,7 +933,7 @@ max-width: 5px;
 
   </header>
 
-  <main class="page-content">
+ <main id="home" class="page-content section active">
 
     <div class="tagline">MUSIC NEVER STOPS</div>
 
@@ -1226,8 +1233,164 @@ max-width: 5px;
     </footer>
 
   </main>
+    <div id="schedule" class="section">
+  <div class="panel">
+    <div class="panel-box">
+      <div id="vv-clock" style="
+  text-align:right;
+  font-size:18px;
+  color:#a855f7;
+  margin-bottom:20px;
+  font-weight:bold;
+">
+  --:--:--
+</div>
+
+      <h1 style="text-align:center;">SCHEDULE</h1>
+
+      <div class="vv-schedule">
+
+        <!-- Adrian -->
+        <div class="vv-card" data-start="07:00" data-end="10:00">
+  <img src="adrian.png">
+  <div class="vv-time">07:00<br>10:00</div>
+  <div class="vv-info">
+    <h2>Ritmo Latino 🔥</h2>
+    <p>Adrian Vega (Noia)</p>
+    <span>Começa o teu dia com energia e ritmo latino!</span>
+  </div>
+</div>
+        <!-- Suzy -->
+        <div class="vv-card" data-start="10:00" data-end="13:00">
+  <img src="suzy.png">
+  <div class="vv-time">10:00<br>13:00</div>
+  <div class="vv-info">
+    <h2>Alma Portuguesa 🇵🇹</h2>
+    <p>Suzy Mendes</p>
+    <span>Música portuguesa com alma e emoção.</span>
+    <br><br>
+
+📖 Baú de História<br>
+<p>Temporariamente em pausa.<br>
+Regressa em breve.</p>
+Todos os dias • 11:30
+  </div>
+</div>
+
+        <!-- Carlos -->
+     <div class="vv-card" data-start="13:00" data-end="16:00">
+  <img src="carlos.png">
+  <div class="vv-time">13:00<br>16:00</div>
+  <div class="vv-info">
+    <h2>Corações & Memórias ❤️</h2>
+    <p>Carlos Moreira</p>
+    <span>Clássicos e romantismo dos anos 80/90.</span>
+
+    <br><br>
+🎙️ Backstage Legends<br>
+<p>Ricky Sousa</p>
+Todos os Domingos • 14:30
+  </div>
+</div>
+
+        <!-- Lara -->
+       <div class="vv-card" data-start="16:00" data-end="19:00">
+  <img src="lara.png">
+  <div class="vv-time">16:00<br>19:00</div>
+  <div class="vv-info">
+    <h2>Coração Brasileiro 🇧🇷</h2>
+    <p>Lara Ingrid</p>
+    <span>Boa vibe brasileira para o fim do dia.</span>
+  </div>
+</div>
+
+        <!-- Beto -->
+       <div class="vv-card" data-start="19:00" data-end="21:00">
+  <img src="beto.png">
+  <div class="vv-time">19:00<br>21:00</div>
+  <div class="vv-info">
+    <h2>Rock Sem Limites ⚡</h2>
+    <p>Beto Sousa</p>
+    <span>Rock clássico e energia máxima!</span>
+  </div>
+</div>
+        <!-- VelvetVerse -->
+     <div class="vv-card" data-start="21:00" data-end="23:00">
+  <img src="rui-freitas-velvetverse-experience.png">
+  <div class="vv-time">21:00<br>23:00</div>
+  <div class="vv-info">
+    <h2>VelvetVerse Experience 🎶</h2>
+    <p>Rui Freitas</p>
+    <span>Programa oficial da banda.</span>
+<br><br>
+
+    <span>🎙️ Inside VelvetVerse</span><br>
+<span>Entrevistas, bastidores e histórias da banda</span>
+
+  </div>
+</div>
+
+  <!-- Velvet After Dark -->
+<div class="vv-card" data-start="23:00" data-end="03:00">
+<img src="velvetverse.png">
+<div class="vv-time">23:00<br>03:00</div>
+<div class="vv-info">
+
+<h2>Velvet After Dark 🌙</h2>
+
+<p>VelvetVerse Radio</p>
+
+<span>
+Rock suave, clássicos nocturnos,
+late night vibes, emoções,
+atmosferas e viagens sonoras.
+</span>
+
+</div>
+</div>
+
+<!-- Midnight Flow -->
+<div class="vv-card" data-start="03:00" data-end="07:00">
+<img src="logo.png">
+<div class="vv-time">03:00<br>07:00</div>
+<div class="vv-info">
+
+<h2>Midnight Flow 🌙</h2>
+
+<p>Auto DJ</p>
+
+<span>
+Música ambiente, instrumental
+e deep night soundscape.
+</span>
+
+</div>
+</div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
 
   <script>
+    function showSection(id, link) {
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.main-nav a').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  if (link) {
+    link.classList.add('active');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 const liveRadio = document.getElementById('liveRadio');
 const livePlay = document.getElementById('livePlay');
 const liveVolume = document.getElementById('liveVolume');
