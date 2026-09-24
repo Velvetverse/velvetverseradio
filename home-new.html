@@ -186,7 +186,52 @@ border-radius:0 0 16px 16px;
   cursor:pointer;
   box-shadow:0 0 14px rgba(184,60,255,0.55);
 }
+.mini-wave{
+  width:170px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:3px;
+  overflow:hidden;
+  flex-shrink:0;
+}
 
+.mini-wave span{
+  width:4px;
+  height:8px;
+  border-radius:4px;
+  background:linear-gradient(180deg,#ff2bd6,#8b3cff);
+  opacity:0.45;
+}
+
+.mini-wave.playing span{
+  animation:miniWaveMove 0.9s ease-in-out infinite;
+  opacity:1;
+}
+
+.mini-wave span:nth-child(2){animation-delay:0.05s;}
+.mini-wave span:nth-child(3){animation-delay:0.10s;}
+.mini-wave span:nth-child(4){animation-delay:0.15s;}
+.mini-wave span:nth-child(5){animation-delay:0.20s;}
+.mini-wave span:nth-child(6){animation-delay:0.25s;}
+.mini-wave span:nth-child(7){animation-delay:0.30s;}
+.mini-wave span:nth-child(8){animation-delay:0.35s;}
+.mini-wave span:nth-child(9){animation-delay:0.40s;}
+.mini-wave span:nth-child(10){animation-delay:0.45s;}
+.mini-wave span:nth-child(11){animation-delay:0.50s;}
+.mini-wave span:nth-child(12){animation-delay:0.55s;}
+.mini-wave span:nth-child(13){animation-delay:0.60s;}
+.mini-wave span:nth-child(14){animation-delay:0.65s;}
+.mini-wave span:nth-child(15){animation-delay:0.70s;}
+.mini-wave span:nth-child(16){animation-delay:0.75s;}
+.mini-wave span:nth-child(17){animation-delay:0.80s;}
+.mini-wave span:nth-child(18){animation-delay:0.85s;}
+
+@keyframes miniWaveMove{
+  0%,100%{height:8px;}
+  50%{height:30px;}
+}
 .mini-volume-wrap{
   display:flex;
   align-items:center;
@@ -1120,7 +1165,11 @@ max-width: 5px;
   </div>
 
   <button id="miniPlay" class="mini-play" type="button" aria-label="Play/Pause">▶</button>
-
+<div id="miniWave" class="mini-wave" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
   <div class="mini-volume-wrap">
     <span class="mini-volume-icon">🔊</span>
     <input id="miniVolume" class="mini-volume" type="range" min="0" max="1" step="0.01" value="0.7">
@@ -1673,6 +1722,7 @@ const miniSong = document.getElementById('miniSong');
 const miniArtist = document.getElementById('miniArtist');
 const miniPlay = document.getElementById('miniPlay');
 const miniVolume = document.getElementById('miniVolume');
+    const miniWave = document.getElementById('miniWave');
 liveRadio.volume = 0.7;
 
 livePlay.addEventListener('click', async () => {
@@ -1693,11 +1743,13 @@ livePlay.addEventListener('click', async () => {
 liveRadio.addEventListener('playing', () => {
   livePlay.textContent = '❚❚';
   liveWave.classList.add('playing');
+  miniWave.classList.add('playing');
 });
 
 liveRadio.addEventListener('pause', () => {
   livePlay.textContent = '▶';
   liveWave.classList.remove('playing');
+  miniWave.classList.remove('playing');
 });
 
 liveVolume.addEventListener('input', () => {
