@@ -2072,7 +2072,16 @@ async function updateRecentTracks() {
 updateRecentTracks();
 
 setInterval(updateRecentTracks, 30000);
-</script>
+  /* 📸 LIGHTBOX */
+function openLightbox(src){
+  document.getElementById("lightbox").style.display = "flex";
+  document.getElementById("lightbox-img").src = src;
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").style.display = "none";
+}
+  </script>
 
 </body>
 </html>
