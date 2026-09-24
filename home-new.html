@@ -101,6 +101,19 @@
   font-size:14px;
   opacity:0.8;
 }
+.schedule-live-badge{
+  position:absolute;
+  top:10px;
+  right:15px;
+  background:red;
+  color:white;
+  font-weight:bold;
+  padding:5px 10px;
+  border-radius:10px;
+  font-size:12px;
+  box-shadow:0 0 10px red;
+}
+    
     .top-header {
       position: fixed;
       top: 0;
@@ -1460,6 +1473,73 @@ e deep night soundscape.
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+    function getTorontoMinutes() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Toronto',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).formatToParts(new Date());
+
+  const hour = Number(parts.find(p => p.type === 'hour').value);
+  const minute = Number(parts.find(p => p.type === 'minute').value);
+
+  return hour * 60 + minute;
+}
+
+function updateLiveShow() {
+  const current = getTorontoMinutes();
+
+  document.querySelectorAll('.vv-card').forEach(card => {
+    const start = card.getAttribute('data-start');
+    const end = card.getAttribute('data-end');
+
+    if (!start || !end) return;
+
+    const [sh, sm] = start.split(':').map(Number);
+    const [eh, em] = end.split(':').map(Number);
+
+    const startMin = sh * 60 + sm;
+    const endMin = eh * 60 + em;
+
+    let isLive = false;
+
+    if (endMin < startMin) {
+      isLive = current >= startMin || current < endMin;
+    } else {
+      isLive = current >= startMin && current < endMin;
+    }
+
+    if (isLive) {
+      activateScheduleCard(card);
+    } else {
+      deactivateScheduleCard(card);
+    }
+  });
+}
+
+function activateScheduleCard(card) {
+  card.style.border = '2px solid red';
+  card.style.boxShadow = '0 0 30px red';
+
+  if (!card.querySelector('.schedule-live-badge')) {
+    const badge = document.createElement('div');
+    badge.className = 'schedule-live-badge';
+    badge.innerText = '🔴 LIVE NOW';
+    card.appendChild(badge);
+  }
+}
+
+function deactivateScheduleCard(card) {
+  card.style.border = '1px solid #a855f7';
+  card.style.boxShadow = '0 0 25px rgba(168,85,247,0.5)';
+
+  const badge = card.querySelector('.schedule-live-badge');
+  if (badge) badge.remove();
+}
+
+updateLiveShow();
+setInterval(updateLiveShow, 30000);
 const liveRadio = document.getElementById('liveRadio');
 const livePlay = document.getElementById('livePlay');
 const liveVolume = document.getElementById('liveVolume');
