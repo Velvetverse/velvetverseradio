@@ -113,7 +113,97 @@
   font-size:12px;
   box-shadow:0 0 10px red;
 }
-    
+    .mini-player{
+  display:none;
+  height:74px;
+  margin-top:92px;
+  padding:7px 34px;
+  align-items:center;
+  gap:16px;
+  background:rgba(7,6,15,0.97);
+  border-bottom:1px solid rgba(183,51,255,0.55);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  position:sticky;
+  top:92px;
+  z-index:9998;
+  overflow:hidden;
+}
+
+.mini-player.show{
+  display:flex;
+}
+
+.mini-artwork{
+  width:56px;
+  height:56px;
+  min-width:56px;
+  object-fit:cover;
+  border-radius:50%;
+  border:2px solid #c43cff;
+  box-shadow:0 0 12px rgba(196,60,255,0.55);
+}
+
+.mini-meta{
+  width:320px;
+  min-width:0;
+  overflow:hidden;
+}
+
+.mini-song{
+  font-size:16px;
+  font-weight:800;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-artist{
+  margin-top:4px;
+  font-size:13px;
+  font-weight:700;
+  color:#c46cff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-play{
+  width:48px;
+  height:48px;
+  min-width:48px;
+  border-radius:50%;
+  border:2px solid #b83cff;
+  background:#171020;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(184,60,255,0.55);
+}
+
+.mini-volume-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:auto;
+  min-width:180px;
+}
+
+.mini-volume{
+  width:130px;
+}
+
+.mini-live{
+  flex-shrink:0;
+  color:#fff;
+  background:#c9003f;
+  border:1px solid #ff1760;
+  border-radius:18px;
+  padding:7px 14px;
+  font-size:12px;
+  font-weight:800;
+  box-shadow:0 0 12px rgba(255,0,80,0.55);
+}
     .top-header {
       position: fixed;
       top: 0;
@@ -1015,6 +1105,24 @@ max-width: 5px;
 
   </header>
 
+  <div id="miniPlayer" class="mini-player">
+  <img id="miniArtwork" class="mini-artwork" src="logo.png" alt="Capa da música">
+
+  <div class="mini-meta">
+    <div id="miniSong" class="mini-song">VelvetVerse Radio</div>
+    <div id="miniArtist" class="mini-artist">Live</div>
+  </div>
+
+  <button id="miniPlay" class="mini-play" type="button" aria-label="Play/Pause">▶</button>
+
+  <div class="mini-volume-wrap">
+    <span class="mini-volume-icon">🔊</span>
+    <input id="miniVolume" class="mini-volume" type="range" min="0" max="1" step="0.01" value="0.7">
+  </div>
+
+  <div class="mini-live">● LIVE</div>
+</div>
+
  <main id="home" class="page-content section active">
 
     <div class="tagline">MUSIC NEVER STOPS</div>
@@ -1470,7 +1578,13 @@ e deep night soundscape.
   if (link) {
     link.classList.add('active');
   }
+const miniPlayer = document.getElementById('miniPlayer');
 
+if (id === 'home') {
+  miniPlayer.classList.remove('show');
+} else {
+  miniPlayer.classList.add('show');
+}
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
     function getTorontoMinutes() {
@@ -1547,7 +1661,12 @@ const liveArtwork = document.getElementById('liveArtwork');
 const liveArtist = document.getElementById('liveArtist');
 const liveSong = document.getElementById('liveSong');
 const liveWave = document.getElementById('liveWave');
-
+const miniPlayerEl = document.getElementById('miniPlayer');
+const miniArtwork = document.getElementById('miniArtwork');
+const miniSong = document.getElementById('miniSong');
+const miniArtist = document.getElementById('miniArtist');
+const miniPlay = document.getElementById('miniPlay');
+const miniVolume = document.getElementById('miniVolume');
 liveRadio.volume = 0.7;
 
 livePlay.addEventListener('click', async () => {
@@ -1578,7 +1697,28 @@ liveRadio.addEventListener('pause', () => {
 liveVolume.addEventListener('input', () => {
   liveRadio.volume = liveVolume.value / 100;
 });
+miniVolume.value = liveRadio.volume;
 
+miniPlay.addEventListener('click', () => {
+  livePlay.click();
+});
+
+miniVolume.addEventListener('input', () => {
+  liveRadio.volume = Number(miniVolume.value);
+  liveVolume.value = Math.round(liveRadio.volume * 100);
+});
+
+liveVolume.addEventListener('input', () => {
+  miniVolume.value = liveRadio.volume;
+});
+
+liveRadio.addEventListener('playing', () => {
+  miniPlay.textContent = '❚❚';
+});
+
+liveRadio.addEventListener('pause', () => {
+  miniPlay.textContent = '▶';
+});
 let liveLastTrack = '';
 
 async function updateLiveArtwork(artist, song) {
@@ -1609,9 +1749,10 @@ async function updateLiveArtwork(artist, song) {
     if (image) {
       liveArtwork.src = image.replace('100x100bb', '600x600bb');
     }
-
+miniArtwork.src = liveArtwork.src;
   } catch (e) {
     liveArtwork.src = 'logo.png';
+    miniArtwork.src = 'logo.png';
   }
 }
 
@@ -1646,7 +1787,8 @@ async function updateLiveTrack() {
 
     liveArtist.textContent = artist;
     liveSong.textContent = song;
-
+miniArtist.textContent = artist;
+miniSong.textContent = song;
     updateLiveArtwork(artist, song);
 
   } catch (e) {
