@@ -1196,7 +1196,7 @@ max-width: 5px;
       <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
       <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
       <a href="#" onclick="showSection('about', this); return false;">About</a>
-      <a href="#">Contact</a>
+      <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
       <a href="#">Comments</a>
       <a href="#">Podcasts</a>
       <a href="discos-pedidos.html">Discos Pedidos</a>
@@ -1709,6 +1709,31 @@ e deep night soundscape.
     </div>
   </div>
 
+  <div id="contact" class="section">
+    <div class="panel">
+      <div class="panel-box">
+        <h1>Contact Us</h1>
+
+        <p>For music, radio, collaborations or general enquiries, feel free to contact VelvetVerse Radio.</p>
+
+        <form class="contact-form" action="https://formsubmit.co/velvetverseradio@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Message from VelvetVerse Radio">
+          <input type="hidden" name="_captcha" value="false">
+
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Your Message" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+
+        <p style="margin-top:20px;">
+          Or email us directly:<br>
+          <a href="mailto:velvetverseradio@gmail.com">velvetverseradio@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
   <footer class="site-footer"> 
 
       <div class="footer-left">
