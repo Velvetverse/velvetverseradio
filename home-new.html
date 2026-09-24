@@ -31,7 +31,76 @@
 .section.active {
   display: block;
 }
+.panel{
+  padding:40px 20px;
+  background:#0b0b0f;
+}
 
+.panel-box{
+  max-width:1000px;
+  margin:auto;
+  border:1px solid #a855f7;
+  border-radius:16px;
+  padding:35px;
+  box-shadow:0 0 15px rgba(168,85,247,0.35);
+  line-height:1.7;
+}
+
+.panel-box h1,
+.panel-box h2{
+  color:#a855f7;
+}
+
+.vv-schedule{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.vv-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #a855f7;
+  background:linear-gradient(145deg,#0b0b0f,#1a0f2a);
+  box-shadow:0 0 25px rgba(168,85,247,0.5);
+}
+
+.vv-card img{
+  width:200px;
+  height:200px;
+  object-fit:contain;
+  background:#050509;
+  border-radius:12px;
+  border:2px solid #a855f7;
+}
+
+.vv-time{
+  font-size:20px;
+  font-weight:bold;
+  color:#a855f7;
+  text-align:center;
+  min-width:80px;
+}
+
+.vv-info h2{
+  margin:0;
+  color:#fff;
+}
+
+.vv-info p{
+  margin:4px 0;
+  color:#c084fc;
+  font-weight:bold;
+}
+
+.vv-info span{
+  font-size:14px;
+  opacity:0.8;
+}
     .top-header {
       position: fixed;
       top: 0;
