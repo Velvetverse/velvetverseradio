@@ -1229,7 +1229,7 @@ max-width: 5px;
       <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
       <a href="#" onclick="showSection('about', this); return false;">About</a>
       <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
-      <a href="#">Comments</a>
+      <a href="#" onclick="showSection('comments', this); return false;">Comments</a>
       <a href="#">Podcasts</a>
       <a href="discos-pedidos.html">Discos Pedidos</a>
     </nav>
@@ -1763,6 +1763,67 @@ e deep night soundscape.
           Or email us directly:<br>
           <a href="mailto:velvetverseradio@gmail.com">velvetverseradio@gmail.com</a>
         </p>
+      </div>
+    </div>
+  </div>
+   <div id="comments" class="section">
+    <div class="panel">
+      <div class="panel-box">
+        <h1>Comments</h1>
+
+        <h2>Leave a Comment</h2>
+        <p>Comments are reviewed before being published on this page.</p>
+
+        <form class="contact-form" action="https://formsubmit.co/velvetverseradio+comments@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Comment for VelvetVerse Radio">
+          <input type="hidden" name="_captcha" value="false">
+
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="url" name="photo" placeholder="Profile Photo Link (optional)">
+          <textarea name="comment" placeholder="Your Comment" required></textarea>
+
+          <button type="submit">Send Comment</button>
+        </form>
+
+        <hr>
+
+        <h2>Approved Comments</h2>
+
+        <div class="approved-comments">
+
+          <div class="comment-card">
+            <img src="lurdes-ribeiro.png" alt="Lurdes Ribeiro">
+            <div class="comment-content">
+              <strong>Lurdes Ribeiro</strong>
+              <div class="comment-date">April 2026</div>
+              <p>Uma rádio com muito bom gosto, excelente energia e uma seleção musical que dá mesmo vontade de continuar a ouvir. Parabéns à VelvetVerse Radio!</p>
+            </div>
+          </div>
+
+          <div class="comment-card">
+            <img src="https://ui-avatars.com/api/?name=Liam+Thompson&background=0b0b0f&color=a855f7" alt="Liam Thompson">
+            <div class="comment-content">
+              <strong>Liam Thompson</strong>
+              <div class="comment-date">April 2026</div>
+              <p>Great sound, beautiful vibe and a very professional radio experience. VelvetVerse Radio has a unique identity. Keep it going!</p>
+            </div>
+          </div>
+
+          <!-- EXEMPLO PARA QUANDO QUISERES ADICIONAR MAIS COMENTÁRIOS APROVADOS:
+
+          <div class="comment-card">
+            <img src="https://ui-avatars.com/api/?name=Maria+Silva&background=0b0b0f&color=a855f7" alt="Maria Silva">
+            <div class="comment-content">
+              <strong>Maria Silva</strong>
+              <div class="comment-date">April 2026</div>
+              <p>Adoro esta rádio! Excelente som e muita boa energia.</p>
+            </div>
+          </div>
+
+          -->
+
+        </div>
+
       </div>
     </div>
   </div>
