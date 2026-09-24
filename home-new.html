@@ -1141,7 +1141,7 @@ max-width: 5px;
     <nav class="main-nav">
       <a href="#" onclick="showSection('home', this); return false;" class="active">Home</a>
       <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
-      <a href="#">Gallery</a>
+      <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
       <a href="#">About</a>
       <a href="#">Contact</a>
       <a href="#">Comments</a>
@@ -1574,7 +1574,33 @@ e deep night soundscape.
     </div>
   </div>
 </div>
-<footer class="site-footer">
+    <div id="gallery" class="section">
+  <div class="panel">
+    <div class="panel-box">
+      <h1 style="text-align:center;">Photo Gallery</h1>
+
+      <div class="gallery-grid">
+        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
+        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
+        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
+        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
+        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
+        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
+        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Gallery photo 7">
+        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Gallery photo 8">
+        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Gallery photo 9">
+        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Gallery photo 10">
+      </div>
+
+      <div id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img id="lightbox-img" src="" alt="Expanded gallery photo">
+      </div>
+
+    </div>
+  </div>
+</div>
+<footer class="site-footer"> 
 
       <div class="footer-left">
         <a href="mailto:velvetverseradio@gmail.com">
