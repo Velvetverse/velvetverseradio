@@ -1327,6 +1327,564 @@ max-width: 5px;
   font-size:14px;
   opacity:0.75;
 }
+    /* =========================================================
+   DISCOS PEDIDOS - HOME NEW
+   ========================================================= */
+
+#requests{
+  width:100%;
+}
+
+#requests .requests-page{
+  width:100%;
+  color:#f7f4fb;
+}
+
+/* HERO */
+
+#requests .requests-hero{
+  position:relative;
+  min-height:280px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  background-image:url('discos-pedidos-mockup.png');
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:center 19%;
+  border-bottom:1px solid rgba(168,61,255,.25);
+}
+
+#requests .requests-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(
+    90deg,
+    #050509 0%,
+    #050509 47%,
+    rgba(5,5,9,.94) 53%,
+    rgba(5,5,9,.28) 72%,
+    rgba(5,5,9,.08) 100%
+  );
+}
+
+#requests .requests-hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:90px;
+  z-index:-1;
+  background:linear-gradient(transparent,#07070b);
+}
+
+#requests .requests-hero-content{
+  width:min(1400px,100%);
+  margin:0 auto;
+  padding:34px 6.8% 42px;
+}
+
+#requests .requests-hero h1{
+  margin:0;
+  font-size:clamp(48px,5.2vw,78px);
+  line-height:.98;
+  letter-spacing:-2.5px;
+  text-shadow:0 5px 25px #000;
+}
+
+#requests .requests-hero h1 span{
+  color:#e600bd;
+  background:linear-gradient(135deg,#f000b1,#9d2dff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+#requests .requests-tagline{
+  margin:12px 0 21px;
+  color:#e8e0ef;
+  font-size:clamp(14px,1.45vw,22px);
+  letter-spacing:8px;
+  text-transform:uppercase;
+}
+
+#requests .requests-hero-lead{
+  margin:0 0 6px;
+  font-size:clamp(18px,1.5vw,24px);
+  font-weight:800;
+}
+
+#requests .requests-hero-copy{
+  max-width:650px;
+  margin:0;
+  color:#e2dce7;
+  font-size:clamp(15px,1.25vw,19px);
+  line-height:1.45;
+}
+
+
+/* CONTEÚDO */
+
+#requests .requests-page-content{
+  width:min(1400px,calc(100% - 64px));
+  margin:0 auto;
+  padding:18px 0 30px;
+}
+
+#requests .requests-content-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
+  gap:16px;
+  align-items:start;
+}
+
+#requests .requests-side-column{
+  display:grid;
+  gap:16px;
+}
+
+
+/* CARDS */
+
+#requests .requests-card{
+  position:relative;
+  overflow:hidden;
+  padding:27px 30px;
+  border:1px solid rgba(152,48,238,.86);
+  border-radius:11px;
+  background:linear-gradient(
+    145deg,
+    rgba(14,15,21,.98),
+    rgba(8,9,13,.98)
+  );
+  box-shadow:
+    0 11px 35px rgba(0,0,0,.34),
+    inset 0 1px rgba(255,255,255,.025);
+}
+
+#requests .requests-card::before{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  right:-110px;
+  top:-120px;
+  border-radius:50%;
+  background:rgba(162,38,255,.09);
+  filter:blur(8px);
+}
+
+#requests .requests-card-title{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:0 0 7px;
+  font-size:clamp(24px,2.1vw,34px);
+  line-height:1.1;
+}
+
+#requests .requests-card-title.requests-small{
+  font-size:clamp(22px,1.75vw,29px);
+}
+
+#requests .requests-accent{
+  color:#bd43ff;
+}
+
+#requests .requests-title-icon{
+  color:#b840ff;
+  font-size:35px;
+  line-height:1;
+  filter:drop-shadow(0 0 10px rgba(183,57,255,.5));
+}
+
+#requests .requests-card-intro{
+  margin:0 0 20px;
+  color:#d6cfdd;
+  font-size:16px;
+  line-height:1.45;
+}
+
+#requests .requests-card-intro em{
+  color:#f2ebf7;
+}
+
+
+/* FORMULÁRIO */
+
+#requests .requests-form-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:17px 18px;
+}
+
+#requests .requests-field{
+  grid-column:span 2;
+}
+
+#requests .requests-field.requests-half{
+  grid-column:span 3;
+}
+
+#requests .requests-field.requests-full{
+  grid-column:1/-1;
+}
+
+#requests label{
+  display:block;
+  margin:0 0 8px;
+  font-size:15px;
+  font-weight:800;
+}
+
+#requests .requests-required{
+  color:#ff3158;
+  margin-left:3px;
+}
+
+#requests .requests-optional{
+  font-weight:400;
+  color:#d6ccdf;
+  margin-left:7px;
+}
+
+#requests input,
+#requests textarea{
+  width:100%;
+  color:#fff;
+  background:linear-gradient(145deg,#161820,#111219);
+  border:1px solid #4b4f5d;
+  border-radius:7px;
+  outline:none;
+  transition:.2s ease;
+  box-sizing:border-box;
+}
+
+#requests input{
+  height:48px;
+  padding:0 15px;
+}
+
+#requests textarea{
+  min-height:86px;
+  padding:14px 15px;
+  resize:vertical;
+}
+
+#requests input::placeholder,
+#requests textarea::placeholder{
+  color:#9b97a4;
+}
+
+#requests input:focus,
+#requests textarea:focus{
+  border-color:#bd43ff;
+  box-shadow:
+    0 0 0 3px rgba(173,59,255,.14),
+    0 0 18px rgba(173,59,255,.13);
+}
+
+
+/* MENSAGENS */
+
+#requests .requests-form-message{
+  display:none;
+  align-items:center;
+  gap:14px;
+  grid-column:1/-1;
+  min-height:47px;
+  padding:10px 15px;
+  border:1px solid #ff395d;
+  border-radius:7px;
+  color:#ff9aac;
+  background:linear-gradient(
+    90deg,
+    rgba(139,7,33,.45),
+    rgba(70,5,24,.28)
+  );
+}
+
+#requests .requests-form-message.show{
+  display:flex;
+}
+
+#requests .requests-form-message.success{
+  border-color:#21d68b;
+  color:#b9f8dc;
+  background:linear-gradient(
+    90deg,
+    rgba(8,106,70,.45),
+    rgba(5,59,43,.28)
+  );
+}
+
+#requests .requests-message-icon{
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 29px;
+  height:29px;
+  border-radius:50%;
+  color:#180009;
+  background:#ff3158;
+  font-weight:900;
+}
+
+#requests .requests-form-message.success .requests-message-icon{
+  color:#00170e;
+  background:#21d68b;
+}
+
+
+/* BOTÃO */
+
+#requests .requests-submit{
+  grid-column:1/-1;
+  min-height:53px;
+  border:0;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:900;
+  background:linear-gradient(100deg,#ef009d,#7122ff);
+  box-shadow:0 0 22px rgba(181,21,255,.3);
+  transition:.2s ease;
+}
+
+#requests .requests-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 30px rgba(205,26,255,.52);
+}
+
+#requests .requests-submit:disabled{
+  cursor:wait;
+  opacity:.68;
+  transform:none;
+  box-shadow:none;
+}
+
+#requests .requests-submit span{
+  margin-right:11px;
+  font-size:21px;
+}
+
+#requests .requests-privacy-note{
+  grid-column:1/-1;
+  margin:0;
+  text-align:center;
+  color:#b8afc4;
+  font-size:12px;
+}
+
+
+/* REGRAS */
+
+#requests .requests-rules{
+  margin-top:10px;
+  border-top:1px solid #353641;
+}
+
+#requests .requests-rule{
+  display:grid;
+  grid-template-columns:52px 1fr;
+  align-items:center;
+  gap:14px;
+  padding:13px 7px;
+  border-bottom:1px solid #353641;
+}
+
+#requests .requests-rule:last-child{
+  border-bottom:0;
+  padding-bottom:0;
+}
+
+#requests .requests-rule-number{
+  display:grid;
+  place-items:center;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  font-size:20px;
+  font-weight:900;
+  background:linear-gradient(145deg,#5c1f83,#8e147e);
+  box-shadow:0 0 12px rgba(170,38,255,.18);
+}
+
+#requests .requests-rule p{
+  margin:0;
+  color:#f0ebf4;
+  font-size:15px;
+  line-height:1.4;
+}
+
+
+/* LISTA DE MÚSICAS */
+
+#requests .requests-requested-subtitle{
+  margin:-2px 0 14px 53px;
+  color:#d2c9db;
+  font-size:14px;
+}
+
+#requests .requests-request-list{
+  display:grid;
+  gap:8px;
+}
+
+#requests .request-item{
+  display:grid;
+  grid-template-columns:34px auto 20px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:43px;
+  padding:6px 11px;
+  border:1px solid #464955;
+  border-radius:7px;
+  background:linear-gradient(145deg,#171920,#121319);
+}
+
+#requests .request-number{
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  background:#3a3e49;
+  font-size:14px;
+  font-weight:900;
+}
+
+#requests .request-artist{
+  font-weight:900;
+  white-space:nowrap;
+}
+
+#requests .request-separator{
+  color:#81788c;
+  text-align:center;
+}
+
+#requests .request-song{
+  color:#ded6e5;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#requests .requests-empty-state{
+  padding:18px;
+  text-align:center;
+  border:1px dashed #4c4058;
+  border-radius:8px;
+  color:#bdb3c8;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:1180px){
+
+  #requests .requests-content-grid{
+    grid-template-columns:1fr;
+  }
+
+  #requests .requests-side-column{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:850px){
+
+  #requests .requests-hero{
+    min-height:390px;
+    background-size:auto 720px;
+    background-position:63% 20%;
+    align-items:flex-end;
+  }
+
+  #requests .requests-hero::before{
+    background:linear-gradient(
+      0deg,
+      #050509 0%,
+      rgba(5,5,9,.96) 52%,
+      rgba(5,5,9,.25) 100%
+    );
+  }
+
+  #requests .requests-hero-content{
+    padding:120px 25px 38px;
+  }
+
+  #requests .requests-hero h1{
+    font-size:48px;
+    letter-spacing:-1.5px;
+  }
+
+  #requests .requests-tagline{
+    font-size:12px;
+    letter-spacing:4px;
+  }
+
+  #requests .requests-page-content{
+    width:min(calc(100% - 28px),1400px);
+  }
+
+  #requests .requests-side-column{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  #requests .requests-card{
+    padding:23px 18px;
+  }
+
+  #requests .requests-card-title{
+    font-size:26px;
+  }
+
+  #requests .requests-form-grid{
+    display:block;
+  }
+
+  #requests .requests-field,
+  #requests .requests-form-message,
+  #requests .requests-submit,
+  #requests .requests-privacy-note{
+    margin-bottom:16px;
+  }
+
+  #requests .requests-privacy-note{
+    margin-bottom:0;
+  }
+
+  #requests .request-item{
+    grid-template-columns:32px 1fr;
+    gap:5px 10px;
+    padding:8px;
+  }
+
+  #requests .request-artist,
+  #requests .request-song{
+    white-space:normal;
+  }
+
+  #requests .request-separator{
+    display:none;
+  }
+
+  #requests .request-song{
+    grid-column:2;
+  }
+
+  #requests .requests-requested-subtitle{
+    margin-left:0;
+  }
+}
   </style>
 </head>
 
@@ -1358,7 +1916,7 @@ max-width: 5px;
     <a href="inside-velvetverse.html">Inside VelvetVerse</a>
   </div>
 </div>
-      <a href="discos-pedidos.html">Discos Pedidos</a>
+      <a href="#" onclick="showSection('requests', this); return false;">Discos Pedidos</a>
     </nav>
 
     <div class="header-actions">
@@ -1955,6 +2513,186 @@ e deep night soundscape.
       </div>
     </div>
   </div>
+  <div id="requests" class="section">
+  <div class="requests-page">
+
+    <section class="requests-hero">
+      <div class="requests-hero-content">
+        <h1>Discos <span>Pedidos</span></h1>
+        <p class="requests-tagline">A tua música. A nossa rádio.</p>
+        <p class="requests-hero-lead">
+          Pede a tua música e ouve-a no nosso programa de domingo!
+        </p>
+        <p class="requests-hero-copy">
+          Na VelvetVerse Radio, a tua voz também toca. Envia o teu pedido
+          e faz parte da nossa emissão especial de domingo.
+        </p>
+      </div>
+    </section>
+
+    <div class="requests-page-content">
+      <div class="requests-content-grid">
+
+        <section class="requests-card requests-request-card"
+                 aria-labelledby="request-title">
+
+          <h2 class="requests-card-title" id="request-title">
+            <span class="requests-title-icon">♫</span>
+            Faz o teu <span class="requests-accent">pedido</span>
+          </h2>
+
+          <p class="requests-card-intro">
+            Preenche o formulário abaixo e pede <em>a tua música</em>
+            para o nosso programa de domingo.
+          </p>
+
+          <form id="request-form" class="requests-form-grid">
+
+            <div class="requests-field">
+              <label for="name">
+                Nome <span class="requests-required">*</span>
+              </label>
+              <input id="name" name="name" type="text"
+                     placeholder="O teu nome"
+                     autocomplete="name"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field">
+              <label for="city">
+                Cidade <span class="requests-required">*</span>
+              </label>
+              <input id="city" name="city" type="text"
+                     placeholder="A tua cidade"
+                     autocomplete="address-level2"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field">
+              <label for="country">
+                País <span class="requests-required">*</span>
+              </label>
+              <input id="country" name="country" type="text"
+                     placeholder="O teu país"
+                     autocomplete="country-name"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field requests-half">
+              <label for="artist">
+                Artista <span class="requests-required">*</span>
+              </label>
+              <input id="artist" name="artist" type="text"
+                     placeholder="Nome do artista"
+                     maxlength="150" required
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+
+            <div class="requests-field requests-half">
+              <label for="song">
+                Música <span class="requests-required">*</span>
+              </label>
+              <input id="song" name="song" type="text"
+                     placeholder="Nome da música"
+                     maxlength="150" required
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+
+            <div class="requests-field requests-full">
+              <label for="dedication">
+                Dedicatória
+                <span class="requests-optional">(Opcional)</span>
+              </label>
+              <textarea id="dedication" name="dedication"
+                        placeholder="Deixa aqui a tua dedicatória..."
+                        maxlength="500"></textarea>
+            </div>
+
+            <div id="form-message"
+                 class="requests-form-message"
+                 role="status"
+                 aria-live="polite">
+              <span class="requests-message-icon">!</span>
+              <span id="form-message-text"></span>
+            </div>
+
+            <button class="requests-submit" type="submit">
+              <span>➤</span> Enviar Pedido
+            </button>
+
+            <p class="requests-privacy-note">
+              🔒 O teu pedido será analisado pela nossa equipa.
+              Obrigado por ouvires a VelvetVerse Radio!
+            </p>
+
+          </form>
+        </section>
+
+        <aside class="requests-side-column">
+
+          <section class="requests-card" aria-labelledby="rules-title">
+
+            <h2 class="requests-card-title requests-small"
+                id="rules-title">
+              <span class="requests-title-icon">ⓘ</span>
+              Regras <span class="requests-accent">dos Pedidos</span>
+            </h2>
+
+            <div class="requests-rules">
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">1</span>
+                <p>
+                  Pedidos enviados de segunda a sábado entram
+                  para o próximo domingo.
+                </p>
+              </div>
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">2</span>
+                <p>
+                  Pedidos enviados ao domingo passam automaticamente
+                  para o domingo seguinte.
+                </p>
+              </div>
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">3</span>
+                <p>Músicas repetidas não serão aceites.</p>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="requests-card"
+                   aria-labelledby="requested-title">
+
+            <h2 class="requests-card-title requests-small"
+                id="requested-title">
+              <span class="requests-title-icon">♫</span>
+              Já pedidas para
+              <span class="requests-accent"
+                    id="target-sunday-label">este domingo</span>
+            </h2>
+
+            <p class="requests-requested-subtitle">
+              Estas músicas já foram pedidas pelos nossos ouvintes.
+            </p>
+
+            <div id="request-list" class="requests-request-list">
+              <div class="requests-empty-state">
+                A carregar a lista de músicas...
+              </div>
+            </div>
+
+          </section>
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+</div>
   <footer class="site-footer"> 
 
       <div class="footer-left">
@@ -2484,6 +3222,293 @@ commentsForm.addEventListener('submit', async function(event){
 
 loadApprovedComments();
   </script>
+  
+<script>
+(function () {
 
+  const requestsSupabaseUrl =
+    'https://bxndpplrxplszhaxules.supabase.co';
+
+  const requestsSupabaseKey =
+    'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+
+  const requestsForm =
+    document.getElementById('request-form');
+
+  const requestsSubmitButton =
+    requestsForm.querySelector('.requests-submit');
+
+  const requestsFormMessage =
+    document.getElementById('form-message');
+
+  const requestsFormMessageText =
+    document.getElementById('form-message-text');
+
+  const requestsList =
+    document.getElementById('request-list');
+
+
+  async function requestsCallSupabase(functionName, body = {}) {
+
+    const response = await fetch(
+      `${requestsSupabaseUrl}/rest/v1/rpc/${functionName}`,
+      {
+        method: 'POST',
+
+        headers: {
+          'apikey': requestsSupabaseKey,
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Supabase respondeu com o código ${response.status}`
+      );
+    }
+
+    return response.json();
+  }
+
+
+  function requestsShowMessage(message, success = false) {
+
+    requestsFormMessageText.textContent = message;
+
+    requestsFormMessage.classList.toggle(
+      'success',
+      success
+    );
+
+    requestsFormMessage
+      .querySelector('.requests-message-icon')
+      .textContent = success ? '✓' : '!';
+
+    requestsFormMessage.classList.add('show');
+
+    requestsFormMessage.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+  }
+
+
+  function requestsFormatSunday(dateText) {
+
+    const date =
+      new Date(`${dateText}T12:00:00`);
+
+    return date.toLocaleDateString(
+      'pt-PT',
+      {
+        day: 'numeric',
+        month: 'long',
+        timeZone: 'America/Toronto'
+      }
+    );
+  }
+
+
+  async function requestsLoadTargetSunday() {
+
+    try {
+
+      const targetSunday =
+        await requestsCallSupabase(
+          'next_request_sunday'
+        );
+
+      document
+        .getElementById('target-sunday-label')
+        .textContent =
+          requestsFormatSunday(targetSunday);
+
+    } catch (error) {
+
+      console.error(
+        'Não foi possível obter a data do próximo domingo.',
+        error
+      );
+    }
+  }
+
+
+  async function requestsLoadSongs() {
+
+    requestsList.innerHTML =
+      '<div class="requests-empty-state">A carregar a lista de músicas...</div>';
+
+    try {
+
+      const songs =
+        await requestsCallSupabase(
+          'get_requested_songs'
+        );
+
+      requestsList.replaceChildren();
+
+      if (!songs.length) {
+
+        requestsList.innerHTML =
+          '<div class="requests-empty-state">Ainda não existem músicas pedidas para este domingo.</div>';
+
+        return;
+      }
+
+
+      songs.forEach((item, index) => {
+
+        const row =
+          document.createElement('div');
+
+        row.className = 'request-item';
+
+
+        const number =
+          document.createElement('span');
+
+        number.className = 'request-number';
+        number.textContent = index + 1;
+
+
+        const artist =
+          document.createElement('span');
+
+        artist.className = 'request-artist';
+        artist.textContent = item.artist;
+
+
+        const separator =
+          document.createElement('span');
+
+        separator.className =
+          'request-separator';
+
+        separator.textContent = '—';
+
+
+        const song =
+          document.createElement('span');
+
+        song.className = 'request-song';
+        song.textContent = item.song;
+
+
+        row.append(
+          number,
+          artist,
+          separator,
+          song
+        );
+
+        requestsList.appendChild(row);
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        'Não foi possível carregar a lista.',
+        error
+      );
+
+      requestsList.innerHTML =
+        '<div class="requests-empty-state">Não foi possível carregar a lista. Tenta novamente dentro de momentos.</div>';
+    }
+  }
+
+
+  requestsForm.addEventListener(
+    'submit',
+    async function (event) {
+
+      event.preventDefault();
+
+      requestsFormMessage
+        .classList.remove('show');
+
+      requestsSubmitButton.disabled = true;
+
+      requestsSubmitButton.innerHTML =
+        '<span>◌</span> A enviar...';
+
+
+      const formData =
+        new FormData(requestsForm);
+
+
+      try {
+
+        const result =
+          await requestsCallSupabase(
+            'submit_song_request',
+            {
+              p_listener_name:
+                formData.get('name'),
+
+              p_city:
+                formData.get('city'),
+
+              p_country:
+                formData.get('country'),
+
+              p_artist:
+                formData.get('artist'),
+
+              p_song:
+                formData.get('song'),
+
+              p_dedication:
+                formData.get('dedication') || null
+            }
+          );
+
+
+        requestsShowMessage(
+          result.message,
+          result.success === true
+        );
+
+
+        if (result.success) {
+
+          requestsForm.reset();
+
+          await requestsLoadSongs();
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          'Não foi possível enviar o pedido.',
+          error
+        );
+
+        requestsShowMessage(
+          'Não foi possível enviar o pedido. Tenta novamente dentro de momentos.'
+        );
+
+
+      } finally {
+
+        requestsSubmitButton.disabled = false;
+
+        requestsSubmitButton.innerHTML =
+          '<span>➤</span> Enviar Pedido';
+      }
+    }
+  );
+
+
+  requestsLoadTargetSunday();
+  requestsLoadSongs();
+
+})();
+</script>
+  
 </body>
 </html>
