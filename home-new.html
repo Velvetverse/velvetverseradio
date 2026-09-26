@@ -1837,22 +1837,22 @@ e deep night soundscape.
         <h2>Leave a Comment</h2>
         <p>Comments are reviewed before being published on this page.</p>
 
-        <form class="contact-form" action="https://formsubmit.co/velvetverseradio+comments@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New Comment for VelvetVerse Radio">
-          <input type="hidden" name="_captcha" value="false">
+      <form class="contact-form" id="comments-form">
+          
 
           <input type="text" name="name" placeholder="Your Name" required>
           <input type="url" name="photo" placeholder="Profile Photo Link (optional)">
           <textarea name="comment" placeholder="Your Comment" required></textarea>
 
           <button type="submit">Send Comment</button>
+        <p id="comment-form-message" class="comment-note"></p>
         </form>
 
         <hr>
 
         <h2>Approved Comments</h2>
 
-        <div class="approved-comments">
+        <div class="approved-comments" id="approved-comments">
 
           <div class="comment-card">
             <img src="lurdes-ribeiro.png" alt="Lurdes Ribeiro">
@@ -2318,6 +2318,106 @@ function openLightbox(src){
 function closeLightbox(){
   document.getElementById("lightbox").style.display = "none";
 }
+ const COMMENTS_SUPABASE_URL = 'https://bxndpplrxplszhaxules.supabase.co';
+const COMMENTS_SUPABASE_KEY = 'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+
+const commentsForm = document.getElementById('comments-form');
+const commentFormMessage = document.getElementById('comment-form-message');
+
+commentsForm.addEventListener('submit', async function(event){
+  event.preventDefault();
+
+  const formData = new FormData(commentsForm);
+
+  const newComment = {
+    name: formData.get('name').trim(),
+    photo: formData.get('photo').trim() || null,
+    comment: formData.get('comment').trim()
+  };
+
+  commentFormMessage.textContent = 'Sending comment...';
+
+  try{
+    const response = await fetch(`${COMMENTS_SUPABASE_URL}/rest/v1/comments`, {
+      method: 'POST',
+      headers: {
+        'apikey': COMMENTS_SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(newComment)
+    });
+
+    if(!response.ok){
+      throw new Error(`Supabase responded with ${response.status}`);
+    }
+
+    commentsForm.reset();
+    commentFormMessage.textContent = 'Thank you! Your comment has been sent for approval.';
+  }catch(error){
+    console.error('Comment submission error:', error);
+    commentFormMessage.textContent = 'Sorry, your comment could not be sent. Please try again.';
+  }
+});
+  async function loadApprovedComments(){
+  const approvedComments = document.getElementById('approved-comments');
+
+  try{
+    const response = await fetch(
+      `${COMMENTS_SUPABASE_URL}/rest/v1/comments?select=name,photo,comment,created_at&approved=eq.true&order=created_at.asc`,
+      {
+        headers: {
+          'apikey': COMMENTS_SUPABASE_KEY
+        }
+      }
+    );
+
+    if(!response.ok){
+      throw new Error(`Supabase responded with ${response.status}`);
+    }
+
+    const comments = await response.json();
+
+    comments.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'comment-card';
+
+      const photo = document.createElement('img');
+      photo.src = item.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=0b0b0f&color=a855f7`;
+      photo.alt = item.name;
+
+      const content = document.createElement('div');
+      content.className = 'comment-content';
+
+      const name = document.createElement('strong');
+      name.textContent = item.name;
+
+      const date = document.createElement('div');
+      date.className = 'comment-date';
+      date.textContent = new Date(item.created_at).toLocaleDateString('en-US', {
+        month: 'long',
+        year: 'numeric'
+      });
+
+      const text = document.createElement('p');
+      text.textContent = item.comment;
+
+      content.appendChild(name);
+      content.appendChild(date);
+      content.appendChild(text);
+
+      card.appendChild(photo);
+      card.appendChild(content);
+
+      approvedComments.appendChild(card);
+    });
+
+  }catch(error){
+    console.error('Could not load approved comments:', error);
+  }
+}
+
+loadApprovedComments();
   </script>
 
 </body>
