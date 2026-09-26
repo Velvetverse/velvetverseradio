@@ -2101,37 +2101,7 @@ max-width: 5px;
           <a href="#">Ver programação completa →</a>
         </div>
 
-        <div class="schedule-item">
-          <div class="schedule-time">14:00 - 16:00</div>
-          <div>
-            <div class="schedule-name">Tarde Velvet</div>
-            <div class="schedule-desc">Os maiores sucessos para o teu dia!</div>
-          </div>
-        </div>
-
-        <div class="schedule-item">
-          <div class="schedule-time">16:00 - 18:00</div>
-          <div>
-            <div class="schedule-name">Flashback</div>
-            <div class="schedule-desc">Clássicos que marcaram gerações</div>
-          </div>
-        </div>
-
-        <div class="schedule-item">
-          <div class="schedule-time">18:00 - 20:00</div>
-          <div>
-            <div class="schedule-name">Velvet Hits</div>
-            <div class="schedule-desc">O melhor do momento</div>
-          </div>
-        </div>
-
-        <div class="schedule-item">
-          <div class="schedule-time">20:00 - 22:00</div>
-          <div>
-            <div class="schedule-name">Love Songs</div>
-            <div class="schedule-desc">Músicas que tocam o coração</div>
-          </div>
-        </div>
+       <div id="dynamicSchedule"></div>
 
       </div>
 
@@ -3508,6 +3478,124 @@ loadApprovedComments();
   requestsLoadSongs();
 
 })();
+</script>
+
+  <script>
+const velvetSchedule = [
+  {
+    start: 180,
+    end: 420,
+    time: "03:00 - 07:00",
+    name: "Midnight Flow 🌙",
+    desc: "Música para atravessar a madrugada."
+  },
+  {
+    start: 420,
+    end: 600,
+    time: "07:00 - 10:00",
+    name: "Ritmo Latino 🔥",
+    desc: "Adrian Vega (Noia) — Começa o teu dia com energia e ritmo latino!"
+  },
+  {
+    start: 600,
+    end: 780,
+    time: "10:00 - 13:00",
+    name: "Alma Portuguesa 🇵🇹",
+    desc: "Suzy Mendes — Música portuguesa com alma e emoção."
+  },
+  {
+    start: 780,
+    end: 960,
+    time: "13:00 - 16:00",
+    name: "Corações & Memórias ❤️",
+    desc: "Carlos — Canções que ficam no coração e na memória."
+  },
+  {
+    start: 960,
+    end: 1140,
+    time: "16:00 - 19:00",
+    name: "Coração Brasileiro 🇧🇷",
+    desc: "Lara Ingrid — O melhor da música brasileira."
+  },
+  {
+    start: 1140,
+    end: 1260,
+    time: "19:00 - 21:00",
+    name: "Rock Sem Limites ⚡",
+    desc: "Beto Sousa — Rock sem fronteiras e sem limites."
+  },
+  {
+    start: 1260,
+    end: 1380,
+    time: "21:00 - 23:00",
+    name: "VelvetVerse Experience 🎙️",
+    desc: "Rui Freitas — Duas horas dentro do universo VelvetVerse."
+  },
+  {
+    start: 1380,
+    end: 1620,
+    time: "23:00 - 03:00",
+    name: "Velvet After Dark 🌌",
+    desc: "A banda sonora perfeita para depois da meia-noite."
+  }
+];
+
+function updateDynamicSchedule() {
+  const torontoParts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(new Date());
+
+  const hour = Number(
+    torontoParts.find(part => part.type === "hour").value
+  );
+
+  const minute = Number(
+    torontoParts.find(part => part.type === "minute").value
+  );
+
+  let nowMinutes = (hour * 60) + minute;
+
+  if (nowMinutes < 180) {
+    nowMinutes += 1440;
+  }
+
+  let currentIndex = velvetSchedule.findIndex(program => {
+    return nowMinutes >= program.start && nowMinutes < program.end;
+  });
+
+  if (currentIndex === -1) {
+    currentIndex = 0;
+  }
+
+  const container = document.getElementById("dynamicSchedule");
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < 4; i++) {
+    const program =
+      velvetSchedule[(currentIndex + i) % velvetSchedule.length];
+
+    const item = document.createElement("div");
+    item.className = "schedule-item";
+
+    item.innerHTML = `
+      <div class="schedule-time">${program.time}</div>
+      <div>
+        <div class="schedule-name">${program.name}</div>
+        <div class="schedule-desc">${program.desc}</div>
+      </div>
+    `;
+
+    container.appendChild(item);
+  }
+}
+
+updateDynamicSchedule();
+
+setInterval(updateDynamicSchedule, 60000);
 </script>
   
 </body>
