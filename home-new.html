@@ -324,6 +324,60 @@ border-radius:0 0 16px 16px;
       border-color: transparent;
       box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
     }
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background: transparent;
+    color: white;
+    border: 1px solid #4b236e;
+    border-radius: 8px;
+    padding: 11px 18px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.25s ease;
+}
+
+.dropdown:hover .dropbtn {
+    background: linear-gradient(135deg, #bd3cff, #7d24ff);
+    border-color: transparent;
+    box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 210px;
+    background: #0d0913;
+    border: 1px solid #4b236e;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    overflow: hidden;
+    z-index: 5000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.dropdown-content a:hover {
+    background: #24102f;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
     .header-actions {
       display: flex;
@@ -1296,7 +1350,14 @@ max-width: 5px;
       <a href="#" onclick="showSection('about', this); return false;">About</a>
       <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
       <a href="#" onclick="showSection('comments', this); return false;">Comments</a>
-      <a href="#">Podcasts</a>
+      <div class="dropdown">
+  <button class="dropbtn">Podcasts</button>
+
+  <div class="dropdown-content">
+    <a href="backstage-legends.html">Backstage Legends</a>
+    <a href="inside-velvetverse.html">Inside VelvetVerse</a>
+  </div>
+</div>
       <a href="discos-pedidos.html">Discos Pedidos</a>
     </nav>
 
