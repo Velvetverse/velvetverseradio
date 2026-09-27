@@ -1,244 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VelvetVerse Radio | Live 24/7 Music</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VelvetVerse Radio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#0b0b0f">
+    html {
+      scroll-behavior: smooth;
+    }
 
-<style>
-*{box-sizing:border-box;}
-
-html,body{
-  margin:0;
-  width:100%;
-  min-height:100%;
-  overflow-x:hidden;
-  overflow-y:auto;
-  font-family:Arial,sans-serif;
-  background:#0b0b0f;
-  color:white;
-  padding-top:10px;
-}
-
-.topbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:136px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:10px 14px;
-  background:#0b0b0f;
-  border-bottom:2px solid #a855f7;
-  box-shadow:0 0 15px #a855f7;
-  z-index:2000;
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(125, 0, 255, 0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(255, 0, 140, 0.12), transparent 30%),
+        #07070d;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+    .section {
+  display: none;
 }
 
-.logo-wrap{display:flex;align-items:center;gap:10px;}
-.logo-img{width:60px;height:60px;border-radius:50%;}
-.logo-main{color:#a855f7;font-weight:bold;font-size:18px;}
-.logo-sub{font-size:11px;opacity:0.8;}
-
-.player{flex:1;}
-.player iframe{width:100%;height:115px;border:none;display:block;overflow:hidden;}
-
-.listen-btn{
-  position:relative;
-  padding:10px 18px;
-  border-radius:26px;
-  background:#0b0b0f;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  text-transform:uppercase;
-  overflow:hidden;
-  z-index:1;
+.section.active {
+  display: block;
 }
-.listen-btn::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius:30px;
-  background:linear-gradient(90deg,#a855f7,#ff0000,#a855f7);
-  background-size:300% 300%;
-  animation:neonBorder 2s linear infinite;
-  z-index:-2;
-}
-.listen-btn::after{
-  content:"";
-  position:absolute;
-  inset:3px;
-  border-radius:24px;
-  background:#0b0b0f;
-  z-index:-1;
-}
-@keyframes neonBorder{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
-
-.onair{
-  background:#7f1d1d;
-  padding:8px 12px;
-  border-radius:18px;
-  font-size:11px;
-  font-weight:bold;
-  animation:liveFlash 1s infinite;
-}
-@keyframes liveFlash{
-  0%,100%{background:#7f1d1d;box-shadow:0 0 8px red;}
-  50%{background:#ff0000;box-shadow:0 0 25px red,0 0 40px red;}
-}
-
-.history{width:360px;}
-.history iframe{width:100%;height:100px;border:none;display:block;}
-
-nav{
-  position:fixed;
-  top:134px;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  background:#111;
-  padding:10px 0;
-  z-index:1500;
-}
-nav button{
-  background:#0b0b0f;
-  color:white;
-  border:1px solid #a855f7;
-  padding:10px 18px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:600;
-  transition:0.25s;
-}
-nav button:hover{
-  background:#1a1a2e;
-  box-shadow:0 0 14px #a855f7;
-  transform:translateY(-2px);
-}
-nav button.active-btn{
-  background:#a855f7;
-  color:#000;
-  box-shadow:0 0 20px #a855f7;
-}
-  .dropdown{
-  position:relative;
-  display:inline-block;
-}
-
-.dropbtn{
-  background:#0b0b0f;
-  color:white;
-  border:1px solid #a855f7;
-  padding:10px 18px;
-  border-radius:10px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:600;
-  transition:0.25s;
-}
-
-.dropbtn:hover{
-  background:#1a1a2e;
-  box-shadow:0 0 14px #a855f7;
-  transform:translateY(-2px);
-}
-
-.dropdown-content{
-  display:none;
-  position:absolute;
-  background:#111;
-  min-width:220px;
-  border-radius:10px;
-  overflow:hidden;
-  z-index:999;
-  box-shadow:0 0 15px rgba(168,85,247,0.4);
-}
-
-.dropdown-content a{
-  color:white;
-  padding:12px 16px;
-  text-decoration:none;
-  display:block;
-  transition:0.2s;
-}
-
-.dropdown-content a:hover{
-  background:#a855f7;
-  color:#000;
-}
-
-.dropdown:hover .dropdown-content{
-  display:block;
-}
-
-.main{
-  margin-top:180px;
-  width:100%;
-  min-height:calc(100vh - 180px);
-}
-
-.section{display:none;}
-.section.active{display:block;}
-
-.hero{
-  height:calc(100vh - 180px);
-  background:url("studio-group.png") center/cover no-repeat;
-  position:relative;
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.38);
-}
-.cards{
-  position:absolute;
-  bottom:19%;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  flex-wrap:wrap;
-  padding:0 20px;
-}
-.card{
-  background:rgba(0,0,0,0.25);
-  padding:10px;
-  border:1px solid #a855f7;
-  border-radius:12px;
-}
-.hero-text{
-  position:absolute;
-  bottom:10%;
-  width:100%;
-  text-align:center;
-  padding:0 20px;
-}
-.hero-text h1{font-size:34px;margin:0;}
-.hero-text p{margin:5px 0 0;}
-.vibe{
-  position:absolute;
-  bottom:3%;
-  width:100%;
-  text-align:center;
-  padding:0 20px;
-}
-
 .panel{
   padding:40px 20px;
   background:#0b0b0f;
 }
+
 .panel-box{
   max-width:1000px;
   margin:auto;
@@ -248,15 +45,1344 @@ nav button.active-btn{
   box-shadow:0 0 15px rgba(168,85,247,0.35);
   line-height:1.7;
 }
-.panel-box h1,.panel-box h2{color:#a855f7;}
-.panel-box hr{
-  border:none;
-  border-top:1px solid rgba(168,85,247,0.5);
-  margin:35px 0;
-}
-.panel-box a{color:#a855f7;}
 
-.contact-form input,
+.panel-box h1,
+.panel-box h2{
+  color:#a855f7;
+}
+
+.vv-schedule{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.vv-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #a855f7;
+  background:linear-gradient(145deg,#0b0b0f,#1a0f2a);
+  box-shadow:0 0 25px rgba(168,85,247,0.5);
+}
+
+.vv-card img{
+  width:200px;
+  height:200px;
+  object-fit:contain;
+  background:#050509;
+  border-radius:12px;
+  border:2px solid #a855f7;
+}
+
+.vv-time{
+  font-size:20px;
+  font-weight:bold;
+  color:#a855f7;
+  text-align:center;
+  min-width:80px;
+}
+
+.vv-info h2{
+  margin:0;
+  color:#fff;
+}
+
+.vv-info p{
+  margin:4px 0;
+  color:#c084fc;
+  font-weight:bold;
+}
+
+.vv-info span{
+  font-size:14px;
+  opacity:0.8;
+}
+.schedule-live-badge{
+  position:absolute;
+  top:10px;
+  right:15px;
+  background:red;
+  color:white;
+  font-weight:bold;
+  padding:5px 10px;
+  border-radius:10px;
+  font-size:12px;
+  box-shadow:0 0 10px red;
+}
+    .mini-player{
+  display:none;
+  height:74px;
+  margin-top:92px;
+  padding:7px 20px;
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+border-left:1px solid rgba(183,51,255,0.45);
+border-right:1px solid rgba(183,51,255,0.45);
+border-radius:0 0 16px 16px;
+  align-items:center;
+  gap:16px;
+  background:rgba(7,6,15,0.97);
+  border-bottom:1px solid rgba(183,51,255,0.55);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  position:sticky;
+  top:92px;
+  z-index:9998;
+  overflow:hidden;
+}
+
+.mini-player.show{
+  display:flex;
+}
+
+.mini-artwork{
+  width:56px;
+  height:56px;
+  min-width:56px;
+  object-fit:cover;
+  border-radius:50%;
+  border:2px solid #c43cff;
+  box-shadow:0 0 12px rgba(196,60,255,0.55);
+}
+
+.mini-meta{
+  width:320px;
+  min-width:0;
+  overflow:hidden;
+}
+
+.mini-song{
+  font-size:16px;
+  font-weight:800;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-artist{
+  margin-top:4px;
+  font-size:13px;
+  font-weight:700;
+  color:#c46cff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-play{
+  width:48px;
+  height:48px;
+  min-width:48px;
+  border-radius:50%;
+  border:2px solid #b83cff;
+  background:#171020;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(184,60,255,0.55);
+}
+.mini-wave{
+  width:200px;
+  height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:3px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.mini-wave span{
+  width:4px;
+  height:8px;
+  border-radius:4px;
+  background:linear-gradient(180deg,#ff2bd6,#8b3cff);
+  opacity:0.45;
+}
+
+.mini-wave.playing span{
+  animation:miniWaveMove 0.9s ease-in-out infinite;
+  opacity:1;
+}
+
+.mini-wave span:nth-child(2){animation-delay:0.05s;}
+.mini-wave span:nth-child(3){animation-delay:0.10s;}
+.mini-wave span:nth-child(4){animation-delay:0.15s;}
+.mini-wave span:nth-child(5){animation-delay:0.20s;}
+.mini-wave span:nth-child(6){animation-delay:0.25s;}
+.mini-wave span:nth-child(7){animation-delay:0.30s;}
+.mini-wave span:nth-child(8){animation-delay:0.35s;}
+.mini-wave span:nth-child(9){animation-delay:0.40s;}
+.mini-wave span:nth-child(10){animation-delay:0.45s;}
+.mini-wave span:nth-child(11){animation-delay:0.50s;}
+.mini-wave span:nth-child(12){animation-delay:0.55s;}
+.mini-wave span:nth-child(13){animation-delay:0.60s;}
+.mini-wave span:nth-child(14){animation-delay:0.65s;}
+.mini-wave span:nth-child(15){animation-delay:0.70s;}
+.mini-wave span:nth-child(16){animation-delay:0.75s;}
+.mini-wave span:nth-child(17){animation-delay:0.80s;}
+.mini-wave span:nth-child(18){animation-delay:0.85s;}
+
+@keyframes miniWaveMove{
+  0%,100%{height:8px;}
+  50%{height:30px;}
+}
+.mini-volume-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:auto;
+  min-width:180px;
+}
+
+.mini-volume{
+  width:130px;
+}
+
+.mini-live{
+  flex-shrink:0;
+  color:#fff;
+  background:#c9003f;
+  border:1px solid #ff1760;
+  border-radius:18px;
+  padding:7px 14px;
+  font-size:12px;
+  font-weight:800;
+  box-shadow:0 0 12px rgba(255,0,80,0.55);
+}
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 92px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 34px;
+      background: rgba(6, 6, 12, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(183, 51, 255, 0.35);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff008c;
+      box-shadow: 0 0 20px rgba(255, 0, 140, 0.45);
+    }
+
+    .brand-text h1 {
+      font-size: 24px;
+      color: #d95cff;
+      line-height: 1;
+    }
+
+    .brand-text p {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #e6e6ee;
+      letter-spacing: 1.4px;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border: 1px solid rgba(179, 76, 255, 0.45);
+      border-radius: 8px;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      background: linear-gradient(135deg, #bd3cff, #7d24ff);
+      border-color: transparent;
+      box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
+    }
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background: transparent;
+    color: white;
+    border: 1px solid #4b236e;
+    border-radius: 8px;
+    padding: 11px 18px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.25s ease;
+}
+
+.dropdown:hover .dropbtn {
+    background: linear-gradient(135deg, #bd3cff, #7d24ff);
+    border-color: transparent;
+    box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 210px;
+    background: #0d0913;
+    border: 1px solid #4b236e;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    overflow: hidden;
+    z-index: 5000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.dropdown-content a:hover {
+    background: #24102f;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+    .header-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: white;
+      font-weight: 800;
+      border-radius: 28px;
+      padding: 14px 22px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .listen-btn {
+      border: 2px solid #ff006e;
+      background: rgba(255, 0, 110, 0.06);
+    }
+
+    .discover-btn {
+      background: linear-gradient(135deg, #ff008c, #7928ff);
+      box-shadow: 0 0 24px rgba(183, 40, 255, 0.35);
+    }
+
+    .page-content {
+      padding-top: 118px;
+      padding-left: 36px;
+      padding-right: 36px;
+      padding-bottom: 0;
+      max-width: 1900px;
+      margin: 0 auto;
+    }
+
+    .tagline {
+      color: #cfc7ff;
+      font-size: 13px;
+      letter-spacing: 8px;
+      margin-bottom: 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(20, 17, 34, 0.92),
+          rgba(9, 9, 18, 0.95)
+        );
+      border: 1px solid rgba(167, 52, 255, 0.62);
+      border-radius: 14px;
+      box-shadow: 0 0 24px rgba(104, 0, 180, 0.12);
+    }
+
+    .live-panel {
+      min-height: 420px;
+      padding: 24px;
+    }
+
+    .live-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .live-badge {
+      background: linear-gradient(135deg, #ff003c, #ff005d);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 900;
+      box-shadow: 0 0 22px rgba(255, 0, 74, 0.4);
+      animation: liveBlink 1.2s ease-in-out infinite;
+    }
+@keyframes liveBlink {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 22px rgba(255, 0, 74, 0.65);
+  }
+
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 8px rgba(255, 0, 74, 0.25);
+  }
+}
+    .live-title span:last-child {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .player-area {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .cover-placeholder {
+      width: 230px;
+      height: 230px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(120, 0, 255, 0.35)),
+        #111726;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .now-playing-label {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 2px solid #cf38ff;
+      border-radius: 20px;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .song-title {
+      font-size: 38px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .artist-name {
+      font-size: 22px;
+      color: #bdb7e8;
+      margin-bottom: 26px;
+    }
+
+    .live-wave {
+  width: 100%;
+justify-content: space-between;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 8px 0 16px;
+  overflow: hidden;
+}
+
+.live-wave span {
+  display: block;
+  flex: 1;
+max-width: 5px;
+  height: 8px;
+  border-radius: 5px;
+  background: linear-gradient(180deg, #ff2bd6, #8f35ff);
+  box-shadow: 0 0 8px rgba(210, 45, 255, 0.55);
+  transform-origin: center;
+}
+
+.live-wave.playing span {
+  animation: liveWaveMove 0.8s ease-in-out infinite alternate;
+}
+
+.live-wave.playing span:nth-child(2)  { animation-delay: 0.08s; }
+.live-wave.playing span:nth-child(3)  { animation-delay: 0.16s; }
+.live-wave.playing span:nth-child(4)  { animation-delay: 0.24s; }
+.live-wave.playing span:nth-child(5)  { animation-delay: 0.32s; }
+.live-wave.playing span:nth-child(6)  { animation-delay: 0.40s; }
+.live-wave.playing span:nth-child(7)  { animation-delay: 0.48s; }
+.live-wave.playing span:nth-child(8)  { animation-delay: 0.56s; }
+.live-wave.playing span:nth-child(9)  { animation-delay: 0.64s; }
+.live-wave.playing span:nth-child(10) { animation-delay: 0.72s; }
+.live-wave.playing span:nth-child(11) { animation-delay: 0.80s; }
+.live-wave.playing span:nth-child(12) { animation-delay: 0.88s; }
+.live-wave.playing span:nth-child(13) { animation-delay: 0.96s; }
+.live-wave.playing span:nth-child(14) { animation-delay: 1.04s; }
+.live-wave.playing span:nth-child(15) { animation-delay: 1.12s; }
+.live-wave.playing span:nth-child(16) { animation-delay: 1.20s; }
+.live-wave.playing span:nth-child(17) { animation-delay: 1.28s; }
+.live-wave.playing span:nth-child(18) { animation-delay: 1.36s; }
+.live-wave.playing span:nth-child(19) { animation-delay: 1.44s; }
+.live-wave.playing span:nth-child(20) { animation-delay: 1.52s; }
+.live-wave.playing span:nth-child(21) { animation-delay: 1.60s; }
+.live-wave.playing span:nth-child(22) { animation-delay: 1.68s; }
+.live-wave.playing span:nth-child(23) { animation-delay: 1.76s; }
+.live-wave.playing span:nth-child(24) { animation-delay: 1.84s; }
+.live-wave.playing span:nth-child(25) { animation-delay: 1.92s; }
+.live-wave.playing span:nth-child(26) { animation-delay: 2.00s; }
+.live-wave.playing span:nth-child(27) { animation-delay: 2.08s; }
+.live-wave.playing span:nth-child(28) { animation-delay: 2.16s; }
+.live-wave.playing span:nth-child(29) { animation-delay: 2.24s; }
+.live-wave.playing span:nth-child(30) { animation-delay: 2.32s; }
+.live-wave.playing span:nth-child(31) { animation-delay: 2.40s; }
+.live-wave.playing span:nth-child(32) { animation-delay: 2.48s; }
+.live-wave.playing span:nth-child(33) { animation-delay: 2.56s; }
+.live-wave.playing span:nth-child(34) { animation-delay: 2.64s; }
+.live-wave.playing span:nth-child(35) { animation-delay: 2.72s; }
+.live-wave.playing span:nth-child(36) { animation-delay: 2.80s; }
+.live-wave.playing span:nth-child(37) { animation-delay: 2.88s; }
+.live-wave.playing span:nth-child(38) { animation-delay: 2.96s; }
+.live-wave.playing span:nth-child(39) { animation-delay: 3.04s; }
+.live-wave.playing span:nth-child(40) { animation-delay: 3.12s; }
+.live-wave.playing span:nth-child(41) { animation-delay: 3.20s; }
+.live-wave.playing span:nth-child(42) { animation-delay: 3.28s; }
+.live-wave.playing span:nth-child(43) { animation-delay: 3.36s; }
+.live-wave.playing span:nth-child(44) { animation-delay: 3.44s; }
+.live-wave.playing span:nth-child(45) { animation-delay: 3.52s; }
+.live-wave.playing span:nth-child(46) { animation-delay: 3.60s; }
+.live-wave.playing span:nth-child(47) { animation-delay: 3.68s; }
+.live-wave.playing span:nth-child(48) { animation-delay: 3.76s; }
+@keyframes liveWaveMove {
+  from {
+    height: 7px;
+    opacity: 0.65;
+  }
+
+  to {
+    height: 32px;
+    opacity: 1;
+  }
+}
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: #cbc8df;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      font-size: 25px;
+    }
+
+    .play-main {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #ff008c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(255,0,140,.18), rgba(91,0,255,.2));
+      box-shadow: 0 0 20px rgba(255, 0, 140, 0.35);
+      font-size: 26px;
+    }
+
+    .recent-panel {
+      padding: 20px;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .panel-heading h2 {
+      font-size: 24px;
+    }
+
+    .panel-heading a {
+      color: #dc62ff;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .track {
+      display: grid;
+      grid-template-columns: 38px 48px 1fr 1fr 60px;
+      gap: 10px;
+      align-items: center;
+      min-height: 52px;
+      padding: 7px 10px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+    }
+
+    .track:first-child {
+      background: linear-gradient(90deg, rgba(124, 38, 171, 0.45), rgba(80, 24, 104, 0.28));
+    }
+
+    .track-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.06);
+    }
+
+    .track-cover {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #194d70, #702d85);
+    }
+
+    .track-song {
+      font-weight: 800;
+    }
+
+    .track-artist,
+    .track-time {
+      color: #c4c0df;
+      font-size: 13px;
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+   .info-panel {
+    min-height: 320px;
+    padding: 20px;
+}
+
+.promo-slider-panel {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    min-height: 320px;
+    height: 100%;
+}
+
+.promo-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    overflow: hidden;
+}
+
+.promo-slide {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.promo-slide.active {
+    opacity: 1;
+}
+
+.promo-mini-banner {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    z-index: 5;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(216, 70, 255, 0.65);
+    border-radius: 8px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(18, 9, 35, 0.96),
+        rgba(92, 20, 128, 0.96),
+        rgba(18, 9, 35, 0.96)
+    );
+
+    box-shadow: 0 0 12px rgba(190, 40, 255, 0.25);
+
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.promo-mini-banner-top {
+    top: 9px;
+}
+
+.promo-mini-banner-bottom {
+    bottom: 9px;
+}
+    .blink-star {
+    display: inline-block;
+    animation: blinkStar 2.4s infinite ease-in-out;
+}
+
+.blink-star:last-child {
+    animation-delay: 1.2s;
+}
+
+@keyframes blinkStar {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .schedule-item:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-time {
+      color: #d8d3ff;
+      font-weight: 700;
+    }
+
+    .schedule-name {
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .schedule-desc {
+      color: #a9a5c4;
+      font-size: 13px;
+    }
+
+    .request-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .request-form input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 7px;
+      border: 1px solid rgba(162, 105, 255, .3);
+      background: #141421;
+      color: white;
+      outline: none;
+    }
+
+    .request-button {
+      grid-column: 1 / -1;
+      padding: 14px;
+      margin-top: 4px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #ff008c, #7a20ff);
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .podcast-card {
+      display: grid;
+      grid-template-columns: 72px 1fr 44px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .podcast-card:last-child {
+      border-bottom: none;
+    }
+
+    .podcast-cover {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff0066, #3d045c);
+    }
+.backstage-cover {
+    background-image: url("backstage-legends-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+    .inside-cover {
+    background-image: url("inside-velvetverse-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+    .brasil-cover {
+    background-image: url("brasil-de-norte-a-sul-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+    .podcast-title {
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .podcast-desc {
+      color: #aaa5c0;
+      font-size: 13px;
+    }
+.coming-soon {
+    display: block;
+    margin-top: 4px;
+    color: #ff4fd8;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+    .round-play {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+    border: none;
+
+    background-image: url("backstage-button.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0;
+    text-decoration: none;
+    cursor: pointer;
+
+    position: relative;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.round-play::after {
+    content: "→";
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 1px 4px #000000;
+}
+
+.round-play:hover {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+}
+    .future-block {
+  margin-top: 18px;
+  width: 100%;
+  aspect-ratio: 6 / 1;
+  padding: 0;
+  overflow: hidden;
+  border-style: solid;
+      position: relative;
+}
+.future-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 4s ease-in-out;
+}
+
+.future-slide.active {
+  opacity: 1;
+}
+    .site-footer {
+      width: 100%;
+      min-height: 64px;
+      margin-top: 0;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      align-items: center;
+      gap: 20px;
+      background: #08080f;
+      border-top: 1px solid #7b25b6;
+      color: #ffffff;
+      font-size: 12px;
+    }
+
+    .footer-left {
+      text-align: left;
+    }
+
+    .footer-left a {
+      color: #a64cff;
+      text-decoration: none;
+    }
+
+    .footer-center {
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .footer-center a {
+      color: #a64cff;
+      text-decoration: none;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+    }
+
+  .social-icon {
+  width: 23px;
+  height: 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #b851f5;
+  text-decoration: none;
+}
+
+.social-icon svg {
+  width: 23px;
+  height: 23px;
+  fill: currentColor;
+}
+
+.social-icon:hover {
+  color: #ec72ff;
+}
+    /* =========================
+   LIVE NOW - CONCEITO 2
+========================= */
+
+.live-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  padding: 24px;
+  isolation: isolate;
+}
+
+.live-panel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 7, 14, 0.96) 0%,
+      rgba(10, 8, 20, 0.82) 45%,
+      rgba(12, 7, 24, 0.56) 100%
+    ),
+  url("radio-studio.jpg?v=2");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.live-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at 75% 35%,
+      rgba(179, 0, 255, 0.20),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.10),
+      rgba(0, 0, 0, 0.34)
+    );
+}
+
+.live-title,
+.player-area {
+  position: relative;
+  z-index: 2;
+}
+
+.live-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.live-slogan {
+  margin-left: auto;
+  color: #d7d0ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  white-space: nowrap;
+}
+
+.live-cover-wrap {
+  width: 230px;
+  height: 230px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.50),
+    0 0 26px rgba(134, 35, 255, 0.16);
+}
+
+.live-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.live-player-info {
+  min-width: 0;
+}
+
+.control-btn {
+  border: none;
+  background: transparent;
+  color: white;
+
+  width: 38px;
+  height: 38px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+  cursor: pointer;
+
+  opacity: 0.92;
+}
+
+.control-btn:hover {
+  color: #ef52ff;
+}
+
+.play-main {
+  border: 2px solid #ff008c;
+  color: white;
+  cursor: pointer;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 0, 140, 0.24),
+      rgba(91, 0, 255, 0.24)
+    );
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 140, 0.35),
+    inset 0 0 12px rgba(255,255,255,0.05);
+
+  font-size: 25px;
+}
+
+.volume-row {
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  color: white;
+}
+
+.volume-bar {
+  width: 180px;
+  height: 7px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+  background: rgba(255,255,255,0.14);
+}
+
+.volume-bar > div {
+  width: 66%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dd2cff,
+      #8b35ff
+    );
+}
+
+@media (max-width: 900px) {
+
+  .live-slogan {
+    display: none;
+  }
+
+  .live-cover-wrap {
+    width: 200px;
+    height: 200px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .live-cover-wrap {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .volume-row {
+    justify-content: center;
+  }
+
+}
+
+    @media (max-width: 1450px) {
+      .main-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-actions .discover-btn {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-left,
+      .footer-center {
+        text-align: center;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .top-header {
+        padding: 0 14px;
+        height: 78px;
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      .brand-text h1 {
+        font-size: 18px;
+      }
+
+      .brand-text p {
+        font-size: 10px;
+      }
+
+      .page-content {
+        padding-top: 100px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .player-area {
+        grid-template-columns: 1fr;
+      }
+
+      .cover-placeholder {
+        width: 100%;
+        max-width: 280px;
+        height: 280px;
+        margin: 0 auto;
+      }
+
+      .request-form {
+        grid-template-columns: 1fr;
+      }
+
+      .track {
+        grid-template-columns: 34px 44px 1fr 55px;
+      }
+
+      .track-artist {
+        display: none;
+      }
+    }
+    /* 📸 GALLERY GRID */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-top:20px;
+}
+
+.gallery-grid img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:12px;
+  cursor:pointer;
+  border:2px solid #a855f7;
+  transition:0.3s;
+  box-shadow:0 0 10px rgba(168,85,247,0.4);
+}
+
+.gallery-grid img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px #a855f7;
+}
+
+/* 🔥 LIGHTBOX */
+#lightbox{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+#lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:12px;
+  box-shadow:0 0 30px black;
+}
+
+.lightbox-close{
+  position:absolute;
+  top:20px;
+  right:30px;
+  font-size:40px;
+  color:white;
+  cursor:pointer;
+}
+  .contact-form input,
 .contact-form textarea{
   width:100%;
   padding:12px;
@@ -288,8 +1414,10 @@ nav button.active-btn{
 .contact-form button:hover{
   background:#c084fc;
 }
-
-/* APPROVED COMMENTS */
+#comments-form + hr{
+  margin-top:22px;
+}
+  /* APPROVED COMMENTS */
 .approved-comments{
   display:grid;
   gap:18px;
@@ -352,323 +1480,873 @@ nav button.active-btn{
   font-size:14px;
   opacity:0.75;
 }
+    /* =========================================================
+   DISCOS PEDIDOS - HOME NEW
+   ========================================================= */
 
-.footer{
+#requests{
   width:100%;
-  min-height:58px;
-  background:#0b0b0f;
-  border-top:1px solid #a855f7;
-  box-shadow:0 0 12px rgba(168,85,247,0.35);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  font-size:12px;
-  padding:12px 22px;
-}
-.footer-left{min-width:220px;}
-.footer-left a,.footer-center a{color:#a855f7;text-decoration:none;}
-.footer-center{text-align:center;flex:1;}
-.footer-right{
-  min-width:220px;
-  display:flex;
-  justify-content:flex-end;
-  gap:14px;
-}
-.social-icon svg{width:24px;height:24px;fill:#a855f7;}
-
-@media(max-width:900px){
-  .topbar{
-    position:relative;
-    height:auto;
-    flex-direction:column;
-    align-items:center;
-  }
-  .player,.history{width:100%;}
-  nav{position:relative;top:0;}
-  .main{margin-top:0;}
-  .hero{min-height:100vh;height:auto;}
-  .comment-card{flex-direction:column;text-align:center;align-items:center;}
-  .footer{flex-direction:column;text-align:center;}
-  .footer-left,.footer-right{min-width:0;justify-content:center;}
-}
-  .vv-schedule{
-  display:flex;
-  flex-direction:column;
-  gap:20px;
 }
 
-.vv-card{
+#requests .requests-page{
+  width:100%;
+  color:#f7f4fb;
+}
+
+/* HERO */
+
+#requests .requests-hero{
   position:relative;
+  min-height:280px;
   display:flex;
   align-items:center;
-  gap:30px;
-  padding:30px;
-  border-radius:20px;
-  border:1px solid #a855f7;
-  background:linear-gradient(145deg,#0b0b0f,#1a0f2a);
-  box-shadow:0 0 25px rgba(168,85,247,0.5);
+  overflow:hidden;
+  isolation:isolate;
+  background-image:url('discos-pedidos-mockup.png');
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:center 19%;
+  border-bottom:1px solid rgba(168,61,255,.25);
 }
 
-.vv-card img{
-  width:200px;
-  height:200px;
-  object-fit:contain;
-  background:#050509;
-  border-radius:12px;
-  border:2px solid #a855f7;
-
+#requests .requests-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(
+    90deg,
+    #050509 0%,
+    #050509 47%,
+    rgba(5,5,9,.94) 53%,
+    rgba(5,5,9,.28) 72%,
+    rgba(5,5,9,.08) 100%
+  );
 }
 
-.vv-time{
-  font-size:20px;
-  font-weight:bold;
-  color:#a855f7;
-  text-align:center;
-  min-width:80px;
+#requests .requests-hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:90px;
+  z-index:-1;
+  background:linear-gradient(transparent,#07070b);
 }
 
-.vv-info h2{
+#requests .requests-hero-content{
+  width:min(1400px,100%);
+  margin:0 auto;
+  padding:34px 6.8% 42px;
+}
+
+#requests .requests-hero h1{
   margin:0;
-  color:#fff;
+  font-size:clamp(48px,5.2vw,78px);
+  line-height:.98;
+  letter-spacing:-2.5px;
+  text-shadow:0 5px 25px #000;
 }
 
-.vv-info p{
-  margin:4px 0;
-  color:#c084fc;
-  font-weight:bold;
+#requests .requests-hero h1 span{
+  color:#e600bd;
+  background:linear-gradient(135deg,#f000b1,#9d2dff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
 }
 
-.vv-info span{
-  font-size:14px;
-  opacity:0.8;
+#requests .requests-tagline{
+  margin:12px 0 21px;
+  color:#e8e0ef;
+  font-size:clamp(14px,1.45vw,22px);
+  letter-spacing:8px;
+  text-transform:uppercase;
 }
 
-  .live-badge{
-  position:absolute;
-  top:10px;
-  right:15px;
-  background:red;
-  color:white;
-  font-weight:bold;
-  padding:5px 10px;
-  border-radius:10px;
-  font-size:12px;
-  box-shadow:0 0 10px red;
+#requests .requests-hero-lead{
+  margin:0 0 6px;
+  font-size:clamp(18px,1.5vw,24px);
+  font-weight:800;
 }
-  /* 📸 GALLERY GRID */
-.gallery-grid{
+
+#requests .requests-hero-copy{
+  max-width:650px;
+  margin:0;
+  color:#e2dce7;
+  font-size:clamp(15px,1.25vw,19px);
+  line-height:1.45;
+}
+
+
+/* CONTEÚDO */
+
+#requests .requests-page-content{
+  width:min(1400px,calc(100% - 64px));
+  margin:0 auto;
+  padding:18px 0 30px;
+}
+
+#requests .requests-content-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-  margin-top:20px;
+  grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
+  gap:16px;
+  align-items:start;
 }
 
-.gallery-grid img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  border-radius:12px;
-  cursor:pointer;
-  border:2px solid #a855f7;
-  transition:0.3s;
-  box-shadow:0 0 10px rgba(168,85,247,0.4);
+#requests .requests-side-column{
+  display:grid;
+  gap:16px;
 }
 
-.gallery-grid img:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 25px #a855f7;
+
+/* CARDS */
+
+#requests .requests-card{
+  position:relative;
+  overflow:hidden;
+  padding:27px 30px;
+  border:1px solid rgba(152,48,238,.86);
+  border-radius:11px;
+  background:linear-gradient(
+    145deg,
+    rgba(14,15,21,.98),
+    rgba(8,9,13,.98)
+  );
+  box-shadow:
+    0 11px 35px rgba(0,0,0,.34),
+    inset 0 1px rgba(255,255,255,.025);
 }
 
-/* 🔥 LIGHTBOX */
-#lightbox{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.9);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
-
-#lightbox img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:12px;
-  box-shadow:0 0 30px black;
-}
-
-.lightbox-close{
+#requests .requests-card::before{
+  content:"";
   position:absolute;
-  top:20px;
-  right:30px;
-  font-size:40px;
-  color:white;
+  width:190px;
+  height:190px;
+  right:-110px;
+  top:-120px;
+  border-radius:50%;
+  background:rgba(162,38,255,.09);
+  filter:blur(8px);
+}
+
+#requests .requests-card-title{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:0 0 7px;
+  font-size:clamp(24px,2.1vw,34px);
+  line-height:1.1;
+}
+
+#requests .requests-card-title.requests-small{
+  font-size:clamp(22px,1.75vw,29px);
+}
+
+#requests .requests-accent{
+  color:#bd43ff;
+}
+
+#requests .requests-title-icon{
+  color:#b840ff;
+  font-size:35px;
+  line-height:1;
+  filter:drop-shadow(0 0 10px rgba(183,57,255,.5));
+}
+
+#requests .requests-card-intro{
+  margin:0 0 20px;
+  color:#d6cfdd;
+  font-size:16px;
+  line-height:1.45;
+}
+
+#requests .requests-card-intro em{
+  color:#f2ebf7;
+}
+
+
+/* FORMULÁRIO */
+
+#requests .requests-form-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:17px 18px;
+}
+
+#requests .requests-field{
+  grid-column:span 2;
+}
+
+#requests .requests-field.requests-half{
+  grid-column:span 3;
+}
+
+#requests .requests-field.requests-full{
+  grid-column:1/-1;
+}
+
+#requests label{
+  display:block;
+  margin:0 0 8px;
+  font-size:15px;
+  font-weight:800;
+}
+
+#requests .requests-required{
+  color:#ff3158;
+  margin-left:3px;
+}
+
+#requests .requests-optional{
+  font-weight:400;
+  color:#d6ccdf;
+  margin-left:7px;
+}
+
+#requests input,
+#requests textarea{
+  width:100%;
+  color:#fff;
+  background:linear-gradient(145deg,#161820,#111219);
+  border:1px solid #4b4f5d;
+  border-radius:7px;
+  outline:none;
+  transition:.2s ease;
+  box-sizing:border-box;
+}
+
+#requests input{
+  height:48px;
+  padding:0 15px;
+}
+
+#requests textarea{
+  min-height:86px;
+  padding:14px 15px;
+  resize:vertical;
+}
+
+#requests input::placeholder,
+#requests textarea::placeholder{
+  color:#9b97a4;
+}
+
+#requests input:focus,
+#requests textarea:focus{
+  border-color:#bd43ff;
+  box-shadow:
+    0 0 0 3px rgba(173,59,255,.14),
+    0 0 18px rgba(173,59,255,.13);
+}
+
+
+/* MENSAGENS */
+
+#requests .requests-form-message{
+  display:none;
+  align-items:center;
+  gap:14px;
+  grid-column:1/-1;
+  min-height:47px;
+  padding:10px 15px;
+  border:1px solid #ff395d;
+  border-radius:7px;
+  color:#ff9aac;
+  background:linear-gradient(
+    90deg,
+    rgba(139,7,33,.45),
+    rgba(70,5,24,.28)
+  );
+}
+
+#requests .requests-form-message.show{
+  display:flex;
+}
+
+#requests .requests-form-message.success{
+  border-color:#21d68b;
+  color:#b9f8dc;
+  background:linear-gradient(
+    90deg,
+    rgba(8,106,70,.45),
+    rgba(5,59,43,.28)
+  );
+}
+
+#requests .requests-message-icon{
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 29px;
+  height:29px;
+  border-radius:50%;
+  color:#180009;
+  background:#ff3158;
+  font-weight:900;
+}
+
+#requests .requests-form-message.success .requests-message-icon{
+  color:#00170e;
+  background:#21d68b;
+}
+
+
+/* BOTÃO */
+
+#requests .requests-submit{
+  grid-column:1/-1;
+  min-height:53px;
+  border:0;
+  border-radius:8px;
+  color:#fff;
   cursor:pointer;
-}
-  /* NAVBAR CENTRADA */
-
-.navbar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 130px; /* ajusta este número até ficar onde estava antes */
-
-  z-index: 9999;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* MENU CENTRO */
-.nav-menu {
-  display: flex;
-  gap: 10px;
+  font-size:18px;
+  font-weight:900;
+  background:linear-gradient(100deg,#ef009d,#7122ff);
+  box-shadow:0 0 22px rgba(181,21,255,.3);
+  transition:.2s ease;
 }
 
-/* BOTÃO DA BANDA (DIREITA) */
-.menu-band-btn {
-  position: absolute;
-  right: 10px;
-
-  padding: 10px 26px;
-  border-radius: 999px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-
-  background: linear-gradient(90deg, #ff007a, #7b2cff, #ff007a);
-  background-size: 200%;
-
-  box-shadow: 0 0 12px rgba(255,0,120,0.4);
-
-  animation: glowMove 3.5s linear infinite;
-  transition: 0.3s;
+#requests .requests-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 30px rgba(205,26,255,.52);
 }
 
-/* HOVER */
-.menu-band-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(255,0,120,0.8);
+#requests .requests-submit:disabled{
+  cursor:wait;
+  opacity:.68;
+  transform:none;
+  box-shadow:none;
 }
 
-/* ANIMAÇÃO */
-@keyframes glowMove {
-  0% { background-position: 0% }
-  100% { background-position: 200% }
+#requests .requests-submit span{
+  margin-right:11px;
+  font-size:21px;
 }
- @media (max-width: 768px) {
 
-  .navbar {
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
+#requests .requests-privacy-note{
+  grid-column:1/-1;
+  margin:0;
+  text-align:center;
+  color:#b8afc4;
+  font-size:12px;
+}
+
+
+/* REGRAS */
+
+#requests .requests-rules{
+  margin-top:10px;
+  border-top:1px solid #353641;
+}
+
+#requests .requests-rule{
+  display:grid;
+  grid-template-columns:52px 1fr;
+  align-items:center;
+  gap:14px;
+  padding:13px 7px;
+  border-bottom:1px solid #353641;
+}
+
+#requests .requests-rule:last-child{
+  border-bottom:0;
+  padding-bottom:0;
+}
+
+#requests .requests-rule-number{
+  display:grid;
+  place-items:center;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  font-size:20px;
+  font-weight:900;
+  background:linear-gradient(145deg,#5c1f83,#8e147e);
+  box-shadow:0 0 12px rgba(170,38,255,.18);
+}
+
+#requests .requests-rule p{
+  margin:0;
+  color:#f0ebf4;
+  font-size:15px;
+  line-height:1.4;
+}
+
+
+/* LISTA DE MÚSICAS */
+
+#requests .requests-requested-subtitle{
+  margin:-2px 0 14px 53px;
+  color:#d2c9db;
+  font-size:14px;
+}
+
+#requests .requests-request-list{
+  display:grid;
+  gap:8px;
+}
+
+#requests .request-item{
+  display:grid;
+  grid-template-columns:34px auto 20px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:43px;
+  padding:6px 11px;
+  border:1px solid #464955;
+  border-radius:7px;
+  background:linear-gradient(145deg,#171920,#121319);
+}
+
+#requests .request-number{
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  background:#3a3e49;
+  font-size:14px;
+  font-weight:900;
+}
+
+#requests .request-artist{
+  font-weight:900;
+  white-space:nowrap;
+}
+
+#requests .request-separator{
+  color:#81788c;
+  text-align:center;
+}
+
+#requests .request-song{
+  color:#ded6e5;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#requests .requests-empty-state{
+  padding:18px;
+  text-align:center;
+  border:1px dashed #4c4058;
+  border-radius:8px;
+  color:#bdb3c8;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:1180px){
+
+  #requests .requests-content-grid{
+    grid-template-columns:1fr;
   }
 
-  .nav-menu {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
+  #requests .requests-side-column{
+    grid-template-columns:1fr 1fr;
   }
-
-  .nav-menu button {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .menu-band-btn {
-    position: static;
-    margin-top: 2px;
-    font-size: 11px;
-    padding: 6px 14px;
-  }
-
 }
-</style>
+
+@media(max-width:850px){
+.future-block {
+  aspect-ratio: 3 / 1;
+}
+  #requests .requests-hero{
+    min-height:390px;
+    background-size:auto 720px;
+    background-position:63% 20%;
+    align-items:flex-end;
+  }
+
+  #requests .requests-hero::before{
+    background:linear-gradient(
+      0deg,
+      #050509 0%,
+      rgba(5,5,9,.96) 52%,
+      rgba(5,5,9,.25) 100%
+    );
+  }
+
+  #requests .requests-hero-content{
+    padding:120px 25px 38px;
+  }
+
+  #requests .requests-hero h1{
+    font-size:48px;
+    letter-spacing:-1.5px;
+  }
+
+  #requests .requests-tagline{
+    font-size:12px;
+    letter-spacing:4px;
+  }
+
+  #requests .requests-page-content{
+    width:min(calc(100% - 28px),1400px);
+  }
+
+  #requests .requests-side-column{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  #requests .requests-card{
+    padding:23px 18px;
+  }
+
+  #requests .requests-card-title{
+    font-size:26px;
+  }
+
+  #requests .requests-form-grid{
+    display:block;
+  }
+
+  #requests .requests-field,
+  #requests .requests-form-message,
+  #requests .requests-submit,
+  #requests .requests-privacy-note{
+    margin-bottom:16px;
+  }
+
+  #requests .requests-privacy-note{
+    margin-bottom:0;
+  }
+
+  #requests .request-item{
+    grid-template-columns:32px 1fr;
+    gap:5px 10px;
+    padding:8px;
+  }
+
+  #requests .request-artist,
+  #requests .request-song{
+    white-space:normal;
+  }
+
+  #requests .request-separator{
+    display:none;
+  }
+
+  #requests .request-song{
+    grid-column:2;
+  }
+
+  #requests .requests-requested-subtitle{
+    margin-left:0;
+  }
+}
+  </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <div class="logo-wrap">
-    <img src="logo.png" class="logo-img" alt="Logo">
-    <div>
-      <div class="logo-main">VelvetVerse</div>
-      <div class="logo-sub">RADIO LIVE</div>
+  <header class="top-header">
+
+    <div class="brand">
+      <img src="icon-192.png" alt="VelvetVerse Radio" class="brand-logo">
+
+      <div class="brand-text">
+        <h1>VelvetVerse</h1>
+        <p>RADIO LIVE</p>
+      </div>
     </div>
-  </div>
 
-  <div class="player">
-    <iframe src="https://players.rcast.net/fantastic/73595" scrolling="no"></iframe>
-  </div>
-
-  <div onclick="window.open('https://players.rcast.net/popup2/73595','https://players.rcast.net/popup2/73595','scrollbars=no,menubar=no,width=784,height=508,resizable=yes,toolbar=no,location=no,status=no')">
-    <div class="listen-btn">Listen Live</div>
-  </div>
-
-  <div class="onair">LIVE</div>
-
-  <div class="history">
-    <iframe src="https://players.rcast.net/playlisthistory3/73595" scrolling="yes"></iframe>
-  </div>
-</div>
-
-<nav class="navbar">
-  <div class="nav-menu">
-    <button class="active-btn" onclick="show('home',this)">Home</button>
-    <button onclick="show('schedule',this)">Schedule</button>
-    <button onclick="show('gallery',this)">Gallery</button>
-    <button onclick="show('about',this)">About</button>
-    <button onclick="show('contact',this)">Contact</button>
-    <button onclick="show('comments',this)">Comments</button>
-    <div class="dropdown">
+    <nav class="main-nav">
+      <a href="#" onclick="showSection('home', this); return false;" class="active">Home</a>
+      <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
+      <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
+      <a href="#" onclick="showSection('about', this); return false;">About</a>
+      <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
+      <a href="#" onclick="showSection('comments', this); return false;">Comments</a>
+      <div class="dropdown">
   <button class="dropbtn">Podcasts</button>
 
   <div class="dropdown-content">
     <a href="backstage-legends.html">Backstage Legends</a>
     <a href="inside-velvetverse.html">Inside VelvetVerse</a>
-    </div>
-   </div>
-    <button onclick="window.location.href='discos-pedidos.html'">Discos Pedidos</button>
-</div>
-  
-
-  <a href="https://velvetverseband.com" target="_blank" class="menu-band-btn">
-    Discover VelvetVerse
-  </a>
-</nav>
-<div class="main">
-  <div id="gallery" class="section">
-  <div class="panel">
-    <div class="panel-box">
-      <h1 style="text-align:center;">Photo Gallery</h1>
-
-      <div class="gallery-grid">
-        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
-        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
-        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
-        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
-        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
-        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
-        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Gallery photo 7">
-        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Gallery photo 8">
-        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Gallery photo 9">
-        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Gallery photo 10">
-      </div>
-
-      <div id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">×</span>
-        <img id="lightbox-img" src="" alt="Expanded gallery photo">
-      </div>
-
-    </div>
+    <a href="brasil-de-norte-a-sul.html">Brasil de Norte a Sul</a>
   </div>
 </div>
+      <a href="#" onclick="showSection('requests', this); return false;">Discos Pedidos</a>
+    </nav>
 
-  <div id="schedule" class="section">
+    <div class="header-actions">
+      <a href="#" onclick="window.open('https://players.rcast.net/popup2/73595','https://players.rcast.net/popup2/73595','scrollbars=no,menubar=no,width=784,height=508,resizable=yes,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn">◉ LISTEN LIVE</a>
+      <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn">Discover VelvetVerse</a>
+    </div>
+
+  </header>
+
+  <div id="miniPlayer" class="mini-player">
+  <img id="miniArtwork" class="mini-artwork" src="logo.png" alt="Capa da música">
+
+  <div class="mini-meta">
+    <div id="miniSong" class="mini-song">VelvetVerse Radio</div>
+    <div id="miniArtist" class="mini-artist">Live</div>
+  </div>
+
+  <button id="miniPlay" class="mini-play" type="button" aria-label="Play/Pause">▶</button>
+<div id="miniWave" class="mini-wave" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+  <div class="mini-volume-wrap">
+    <span class="mini-volume-icon">🔊</span>
+    <input id="miniVolume" class="mini-volume" type="range" min="0" max="1" step="0.01" value="0.7">
+  </div>
+
+  <div class="mini-live">● LIVE</div>
+</div>
+
+ <main id="home" class="page-content section active">
+
+    <div class="tagline">MUSIC NEVER STOPS</div>
+
+    <section class="hero-grid">
+
+<div class="panel live-panel">
+
+  <div class="live-panel-bg"></div>
+
+  <div class="live-overlay"></div>
+
+  <div class="live-title">
+    <div class="live-badge">◉ LIVE NOW</div>
+    <span>VelvetVerse Radio</span>
+    <div class="live-slogan">MUSIC NEVER STOPS</div>
+  </div>
+
+  <div class="player-area">
+
+    <div class="live-cover-wrap">
+      <img
+        id="liveArtwork"
+        src="logo.png"
+        alt="Capa da música atual"
+        class="live-cover"
+      >
+    </div>
+
+    <div class="live-player-info">
+
+      <div class="now-playing-label">NOW PLAYING</div>
+
+      <div class="song-title" id="liveSong">
+        A carregar...
+      </div>
+
+      <div class="artist-name" id="liveArtist">
+        VelvetVerse Radio
+      </div>
+
+     <div class="live-wave" id="liveWave" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+      <div class="player-controls">
+
+        <button
+          class="play-main"
+          id="livePlay"
+          aria-label="Play Pause">
+          ▶
+        </button>
+
+      </div>
+
+      <div class="volume-row">
+
+        <span>🔊</span>
+
+        <input
+          id="liveVolume"
+          type="range"
+          min="0"
+          max="100"
+          value="70"
+          aria-label="Volume"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <audio
+    id="liveRadio"
+    preload="none"
+    src="https://stream.rcast.net/73595">
+  </audio>
+
+</div>
+
+      <div class="panel recent-panel">
+
+        <div class="panel-heading">
+          <h2>♫ Últimas 5 músicas</h2>
+        </div>
+
+        <div class="track-list" id="recentTracks">
+
+  <div class="track">
+    <div class="track-number">1</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">2</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">3</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">4</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">5</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+</div>
+
+      </div>
+
+    </section>
+
+    <section class="lower-grid">
+
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>Programação de Hoje</h2>
+          <a href="#" onclick="showSection('schedule', this); return false;">Ver programação completa →</a>
+        </div>
+
+       <div id="dynamicSchedule"></div>
+
+      </div>
+
+      <div class="panel promo-slider-panel">
+
+<div class="promo-slider">
+
+    <div class="promo-mini-banner promo-mini-banner-top">
+  <span class="blink-star">✦</span>
+  <span>EM DESTAQUE NA VELVETVERSE RADIO</span>
+  <span class="blink-star">✦</span>
+</div>
+
+    <img src="NOIA.png" class="promo-slide active" alt="Ritmo Latino">
+    <img src="Suzy.png" class="promo-slide" alt="Alma Portuguesa">
+    <img src="Carlos.png" class="promo-slide" alt="Corações & Memórias">
+    <img src="LARA.png" class="promo-slide" alt="Coração Brasileiro">
+    <img src="Beto.png" class="promo-slide" alt="Rock Sem Limites">
+    <img src="Rui Freitas.png" class="promo-slide" alt="VelvetVerse Experience">
+    <img src="Velvet After Dark.png" class="promo-slide" alt="Velvet After Dark">
+    <img src="Midnight Flow.png" class="promo-slide" alt="Midnight Flow">
+
+    <div class="promo-mini-banner promo-mini-banner-bottom">
+        8 PROGRAMAS • TODOS OS DIAS • 24/7
+    </div>
+
+</div>
+
+</div>
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>Podcasts / Episódios</h2>
+          <a href="#">Ver todos os episódios →</a>
+        </div>
+
+        <div class="podcast-card">
+    <div class="podcast-cover backstage-cover"></div>
+
+    <div>
+        <div class="podcast-title">Backstage Legends</div>
+        <div class="podcast-desc">
+            Uma viagem pelos bastidores da música, pelas histórias que marcaram gerações e pelas lendas que nunca se esquecem, com Ricky Sousa.
+        </div>
+    </div>
+
+    <a class="round-play" href="backstage-legends.html">→</a>
+</div>
+        <div class="podcast-card">
+          <div class="podcast-cover inside-cover"></div>
+          <div>
+            <div class="podcast-title">Inside VelvetVerse</div>
+            <div class="podcast-desc">O programa oficial da banda, com bastidores, entrevistas, histórias e tudo o que acontece no universo VelvetVerse.</div>
+          </div>
+          <a class="round-play" href="inside-velvetverse.html">→</a>
+        </div>
+
+        <div class="podcast-card">
+    <div class="podcast-cover brasil-cover"></div>
+
+    <div>
+        <div class="podcast-title">Brasil de Norte a Sul</div>
+        <div class="podcast-desc">
+            Uma nova rubrica com Lara Ingrid, dedicada aos ritmos, tradições e curiosidades do Brasil.
+            <span class="coming-soon">✨ BREVEMENTE NA VELVETVERSE RADIO ✨</span>
+        </div>
+    </div>
+
+   <a class="round-play" href="brasil-de-norte-a-sul.html"></a>
+</div>
+
+      </div>
+
+    </section>
+
+    <section class="panel future-block">
+      <img class="future-slide active"
+     src="velvetverse-toronto-studio-banner.png"
+     alt="VelvetVerse Studio Toronto de dia">
+
+<img class="future-slide"
+     src="velvetverse-toronto-studio-night-banner.png"
+     alt="VelvetVerse Studio Toronto à noite">
+    </section>
+
+
+
+  </main>
+    <div id="schedule" class="section">
   <div class="panel">
     <div class="panel-box">
       <div id="vv-clock" style="
@@ -807,42 +2485,33 @@ e deep night soundscape.
     </div>
   </div>
 </div>
+    <div id="gallery" class="section">
+  <div class="panel">
+    <div class="panel-box">
+      <h1 style="text-align:center;">Photo Gallery</h1>
 
-  <div id="home" class="section active">
-    <div class="hero">
-      
+      <div class="gallery-grid">
+        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
+        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
+        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
+        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
+        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
+        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
+        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Gallery photo 7">
+        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Gallery photo 8">
+        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Gallery photo 9">
+        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Gallery photo 10">
+      </div>
 
-      <div class="hero-text">
-        <h1>VelvetVerse Radio — Music Never Stops</h1>
-<p style="margin:28px 0 12px; font-size:16px;">
-  Leva a VelvetVerse Radio contigo
-</p>
+      <div id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img id="lightbox-img" src="" alt="Expanded gallery photo">
+      </div>
 
-<a href="/app/"
-   style="
-     display:inline-block;
-     margin-top:4px;
-     padding:11px 24px;
-     border:2px solid #b24cff;
-     border-radius:24px;
-     background:linear-gradient(90deg,#7c3cff,#e600a9);
-     color:white;
-     text-decoration:none;
-     font-weight:700;
-     font-size:15px;
-     box-shadow:0 0 14px rgba(178,76,255,.65);
-   ">
-  📲 APP DA RÁDIO
-</a>
-
-<div style="margin-top:8px; font-size:13px; opacity:.9;">
-  iPhone &amp; Android
-</div>
-</div>
     </div>
   </div>
-
-  <div id="about" class="section">
+</div>
+ <div id="about" class="section">
     <div class="panel">
       <div class="panel-box">
         <h1>About Us</h1>
@@ -923,8 +2592,7 @@ e deep night soundscape.
       </div>
     </div>
   </div>
-
-  <div id="comments" class="section">
+   <div id="comments" class="section">
     <div class="panel">
       <div class="panel-box">
         <h1>Comments</h1>
@@ -932,22 +2600,23 @@ e deep night soundscape.
         <h2>Leave a Comment</h2>
         <p>Comments are reviewed before being published on this page.</p>
 
-        <form class="contact-form" action="https://formsubmit.co/velvetverseradio+comments@gmail.com" method="POST">
-          <input type="hidden" name="_subject" value="New Comment for VelvetVerse Radio">
-          <input type="hidden" name="_captcha" value="false">
+      <form class="contact-form" id="comments-form">
+          
 
           <input type="text" name="name" placeholder="Your Name" required>
           <input type="url" name="photo" placeholder="Profile Photo Link (optional)">
           <textarea name="comment" placeholder="Your Comment" required></textarea>
 
           <button type="submit">Send Comment</button>
+        <p id="comment-form-message" class="comment-note"></p>
         </form>
 
-        <hr>
+       <div style="height:22px;"></div><hr>
+      
 
         <h2>Approved Comments</h2>
 
-        <div class="approved-comments">
+        <div class="approved-comments" id="approved-comments">
 
           <div class="comment-card">
             <img src="lurdes-ribeiro.png" alt="Lurdes Ribeiro">
@@ -985,117 +2654,605 @@ e deep night soundscape.
       </div>
     </div>
   </div>
+  <div id="requests" class="section">
+  <div class="requests-page">
+
+    <section class="requests-hero">
+      <div class="requests-hero-content">
+        <h1>Discos <span>Pedidos</span></h1>
+        <p class="requests-tagline">A tua música. A nossa rádio.</p>
+        <p class="requests-hero-lead">
+          Pede a tua música e ouve-a no nosso programa de domingo!
+        </p>
+        <p class="requests-hero-copy">
+          Na VelvetVerse Radio, a tua voz também toca. Envia o teu pedido
+          e faz parte da nossa emissão especial de domingo.
+        </p>
+      </div>
+    </section>
+
+    <div class="requests-page-content">
+      <div class="requests-content-grid">
+
+        <section class="requests-card requests-request-card"
+                 aria-labelledby="request-title">
+
+          <h2 class="requests-card-title" id="request-title">
+            <span class="requests-title-icon">♫</span>
+            Faz o teu <span class="requests-accent">pedido</span>
+          </h2>
+
+          <p class="requests-card-intro">
+            Preenche o formulário abaixo e pede <em>a tua música</em>
+            para o nosso programa de domingo.
+          </p>
+
+          <form id="request-form" class="requests-form-grid">
+
+            <div class="requests-field">
+              <label for="name">
+                Nome <span class="requests-required">*</span>
+              </label>
+              <input id="name" name="name" type="text"
+                     placeholder="O teu nome"
+                     autocomplete="name"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field">
+              <label for="city">
+                Cidade <span class="requests-required">*</span>
+              </label>
+              <input id="city" name="city" type="text"
+                     placeholder="A tua cidade"
+                     autocomplete="address-level2"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field">
+              <label for="country">
+                País <span class="requests-required">*</span>
+              </label>
+              <input id="country" name="country" type="text"
+                     placeholder="O teu país"
+                     autocomplete="country-name"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field requests-half">
+              <label for="artist">
+                Artista <span class="requests-required">*</span>
+              </label>
+              <input id="artist" name="artist" type="text"
+                     placeholder="Nome do artista"
+                     maxlength="150" required
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+
+            <div class="requests-field requests-half">
+              <label for="song">
+                Música <span class="requests-required">*</span>
+              </label>
+              <input id="song" name="song" type="text"
+                     placeholder="Nome da música"
+                     maxlength="150" required
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+
+            <div class="requests-field requests-full">
+              <label for="dedication">
+                Dedicatória
+                <span class="requests-optional">(Opcional)</span>
+              </label>
+              <textarea id="dedication" name="dedication"
+                        placeholder="Deixa aqui a tua dedicatória..."
+                        maxlength="500"></textarea>
+            </div>
+
+            <div id="form-message"
+                 class="requests-form-message"
+                 role="status"
+                 aria-live="polite">
+              <span class="requests-message-icon">!</span>
+              <span id="form-message-text"></span>
+            </div>
+
+            <button class="requests-submit" type="submit">
+              <span>➤</span> Enviar Pedido
+            </button>
+
+            <p class="requests-privacy-note">
+              🔒 O teu pedido será analisado pela nossa equipa.
+              Obrigado por ouvires a VelvetVerse Radio!
+            </p>
+
+          </form>
+        </section>
+
+        <aside class="requests-side-column">
+
+          <section class="requests-card" aria-labelledby="rules-title">
+
+            <h2 class="requests-card-title requests-small"
+                id="rules-title">
+              <span class="requests-title-icon">ⓘ</span>
+              Regras <span class="requests-accent">dos Pedidos</span>
+            </h2>
+
+            <div class="requests-rules">
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">1</span>
+                <p>
+                  Pedidos enviados de segunda a sábado entram
+                  para o próximo domingo.
+                </p>
+              </div>
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">2</span>
+                <p>
+                  Pedidos enviados ao domingo passam automaticamente
+                  para o domingo seguinte.
+                </p>
+              </div>
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">3</span>
+                <p>Músicas repetidas não serão aceites.</p>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="requests-card"
+                   aria-labelledby="requested-title">
+
+            <h2 class="requests-card-title requests-small"
+                id="requested-title">
+              <span class="requests-title-icon">♫</span>
+              Já pedidas para
+              <span class="requests-accent"
+                    id="target-sunday-label">este domingo</span>
+            </h2>
+
+            <p class="requests-requested-subtitle">
+              Estas músicas já foram pedidas pelos nossos ouvintes.
+            </p>
+
+            <div id="request-list" class="requests-request-list">
+              <div class="requests-empty-state">
+                A carregar a lista de músicas...
+              </div>
+            </div>
+
+          </section>
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+  <footer class="site-footer"> 
+
+      <div class="footer-left">
+        <a href="mailto:velvetverseradio@gmail.com">
+          velvetverseradio@gmail.com
+        </a>
+      </div>
+
+      <div class="footer-center">
+        Use of this Website assumes acceptance of
+        <a href="terms.html">Terms &amp; Conditions</a>
+        and @2026
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+
+  <div class="footer-social">
+
+  <a href="https://www.facebook.com/VelvetVerseRadio/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Facebook"
+     class="social-icon">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/>
+    </svg>
+
+  </a>
+
+  <a href="https://www.instagram.com/velvetverseradio/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Instagram"
+     class="social-icon">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.25-3.1a1.05 1.05 0 1 1-1.05 1.05 1.05 1.05 0 0 1 1.05-1.05z"/>
+    </svg>
+
+  </a>
 
 </div>
 
-<footer class="footer">
-  <div class="footer-left">
-    <a href="mailto:velvetverseradio@gmail.com">velvetverseradio@gmail.com</a>
-  </div>
-
-  <div class="footer-center">
-    Use of this Website assumes acceptance of
-    <a href="terms.html" target="_blank">Terms & Conditions</a>
-    and @2026
-    <a href="privacy.html" target="_blank">Privacy Policy</a>
-  </div>
-
-  <div class="footer-right">
-    <a class="social-icon" href="https://www.facebook.com/profile.php?id=61582322366506" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.5V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.5v2h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg>
-    </a>
-    <a class="social-icon" href="https://open.spotify.com/artist/030PPRKkOCnRO1vkxLLfbw/discography/all" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M12 1.8A10.2 10.2 0 1 0 12 22.2 10.2 10.2 0 0 0 12 1.8z"/></svg>
-    </a>
-    <a class="social-icon" href="https://www.youtube.com/channel/UC7P8KDw1vb1OsfIO4uPBWdA" target="_blank">
-      <svg viewBox="0 0 24 24"><path d="M23.5 6.2s-.2-1.7-.9-2.4c-.9-.9-1.9-.9-2.4-1C16.8 2.5 12 2.5 12 2.5s-4.8 0-8.2.3c-.5.1-1.5.1-2.4 1C.7 4.5.5 6.2.5 6.2S.2 8.2.2 10.3v1.9c0 2.1.3 4.1.3 4.1s.2 1.7.9 2.4c.9.9 2.1.9 2.6 1 1.9.2 8 .3 8 .3s4.8 0 8.2-.3c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.4.9-2.4s.3-2.1.3-4.1v-1.9c0-2.1-.3-4.1-.3-4.1zM9.7 14.8V7.7l6.3 3.6-6.3 3.5z"/></svg>
-    </a>
-  </div>
-</footer>
-
-<script>
-function show(id,btn){
-  document.querySelectorAll('.section').forEach(e=>e.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-
-  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active-btn'));
-  btn.classList.add('active-btn');
-
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-  function updateVVClock(){
-  const clock = document.getElementById("vv-clock");
-  if(!clock) return;
-
-  const now = new Date();
-  const time = now.toLocaleTimeString("pt-PT", {
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
+    </footer>
+  <script>
+    function showSection(id, link) {
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.remove('active');
   });
 
-  clock.textContent = "⏰ " + time;
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.main-nav a').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  if (link) {
+    link.classList.add('active');
+  }
+const miniPlayer = document.getElementById('miniPlayer');
+
+if (id === 'home') {
+  miniPlayer.classList.remove('show');
+} else {
+  miniPlayer.classList.add('show');
+}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+    function getTorontoMinutes() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Toronto',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).formatToParts(new Date());
+
+  const hour = Number(parts.find(p => p.type === 'hour').value);
+  const minute = Number(parts.find(p => p.type === 'minute').value);
+
+  return hour * 60 + minute;
+}
+function updateVVClock() {
+  const clock = document.getElementById('vv-clock');
+  if (!clock) return;
+
+  const time = new Intl.DateTimeFormat('pt-PT', {
+    timeZone: 'America/Toronto',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).format(new Date());
+
+  clock.textContent = '⏰ ' + time;
 }
 
 updateVVClock();
 setInterval(updateVVClock, 1000);
+function updateLiveShow() {
+  const current = getTorontoMinutes();
 
-  /* 🔴 LIVE AUTOMÁTICO */
-function updateLiveShow(){
-  const now = new Date();
-  const current = now.getHours() * 60 + now.getMinutes();
+  document.querySelectorAll('.vv-card').forEach(card => {
+    const start = card.getAttribute('data-start');
+    const end = card.getAttribute('data-end');
 
-  document.querySelectorAll(".vv-card").forEach(card => {
-    const start = card.getAttribute("data-start");
-    const end = card.getAttribute("data-end");
+    if (!start || !end) return;
 
-    if(!start || !end) return;
+    const [sh, sm] = start.split(':').map(Number);
+    const [eh, em] = end.split(':').map(Number);
 
-    const [sh, sm] = start.split(":").map(Number);
-    const [eh, em] = end.split(":").map(Number);
+    const startMin = sh * 60 + sm;
+    const endMin = eh * 60 + em;
 
-    let startMin = sh * 60 + sm;
-    let endMin = eh * 60 + em;
+    let isLive = false;
 
-    // trata o caso 23:00 → 07:00
-    if(endMin < startMin){
-      if(current >= startMin || current <= endMin){
-        activateCard(card);
-      } else {
-        deactivateCard(card);
-      }
+    if (endMin < startMin) {
+      isLive = current >= startMin || current < endMin;
     } else {
-      if(current >= startMin && current <= endMin){
-        activateCard(card);
-      } else {
-        deactivateCard(card);
-      }
+      isLive = current >= startMin && current < endMin;
+    }
+
+    if (isLive) {
+      activateScheduleCard(card);
+    } else {
+      deactivateScheduleCard(card);
     }
   });
 }
 
-function activateCard(card){
-  card.style.border = "2px solid red";
-  card.style.boxShadow = "0 0 30px red";
+function activateScheduleCard(card) {
+  card.style.border = '2px solid red';
+  card.style.boxShadow = '0 0 30px red';
 
-  if(!card.querySelector(".live-badge")){
-    const badge = document.createElement("div");
-    badge.className = "live-badge";
-    badge.innerText = "🔴 LIVE NOW";
+  if (!card.querySelector('.schedule-live-badge')) {
+    const badge = document.createElement('div');
+    badge.className = 'schedule-live-badge';
+    badge.innerText = '🔴 LIVE NOW';
     card.appendChild(badge);
   }
 }
 
-  function deactivateCard(card){
-  card.style.border = "1px solid #a855f7";
-  card.style.boxShadow = "0 0 25px rgba(168,85,247,0.5)";
+function deactivateScheduleCard(card) {
+  card.style.border = '1px solid #a855f7';
+  card.style.boxShadow = '0 0 25px rgba(168,85,247,0.5)';
 
-  const badge = card.querySelector(".live-badge");
-  if(badge) badge.remove();
+  const badge = card.querySelector('.schedule-live-badge');
+  if (badge) badge.remove();
 }
-setInterval(updateLiveShow, 30000);
+
 updateLiveShow();
+setInterval(updateLiveShow, 30000);
+const liveRadio = document.getElementById('liveRadio');
+const livePlay = document.getElementById('livePlay');
+const liveVolume = document.getElementById('liveVolume');
+const liveArtwork = document.getElementById('liveArtwork');
+const liveArtist = document.getElementById('liveArtist');
+const liveSong = document.getElementById('liveSong');
+const liveWave = document.getElementById('liveWave');
+const miniPlayerEl = document.getElementById('miniPlayer');
+const miniArtwork = document.getElementById('miniArtwork');
+const miniSong = document.getElementById('miniSong');
+const miniArtist = document.getElementById('miniArtist');
+const miniPlay = document.getElementById('miniPlay');
+const miniVolume = document.getElementById('miniVolume');
+    const miniWave = document.getElementById('miniWave');
+liveRadio.volume = 0.7;
+
+livePlay.addEventListener('click', async () => {
+  if (!liveRadio.paused) {
+    liveRadio.pause();
+    return;
+  }
+
+  liveRadio.src = 'https://stream.rcast.net/73595?ts=' + Date.now();
+
+  try {
+    await liveRadio.play();
+  } catch (e) {
+    console.log('Não foi possível iniciar a emissão.');
+  }
+});
+
+liveRadio.addEventListener('playing', () => {
+  livePlay.textContent = '❚❚';
+  liveWave.classList.add('playing');
+  miniWave.classList.add('playing');
+});
+
+liveRadio.addEventListener('pause', () => {
+  livePlay.textContent = '▶';
+  liveWave.classList.remove('playing');
+  miniWave.classList.remove('playing');
+});
+
+liveVolume.addEventListener('input', () => {
+  liveRadio.volume = liveVolume.value / 100;
+});
+miniVolume.value = liveRadio.volume;
+
+miniPlay.addEventListener('click', () => {
+  livePlay.click();
+});
+
+miniVolume.addEventListener('input', () => {
+  liveRadio.volume = Number(miniVolume.value);
+  liveVolume.value = Math.round(liveRadio.volume * 100);
+});
+
+liveVolume.addEventListener('input', () => {
+  miniVolume.value = liveRadio.volume;
+});
+
+liveRadio.addEventListener('playing', () => {
+  miniPlay.textContent = '❚❚';
+});
+
+liveRadio.addEventListener('pause', () => {
+  miniPlay.textContent = '▶';
+});
+let liveLastTrack = '';
+
+async function updateLiveArtwork(artist, song) {
+
+  const key = (artist + '|' + song).toLowerCase();
+
+  if (key === liveLastTrack) return;
+
+  liveLastTrack = key;
+
+  liveArtwork.src = 'logo.png';
+
+  try {
+
+    const term = encodeURIComponent(artist + ' ' + song);
+
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('artwork');
+
+    const data = await res.json();
+
+    const image = data.results?.[0]?.artworkUrl100;
+
+    if (image) {
+      liveArtwork.src = image.replace('100x100bb', '600x600bb');
+    }
+miniArtwork.src = liveArtwork.src;
+  } catch (e) {
+    liveArtwork.src = 'logo.png';
+    miniArtwork.src = 'logo.png';
+  }
+}
+
+async function updateLiveTrack() {
+
+  try {
+
+    const res = await fetch(
+      'https://live3.rcast.net/api/v1/stations/73595/now-playing?ts=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('metadata');
+
+    const json = await res.json();
+
+    const current = json.data || {};
+
+    const artist = (current.artist || 'VelvetVerse Radio').trim();
+
+    let song = (
+      current.title ||
+      current.raw ||
+      'Emissão ao vivo'
+    ).trim();
+
+    const prefix = artist + ' - ';
+
+    if (song.toLowerCase().startsWith(prefix.toLowerCase())) {
+      song = song.slice(prefix.length).trim();
+    }
+
+    liveArtist.textContent = artist;
+    liveSong.textContent = song;
+miniArtist.textContent = artist;
+miniSong.textContent = song;
+    updateLiveArtwork(artist, song);
+
+  } catch (e) {
+    console.log('Erro ao atualizar metadata.');
+  }
+}
+
+liveArtwork.addEventListener('error', () => {
+  if (!liveArtwork.src.endsWith('/logo.png')) {
+    liveArtwork.src = 'logo.png';
+  }
+});
+
+updateLiveTrack();
+
+setInterval(updateLiveTrack, 10000);
+    async function getRecentArtwork(artist, song) {
+  try {
+    const term = encodeURIComponent(artist + ' ' + song);
+
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('artwork');
+
+    const data = await res.json();
+    const image = data.results?.[0]?.artworkUrl100;
+
+    if (image) {
+      return image.replace('100x100bb', '300x300bb');
+    }
+  } catch (e) {}
+
+  return 'logo.png';
+}
+
+function formatRecentTime(value) {
+  if (!value) return '--:--';
+
+  try {
+    const date = new Date(value);
+
+    return new Intl.DateTimeFormat('pt-PT', {
+      timeZone: 'America/Toronto',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).format(date);
+  } catch (e) {
+    return '--:--';
+  }
+}
+
+async function updateRecentTracks() {
+  try {
+    const res = await fetch(
+      'https://live3.rcast.net/api/v1/stations/73595/history?ts=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('history');
+
+    const json = await res.json();
+
+    const history =
+      json.data ||
+      json.history ||
+      json.items ||
+      [];
+
+    const tracks = Array.isArray(history)
+      ? history.slice(0, 5)
+      : [];
+
+    const rows = document.querySelectorAll('#recentTracks .track');
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const item = tracks[i];
+
+      if (!item) continue;
+
+      let artist = (
+        item.artist ||
+        item.songartist ||
+        item.performer ||
+        'Unknown Artist'
+      ).trim();
+
+      let song = (
+        item.title ||
+        item.song ||
+        item.track ||
+        item.raw ||
+        'Unknown Track'
+      ).trim();
+
+      const prefix = artist + ' - ';
+
+      if (song.toLowerCase().startsWith(prefix.toLowerCase())) {
+        song = song.slice(prefix.length).trim();
+      }
+
+      row.querySelector('.track-song').textContent = song;
+      row.querySelector('.track-artist').textContent = artist;
+
+      const timeValue =
+        item.played_at ||
+        item.timestamp ||
+        item.time ||
+        item.date ||
+        '';
+
+      row.querySelector('.track-time').textContent =
+        formatRecentTime(timeValue);
+
+      const cover = row.querySelector('.track-cover');
+      cover.src = await getRecentArtwork(artist, song);
+    }
+
+  } catch (e) {
+    console.log('Erro ao atualizar histórico.');
+  }
+}
+
+updateRecentTracks();
+
+setInterval(updateRecentTracks, 30000);
   /* 📸 LIGHTBOX */
 function openLightbox(src){
   document.getElementById("lightbox").style.display = "flex";
@@ -1105,13 +3262,546 @@ function openLightbox(src){
 function closeLightbox(){
   document.getElementById("lightbox").style.display = "none";
 }
+ const COMMENTS_SUPABASE_URL = 'https://bxndpplrxplszhaxules.supabase.co';
+const COMMENTS_SUPABASE_KEY = 'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+
+const commentsForm = document.getElementById('comments-form');
+const commentFormMessage = document.getElementById('comment-form-message');
+
+commentsForm.addEventListener('submit', async function(event){
+  event.preventDefault();
+
+  const formData = new FormData(commentsForm);
+
+  const newComment = {
+    name: formData.get('name').trim(),
+    photo: formData.get('photo').trim() || null,
+    comment: formData.get('comment').trim()
+  };
+
+  commentFormMessage.textContent = 'Sending comment...';
+
+  try{
+    const response = await fetch(`${COMMENTS_SUPABASE_URL}/rest/v1/comments`, {
+      method: 'POST',
+      headers: {
+        'apikey': COMMENTS_SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(newComment)
+    });
+
+    if(!response.ok){
+      throw new Error(`Supabase responded with ${response.status}`);
+    }
+
+    commentsForm.reset();
+    commentFormMessage.textContent = 'Thank you! Your comment has been sent for approval.';
+  }catch(error){
+    console.error('Comment submission error:', error);
+    commentFormMessage.textContent = 'Sorry, your comment could not be sent. Please try again.';
+  }
+});
+  async function loadApprovedComments(){
+  const approvedComments = document.getElementById('approved-comments');
+
+  try{
+    const response = await fetch(
+      `${COMMENTS_SUPABASE_URL}/rest/v1/comments?select=name,photo,comment,created_at&approved=eq.true&order=created_at.asc`,
+      {
+        headers: {
+          'apikey': COMMENTS_SUPABASE_KEY
+        }
+      }
+    );
+
+    if(!response.ok){
+      throw new Error(`Supabase responded with ${response.status}`);
+    }
+
+    const comments = await response.json();
+
+    comments.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'comment-card';
+
+      const photo = document.createElement('img');
+      photo.src = item.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=0b0b0f&color=a855f7`;
+      photo.alt = item.name;
+
+      const content = document.createElement('div');
+      content.className = 'comment-content';
+
+      const name = document.createElement('strong');
+      name.textContent = item.name;
+
+      const date = document.createElement('div');
+      date.className = 'comment-date';
+      date.textContent = new Date(item.created_at).toLocaleDateString('en-US', {
+        month: 'long',
+        year: 'numeric'
+      });
+
+      const text = document.createElement('p');
+      text.textContent = item.comment;
+
+      content.appendChild(name);
+      content.appendChild(date);
+      content.appendChild(text);
+
+      card.appendChild(photo);
+      card.appendChild(content);
+
+      approvedComments.appendChild(card);
+    });
+
+  }catch(error){
+    console.error('Could not load approved comments:', error);
+  }
+}
+
+loadApprovedComments();
+  </script>
+  
+<script>
+(function () {
+
+  const requestsSupabaseUrl =
+    'https://bxndpplrxplszhaxules.supabase.co';
+
+  const requestsSupabaseKey =
+    'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+
+  const requestsForm =
+    document.getElementById('request-form');
+
+  const requestsSubmitButton =
+    requestsForm.querySelector('.requests-submit');
+
+  const requestsFormMessage =
+    document.getElementById('form-message');
+
+  const requestsFormMessageText =
+    document.getElementById('form-message-text');
+
+  const requestsList =
+    document.getElementById('request-list');
+
+
+  async function requestsCallSupabase(functionName, body = {}) {
+
+    const response = await fetch(
+      `${requestsSupabaseUrl}/rest/v1/rpc/${functionName}`,
+      {
+        method: 'POST',
+
+        headers: {
+          'apikey': requestsSupabaseKey,
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Supabase respondeu com o código ${response.status}`
+      );
+    }
+
+    return response.json();
+  }
+
+
+  function requestsShowMessage(message, success = false) {
+
+    requestsFormMessageText.textContent = message;
+
+    requestsFormMessage.classList.toggle(
+      'success',
+      success
+    );
+
+    requestsFormMessage
+      .querySelector('.requests-message-icon')
+      .textContent = success ? '✓' : '!';
+
+    requestsFormMessage.classList.add('show');
+
+    requestsFormMessage.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+  }
+
+
+  function requestsFormatSunday(dateText) {
+
+    const date =
+      new Date(`${dateText}T12:00:00`);
+
+    return date.toLocaleDateString(
+      'pt-PT',
+      {
+        day: 'numeric',
+        month: 'long',
+        timeZone: 'America/Toronto'
+      }
+    );
+  }
+
+
+  async function requestsLoadTargetSunday() {
+
+    try {
+
+      const targetSunday =
+        await requestsCallSupabase(
+          'next_request_sunday'
+        );
+
+      document
+        .getElementById('target-sunday-label')
+        .textContent =
+          requestsFormatSunday(targetSunday);
+
+    } catch (error) {
+
+      console.error(
+        'Não foi possível obter a data do próximo domingo.',
+        error
+      );
+    }
+  }
+
+
+  async function requestsLoadSongs() {
+
+    requestsList.innerHTML =
+      '<div class="requests-empty-state">A carregar a lista de músicas...</div>';
+
+    try {
+
+      const songs =
+        await requestsCallSupabase(
+          'get_requested_songs'
+        );
+
+      requestsList.replaceChildren();
+
+      if (!songs.length) {
+
+        requestsList.innerHTML =
+          '<div class="requests-empty-state">Ainda não existem músicas pedidas para este domingo.</div>';
+
+        return;
+      }
+
+
+      songs.forEach((item, index) => {
+
+        const row =
+          document.createElement('div');
+
+        row.className = 'request-item';
+
+
+        const number =
+          document.createElement('span');
+
+        number.className = 'request-number';
+        number.textContent = index + 1;
+
+
+        const artist =
+          document.createElement('span');
+
+        artist.className = 'request-artist';
+        artist.textContent = item.artist;
+
+
+        const separator =
+          document.createElement('span');
+
+        separator.className =
+          'request-separator';
+
+        separator.textContent = '—';
+
+
+        const song =
+          document.createElement('span');
+
+        song.className = 'request-song';
+        song.textContent = item.song;
+
+
+        row.append(
+          number,
+          artist,
+          separator,
+          song
+        );
+
+        requestsList.appendChild(row);
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        'Não foi possível carregar a lista.',
+        error
+      );
+
+      requestsList.innerHTML =
+        '<div class="requests-empty-state">Não foi possível carregar a lista. Tenta novamente dentro de momentos.</div>';
+    }
+  }
+
+
+  requestsForm.addEventListener(
+    'submit',
+    async function (event) {
+
+      event.preventDefault();
+
+      requestsFormMessage
+        .classList.remove('show');
+
+      requestsSubmitButton.disabled = true;
+
+      requestsSubmitButton.innerHTML =
+        '<span>◌</span> A enviar...';
+
+
+      const formData =
+        new FormData(requestsForm);
+
+
+      try {
+
+        const result =
+          await requestsCallSupabase(
+            'submit_song_request',
+            {
+              p_listener_name:
+                formData.get('name'),
+
+              p_city:
+                formData.get('city'),
+
+              p_country:
+                formData.get('country'),
+
+              p_artist:
+                formData.get('artist'),
+
+              p_song:
+                formData.get('song'),
+
+              p_dedication:
+                formData.get('dedication') || null
+            }
+          );
+
+
+        requestsShowMessage(
+          result.message,
+          result.success === true
+        );
+
+
+        if (result.success) {
+
+          requestsForm.reset();
+
+          await requestsLoadSongs();
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          'Não foi possível enviar o pedido.',
+          error
+        );
+
+        requestsShowMessage(
+          'Não foi possível enviar o pedido. Tenta novamente dentro de momentos.'
+        );
+
+
+      } finally {
+
+        requestsSubmitButton.disabled = false;
+
+        requestsSubmitButton.innerHTML =
+          '<span>➤</span> Enviar Pedido';
+      }
+    }
+  );
+
+
+  requestsLoadTargetSunday();
+  requestsLoadSongs();
+
+})();
+</script>
+
+  <script>
+const velvetSchedule = [
+  {
+    start: 180,
+    end: 420,
+    time: "03:00 - 07:00",
+    name: "Midnight Flow 🌙",
+    desc: "Música para atravessar a madrugada."
+  },
+  {
+    start: 420,
+    end: 600,
+    time: "07:00 - 10:00",
+    name: "Ritmo Latino 🔥",
+    desc: "Adrian Vega (Noia) — Começa o teu dia com energia e ritmo latino!"
+  },
+  {
+    start: 600,
+    end: 780,
+    time: "10:00 - 13:00",
+    name: "Alma Portuguesa 🇵🇹",
+    desc: "Suzy Mendes — Música portuguesa com alma e emoção."
+  },
+  {
+    start: 780,
+    end: 960,
+    time: "13:00 - 16:00",
+    name: "Corações & Memórias ❤️",
+    desc: "Carlos — Canções que ficam no coração e na memória."
+  },
+  {
+    start: 960,
+    end: 1140,
+    time: "16:00 - 19:00",
+    name: "Coração Brasileiro 🇧🇷",
+    desc: "Lara Ingrid — O melhor da música brasileira."
+  },
+  {
+    start: 1140,
+    end: 1260,
+    time: "19:00 - 21:00",
+    name: "Rock Sem Limites ⚡",
+    desc: "Beto Sousa — Rock sem fronteiras e sem limites."
+  },
+  {
+    start: 1260,
+    end: 1380,
+    time: "21:00 - 23:00",
+    name: "VelvetVerse Experience 🎙️",
+    desc: "Rui Freitas — Duas horas dentro do universo VelvetVerse."
+  },
+  {
+    start: 1380,
+    end: 1620,
+    time: "23:00 - 03:00",
+    name: "Velvet After Dark 🌌",
+    desc: "A banda sonora perfeita para depois da meia-noite."
+  }
+];
+
+function updateDynamicSchedule() {
+  const torontoParts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(new Date());
+
+  const hour = Number(
+    torontoParts.find(part => part.type === "hour").value
+  );
+
+  const minute = Number(
+    torontoParts.find(part => part.type === "minute").value
+  );
+
+  let nowMinutes = (hour * 60) + minute;
+
+  if (nowMinutes < 180) {
+    nowMinutes += 1440;
+  }
+
+  let currentIndex = velvetSchedule.findIndex(program => {
+    return nowMinutes >= program.start && nowMinutes < program.end;
+  });
+
+  if (currentIndex === -1) {
+    currentIndex = 0;
+  }
+
+  const container = document.getElementById("dynamicSchedule");
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < 4; i++) {
+    const program =
+      velvetSchedule[(currentIndex + i) % velvetSchedule.length];
+
+    const item = document.createElement("div");
+    item.className = "schedule-item";
+
+    item.innerHTML = `
+      <div class="schedule-time">${program.time}</div>
+      <div>
+        <div class="schedule-name">${program.name}</div>
+        <div class="schedule-desc">${program.desc}</div>
+      </div>
+    `;
+
+    container.appendChild(item);
+  }
+}
+
+updateDynamicSchedule();
+
+setInterval(updateDynamicSchedule, 60000);
+</script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".promo-slide");
+
+    if (!slides.length) return;
+
+    let currentSlide = 0;
+
+    setInterval(function () {
+        slides[currentSlide].classList.remove("active");
+
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        slides[currentSlide].classList.add("active");
+    }, 10000);
+});
 </script>
   <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js');
-}
-</script>
+document.addEventListener("DOMContentLoaded", function () {
+  const futureSlides = document.querySelectorAll(".future-slide");
 
+  if (futureSlides.length < 2) return;
+
+  let futureCurrent = 0;
+
+  setInterval(function () {
+    futureSlides[futureCurrent].classList.remove("active");
+
+    futureCurrent = (futureCurrent + 1) % futureSlides.length;
+
+    futureSlides[futureCurrent].classList.add("active");
+  }, 10000);
+});
+</script>
 </body>
 </html>
-
