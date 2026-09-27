@@ -1144,7 +1144,9 @@ async function updateCurrentArtwork(artist, song){
         );
 
     }
-
+else{
+  currentArtwork.src = "logo.png";
+}
   }catch(error){
 
     currentArtwork.src = "logo.png";
