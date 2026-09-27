@@ -793,6 +793,24 @@ max-width: 5px;
 .promo-mini-banner-bottom {
     bottom: 9px;
 }
+    .blink-star {
+    display: inline-block;
+    animation: blinkStar 2.4s infinite ease-in-out;
+}
+
+.blink-star:last-child {
+    animation-delay: 1.2s;
+}
+
+@keyframes blinkStar {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
 
     .schedule-item {
       display: grid;
@@ -2183,8 +2201,10 @@ max-width: 5px;
 <div class="promo-slider">
 
     <div class="promo-mini-banner promo-mini-banner-top">
-        ✦ EM DESTAQUE NA VELVETVERSE RADIO ✦
-    </div>
+  <span class="blink-star">✦</span>
+  <span>EM DESTAQUE NA VELVETVERSE RADIO</span>
+  <span class="blink-star">✦</span>
+</div>
 
     <img src="NOIA.png" class="promo-slide active" alt="Ritmo Latino">
     <img src="Suzy.png" class="promo-slide" alt="Alma Portuguesa">
