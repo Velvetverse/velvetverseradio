@@ -215,6 +215,24 @@ body{
   margin-bottom:22px;
 }
 
+  .vv-track{
+  margin:0 0 18px 0;
+}
+
+.vv-track-title{
+  font-size:22px;
+  font-weight:800;
+  color:#ffffff;
+  line-height:1.1;
+}
+
+.vv-track-artist{
+  margin-top:5px;
+  font-size:17px;
+  color:#d92cff;
+  letter-spacing:1px;
+}
+
 .vv-host-row{
   display:flex;
   align-items:center;
@@ -645,6 +663,11 @@ body{
         Canções que ficam no coração e na memória.
       </div>
 
+      <div class="vv-track">
+  <div class="vv-track-title" id="trackTitle">A carregar música...</div>
+  <div class="vv-track-artist" id="trackArtist">VelvetVerse Radio</div>
+</div>
+
       <div class="vv-host-row">
 
         <img
@@ -953,9 +976,6 @@ function updateProgram(){
   document.getElementById("hostPhoto").src =
     current.hostPhoto;
 
-  document.getElementById("programCover").src =
-    current.cover;
-
   const tags =
     document.getElementById("programTags");
 
@@ -1075,6 +1095,140 @@ volume.addEventListener("input",()=>{
     value + "%";
 
 });
+
+/* ==========================================================
+   MÚSICA A TOCAR AGORA — RCAST
+========================================================== */
+
+const trackTitle =
+  document.getElementById("trackTitle");
+
+const trackArtist =
+  document.getElementById("trackArtist");
+
+const currentArtwork =
+  document.getElementById("programCover");
+
+let lastTrackKey = "";
+
+
+async function updateCurrentArtwork(artist, song){
+
+  try{
+
+    const term =
+      encodeURIComponent(artist + " " + song);
+
+    const response = await fetch(
+      "https://itunes.apple.com/search?term=" +
+      term +
+      "&entity=song&limit=1",
+      { cache:"no-store" }
+    );
+
+    if(!response.ok){
+      throw new Error("artwork");
+    }
+
+    const data = await response.json();
+
+    const artwork =
+      data.results?.[0]?.artworkUrl100;
+
+    if(artwork){
+
+      currentArtwork.src =
+        artwork.replace(
+          "100x100bb",
+          "600x600bb"
+        );
+
+    }
+
+  }catch(error){
+
+    currentArtwork.src = "logo.png";
+
+  }
+
+}
+
+
+async function updateNowPlaying(){
+
+  try{
+
+    const response = await fetch(
+      "https://live3.rcast.net/api/v1/stations/73595/now-playing?ts=" +
+      Date.now(),
+      { cache:"no-store" }
+    );
+
+    if(!response.ok){
+      throw new Error("metadata");
+    }
+
+    const json = await response.json();
+
+    const current = json.data || {};
+
+    const artist =
+      (current.artist || "VelvetVerse Radio").trim();
+
+    let song =
+      (
+        current.title ||
+        current.raw ||
+        "Emissão ao vivo"
+      ).trim();
+
+    const prefix = artist + " - ";
+
+    if(
+      song
+        .toLowerCase()
+        .startsWith(prefix.toLowerCase())
+    ){
+      song =
+        song.slice(prefix.length).trim();
+    }
+
+    trackTitle.textContent = song;
+    trackArtist.textContent = artist;
+
+    const key =
+      (artist + "|" + song).toLowerCase();
+
+    if(key !== lastTrackKey){
+
+      lastTrackKey = key;
+
+      updateCurrentArtwork(
+        artist,
+        song
+      );
+
+    }
+
+  }catch(error){
+
+    trackTitle.textContent =
+      "VelvetVerse Radio";
+
+    trackArtist.textContent =
+      "Emissão ao vivo";
+
+  }
+
+}
+
+
+updateNowPlaying();
+
+setInterval(
+  updateNowPlaying,
+  10000
+);
 
 </script>
 
