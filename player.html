@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VelvetVerse Radio — Live Player</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(146, 26, 255, 0.20), transparent 45%),
+    #07050d;
+  color: #fff;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.player {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(145deg, #11091d, #09070f);
+  border: 1px solid rgba(211, 44, 255, 0.45);
+  border-radius: 24px;
+  padding: 28px;
+  text-align: center;
+  box-shadow:
+    0 0 35px rgba(180, 0, 255, 0.18),
+    inset 0 0 30px rgba(255, 0, 180, 0.03);
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 18px;
+  box-shadow:
+    0 0 20px rgba(255, 0, 174, 0.35),
+    0 0 40px rgba(88, 46, 255, 0.20);
+}
+
+.live {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid #ff1684;
+  color: #ff4ba3;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ff176f;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff176f;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; }
+  50% { opacity: .35; }
+}
+
+h1 {
+  margin: 15px 0 4px;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #afa8c4;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.now-label {
+  color: #de54ff;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  margin-bottom: 7px;
+}
+
+.song {
+  font-size: 21px;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
+
+.artist {
+  color: #bbb3d0;
+  font-size: 14px;
+}
+
+.equalizer {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 22px 0;
+}
+
+.equalizer span {
+  width: 5px;
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(#ff1bb8, #7e35ff);
+  animation: eq 1s ease-in-out infinite;
+}
+
+.equalizer span:nth-child(2) { animation-delay: .15s; }
+.equalizer span:nth-child(3) { animation-delay: .30s; }
+.equalizer span:nth-child(4) { animation-delay: .45s; }
+.equalizer span:nth-child(5) { animation-delay: .60s; }
+.equalizer span:nth-child(6) { animation-delay: .35s; }
+.equalizer span:nth-child(7) { animation-delay: .20s; }
+
+@keyframes eq {
+  0%,100% { height: 10px; }
+  50% { height: 42px; }
+}
+
+.play-button {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  border: 2px solid #ff1684;
+  background: linear-gradient(145deg, #30104c, #b0007c);
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  box-shadow: 0 0 24px rgba(255, 0, 164, .35);
+  transition: .2s ease;
+}
+
+.play-button:hover {
+  transform: scale(1.06);
+}
+
+.volume-row {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.volume-row span {
+  font-size: 18px;
+}
+
+.volume-row input {
+  width: 100%;
+  accent-color: #c52cff;
+}
+
+.footer {
+  border-top: 1px solid rgba(255,255,255,.08);
+  margin-top: 24px;
+  padding-top: 17px;
+  color: #817a96;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="player">
+
+  <img src="logo.png"
+       class="logo"
+       alt="VelvetVerse Radio">
+
+  <div class="live">
+    <span class="live-dot"></span>
+    LIVE 24/7
+  </div>
+
+  <h1>VelvetVerse Radio</h1>
+
+  <div class="subtitle">
+    Music Never Stops
+  </div>
+
+  <div class="now-label">
+    NOW PLAYING
+  </div>
+
+  <div class="song" id="songTitle">
+    VelvetVerse Radio
+  </div>
+
+  <div class="artist" id="artistName">
+    Live from Toronto
+  </div>
+
+  <div class="equalizer">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <button
+    class="play-button"
+    id="playButton"
+    aria-label="Play radio">
+    ▶
+  </button>
+
+  <div class="volume-row">
+    <span>🔊</span>
+
+    <input
+      id="volume"
+      type="range"
+      min="0"
+      max="1"
+      step="0.01"
+      value="0.8">
+  </div>
+
+  <div class="footer">
+    VELVETVERSE RADIO • TORONTO
+  </div>
+
+</div>
+
+<audio id="radio">
+  <source src="https://stream.rcast.net/73595" type="audio/mpeg">
+</audio>
+
+<script>
+const radio = document.getElementById("radio");
+const playButton = document.getElementById("playButton");
+const volume = document.getElementById("volume");
+
+radio.volume = 0.8;
+
+playButton.addEventListener("click", async function () {
+
+  if (radio.paused) {
+
+    try {
+      await radio.play();
+      playButton.textContent = "❚❚";
+      playButton.setAttribute("aria-label", "Pause radio");
+    } catch (error) {
+      console.log("Playback blocked:", error);
+    }
+
+  } else {
+
+    radio.pause();
+    playButton.textContent = "▶";
+    playButton.setAttribute("aria-label", "Play radio");
+
+  }
+});
+
+volume.addEventListener("input", function () {
+  radio.volume = volume.value;
+});
+
+radio.addEventListener("playing", function () {
+  playButton.textContent = "❚❚";
+});
+
+radio.addEventListener("pause", function () {
+  playButton.textContent = "▶";
+});
+</script>
+
+</body>
+</html>
