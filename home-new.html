@@ -962,16 +962,13 @@ max-width: 5px;
     filter: brightness(1.15);
 }
     .future-block {
-      margin-top: 18px;
-      min-height: 260px;
-      padding: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #aaa7c2;
-      border-style: dashed;
-    }
+  margin-top: 18px;
+  width: 100%;
+  aspect-ratio: 6 / 1;
+  padding: 0;
+  overflow: hidden;
+  border-style: solid;
+}
 
     .site-footer {
       width: 100%;
@@ -1940,7 +1937,9 @@ max-width: 5px;
 }
 
 @media(max-width:850px){
-
+.future-block {
+  aspect-ratio: 3 / 1;
+}
   #requests .requests-hero{
     min-height:390px;
     background-size:auto 720px;
