@@ -716,10 +716,42 @@ max-width: 5px;
       margin-top: 18px;
     }
 
-    .info-panel {
-      min-height: 320px;
-      padding: 20px;
-    }
+   .info-panel {
+    min-height: 320px;
+    padding: 20px;
+}
+
+.promo-slider-panel {
+    padding: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+}
+
+.promo-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.promo-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.promo-slide.active {
+    opacity: 1;
+}
+
+.promo-slide.active {
+    opacity: 1;
+}
 
     .schedule-item {
       display: grid;
@@ -2105,30 +2137,22 @@ max-width: 5px;
 
       </div>
 
-      <div class="panel info-panel">
+      <div class="panel promo-slider-panel">
 
-        <div class="panel-heading">
-          <h2>♫ Pede a tua música</h2>
-          <a href="discos-pedidos.html">Ir para Discos Pedidos →</a>
-        </div>
+    <div class="promo-slider">
 
-        <p style="color:#c6c1dc; line-height:1.6;">
-          Escolhe a música que gostarias de ouvir na VelvetVerse Radio!
-        </p>
+        <img src="NOIA.png" class="promo-slide active" alt="Ritmo Latino">
+        <img src="Suzy.png" class="promo-slide" alt="Alma Portuguesa">
+        <img src="Carlos.png" class="promo-slide" alt="Corações & Memórias">
+        <img src="LARA.png" class="promo-slide" alt="Coração Brasileiro">
+        <img src="Beto.png" class="promo-slide" alt="Rock Sem Limites">
+        <img src="Rui Freitas.png" class="promo-slide" alt="VelvetVerse Experience">
+        <img src="Velvet After Dark.png" class="promo-slide" alt="Velvet After Dark">
+        <img src="Midnight Flow.png" class="promo-slide" alt="Midnight Flow">
 
-        <div class="request-form">
-          <input type="text" placeholder="O teu nome">
-          <input type="text" placeholder="Cidade">
-          <input type="text" placeholder="Artista">
-          <input type="text" placeholder="Música">
+    </div>
 
-          <button class="request-button">
-            Enviar Pedido
-          </button>
-        </div>
-
-      </div>
-
+</div>
       <div class="panel info-panel">
 
         <div class="panel-heading">
@@ -3596,6 +3620,24 @@ function updateDynamicSchedule() {
 updateDynamicSchedule();
 
 setInterval(updateDynamicSchedule, 60000);
+</script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".promo-slide");
+
+    if (!slides.length) return;
+
+    let currentSlide = 0;
+
+    setInterval(function () {
+        slides[currentSlide].classList.remove("active");
+
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        slides[currentSlide].classList.add("active");
+    }, 10000);
+});
 </script>
   
 </body>
