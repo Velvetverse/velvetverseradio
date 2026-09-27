@@ -7,292 +7,1073 @@
 <title>VelvetVerse Radio — Live Player</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{
+  box-sizing:border-box;
 }
 
-html,
-body {
-  margin: 0;
-  width: 100%;
-  min-height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+}
+
+body{
   background:
-    radial-gradient(circle at top, rgba(146, 26, 255, 0.20), transparent 45%),
-    #07050d;
-  color: #fff;
+    radial-gradient(circle at 50% 0%,rgba(90,0,255,.24),transparent 45%),
+    radial-gradient(circle at 90% 90%,rgba(255,0,200,.15),transparent 40%),
+    #060012;
+  padding:28px 18px;
 }
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-}
+/* ================================
+   PLAYER PRINCIPAL
+================================ */
 
-.player {
-  width: 100%;
-  max-width: 520px;
-  background: linear-gradient(145deg, #11091d, #09070f);
-  border: 1px solid rgba(211, 44, 255, 0.45);
-  border-radius: 24px;
-  padding: 28px;
-  text-align: center;
+.vv-player{
+  width:min(1500px,100%);
+  margin:auto;
+  border:2px solid #ff23da;
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 80% 45%,rgba(130,0,255,.17),transparent 34%),
+    linear-gradient(135deg,#0c0318,#090011 60%,#12001d);
   box-shadow:
-    0 0 35px rgba(180, 0, 255, 0.18),
-    inset 0 0 30px rgba(255, 0, 180, 0.03);
+    0 0 22px rgba(255,0,220,.55),
+    inset 0 0 40px rgba(100,0,160,.12);
+  overflow:hidden;
 }
 
-.logo {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 18px;
+/* ================================
+   TOPO
+================================ */
+
+.vv-top{
+  height:138px;
+  display:flex;
+  align-items:center;
+  padding:20px 34px;
+  border-bottom:1px solid rgba(255,30,220,.8);
+}
+
+.vv-brand{
+  display:flex;
+  align-items:center;
+  min-width:460px;
+}
+
+.vv-logo{
+  width:116px;
+  height:116px;
+  object-fit:contain;
+  filter:drop-shadow(0 0 12px #ff2bd6);
+}
+
+.vv-brand-text{
+  margin-left:22px;
+}
+
+.vv-brand-title{
+  font-size:46px;
+  font-weight:800;
+  line-height:.95;
+  white-space:nowrap;
+}
+
+.vv-brand-title span{
+  color:#9a18ff;
+}
+
+.vv-brand-sub{
+  margin-top:10px;
+  font-size:27px;
+  letter-spacing:5px;
+}
+
+.vv-divider{
+  width:1px;
+  height:48px;
+  background:#746779;
+  margin:0 30px;
+}
+
+.vv-live{
+  border:1px solid #ff168d;
+  border-radius:28px;
+  padding:12px 25px;
+  color:#ff4eaa;
+  font-size:22px;
+  letter-spacing:3px;
+  white-space:nowrap;
+  box-shadow:0 0 15px rgba(255,0,160,.15);
+}
+
+.vv-live-dot{
+  display:inline-block;
+  width:15px;
+  height:15px;
+  border:4px solid white;
+  border-radius:50%;
+  margin-right:12px;
+  vertical-align:-1px;
+}
+
+.vv-slogan{
+  flex:1;
+  text-align:center;
+  color:#d6cddb;
+  letter-spacing:3px;
+  font-style:italic;
+  font-size:16px;
+  white-space:nowrap;
+}
+
+.vv-window-icons{
+  display:flex;
+  gap:28px;
+  align-items:center;
+  font-size:34px;
+}
+
+.vv-setting{
+  font-size:36px;
+}
+
+/* ================================
+   ZONA CENTRAL
+================================ */
+
+.vv-main{
+  display:grid;
+  grid-template-columns:455px 1fr 300px;
+  gap:34px;
+  align-items:center;
+  padding:18px 30px 22px;
+}
+
+.vv-cover{
+  width:455px;
+  height:455px;
+  border-radius:22px;
+  overflow:hidden;
+  border:2px solid #d91cff;
+  box-shadow:0 0 25px rgba(211,0,255,.30);
+}
+
+.vv-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.vv-info{
+  min-width:0;
+}
+
+.vv-now{
+  color:#d725ff;
+  font-size:19px;
+  letter-spacing:3px;
+  font-weight:700;
+  margin-bottom:16px;
+}
+
+.vv-bars-small{
+  display:inline-flex;
+  gap:5px;
+  margin-right:20px;
+  vertical-align:middle;
+  align-items:flex-end;
+  height:28px;
+}
+
+.vv-bars-small i{
+  width:6px;
+  background:#e017ff;
+  display:block;
+  box-shadow:0 0 8px #e017ff;
+}
+
+.vv-bars-small i:nth-child(1){height:13px}
+.vv-bars-small i:nth-child(2){height:28px}
+.vv-bars-small i:nth-child(3){height:20px}
+
+.vv-program{
+  font-size:42px;
+  font-weight:800;
+  line-height:1.05;
+  margin-bottom:10px;
+}
+
+.vv-description{
+  font-size:23px;
+  color:#d2cbd7;
+  margin-bottom:22px;
+}
+
+.vv-host-row{
+  display:flex;
+  align-items:center;
+  gap:26px;
+}
+
+.vv-host-photo{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #d829ff;
+  box-shadow:0 0 17px rgba(220,0,255,.55);
+  background:#160022;
+}
+
+.vv-presented{
+  color:#ef32ff;
+  letter-spacing:3px;
+  font-size:16px;
+  margin-bottom:8px;
+}
+
+.vv-host-name{
+  font-size:31px;
+  font-weight:800;
+}
+
+.vv-radio-name{
+  margin-top:8px;
+  font-size:16px;
+  color:#c9c0cf;
+  letter-spacing:5px;
+}
+
+.vv-eq{
+  height:82px;
+  display:flex;
+  align-items:flex-end;
+  gap:4px;
+  margin-top:14px;
+  overflow:hidden;
+}
+
+.vv-eq span{
+  flex:1;
+  max-width:10px;
+  min-width:4px;
+  height:20%;
+  border-radius:2px 2px 0 0;
+  background:linear-gradient(to top,#6824ff,#f400ff,#ff176c);
+  box-shadow:0 0 7px rgba(243,0,255,.45);
+  animation:eq 1s ease-in-out infinite alternate;
+  animation-play-state:paused;
+}
+
+.vv-player.playing .vv-eq span{
+  animation-play-state:running;
+}
+
+.vv-eq span:nth-child(3n){animation-duration:.55s}
+.vv-eq span:nth-child(4n){animation-duration:.8s}
+.vv-eq span:nth-child(5n){animation-duration:1.05s}
+
+@keyframes eq{
+  from{height:12%}
+  to{height:90%}
+}
+
+.vv-tags{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.vv-tag{
+  border:1px solid #d42eff;
+  border-radius:23px;
+  padding:10px 27px;
+  font-size:13px;
+  letter-spacing:2px;
+}
+
+/* ================================
+   CONTROLOS DIREITA
+================================ */
+
+.vv-controls{
+  text-align:center;
+}
+
+.vv-play{
+  width:215px;
+  height:215px;
+  border-radius:50%;
+  border:8px solid #df13fb;
+  background:
+    radial-gradient(circle,#1b092c,#08000e 70%);
   box-shadow:
-    0 0 20px rgba(255, 0, 174, 0.35),
-    0 0 40px rgba(88, 46, 255, 0.20);
+    0 0 18px #e119ff,
+    0 0 48px rgba(190,0,255,.40);
+  color:white;
+  font-size:67px;
+  cursor:pointer;
+  transition:.2s;
 }
 
-.live {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  border: 1px solid #ff1684;
-  color: #ff4ba3;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 1px;
+.vv-play:hover{
+  transform:scale(1.03);
 }
 
-.live-dot {
-  width: 8px;
-  height: 8px;
-  background: #ff176f;
-  border-radius: 50%;
-  box-shadow: 0 0 10px #ff176f;
-  animation: pulse 1.2s infinite;
+.vv-volume{
+  margin-top:70px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
 }
 
-@keyframes pulse {
-  0%,100% { opacity: 1; }
-  50% { opacity: .35; }
+.vv-volume-icon{
+  font-size:29px;
 }
 
-h1 {
-  margin: 15px 0 4px;
-  font-size: 28px;
+.vv-volume input{
+  width:185px;
+  accent-color:#e81ce9;
 }
 
-.subtitle {
-  color: #afa8c4;
-  font-size: 14px;
-  margin-bottom: 22px;
+.vv-volume-number{
+  width:50px;
+  text-align:left;
+  color:#d8d0dd;
+  font-size:17px;
 }
 
-.now-label {
-  color: #de54ff;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 1.5px;
-  margin-bottom: 7px;
+/* ================================
+   RODAPÉ DENTRO DO PLAYER
+================================ */
+
+.vv-bottom{
+  min-height:108px;
+  display:grid;
+  grid-template-columns:520px 1fr 190px;
+  gap:25px;
+  align-items:center;
+  padding:15px 38px;
+  border-top:1px solid rgba(255,30,220,.72);
 }
 
-.song {
-  font-size: 21px;
-  font-weight: 900;
-  margin-bottom: 5px;
+.vv-station{
+  display:flex;
+  align-items:center;
+  gap:24px;
 }
 
-.artist {
-  color: #bbb3d0;
-  font-size: 14px;
+.vv-antenna{
+  color:#f251d9;
+  font-size:55px;
+  text-shadow:0 0 12px #fc00db;
 }
 
-.equalizer {
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  margin: 22px 0;
+.vv-station-title{
+  font-size:25px;
+  font-weight:700;
+  letter-spacing:2px;
 }
 
-.equalizer span {
-  width: 5px;
-  height: 12px;
-  border-radius: 4px;
-  background: linear-gradient(#ff1bb8, #7e35ff);
-  animation: eq 1s ease-in-out infinite;
+.vv-station-sub{
+  margin-top:8px;
+  font-size:14px;
+  letter-spacing:4px;
 }
 
-.equalizer span:nth-child(2) { animation-delay: .15s; }
-.equalizer span:nth-child(3) { animation-delay: .30s; }
-.equalizer span:nth-child(4) { animation-delay: .45s; }
-.equalizer span:nth-child(5) { animation-delay: .60s; }
-.equalizer span:nth-child(6) { animation-delay: .35s; }
-.equalizer span:nth-child(7) { animation-delay: .20s; }
-
-@keyframes eq {
-  0%,100% { height: 10px; }
-  50% { height: 42px; }
+.vv-bottom-divider{
+  border-left:1px solid #8d8190;
+  padding-left:28px;
 }
 
-.play-button {
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
-  border: 2px solid #ff1684;
-  background: linear-gradient(145deg, #30104c, #b0007c);
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
-  box-shadow: 0 0 24px rgba(255, 0, 164, .35);
-  transition: .2s ease;
+.vv-message{
+  border:1px solid #58407a;
+  background:linear-gradient(90deg,#171027,#261044);
+  border-radius:12px;
+  height:68px;
+  display:flex;
+  align-items:center;
+  padding:0 27px;
+  font-size:20px;
+  color:#eee9f3;
 }
 
-.play-button:hover {
-  transform: scale(1.06);
+.vv-message-note{
+  font-size:27px;
+  margin-right:18px;
+  color:#bf95ff;
 }
 
-.volume-row {
-  margin-top: 24px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.vv-buttons{
+  display:flex;
+  gap:18px;
+  justify-content:flex-end;
 }
 
-.volume-row span {
-  font-size: 18px;
+.vv-small-btn{
+  width:86px;
+  height:76px;
+  border:1px solid #72399d;
+  background:#180823;
+  border-radius:15px;
+  color:white;
+  font-size:31px;
+  cursor:pointer;
 }
 
-.volume-row input {
-  width: 100%;
-  accent-color: #c52cff;
+/* ================================
+   PRÓXIMO PROGRAMA
+   FORA DA LINHA ROXA
+================================ */
+
+.vv-next{
+  width:min(1500px,100%);
+  margin:17px auto 0;
+  text-align:center;
+  font-size:18px;
+  letter-spacing:.5px;
+  color:#ddd5e2;
 }
 
-.footer {
-  border-top: 1px solid rgba(255,255,255,.08);
-  margin-top: 24px;
-  padding-top: 17px;
-  color: #817a96;
-  font-size: 11px;
-  letter-spacing: 1px;
+.vv-next strong{
+  color:#f32ee9;
+}
+
+/* ================================
+   RESPONSIVO
+================================ */
+
+@media(max-width:1100px){
+
+  .vv-top{
+    height:auto;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+
+  .vv-brand{
+    min-width:0;
+  }
+
+  .vv-slogan,
+  .vv-window-icons,
+  .vv-divider{
+    display:none;
+  }
+
+  .vv-main{
+    grid-template-columns:330px 1fr;
+  }
+
+  .vv-cover{
+    width:330px;
+    height:330px;
+  }
+
+  .vv-controls{
+    grid-column:1 / -1;
+  }
+
+  .vv-play{
+    width:135px;
+    height:135px;
+    font-size:43px;
+  }
+
+  .vv-volume{
+    margin-top:30px;
+  }
+
+  .vv-bottom{
+    grid-template-columns:1fr;
+  }
+
+  .vv-bottom-divider{
+    border-left:0;
+    padding-left:0;
+  }
+
+  .vv-buttons{
+    justify-content:center;
+  }
+}
+
+@media(max-width:700px){
+
+  body{
+    padding:10px;
+  }
+
+  .vv-top{
+    padding:15px;
+  }
+
+  .vv-logo{
+    width:75px;
+    height:75px;
+  }
+
+  .vv-brand-title{
+    font-size:29px;
+  }
+
+  .vv-brand-sub{
+    font-size:16px;
+  }
+
+  .vv-live{
+    margin-left:auto;
+    font-size:14px;
+  }
+
+  .vv-main{
+    display:block;
+    padding:15px;
+  }
+
+  .vv-cover{
+    width:100%;
+    height:auto;
+    aspect-ratio:1/1;
+    margin-bottom:25px;
+  }
+
+  .vv-program{
+    font-size:32px;
+  }
+
+  .vv-description{
+    font-size:18px;
+  }
+
+  .vv-host-photo{
+    width:100px;
+    height:100px;
+  }
+
+  .vv-play{
+    margin-top:30px;
+  }
+
+  .vv-bottom{
+    padding:18px;
+  }
+
+  .vv-station{
+    justify-content:center;
+  }
+
+  .vv-message{
+    font-size:16px;
+  }
+
+  .vv-next{
+    font-size:15px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="player">
+<div class="vv-player" id="vvPlayer">
 
-  <img src="logo.png"
-       class="logo"
-       alt="VelvetVerse Radio">
+  <div class="vv-top">
 
-  <div class="live">
-    <span class="live-dot"></span>
-    LIVE 24/7
+    <div class="vv-brand">
+      <img src="logo.png" class="vv-logo" alt="VelvetVerse Radio">
+
+      <div class="vv-brand-text">
+        <div class="vv-brand-title">
+          Velvet<span>Verse</span>
+        </div>
+        <div class="vv-brand-sub">
+          RADIO LIVE
+        </div>
+      </div>
+    </div>
+
+    <div class="vv-divider"></div>
+
+    <div class="vv-live">
+      <span class="vv-live-dot"></span>LIVE
+    </div>
+
+    <div class="vv-divider"></div>
+
+    <div class="vv-slogan">
+      MÚSICA &nbsp;•&nbsp; CULTURA &nbsp;•&nbsp; CONEXÕES SEM FRONTEIRAS
+    </div>
+
+    <div class="vv-window-icons">
+      <span class="vv-setting">⚙</span>
+      <span>|</span>
+      <span>—</span>
+      <span>×</span>
+    </div>
+
   </div>
 
-  <h1>VelvetVerse Radio</h1>
+  <div class="vv-main">
 
-  <div class="subtitle">
-    Music Never Stops
+    <div class="vv-cover">
+      <img src="velvetverse.png" id="programCover" alt="VelvetVerse Radio">
+    </div>
+
+    <div class="vv-info">
+
+      <div class="vv-now">
+        <span class="vv-bars-small">
+          <i></i><i></i><i></i>
+        </span>
+        TOCANDO AGORA
+      </div>
+
+      <div class="vv-program" id="programName">
+        Corações &amp; Memórias ❤️
+      </div>
+
+      <div class="vv-description" id="programDescription">
+        Canções que ficam no coração e na memória.
+      </div>
+
+      <div class="vv-host-row">
+
+        <img
+          src="carlos.png"
+          class="vv-host-photo"
+          id="hostPhoto"
+          alt="Locutor">
+
+        <div>
+          <div class="vv-presented">
+            APRESENTADO POR
+          </div>
+
+          <div class="vv-host-name" id="hostName">
+            Carlos
+          </div>
+
+          <div class="vv-radio-name">
+            VELVETVERSE RADIO
+          </div>
+        </div>
+
+      </div>
+
+      <div class="vv-eq" id="equalizer">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="vv-tags" id="programTags">
+        <span class="vv-tag">POP</span>
+        <span class="vv-tag">MPB</span>
+        <span class="vv-tag">NACIONAL</span>
+        <span class="vv-tag">MEMÓRIAS</span>
+      </div>
+
+    </div>
+
+    <div class="vv-controls">
+
+      <button
+        class="vv-play"
+        id="playButton"
+        aria-label="Play/Pause">
+        ▶
+      </button>
+
+      <div class="vv-volume">
+        <span class="vv-volume-icon">🔊</span>
+
+        <input
+          id="volumeControl"
+          type="range"
+          min="0"
+          max="100"
+          value="70">
+
+        <span
+          class="vv-volume-number"
+          id="volumeNumber">
+          70%
+        </span>
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="now-label">
-    NOW PLAYING
-  </div>
+  <div class="vv-bottom">
 
-  <div class="song" id="songTitle">
-    VelvetVerse Radio
-  </div>
+    <div class="vv-station">
 
-  <div class="artist" id="artistName">
-    Live from Toronto
-  </div>
+      <div class="vv-antenna">◉</div>
 
-  <div class="equalizer">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+      <div>
+        <div class="vv-station-title">
+          VELVETVERSE RADIO
+        </div>
 
-  <button
-    class="play-button"
-    id="playButton"
-    aria-label="Play radio">
-    ▶
-  </button>
+        <div class="vv-station-sub">
+          8 PROGRAMAS &nbsp;•&nbsp; TODOS OS DIAS &nbsp;•&nbsp; 24/7
+        </div>
+      </div>
 
-  <div class="volume-row">
-    <span>🔊</span>
+    </div>
 
-    <input
-      id="volume"
-      type="range"
-      min="0"
-      max="1"
-      step="0.01"
-      value="0.8">
-  </div>
+    <div class="vv-bottom-divider">
 
-  <div class="footer">
-    VELVETVERSE RADIO • TORONTO
+      <div class="vv-message">
+        <span class="vv-message-note">♫</span>
+        Mais que música, um universo.
+      </div>
+
+    </div>
+
+    <div class="vv-buttons">
+      <button class="vv-small-btn" title="Partilhar">⌯</button>
+      <button class="vv-small-btn" title="Menu">☷</button>
+    </div>
+
   </div>
 
 </div>
 
-<audio id="radio">
-  <source src="https://stream.rcast.net/73595" type="audio/mpeg">
+<div class="vv-next" id="nextProgram">
+  Não percas às 16:00 — <strong>Coração Brasileiro</strong> com Lara Ingrid.
+</div>
+
+<audio
+  id="radioAudio"
+  preload="none"
+  src="https://stream.rcast.net/73595">
 </audio>
 
 <script>
-const radio = document.getElementById("radio");
-const playButton = document.getElementById("playButton");
-const volume = document.getElementById("volume");
 
-radio.volume = 0.8;
+/* ==========================================================
+   PROGRAMAÇÃO — HORÁRIO DE TORONTO
+========================================================== */
 
-playButton.addEventListener("click", async function () {
+const schedule = [
 
-  if (radio.paused) {
+  {
+    start:7,
+    end:10,
+    name:"Ritmo Latino 🔥",
+    host:"Adrian Vega (Noia)",
+    hostPhoto:"adrian.png",
+    cover:"velvetverse.png",
+    description:"Começa o teu dia com energia e ritmo latino!",
+    tags:["LATINO","SALSA","REGGAETON","RITMO"]
+  },
 
-    try {
-      await radio.play();
-      playButton.textContent = "❚❚";
-      playButton.setAttribute("aria-label", "Pause radio");
-    } catch (error) {
-      console.log("Playback blocked:", error);
-    }
+  {
+    start:10,
+    end:13,
+    name:"Alma Portuguesa 🇵🇹",
+    host:"Suzy Mendes",
+    hostPhoto:"suzy.png",
+    cover:"velvetverse.png",
+    description:"Música portuguesa com alma e emoção.",
+    tags:["PORTUGAL","POP","CLÁSSICOS","ALMA"]
+  },
 
-  } else {
+  {
+    start:13,
+    end:16,
+    name:"Corações & Memórias ❤️",
+    host:"Carlos",
+    hostPhoto:"carlos.png",
+    cover:"velvetverse.png",
+    description:"Canções que ficam no coração e na memória.",
+    tags:["POP","MPB","NACIONAL","MEMÓRIAS"]
+  },
 
-    radio.pause();
-    playButton.textContent = "▶";
-    playButton.setAttribute("aria-label", "Play radio");
+  {
+    start:16,
+    end:19,
+    name:"Coração Brasileiro 🇧🇷",
+    host:"Lara Ingrid",
+    hostPhoto:"lara.png",
+    cover:"velvetverse.png",
+    description:"A música brasileira que toca o coração.",
+    tags:["BRASIL","MPB","POP","EMOÇÃO"]
+  },
+
+  {
+    start:19,
+    end:21,
+    name:"Rock Sem Limites ⚡",
+    host:"Beto Sousa",
+    hostPhoto:"beto.png",
+    cover:"velvetverse.png",
+    description:"Guitarras, clássicos e rock sem fronteiras.",
+    tags:["ROCK","CLASSIC ROCK","80s","90s"]
+  },
+
+  {
+    start:21,
+    end:23,
+    name:"VelvetVerse Experience",
+    host:"Rui Freitas",
+    hostPhoto:"rui-freitas-profile-v2.png",
+    cover:"velvetverse.png",
+    description:"Duas horas dentro do universo VelvetVerse.",
+    tags:["MÚSICA","HISTÓRIAS","BANDA","EXPERIENCE"]
+  },
+
+  {
+    start:23,
+    end:27,
+    name:"Velvet After Dark 🌙",
+    host:"VelvetVerse Radio",
+    hostPhoto:"logo.png",
+    cover:"Velvet After Dark.png",
+    description:"Quando a noite chega, a música continua.",
+    tags:["NIGHT","CHILL","LOVE","AFTER DARK"]
+  },
+
+  {
+    start:27,
+    end:31,
+    name:"Midnight Flow 🌌",
+    host:"VelvetVerse Radio",
+    hostPhoto:"logo.png",
+    cover:"Midnight Flow.png",
+    description:"Som para atravessar a madrugada.",
+    tags:["MIDNIGHT","FLOW","CHILL","NIGHT"]
+  }
+
+];
+
+
+/* ==========================================================
+   HORA DE TORONTO
+========================================================== */
+
+function getTorontoHour(){
+
+  const parts =
+    new Intl.DateTimeFormat("en-CA",{
+      timeZone:"America/Toronto",
+      hour:"2-digit",
+      hour12:false
+    }).formatToParts(new Date());
+
+  let hour =
+    Number(parts.find(p => p.type === "hour").value);
+
+  if(hour < 7){
+    hour += 24;
+  }
+
+  return hour;
+}
+
+
+/* ==========================================================
+   ENCONTRAR PROGRAMA ACTUAL
+========================================================== */
+
+function getCurrentProgram(){
+
+  const hour = getTorontoHour();
+
+  return schedule.find(program =>
+    hour >= program.start &&
+    hour < program.end
+  ) || schedule[0];
+}
+
+
+/* ==========================================================
+   PRÓXIMO PROGRAMA
+========================================================== */
+
+function getNextProgram(current){
+
+  const index = schedule.indexOf(current);
+
+  return schedule[
+    (index + 1) % schedule.length
+  ];
+}
+
+
+/* ==========================================================
+   FORMATAR HORA
+========================================================== */
+
+function formatHour(hour){
+
+  if(hour >= 24){
+    hour -= 24;
+  }
+
+  return String(hour).padStart(2,"0") + ":00";
+}
+
+
+/* ==========================================================
+   ACTUALIZAR PLAYER
+========================================================== */
+
+function updateProgram(){
+
+  const current = getCurrentProgram();
+  const next = getNextProgram(current);
+
+  document.getElementById("programName").textContent =
+    current.name;
+
+  document.getElementById("programDescription").textContent =
+    current.description;
+
+  document.getElementById("hostName").textContent =
+    current.host;
+
+  document.getElementById("hostPhoto").src =
+    current.hostPhoto;
+
+  document.getElementById("programCover").src =
+    current.cover;
+
+  const tags =
+    document.getElementById("programTags");
+
+  tags.innerHTML = "";
+
+  current.tags.forEach(tag => {
+
+    const span =
+      document.createElement("span");
+
+    span.className = "vv-tag";
+    span.textContent = tag;
+
+    tags.appendChild(span);
+
+  });
+
+  document.getElementById("nextProgram").innerHTML =
+    "Não percas às " +
+    formatHour(next.start) +
+    " — <strong>" +
+    next.name +
+    "</strong> com " +
+    next.host +
+    ".";
+
+}
+
+updateProgram();
+
+setInterval(updateProgram,60000);
+
+
+/* ==========================================================
+   STREAM
+========================================================== */
+
+const audio =
+  document.getElementById("radioAudio");
+
+const playButton =
+  document.getElementById("playButton");
+
+const player =
+  document.getElementById("vvPlayer");
+
+const volume =
+  document.getElementById("volumeControl");
+
+const volumeNumber =
+  document.getElementById("volumeNumber");
+
+audio.volume = .70;
+
+
+/* PLAY / PAUSE */
+
+playButton.addEventListener("click",async()=>{
+
+  if(!audio.paused){
+
+    audio.pause();
+    return;
 
   }
+
+  audio.src =
+    "https://stream.rcast.net/73595?ts=" +
+    Date.now();
+
+  try{
+
+    await audio.play();
+
+  }catch(error){
+
+    console.log(
+      "Não foi possível iniciar a emissão."
+    );
+
+  }
+
 });
 
-volume.addEventListener("input", function () {
-  radio.volume = volume.value;
-});
 
-radio.addEventListener("playing", function () {
+audio.addEventListener("playing",()=>{
+
   playButton.textContent = "❚❚";
+
+  player.classList.add("playing");
+
 });
 
-radio.addEventListener("pause", function () {
+
+audio.addEventListener("pause",()=>{
+
   playButton.textContent = "▶";
+
+  player.classList.remove("playing");
+
 });
+
+
+/* ==========================================================
+   VOLUME
+========================================================== */
+
+volume.addEventListener("input",()=>{
+
+  const value =
+    Number(volume.value);
+
+  audio.volume =
+    value / 100;
+
+  volumeNumber.textContent =
+    value + "%";
+
+});
+
 </script>
 
 </body>
