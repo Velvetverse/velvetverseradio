@@ -220,7 +220,7 @@ body{
 }
 
 .vv-track-title{
-  font-size:22px;
+ font-size:28px;
   font-weight:800;
   color:#ffffff;
   line-height:1.1;
@@ -228,7 +228,7 @@ body{
 
 .vv-track-artist{
   margin-top:5px;
-  font-size:17px;
+  font-size:20px;
   color:#d92cff;
   letter-spacing:1px;
 }
@@ -447,6 +447,90 @@ body{
   cursor:pointer;
 }
 
+  .vv-menu-panel{
+  display:none;
+  position:absolute;
+  right:38px;
+  bottom:105px;
+  width:240px;
+  background:#13051f;
+  border:1px solid #8a36b8;
+  border-radius:14px;
+  padding:10px;
+  box-shadow:0 0 20px rgba(220,0,255,.35);
+  z-index:50;
+}
+
+.vv-menu-panel.open{
+  display:block;
+}
+
+.vv-menu-panel a{
+  display:block;
+  padding:12px 14px;
+  color:#fff;
+  text-decoration:none;
+  border-radius:8px;
+  font-size:16px;
+}
+
+.vv-menu-panel a:hover{
+  background:#2b0d3d;
+  color:#f32ee9;
+}
+
+  .vv-settings-panel{
+  display:none;
+  position:absolute;
+  right:38px;
+  top:105px;
+  width:260px;
+  background:#13051f;
+  border:1px solid #8a36b8;
+  border-radius:14px;
+  padding:16px;
+  box-shadow:0 0 20px rgba(220,0,255,.35);
+  z-index:60;
+}
+
+.vv-settings-panel.open{
+  display:block;
+}
+
+.vv-settings-title{
+  font-size:18px;
+  font-weight:800;
+  margin-bottom:14px;
+  color:#fff;
+}
+
+.vv-settings-row{
+  display:block;
+  color:#ddd5e2;
+  font-size:15px;
+}
+
+.vv-settings-row input{
+  width:100%;
+  margin-top:10px;
+  accent-color:#e81ce9;
+}
+
+.vv-settings-mute{
+  width:100%;
+  margin-top:16px;
+  padding:10px;
+  border:1px solid #72399d;
+  border-radius:10px;
+  background:#180823;
+  color:#fff;
+  cursor:pointer;
+}
+
+.vv-settings-mute:hover{
+  background:#2b0d3d;
+}
+
 /* ================================
    PRÓXIMO PROGRAMA
    FORA DA LINHA ROXA
@@ -632,7 +716,7 @@ body{
     </div>
 
     <div class="vv-window-icons">
-      <span class="vv-setting">⚙</span>
+      <span class="vv-setting" id="settingsButton">⚙️</span>
       <span>|</span>
       <span>—</span>
       <span>×</span>
@@ -771,11 +855,30 @@ body{
     </div>
 
     <div class="vv-buttons">
-      <button class="vv-small-btn" title="Partilhar">⌯</button>
-      <button class="vv-small-btn" title="Menu">☷</button>
+      <button class="vv-small-btn" id="shareButton" title="Partilhar">⌯</button>
+     <button class="vv-small-btn" id="menuButton" title="Menu">☷</button>
     </div>
 
   </div>
+
+  <div id="menuPanel" class="vv-menu-panel">
+  <a href="https://velvetverseradio.com" target="_blank">Página Principal</a>
+  <a href="https://velvetverseradio.com/#schedule" target="_blank">Programação</a>
+  <a href="https://velvetverseradio.com/discos-pedidos.html" target="_blank">Discos Pedidos</a>
+</div>
+
+  <div id="settingsPanel" class="vv-settings-panel">
+  <div class="vv-settings-title">Settings</div>
+
+  <label class="vv-settings-row">
+    <span>Volume</span>
+    <input id="settingsVolume" type="range" min="0" max="100" value="70">
+  </label>
+
+  <button id="muteButton" class="vv-settings-mute">
+    🔇 Silenciar
+  </button>
+</div>
 
 </div>
 
@@ -1231,6 +1334,131 @@ setInterval(
   updateNowPlaying,
   10000
 );
+
+/* ==========================================================
+   PARTILHAR
+========================================================== */
+
+const shareButton =
+  document.getElementById("shareButton");
+
+shareButton.addEventListener("click", async () => {
+
+  const shareData = {
+    title: "VelvetVerse Radio",
+    text: "Ouve a VelvetVerse Radio — Music Never Stops.",
+    url: "https://velvetverseradio.com"
+  };
+
+  try {
+
+    if (navigator.share) {
+
+      await navigator.share(shareData);
+
+    } else {
+
+      await navigator.clipboard.writeText(
+        shareData.url
+      );
+
+      alert(
+        "Link da VelvetVerse Radio copiado!"
+      );
+
+    }
+
+  } catch (error) {
+
+    console.log("Partilha cancelada.");
+
+  }
+
+});
+
+/* ==========================================================
+   MENU
+========================================================== */
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const menuPanel =
+  document.getElementById("menuPanel");
+
+menuButton.addEventListener("click", () => {
+
+  menuPanel.classList.toggle("open");
+
+});
+
+document.addEventListener("click", (event) => {
+
+  if(
+    !menuPanel.contains(event.target) &&
+    event.target !== menuButton
+  ){
+    menuPanel.classList.remove("open");
+  }
+
+});
+
+/* ==========================================================
+   SETTINGS
+========================================================== */
+
+const settingsButton =
+  document.getElementById("settingsButton");
+
+const settingsPanel =
+  document.getElementById("settingsPanel");
+
+const settingsVolume =
+  document.getElementById("settingsVolume");
+
+const muteButton =
+  document.getElementById("muteButton");
+
+settingsVolume.value = volume.value;
+
+settingsButton.addEventListener("click", () => {
+
+  settingsPanel.classList.toggle("open");
+  menuPanel.classList.remove("open");
+
+});
+
+settingsVolume.addEventListener("input", () => {
+
+  const value = Number(settingsVolume.value);
+
+  audio.volume = value / 100;
+  volume.value = value;
+  volumeNumber.textContent = value + "%";
+
+});
+
+muteButton.addEventListener("click", () => {
+
+  audio.muted = !audio.muted;
+
+  muteButton.textContent =
+    audio.muted
+      ? "🔊 Repor som"
+      : "🔇 Silenciar";
+
+});
+
+document.addEventListener("click", (event) => {
+
+  if(
+    !settingsPanel.contains(event.target) &&
+    event.target !== settingsButton
+  ){
+    settingsPanel.classList.remove("open");
+  }
+
+});
 
 </script>
 
