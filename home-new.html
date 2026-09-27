@@ -900,6 +900,12 @@ max-width: 5px;
     background-position: center;
     background-repeat: no-repeat;
 }
+    .brasil-cover {
+    background-image: url("brasil-de-norte-a-sul-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
     .podcast-title {
       font-weight: 900;
       margin-bottom: 5px;
@@ -909,7 +915,15 @@ max-width: 5px;
       color: #aaa5c0;
       font-size: 13px;
     }
-
+.coming-soon {
+    display: block;
+    margin-top: 4px;
+    color: #ff4fd8;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
     .round-play {
     width: 44px;
     height: 44px;
@@ -2289,13 +2303,18 @@ max-width: 5px;
         </div>
 
         <div class="podcast-card">
-         <div class="podcast-cover"></div>
-          <div>
-            <div class="podcast-title">Love On Air</div>
-            <div class="podcast-desc">Músicas que tocam o coração.</div>
-          </div>
-          <div class="round-play">▶</div>
+    <div class="podcast-cover brasil-cover"></div>
+
+    <div>
+        <div class="podcast-title">Brasil de Norte a Sul</div>
+        <div class="podcast-desc">
+            Uma nova rubrica com Lara Ingrid, dedicada aos ritmos, tradições e curiosidades do Brasil.
+            <span class="coming-soon">✨ BREVEMENTE NA VELVETVERSE RADIO ✨</span>
         </div>
+    </div>
+
+    <a class="round-play" href="javascript:void(0);" aria-disabled="true"></a>
+</div>
 
       </div>
 
