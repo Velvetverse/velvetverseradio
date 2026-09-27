@@ -968,8 +968,21 @@ max-width: 5px;
   padding: 0;
   overflow: hidden;
   border-style: solid;
+      position: relative;
+}
+.future-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
 }
 
+.future-slide.active {
+  opacity: 1;
+}
     .site-footer {
       width: 100%;
       min-height: 64px;
@@ -2321,8 +2334,13 @@ max-width: 5px;
     </section>
 
     <section class="panel future-block">
-      Esta área fica preparada para acrescentarmos novos blocos no futuro.<br>
-      A página continuará a crescer verticalmente e o header continuará fixo no topo.
+      <img class="future-slide active"
+     src="velvetverse-toronto-studio-banner.png"
+     alt="VelvetVerse Studio Toronto de dia">
+
+<img class="future-slide"
+     src="velvetverse-toronto-studio-night-banner.png"
+     alt="VelvetVerse Studio Toronto à noite">
     </section>
 
 
@@ -3768,6 +3786,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 10000);
 });
 </script>
-  
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const futureSlides = document.querySelectorAll(".future-slide");
+
+  if (futureSlides.length < 2) return;
+
+  let futureCurrent = 0;
+
+  setInterval(function () {
+    futureSlides[futureCurrent].classList.remove("active");
+
+    futureCurrent = (futureCurrent + 1) % futureSlides.length;
+
+    futureSlides[futureCurrent].classList.add("active");
+  }, 10000);
+});
+</script>
 </body>
 </html>
