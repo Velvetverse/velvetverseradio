@@ -882,6 +882,32 @@ max-width: 5px;
       border-bottom: none;
     }
 
+    .podcast-scroll-window {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.podcast-scroll-track {
+    display: flex;
+    flex-direction: column;
+    animation: podcastScroll 30s linear infinite;
+}
+
+.podcast-scroll-window:hover .podcast-scroll-track {
+    animation-play-state: paused;
+}
+
+@keyframes podcastScroll {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}
+
     .podcast-cover {
       width: 72px;
       height: 72px;
@@ -2295,7 +2321,9 @@ max-width: 5px;
         <div class="panel-heading">
           <h2>Podcasts / Episódios</h2>
         </div>
-
+      <div class="podcast-scroll-window"> 
+        <div class="podcast-scroll-track">
+        
         <div class="podcast-card">
     <div class="podcast-cover backstage-cover"></div>
 
@@ -2331,7 +2359,38 @@ max-width: 5px;
    <a class="round-play" href="brasil-de-norte-a-sul.html"></a>
 </div>
 
+        <div class="podcast-card">
+    <div class="podcast-cover" style="background-image: url('e-se-logo.png');"></div>
+
+    <div>
+        <div class="podcast-title">E Se...?</div>
+        <div class="podcast-desc">
+            Perguntas que fazem pensar. Cenários imaginativos e possibilidades que desafiam a forma como vemos o mundo.
+            <br><span class="coming-soon">Domingos alternados • 10:00 Toronto • com Rui Freitas</span>
+        </div>
+    </div>
+
+    <a class="round-play" href="#" onclick="return false;">›</a>
+</div>
+
+<div class="podcast-card">
+    <div class="podcast-cover" style="background-image: url('um-futuro-proximo-logo.png');"></div>
+
+    <div>
+        <div class="podcast-title">Um Futuro Próximo</div>
+        <div class="podcast-desc">
+            Tecnologia, cidades, trabalho e mudanças que poderão transformar o mundo de amanhã.
+            <br><span class="coming-soon">Domingos alternados • 10:00 Toronto • com Rui Freitas</span>
+        </div>
+    </div>
+
+    <a class="round-play" href="#" onclick="return false;">›</a>
+</div>
+
       </div>
+</div>
+        
+        </div>
 
     </section>
 
@@ -3803,6 +3862,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     futureSlides[futureCurrent].classList.add("active");
   }, 10000);
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const track = document.querySelector(".podcast-scroll-track");
+
+    if (!track) return;
+
+    const cards = Array.from(track.children);
+
+    cards.forEach(function (card) {
+        const clone = card.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+    });
 });
 </script>
 </body>
