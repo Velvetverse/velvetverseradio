@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Um Futuro Próximo | VelvetVerse Radio</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial,sans-serif;
+background:#090909;
+color:white;
+min-height:100vh;
+padding:30px;
+}
+
+.container{
+max-width:1250px;
+margin:auto;
+}
+
+.back-btn{
+display:inline-block;
+margin-bottom:30px;
+padding:12px 24px;
+border-radius:999px;
+background:#151515;
+border:1px solid #444;
+color:white;
+text-decoration:none;
+transition:0.3s;
+}
+
+.back-btn:hover{
+background:#222;
+}
+
+.hero{
+background:linear-gradient(135deg,#07152a,#111,#200521);
+border:1px solid rgba(255,255,255,0.08);
+border-radius:30px;
+padding:40px;
+display:flex;
+align-items:center;
+gap:35px;
+margin-bottom:40px;
+box-shadow:0 0 40px rgba(53,183,255,0.18);
+}
+
+.hero-logo{
+width:260px;
+border-radius:20px;
+}
+
+.hero-content{
+flex:1;
+}
+
+.hero-content h1{
+font-size:50px;
+margin-bottom:15px;
+}
+
+.hero-content p{
+color:#ccc;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+.host{
+display:flex;
+align-items:center;
+gap:15px;
+margin-top:20px;
+}
+
+.host img{
+width:75px;
+height:75px;
+border-radius:50%;
+object-fit:cover;
+border:3px solid #35b7ff;
+}
+
+.host-info span{
+display:block;
+color:#aaa;
+font-size:14px;
+}
+
+.live-info{
+margin-top:20px;
+color:#7fd9ff;
+line-height:1.8;
+font-size:16px;
+}
+
+.player-section{
+background:#141414;
+border-radius:30px;
+padding:30px;
+margin-bottom:40px;
+border:1px solid rgba(255,255,255,0.08);
+display:flex;
+gap:30px;
+align-items:center;
+}
+
+.player-cover{
+width:320px;
+border-radius:25px;
+}
+
+.player-content{
+flex:1;
+}
+
+.player-content h2{
+font-size:42px;
+margin-bottom:15px;
+}
+
+.player-content p{
+color:#bbb;
+line-height:1.8;
+margin-bottom:25px;
+}
+
+audio{
+width:100%;
+}
+
+.reset-btn{
+margin-top:18px;
+padding:12px 24px;
+border:none;
+border-radius:999px;
+background:linear-gradient(135deg,#35b7ff,#a600ff);
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+.reset-btn:hover{
+transform:translateY(-2px);
+box-shadow:0 0 20px rgba(53,183,255,0.35);
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:25px;
+}
+
+.story-list{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,220px));
+gap:25px;
+}
+
+.story-card{
+background:#141414;
+border-radius:22px;
+overflow:hidden;
+cursor:pointer;
+transition:0.3s;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.story-card:hover{
+transform:translateY(-5px);
+box-shadow:0 0 30px rgba(53,183,255,0.22);
+}
+
+.story-card img{
+width:100%;
+display:block;
+}
+
+.story-card-content{
+padding:18px;
+}
+
+.story-card h3{
+margin-bottom:10px;
+}
+
+.story-card p{
+color:#aaa;
+font-size:14px;
+line-height:1.6;
+}
+
+.coming-soon{
+padding:18px 20px;
+border-radius:18px;
+border:1px solid rgba(53,183,255,0.35);
+background:linear-gradient(135deg,rgba(53,183,255,0.10),rgba(166,0,255,0.10));
+color:#ddd;
+line-height:1.7;
+}
+
+@media(max-width:900px){
+
+.hero{
+flex-direction:column;
+text-align:center;
+}
+
+.host{
+justify-content:center;
+}
+
+.player-section{
+flex-direction:column;
+}
+
+.player-cover{
+width:100%;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<a class="back-btn" href="index.html">
+← Back to VelvetVerse Radio
+</a>
+
+<section class="hero">
+
+<img class="hero-logo"
+src="logo-um-futuro-proximo.png"
+alt="Um Futuro Próximo">
+
+<div class="hero-content">
+
+<h1>Um Futuro Próximo</h1>
+
+<p>
+Uma viagem pelas mudanças que podem estar mais perto do que imaginamos.
+Tecnologia, cidades, trabalho, hábitos e novas formas de viver, explicados
+de forma simples e com base em tendências reais e cenários possíveis.
+Uma rubrica apresentada por Rui Freitas.
+</p>
+
+<div class="live-info">
+
+📻 Domingos alternados • 10:00 — hora de Toronto<br>
+🎙️ Exclusivo VelvetVerse Radio
+
+</div>
+
+<div class="host">
+
+<img src="Rui Freitas.png" alt="Rui Freitas">
+
+<div class="host-info">
+<strong>Rui Freitas</strong>
+<span>Host • Um Futuro Próximo</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="player-section">
+
+<img class="player-cover"
+id="mainCover"
+src="logo-um-futuro-proximo.png"
+alt="Um Futuro Próximo">
+
+<div class="player-content">
+
+<h2 id="mainTitle">
+Episódio 01 — Em preparação
+</h2>
+
+<p id="mainDescription">
+O primeiro episódio de “Um Futuro Próximo” está em preparação.
+Aqui ficará sempre o episódio mais recente da rubrica, com os anteriores guardados no arquivo abaixo.
+</p>
+
+<div class="coming-soon">
+🎙️ Primeiro episódio em breve na VelvetVerse Radio.
+</div>
+
+</div>
+
+</section>
+
+<h2 class="section-title">
+Arquivo Um Futuro Próximo
+</h2>
+
+<section class="story-list" id="archiveList">
+
+<div class="coming-soon">
+Ainda não existem episódios anteriores no arquivo.
+Assim que o Episódio 02 for publicado, o Episódio 01 passa para esta zona.
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+function changeStory(cover,title,description,audio){
+
+document.getElementById("mainCover").src=cover;
+document.getElementById("mainTitle").innerText=title;
+document.getElementById("mainDescription").innerText=description;
+
+const player=document.getElementById("mainPlayer");
+const source=document.getElementById("mainAudio");
+
+if(player && source && audio){
+source.src=audio;
+player.load();
+}
+
+}
+
+</script>
+
+</body>
+</html>
