@@ -3124,16 +3124,110 @@ async function updateLiveArtwork(artist, song) {
   if (key === liveLastTrack) return;
 
   liveLastTrack = key;
-if (
-   song.toLowerCase().includes('lady in red') &&
-    artist.toLowerCase().includes('velvetverse')
-  ) {
-    const localCover = 'covers/velvetverse/VelvetVerse performing Lady in Red by (Chris de Burgh).png';
+const velvetverseCovers = {
+  'lady in red': 'VelvetVerse performing Lady in Red by (Chris de Burgh).png',
+  'amei-te demais': 'Amei-te demais.png',
+  'amor que fica': 'Amor que fica MP3 Cover.png',
+  'angel wings': 'Angel Wings - capa MP3.png',
+  'apaixonado por uma e.t.': 'Apaixonado por uma E.T..png',
+  'areia fina': 'Areia Fina.png',
+  'before i run out of time': 'Before I Run Out of Time MP3 Cover.png',
+  'bica bica': 'Bica Bica MP3 cover.png',
+  'bruxas e fadas': 'Bruxas e Fadas.png',
+  'cai neve na cidade': 'Cai Neve na Cidade.png',
+  'caminho de volta': 'Caminho de volta MP3 cover.png',
+  'camionista madrugador': 'Camionista Madrugador MP3 Cover.png',
+  'canto pra curar o mundo': 'Canto Pra Curar o Mundo MP3 Cover.png',
+  'careless whisper': 'Careless Whisper - George Michael - VelvetVerse Band Cover.png',
+  'chama ancestral': 'Chama Ancestral cover mp3..png',
+  'contigo vou à lua': 'Contigo Vou à Lua - mp3 cover.png',
+  'coração de viana': 'Coração de Viana MP3 Cover.png',
+  'coração que não volta': 'Coração que Não Volta.png',
+  'despautério': 'DESPAUTÉRIO MP3 Cover.png',
+  'dança comigo': 'Dança comigo MP3 cover.png',
+  'deixa o sol entrar': 'Deixa o Sol Entrar.png',
+  'deixa-me navegar': 'Deixa-me  Navegar.png',
+  'diz o povo': 'Diz o Povo (e Tem Razao).png',
+  'diz-me porque': 'Diz-me Porque mp3 cover.png',
+  'eagles in the fire': 'Eagles in the Fire MP3 cover.png',
+  'ecos da liberdade': 'Ecos da Liberdade.png',
+  'ela ja nao esta': 'Ela ja nao esta MP3 cover.png',
+  'entre nos': 'Entre Nos.png',
+  'entre a neve e a saudade': 'Entre a neve e a saudade mp3 Cover.png',
+  'entre o céu e a rua': 'Entre o Céu e a Rua MP3 Cover.png',
+  'feitos de mil povos': 'Feitos de Mil Povos mp3 cover.png',
+  'férias no quintal': 'Ferias no Quintal Suzy MP3 cover.png',
+  'fica mais um pouco': 'Fiica Mais um Pouco.png',
+  'fly high blue jays': 'Fly High Jays.png',
+  'fugir da chuva': 'Fugir da Chuva MP3 Cover.png',
+  'high voltage': 'High Voltage mp3 cover.png',
+  'highway 401': 'Highway 401 - MP3 cover.png',
+  'lines we walk': 'Lines We Walk mp3 cover.png',
+  'louça faladora': 'Louça faladora MP3 Cover.png',
+  'mar de ferro': 'Mar de Ferro MP3 Cover.png',
+  'mistério da vila': 'Mistério da Vila MP3 Cover.png',
+  'no azul do mar': 'No Azul Do Mar.png',
+  'no fundo do baú': 'No Fundo do Bau Mp3 cover.png',
+  'no mesmo ritmo': 'No Mesmo Ritmo.png',
+  'noite de luz': 'Noite de Luz MP3 Cover.png',
+  'não brinques com quem te ama': 'Não Brinques Com Quem Te Ama MP3 Cover.png',
+  'o amor que não passou': 'O Amor que Não Passou.png',
+  'o galo do vizinho': 'O Galo do vizinho MP3 Cover.png',
+  'o meu paraíso': 'O Meu Paraíso_ MP3 cover.png',
+  'olhos abertos': 'Ohos Abertos.png',
+  'olhos no ecrã': 'Olhos no Ecrã.png',
+  'olivia my little light': 'Olivia my Little Light.png',
+  'ouve o mar chamar': 'Ouve o Mar Chamar.png',
+  'parabens pr\'a ti': 'Parabens pr\'a ti MP3 cover.png',
+  'perto de ti': 'Perto de Ti.png',
+  'power & shadows': 'Power & Shadows - MP3 cover.png',
+  'precisamos de mais pontes': 'Precisamos de Mais Pontes.png',
+  'quando foi': 'Quando foi.png',
+  'quando o destino chamou': 'Quando o destino Chamou - MP3 Cover.png',
+  'quem roubou meu robot': 'Quem Roubou Meu Robot mp3 cover.png',
+  'quem sabe um dia': 'Quem Sabe Um Dia.png',
+  'queremos paz no mundo': 'Queremos Paz no Mundo.png',
+  'retrato antigo': 'Retrato Antigo.png',
+  'retratos do mundo': 'Retratos do Mundo.png',
+  'reunited in heaven': 'Reunited in Heaven MP3 cover.png',
+  'rosa maria': 'Rosa Maria MP3 Cover.png',
+  'rostos na rua': 'Rostos na Rua.png',
+  'running high': 'Running High - Capa.png',
+  'self control': 'SELF CONTROL MP3 cover.png',
+  'sos cafe': 'SOS Cafe.png',
+  'sereia do meu verão': 'Sereia do Meu Verão.png',
+  'sombras de saudade': 'Sombras de Saudade MP3 cover.png',
+  'sorria p\'ra vida': 'Sorria p\'ra Vida.png',
+  'stars in my hands': 'Stars in my Hands MP3 Cover.png',
+  'static world': 'Static World - Capa - Mp3.png',
+  'sussurros na pele': 'Sussurros na Pele.png',
+  'só tu e eu': 'Só Tu e Eu MP3 Cover.png',
+  'ta tudo chill': 'Ta Tudo Chill MP3 Cover.png',
+  'tempestade em toronto': 'Tempestade em Toronto.png',
+  'teu olhar de marfim': 'Teu Olhar de Marfim MP3 Cover.png',
+  'tomorrow keeps moving on': 'Tomorrow Keeps Moving On - mp3 Cover.png',
+  'torres vedras chama por mim': 'Torres Vedras Chama por mim MP3 Cover.png',
+  'tropeço do destino': 'Tropeco do Destino.png',
+  'vamos andando': 'Vamos Andando, Mano MP3 cover.png',
+  'vamos erguer portugal': 'Vamos Erguer Portugal MP3 Cover.png',
+  'verão sem fim': 'Verão Sem Fim.png',
+  'vida à deriva': 'Vida à Deriva MP3 Cover.png',
+  'voz que não se cala': 'Voz Que Não Se Cala MP3 cover.png',
+  'grinch': 'grinch cover.png'
+};
 
-   liveArtwork.src = localCover;
-    miniArtwork.src = localCover;
-    return;
+if (artist.toLowerCase().includes('velvetverse')) {
+  const songLower = song.toLowerCase();
+
+  for (const [title, file] of Object.entries(velvetverseCovers)) {
+    if (songLower.includes(title)) {
+      const localCover = 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
+      liveArtwork.src = localCover;
+      miniArtwork.src = localCover;
+      return;
+    }
   }
+}
 
   liveArtwork.src = 'logo.png';
 
