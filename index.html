@@ -3215,11 +3215,28 @@ const velvetverseCovers = {
   'voz que não se cala': 'Voz Que Não Se Cala MP3 cover.png',
   'grinch': 'grinch cover.png'
 };
+
+const normalizeVelvetTitle = (value) =>
+  String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/['’´`]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
 {
-  const songLower = song.toLowerCase();
+  const songLower = normalizeVelvetTitle(song);
 
   for (const [title, file] of Object.entries(velvetverseCovers)) {
-    if (songLower.includes(title)) {
+    const titleLower = normalizeVelvetTitle(title);
+
+    if (
+      songLower === titleLower ||
+      songLower.includes(titleLower) ||
+      titleLower.includes(songLower)
+    ) {
       const localCover = 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
       liveArtwork.src = localCover;
       miniArtwork.src = localCover;
