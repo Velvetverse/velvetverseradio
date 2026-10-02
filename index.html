@@ -3124,6 +3124,16 @@ async function updateLiveArtwork(artist, song) {
   if (key === liveLastTrack) return;
 
   liveLastTrack = key;
+if (
+   song.toLowerCase().includes('lady in red') &&
+    artist.toLowerCase().includes('velvetverse')
+  ) {
+    const localCover = 'covers/velvetverse/VelvetVerse performing Lady in Red by (Chris de Burgh).png';
+
+   liveArtwork.src = localCover;
+    miniArtwork.src = localCover;
+    return;
+  }
 
   liveArtwork.src = 'logo.png';
 
