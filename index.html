@@ -3318,6 +3318,21 @@ function cleanRadioDisplay(artist, song) {
   const rawArtist = String(artist || '').trim();
   const rawSong = String(song || '').trim();
 
+  const clockPattern =
+    /(?:\bclock\b|\b\d{1,2}\s*horas?\b|\bhor[aá]rio\b)/i;
+
+  const isClock =
+    clockPattern.test(rawSong) ||
+    clockPattern.test(rawArtist);
+
+  if (isClock) {
+    return {
+      artist: 'VelvetVerse Radio',
+      song: 'Horário VelvetVerse Radio',
+      technical: true
+    };
+  }
+
   const technicalPattern =
     /\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
 
