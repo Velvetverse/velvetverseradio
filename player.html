@@ -1279,7 +1279,7 @@ function cleanRadioDisplay(artist, song) {
   }
 
   const technicalPattern =
-    /\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
+    /\b(sweeper|sweepers|jingle|jingles|intro|outro|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
 
   const isTechnical =
     technicalPattern.test(rawSong) ||
@@ -1294,7 +1294,7 @@ function cleanRadioDisplay(artist, song) {
   }
 
   let cleanSong = rawSong
-    .replace(/\s*[-–—:]?\s*\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b.*$/i, '')
+    .replace(/\s*[-–—:]?\s*\b(sweeper|sweepers|jingle|jingles|intro|outro|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b.*$/i, '')
     .replace(/\s+\d+\s*$/i, '')
     .trim();
 
