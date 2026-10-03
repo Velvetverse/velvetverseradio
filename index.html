@@ -3334,7 +3334,7 @@ function cleanRadioDisplay(artist, song) {
   }
 
   const technicalPattern =
-    /\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
+    /\b(sweeper|sweepers|jingle|jingles|intro|outro|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
 
   const isTechnical =
     technicalPattern.test(rawSong) ||
@@ -3349,7 +3349,7 @@ function cleanRadioDisplay(artist, song) {
   }
 
   let cleanSong = rawSong
-    .replace(/\s*[-–—:]?\s*\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b.*$/i, '')
+    .replace(/\s*[-–—:]?\s*\b(sweeper|sweepers|jingle|jingles|intro|outro|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b.*$/i, '')
     .replace(/\s+\d+\s*$/i, '')
     .trim();
 
@@ -3397,11 +3397,19 @@ async function updateLiveTrack() {
       song = song.slice(prefix.length).trim();
     }
 
-    liveArtist.textContent = artist;
-    liveSong.textContent = song;
-miniArtist.textContent = artist;
-miniSong.textContent = song;
-    updateLiveArtwork(artist, song);
+    const display = cleanRadioDisplay(artist, song);
+
+    liveArtist.textContent = display.artist;
+    liveSong.textContent = display.song;
+    miniArtist.textContent = display.artist;
+    miniSong.textContent = display.song;
+
+    if (display.technical) {
+      liveArtwork.src = 'logo.png';
+      miniArtwork.src = 'logo.png';
+    } else {
+      updateLiveArtwork(artist, song);
+    }
 
   } catch (e) {
     console.log('Erro ao atualizar metadata.');
@@ -3506,8 +3514,10 @@ async function updateRecentTracks() {
         song = song.slice(prefix.length).trim();
       }
 
-      row.querySelector('.track-song').textContent = song;
-      row.querySelector('.track-artist').textContent = artist;
+      const display = cleanRadioDisplay(artist, song);
+
+      row.querySelector('.track-song').textContent = display.song;
+      row.querySelector('.track-artist').textContent = display.artist;
 
       const timeValue =
         item.played_at ||
@@ -3520,7 +3530,9 @@ async function updateRecentTracks() {
         formatRecentTime(timeValue);
 
       const cover = row.querySelector('.track-cover');
-      cover.src = await getRecentArtwork(artist, song);
+      cover.src = display.technical
+        ? 'logo.png'
+        : await getRecentArtwork(artist, song);
     }
 
   } catch (e) {
