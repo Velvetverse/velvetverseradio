@@ -1258,6 +1258,46 @@ else{
 }
 
 
+
+function cleanRadioDisplay(artist, song) {
+  const rawArtist = String(artist || '').trim();
+  const rawSong = String(song || '').trim();
+
+  const technicalPattern =
+    /\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
+
+  const isTechnical =
+    technicalPattern.test(rawSong) ||
+    technicalPattern.test(rawArtist);
+
+  if (!isTechnical) {
+    return {
+      artist: rawArtist || 'VelvetVerse Radio',
+      song: rawSong || 'Emissão ao vivo',
+      technical: false
+    };
+  }
+
+  let cleanSong = rawSong
+    .replace(/\s*[-–—:]?\s*\b(sweeper|sweepers|jingle|jingles|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b.*$/i, '')
+    .replace(/\s+\d+\s*$/i, '')
+    .trim();
+
+  if (!cleanSong || /^(principal|daily|radio|station)$/i.test(cleanSong)) {
+    cleanSong = 'VelvetVerse Radio';
+  }
+
+  cleanSong = cleanSong
+    .toLowerCase()
+    .replace(/(^|\s|[-–—])([a-záàâãéêíóôõúç])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+
+  return {
+    artist: 'VelvetVerse Radio',
+    song: cleanSong,
+    technical: true
+  };
+}
+
 async function updateNowPlaying(){
 
   try{
@@ -1297,8 +1337,10 @@ async function updateNowPlaying(){
         song.slice(prefix.length).trim();
     }
 
-    trackTitle.textContent = song;
-    trackArtist.textContent = artist;
+    const display = cleanRadioDisplay(artist, song);
+
+    trackTitle.textContent = display.song;
+    trackArtist.textContent = display.artist;
 
     const key =
       (artist + "|" + song).toLowerCase();
@@ -1307,10 +1349,14 @@ async function updateNowPlaying(){
 
       lastTrackKey = key;
 
-      updateCurrentArtwork(
-        artist,
-        song
-      );
+      if (display.technical) {
+        currentArtwork.src = "logo.png";
+      } else {
+        updateCurrentArtwork(
+          artist,
+          song
+        );
+      }
 
     }
 
