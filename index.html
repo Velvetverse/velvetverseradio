@@ -1130,12 +1130,49 @@ max-width: 5px;
   margin-bottom: 26px;
 }
 
-.live-slogan {
+.live-program-card {
   margin-left: auto;
-  color: #d7d0ff;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 12px 5px 6px;
+  min-width: 205px;
+  min-height: 52px;
+  border: 1px solid rgba(170, 69, 255, 0.62);
+  border-radius: 28px;
+  background: rgba(13, 8, 22, 0.72);
+  box-shadow: 0 0 14px rgba(161, 65, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.live-program-photo {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a849ff;
+  box-shadow: 0 0 10px rgba(161, 65, 255, 0.58);
+}
+
+.live-program-copy {
+  min-width: 0;
+  text-align: left;
+  line-height: 1.12;
+}
+
+.live-program-name {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.live-program-host {
+  margin-top: 3px;
+  color: #d8cfea;
+  font-size: 11px;
+  font-weight: 400;
   white-space: nowrap;
 }
 
@@ -1248,8 +1285,16 @@ max-width: 5px;
 
 @media (max-width: 900px) {
 
-  .live-slogan {
-    display: none;
+  .live-program-card {
+    min-width: 185px;
+  }
+
+  .live-program-name {
+    font-size: 12px;
+  }
+
+  .live-program-host {
+    font-size: 10px;
   }
 
   .live-cover-wrap {
@@ -2147,7 +2192,13 @@ max-width: 5px;
   <div class="live-title">
     <div class="live-badge">◉ LIVE NOW</div>
     <span>VelvetVerse Radio</span>
-    <div class="live-slogan">MUSIC NEVER STOPS</div>
+    <div class="live-program-card" id="liveProgramCard" aria-live="polite">
+      <img class="live-program-photo" id="liveProgramPhoto" src="beto.png" alt="Locutor atual">
+      <div class="live-program-copy">
+        <div class="live-program-name" id="liveProgramName">Rock Sem Limites</div>
+        <div class="live-program-host" id="liveProgramHost">com Beto Sousa</div>
+      </div>
+    </div>
   </div>
 
   <div class="player-area">
@@ -3047,6 +3098,39 @@ function deactivateScheduleCard(card) {
 
 updateLiveShow();
 setInterval(updateLiveShow, 30000);
+
+const livePrograms = [
+  { start: 420,  end: 600,  name: 'Ritmo Latino',             host: 'Adrian Vega (Noia)', photo: 'adrian.png' },
+  { start: 600,  end: 780,  name: 'Alma Portuguesa',          host: 'Suzy Mendes',         photo: 'suzy.png' },
+  { start: 780,  end: 960,  name: 'Corações & Memórias',      host: 'Carlos',              photo: 'carlos.png' },
+  { start: 960,  end: 1140, name: 'Coração Brasileiro',       host: 'Lara Ingrid',         photo: 'lara.png' },
+  { start: 1140, end: 1260, name: 'Rock Sem Limites',         host: 'Beto Sousa',          photo: 'beto.png' },
+  { start: 1260, end: 1380, name: 'The Sound of VelvetVerse', host: 'Rui Freitas',         photo: 'rui-freitas-velvetverse-experience.png' },
+  { start: 1380, end: 1440, name: 'Velvet After Dark',        host: 'VelvetVerse Radio',   photo: 'velvetverse.png' },
+  { start: 0,    end: 180,  name: 'Velvet After Dark',        host: 'VelvetVerse Radio',   photo: 'velvetverse.png' },
+  { start: 180,  end: 420,  name: 'Midnight Flow',            host: 'Auto DJ',             photo: 'velvetverse.png' }
+];
+
+function updateLiveProgramCard() {
+  const now = getTorontoMinutes();
+  const currentProgram =
+    livePrograms.find(program => now >= program.start && now < program.end) ||
+    livePrograms[0];
+
+  const photo = document.getElementById('liveProgramPhoto');
+  const name = document.getElementById('liveProgramName');
+  const host = document.getElementById('liveProgramHost');
+
+  if (!photo || !name || !host) return;
+
+  name.textContent = currentProgram.name;
+  host.textContent = 'com ' + currentProgram.host;
+  photo.src = currentProgram.photo;
+  photo.alt = currentProgram.host;
+}
+
+updateLiveProgramCard();
+setInterval(updateLiveProgramCard, 60000);
 const liveRadio = document.getElementById('liveRadio');
 const livePlay = document.getElementById('livePlay');
 const liveVolume = document.getElementById('liveVolume');
