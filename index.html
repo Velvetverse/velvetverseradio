@@ -3250,15 +3250,6 @@ const velvetverseCovers = {
   'volta pro natal': 'Volta Pro Natal.png'
 };
 
-async function updateLiveArtwork(artist, song) {
-
-  const key = (artist + '|' + song).toLowerCase();
-
-  if (key === liveLastTrack) return;
-
-  liveLastTrack = key;
-
-
 const normalizeVelvetTitle = (value) =>
   String(value || '')
     .toLowerCase()
@@ -3268,6 +3259,17 @@ const normalizeVelvetTitle = (value) =>
     .replace(/[^a-z0-9]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+
+async function updateLiveArtwork(artist, song) {
+
+  const key = (artist + '|' + song).toLowerCase();
+
+  if (key === liveLastTrack) return;
+
+  liveLastTrack = key;
+
+
+
 
 {
   const songLower = normalizeVelvetTitle(song);
