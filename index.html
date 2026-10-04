@@ -3746,8 +3746,76 @@ commentsForm.addEventListener('submit', async function(event){
     commentFormMessage.textContent = 'Sorry, your comment could not be sent. Please try again.';
   }
 });
-  async function loadApprovedComments(){
+  
+const featuredComments = [
+  {
+    name: 'Luisa Guerreiro',
+    photo: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCABIAEgDASIAAhEBAxEB/8QAGwAAAwEAAwEAAAAAAAAAAAAAAAUGBAEDBwL/xAAxEAACAQMCBQEGBQUAAAAAAAABAgMABBEFIQYSEzFBURQiQmGBkRUyccHRI6Gx4fD/xAAXAQADAQAAAAAAAAAAAAAAAAABAgME/8QAHREAAgIDAQEBAAAAAAAAAAAAAAECESExQQMiE//aAAwDAQACEQMRAD8Ae1wdq5pbrd57Hp00gOGxhfmTRYCX4q1hrm4NpC5EEZw2Pib/AFU0TnaiV8sSdya+Rt3pRjZDGGQ439TTvRdFW6gklnBw55VA229aVadG8pXmBSHOC/KSBV7b9K1tUKsOko71OT4Vgusn7JJdB1ZEJJt5ts1YRMHQMCCD6Ug19UuNJkl5WXp4dWIxmtHDV57VaMrHLqd6aDE9FWh1RXNFUJHFS/GD4s1XOPf7fSqdjgZrzziS/a9v3QHEURIHzPrQY0RCRk1sjsnklREGSfB8ms0K9SUAnAJ3PoK2xXZjvFIHuhs4pWNGryPLe1uraykDzMPd2XOy/SmOjvPLps8Eb4mXcMd6z3Vz17RY4/zN3rZw9FNH1OrGE5vynOc1G7NVUj51CC6j4evBcy9TEOTkb5B71j4JY9SZT5QEUy4iuulw/dBlxJJ/Sx8yf4pTwdKPaEHlkKn6VWJnnstKKKKqROqbJQjONt68qvCVlkHkMa9SvZ0trSWaQ4VFJNeVXL9Sd2O3Oc0j2MtHXFmmXJGtqGIHOxxml8KjlJJwAa7ZSxuVXJPLgUGOsDdR7UIVBwVXGRVNpliEQFu+B2Y/zSazsJQUMqcoPY9iKo1hkjs2WKQ9VlITA842qHTVdIm+ML1WKWcZLNF7znPZj2H2z96ycKSiPU4j8J7j0yKVSK63LxSsWkJPMxOSWzvVNoOnwLas4j60rjGM7Kf18D/hVkqVGVu3ZZCiuq2Vkt41c8zBQCfU0VUkTXGl6IYbe3785LsvrjsPv/iosIZJRnwcGqbieI3eqtIxIijQxqRvuBk/3OPpSNLWfkLIhOASKm2iii6MkRPOUU+6zUzs9NMyK65LMftWRohHbBse8x2pvpkz2BjlDCWLlDsB6H9xQbGSKLSkkluUaTJjEQGCdsinyQoCpVQCDmsljGEhVgBkjxW0HKjHY0YpAlJ2Q3EGhzRX011DEXiZixwM1j0vUvw+XnRmVWPvR4yCPl+lejeM0k1Lhu0umeWNRFI2+R2z64otATsZWdzHdwLLEwYH0opRpVvPpSNCX5yTlsjb6UUv6x6F+UuCmRvabuRm3yxOKaWdsgIOBjFFFZ3s1rCMl9oYuLpemQockD5HuP3o03See1mjaMdRWKTITsc7hh6UUVWGSM3RR2KukXJKuGUYyOxFd8XxqfhORRRVUQeT78Vyu64P6UUUwDFepydNvIPKT8vFFFFZfRfRq838n//Z',
+    comment: 'Que grande descoberta! A Velvet Verse Radio tem uma energia fantástica e uma playlist que não dá vontade de desligar. Um projeto feito com muito carinho e que transborda simpatia em cada detalhe. Muito sucesso, continuem a espalhar essa magia!'
+  },
+  {
+    name: 'Maria Santos',
+    photo: null,
+    comment: 'A Velvet Verse Radio é como um abraço em forma de música. A seleção musical é impecável e tem o superpoder de transformar qualquer dia cinzento num momento de pura paz. Obrigada pela companhia constante e por trazerem tanta sensibilidade e beleza para a nossa rotina! Continuem com este trabalho maravilhoso.'
+  },
+  {
+    name: 'Joel P.',
+    photo: null,
+    comment: 'A Velvet Verse Radio já faz parte da minha rotina e o site oficial é o lugar perfeito para deixar este agradecimento. Sou fã absoluto da vossa grelha, especialmente da energia contagiante do Rock Sem Limites, que dá sempre um ritmo incrível ao meu dia, e da sensibilidade única do Corações e Memórias, que nos faz viajar no tempo através de grandes canções. Parabéns por fazerem uma rádio com tanta alma, bom gosto e simpatia. Continuem com o excelente trabalho!'
+  },
+  {
+    name: 'Steve',
+    photo: null,
+    comment: '¡Qué gran acierto es la Radio Velvet Verse Radio! No hay mejor manera de empezar el día que sintonizar Ritmo Latino de 7 a 10 de la mañana. Su energía, alegría y buena música son la combinación perfecta para llenarse de vitalidad desde temprano. Muchas gracias a todo el equipo por contagiarnos siempre tanta simpatía y hacernos las mañanas muchísimo más felices. ¡Sigan así!'
+  },
+  {
+    name: 'Jessica Gomes',
+    photo: null,
+    comment: 'Just wanted to drop a quick note on the site to say how much I love Radio Velvet Verse Radio! The playlist is always on point, and the energy is incredibly uplifting and sweet. It’s my absolute go-to whenever I need a little mood boost. Keep killing it, you guys are the best!'
+  },
+  {
+    name: 'Helena B.',
+    photo: null,
+    comment: 'Velvet Verse Radio is literally my favorite escape! The music is always so cozy and aesthetic, and the vibe is just pure good energy. Thank you for making my days so much brighter!'
+  }
+];
+
+function renderFeaturedComments(container){
+  featuredComments.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'comment-card';
+
+    const photo = document.createElement('img');
+    photo.src = item.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=0b0b0f&color=a855f7`;
+    photo.alt = item.name;
+
+    const content = document.createElement('div');
+    content.className = 'comment-content';
+
+    const name = document.createElement('strong');
+    name.textContent = item.name;
+
+    const date = document.createElement('div');
+    date.className = 'comment-date';
+    date.textContent = 'October 2026';
+
+    const text = document.createElement('p');
+    text.textContent = item.comment;
+
+    content.appendChild(name);
+    content.appendChild(date);
+    content.appendChild(text);
+
+    card.appendChild(photo);
+    card.appendChild(content);
+    container.appendChild(card);
+  });
+}
+
+async function loadApprovedComments(){
   const approvedComments = document.getElementById('approved-comments');
+
+  renderFeaturedComments(approvedComments);
 
   try{
     const response = await fetch(
