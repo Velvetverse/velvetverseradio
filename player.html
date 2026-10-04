@@ -109,6 +109,20 @@ body{
   letter-spacing:3px;
   white-space:nowrap;
   box-shadow:0 0 15px rgba(255,0,160,.15);
+  animation:vvLiveBlink 1.25s ease-in-out infinite;
+}
+
+@keyframes vvLiveBlink{
+  0%,100%{
+    color:#ff4eaa;
+    border-color:#ff168d;
+    box-shadow:0 0 15px rgba(255,0,160,.35);
+  }
+  50%{
+    color:rgba(255,78,170,.35);
+    border-color:rgba(255,22,141,.30);
+    box-shadow:0 0 6px rgba(255,0,160,.08);
+  }
 }
 
 .vv-live-dot{
