@@ -3141,13 +3141,6 @@ liveRadio.addEventListener('pause', () => {
 });
 let liveLastTrack = '';
 
-async function updateLiveArtwork(artist, song) {
-
-  const key = (artist + '|' + song).toLowerCase();
-
-  if (key === liveLastTrack) return;
-
-  liveLastTrack = key;
 const velvetverseCovers = {
   'lady in red': 'VelvetVerse performing Lady in Red by (Chris de Burgh).png',
   'amei-te demais': 'Amei-te demais.png',
@@ -3256,6 +3249,15 @@ const velvetverseCovers = {
   'storm of love': 'Storm of Love.png',
   'volta pro natal': 'Volta Pro Natal.png'
 };
+
+async function updateLiveArtwork(artist, song) {
+
+  const key = (artist + '|' + song).toLowerCase();
+
+  if (key === liveLastTrack) return;
+
+  liveLastTrack = key;
+
 
 const normalizeVelvetTitle = (value) =>
   String(value || '')
