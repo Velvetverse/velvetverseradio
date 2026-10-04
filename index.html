@@ -3579,6 +3579,20 @@ updateLiveTrack();
 
 setInterval(updateLiveTrack, 10000);
     async function getRecentArtwork(artist, song) {
+  const songLower = normalizeVelvetTitle(song);
+
+  for (const [title, file] of Object.entries(velvetverseCovers)) {
+    const titleLower = normalizeVelvetTitle(title);
+
+    if (
+      songLower === titleLower ||
+      songLower.includes(titleLower) ||
+      titleLower.includes(songLower)
+    ) {
+      return 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
+    }
+  }
+
   try {
     const term = encodeURIComponent(artist + ' ' + song);
 
