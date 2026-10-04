@@ -3314,6 +3314,159 @@ miniArtwork.src = liveArtwork.src;
 }
 
 
+
+const velvetverseDisplayTitles = [
+  "lady in red",
+  "amei-te demais",
+  "amor que fica",
+  "angel wings",
+  "apaixonado por uma e.t.",
+  "areia fina",
+  "before i run out of time",
+  "bica bica",
+  "bruxas e fadas",
+  "cai neve na cidade",
+  "caminho de volta",
+  "camionista madrugador",
+  "canto pra curar o mundo",
+  "careless whisper",
+  "chama ancestral",
+  "contigo vou à lua",
+  "coração de viana",
+  "coração que não volta",
+  "despautério",
+  "dança comigo",
+  "deixa o sol entrar",
+  "deixa-me navegar",
+  "diz o povo",
+  "diz-me porque",
+  "eagles in the fire",
+  "ecos da liberdade",
+  "ela ja nao esta",
+  "entre nos",
+  "entre a neve e a saudade",
+  "entre o céu e a rua",
+  "feitos de mil povos",
+  "férias no quintal",
+  "fica mais um pouco",
+  "fly high blue jays",
+  "fugir da chuva",
+  "high voltage",
+  "highway 401",
+  "lines we walk",
+  "louça faladora",
+  "mar de ferro",
+  "mistério da vila",
+  "no azul do mar",
+  "no fundo do baú",
+  "no mesmo ritmo",
+  "noite de luz",
+  "não brinques com quem te ama",
+  "o amor que não passou",
+  "o galo do vizinho",
+  "o meu paraíso",
+  "olhos abertos",
+  "olhos no ecrã",
+  "olivia my little light",
+  "ouve o mar chamar",
+  "parabens pr'a ti",
+  "perto de ti",
+  "power & shadows",
+  "precisamos de mais pontes",
+  "quando foi",
+  "quando o destino chamou",
+  "quem roubou meu robot",
+  "quem sabe um dia",
+  "queremos paz no mundo",
+  "retrato antigo",
+  "retratos do mundo",
+  "reunited in heaven",
+  "rosa maria",
+  "rostos na rua",
+  "running high",
+  "self control",
+  "sos cafe",
+  "sereia do meu verão",
+  "sombras de saudade",
+  "sorria p'ra vida",
+  "stars in my hands",
+  "static world",
+  "sussurros na pele",
+  "só tu e eu",
+  "ta tudo chill",
+  "tempestade em toronto",
+  "teu olhar de marfim",
+  "tomorrow keeps moving on",
+  "torres vedras chama por mim",
+  "tropeço do destino",
+  "vamos andando",
+  "vamos erguer portugal",
+  "verão sem fim",
+  "vida à deriva",
+  "voz que não se cala",
+  "grinch",
+  "25 anos",
+  "a ponte",
+  "amores a muitos",
+  "autoestrada para nenhures",
+  "cavalheiro a moda antiga",
+  "chamas de aço",
+  "entre estrelas e sombras",
+  "eterno em mim",
+  "lisboa luz e cor",
+  "mena minha paixao",
+  "noite de fumo e neon",
+  "perfume barato",
+  "portugal meu",
+  "portugal vamos vencer",
+  "respira terra",
+  "storm of love",
+  "volta pro natal"
+];
+
+function normalizeVelvetDisplayTitle(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/['’´`]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isVelvetVerseSong(song) {
+  const normalizedSong = normalizeVelvetDisplayTitle(song);
+  if (!normalizedSong) return false;
+
+  return velvetverseDisplayTitles.some(title => {
+    const normalizedTitle = normalizeVelvetDisplayTitle(title);
+    return normalizedSong === normalizedTitle ||
+      normalizedSong.includes(normalizedTitle) ||
+      normalizedTitle.includes(normalizedSong);
+  });
+}
+
+function formatVelvetVerseArtist(artist, song) {
+  const rawArtist = String(artist || '').trim();
+
+  if (!isVelvetVerseSong(song)) {
+    return rawArtist || 'VelvetVerse Radio';
+  }
+
+  if (/^velvetverse\s+band$/i.test(rawArtist)) {
+    return 'VelvetVerse Band';
+  }
+
+  if (/^velvetverse\s+band\s*[•·\-–—]/i.test(rawArtist)) {
+    return rawArtist;
+  }
+
+  return rawArtist
+    ? 'VelvetVerse Band • ' + rawArtist
+    : 'VelvetVerse Band';
+}
+
 function cleanRadioDisplay(artist, song) {
   const rawArtist = String(artist || '').trim();
   const rawSong = String(song || '').trim();
@@ -3342,7 +3495,7 @@ function cleanRadioDisplay(artist, song) {
 
   if (!isTechnical) {
     return {
-      artist: rawArtist || 'VelvetVerse Radio',
+      artist: formatVelvetVerseArtist(rawArtist, rawSong),
       song: rawSong || 'Emissão ao vivo',
       technical: false
     };
