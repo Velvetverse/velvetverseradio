@@ -2066,9 +2066,19 @@ border-radius:0 0 16px 16px;
   animation:newRubricsMove 18s linear infinite;
 }
 
-.new-rubrics-track span{
-  display:inline-block;
-  padding-right:70px;
+.new-rubrics-item{
+  display:inline-flex;
+  align-items:center;
+  white-space:nowrap;
+  padding-right:0;
+}
+
+.new-rubrics-mic{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  margin:0 8px;
+  flex-shrink:0;
 }
 
 @keyframes newRubricsMove{
@@ -2449,8 +2459,8 @@ border-radius:0 0 16px 16px;
       ">
         <div class="new-rubrics-marquee">
           <div class="new-rubrics-track">
-            <span>✨✨✨✨✨ Novas rubricas a partir de 19 de outubro ✨✨✨✨✨</span>
-            <span>✨✨✨✨✨ Novas rubricas a partir de 19 de outubro ✨✨✨✨✨</span>
+            <span class="new-rubrics-item">✨✨✨✨✨Novas rubricas a partir de 19 de outubro✨✨✨✨✨<img src="microfone-rubricas.png" alt="Microfone" class="new-rubrics-mic"></span>
+            <span class="new-rubrics-item">✨✨✨✨✨Novas rubricas a partir de 19 de outubro✨✨✨✨✨<img src="microfone-rubricas.png" alt="Microfone" class="new-rubrics-mic"></span>
           </div>
         </div>
       </div>
