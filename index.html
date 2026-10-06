@@ -2055,17 +2055,28 @@ border-radius:0 0 16px 16px;
 
 <style>
 .new-rubrics-marquee{
-  display:inline-block;
+  overflow:hidden;
   white-space:nowrap;
-  animation:newRubricsMove 16s linear infinite;
+  width:100%;
+}
+
+.new-rubrics-track{
+  display:flex;
+  width:max-content;
+  animation:newRubricsMove 18s linear infinite;
+}
+
+.new-rubrics-track span{
+  display:inline-block;
+  padding-right:70px;
 }
 
 @keyframes newRubricsMove{
-  0%{
-    transform:translateX(120%);
+  from{
+    transform:translateX(0);
   }
-  100%{
-    transform:translateX(-120%);
+  to{
+    transform:translateX(-50%);
   }
 }
 </style>
@@ -2436,7 +2447,12 @@ border-radius:0 0 16px 16px;
         box-shadow:0 0 14px rgba(168,85,247,0.18);
         overflow:hidden;
       ">
-        <div class="new-rubrics-marquee">✨✨✨✨✨ Novas rubricas a partir de 19 de outubro ✨✨✨✨✨</div>
+        <div class="new-rubrics-marquee">
+          <div class="new-rubrics-track">
+            <span>✨✨✨✨✨ Novas rubricas a partir de 19 de outubro ✨✨✨✨✨</span>
+            <span>✨✨✨✨✨ Novas rubricas a partir de 19 de outubro ✨✨✨✨✨</span>
+          </div>
+        </div>
       </div>
 
       <div class="vv-schedule">
