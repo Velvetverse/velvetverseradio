@@ -2052,6 +2052,24 @@ border-radius:0 0 16px 16px;
   }
 }
   </style>
+
+<style>
+.new-rubrics-marquee{
+  display:inline-block;
+  white-space:nowrap;
+  animation:newRubricsMove 8s linear infinite;
+}
+
+@keyframes newRubricsMove{
+  0%{
+    transform:translateX(-120%);
+  }
+  100%{
+    transform:translateX(120%);
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -2410,14 +2428,16 @@ border-radius:0 0 16px 16px;
         margin:18px auto 24px;
         max-width:680px;
         padding:12px 18px;
-        text-align:center;
         border:1px solid rgba(168,85,247,0.65);
         border-radius:10px;
         background:rgba(168,85,247,0.10);
         color:#ffffff;
         font-weight:800;
         box-shadow:0 0 14px rgba(168,85,247,0.18);
-      ">✨ Novas rubricas a partir de 19 de outubro</div>
+        overflow:hidden;
+      ">
+        <div class="new-rubrics-marquee">✨ Novas rubricas a partir de 19 de outubro</div>
+      </div>
 
       <div class="vv-schedule">
 
