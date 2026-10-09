@@ -2091,7 +2091,33 @@ border-radius:0 0 16px 16px;
 }
 </style>
 
-</head>
+<style id="top5-inline-styles">
+#top5latino{padding:0;background:#0d0717;color:#fff;font-family:Arial,sans-serif}
+#top5latino .t5-hero{height:390px;position:relative;display:flex;justify-content:center;align-items:flex-end;text-align:center;background:url('top-5-latino-background.jpg') center top/cover no-repeat;overflow:hidden}
+#top5latino .t5-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:115px;background:linear-gradient(to bottom,transparent,#0d0717 90%);pointer-events:none}
+#top5latino .t5-meta{position:relative;z-index:1;text-align:center;padding:0 20px 14px;background:radial-gradient(ellipse at center,#0c0619 10%,#0c0619e0 43%,transparent 75%);min-width:min(690px,100%)}
+#top5latino .t5-meta h2{font-size:22px;font-weight:900;color:white;margin:0 0 7px;text-shadow:0 2px 4px black}
+#top5latino .t5-meta p{font-size:18px;color:#ffe09a;font-weight:800;letter-spacing:1px;margin:0 0 9px;text-shadow:0 2px 4px black}
+#top5latino .t5-date{display:inline-block;padding:9px 23px;border-radius:22px;border:1px solid #c03cc7;background:#200b2e;font-size:13px;color:#fff}
+#top5latino .t5-content{max-width:1310px;margin:0 auto;padding:24px 25px 36px}
+#top5latino .t5-content>h2{text-align:center;font-size:21px;margin:6px 0 12px}
+#top5latino .t5-note{text-align:center;color:#decde4;font-size:14px;margin:0 0 20px}
+#top5latino .t5-cards{display:grid;gap:10px}
+#top5latino .t5-card{display:grid;grid-template-columns:75px 155px minmax(0,1fr) 115px;gap:18px;align-items:center;min-height:116px;padding:9px 22px;border:1px solid #8738a8;border-radius:11px;background:linear-gradient(90deg,#130d21,#2a0d31);box-shadow:0 0 12px #9c16aa29}
+#top5latino .t5-card:first-child{border-color:#edaa4b}
+#top5latino .t5-rank{font-size:47px;font-weight:900;color:#ffd18b}
+#top5latino .t5-cover{height:95px;width:155px;position:relative;display:grid;place-items:center;border-radius:8px;background:linear-gradient(125deg,#672173,#c13f70);overflow:hidden}
+#top5latino .t5-cover img{width:100%;height:100%;object-fit:cover}
+#top5latino .t5-cover .t5-music{font-size:35px}
+#top5latino .t5-play{position:absolute;right:7px;bottom:6px;border:1px solid white;color:white;background:#481757cb;border-radius:50%;width:35px;height:35px;cursor:pointer}
+#top5latino .t5-play:disabled{opacity:.5;cursor:not-allowed}
+#top5latino .t5-details h3{font-size:23px;margin:0 0 5px}
+#top5latino .t5-artist{color:#f778e4;font-weight:800;margin:0 0 5px}
+#top5latino .t5-desc{font-size:13px;color:#dfd4e7;margin:0}
+#top5latino .t5-position{font-size:12px;color:#f8d391;font-weight:800;text-align:right}
+#top5latino .t5-outro{text-align:center;color:#ccb4d2;font-size:14px;margin:25px 0 0}
+@media(max-width:800px){#top5latino .t5-hero{height:290px;background-size:auto 290px}#top5latino .t5-meta h2{font-size:17px}#top5latino .t5-meta p{font-size:14px}#top5latino .t5-content{padding:20px 10px}#top5latino .t5-card{grid-template-columns:42px 90px 1fr;gap:10px;padding:9px}#top5latino .t5-rank{font-size:28px}#top5latino .t5-cover{width:90px;height:83px}#top5latino .t5-details h3{font-size:16px}#top5latino .t5-position{grid-column:3;text-align:left}}
+</style></head>
 
 <body>
 
@@ -2109,7 +2135,7 @@ border-radius:0 0 16px 16px;
     <nav class="main-nav">
       <a href="#" onclick="showSection('home', this); return false;" class="active">Home</a>
       <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
-      <a href="top-5-latino.html">Top 5 Latino</a>
+      <a href="#" onclick="showSection('top5latino', this); return false;">Top 5 Latino</a>
       <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
       <a href="#" onclick="showSection('about', this); return false;">About</a>
       <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
@@ -2432,6 +2458,12 @@ border-radius:0 0 16px 16px;
 
 
   </main>
+    <div id="top5latino" class="section" lang="es">
+<section class="t5-hero" aria-label="Top 5 Latino">
+ <div class="t5-meta"><h2>Con Adrian Vega (Noia)</h2><p>Viernes · 08:15 · Toronto</p><div class="t5-date">Próxima edición: 23 de octubre de 2026</div></div>
+</section>
+<div class="t5-content"><h2>LAS CINCO CANCIONES DE LA SEMANA</h2><p class="t5-note">La clasificación oficial de esta semana se publicará próximamente.</p><div class="t5-cards" id="t5-cards"></div><p class="t5-outro">¿Quieres escuchar las canciones completas? ¡Sintoniza VelvetVerse Radio!</p></div>
+</div>
     <div id="schedule" class="section">
   <div class="panel">
     <div class="panel-box">
@@ -3007,6 +3039,7 @@ e deep night soundscape.
   });
 
   document.getElementById(id).classList.add('active');
+  if (id !== 'top5latino' && window.stopTop5Audio) window.stopTop5Audio();
 
   document.querySelectorAll('.main-nav a').forEach(item => {
     item.classList.remove('active');
@@ -3017,7 +3050,7 @@ e deep night soundscape.
   }
 const miniPlayer = document.getElementById('miniPlayer');
 
-if (id === 'home') {
+if (id === 'home' || id === 'top5latino') {
   miniPlayer.classList.remove('show');
 } else {
   miniPlayer.classList.add('show');
@@ -4415,5 +4448,28 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-</body>
+<script id="top5-inline-script">
+(function(){
+ const songs=[
+ {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
+ {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
+ {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
+ {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
+ {title:'',artist:'',description:'',cover:'',preview:'',movement:''}
+ ];
+ const root=document.getElementById('t5-cards');const audio=new Audio();audio.preload='none';let active=null;
+ function stop(){audio.pause();audio.removeAttribute('src');audio.load();if(active){active.textContent='▶';active=null}}
+ audio.addEventListener('timeupdate',()=>{if(audio.currentTime>=30)stop()});audio.addEventListener('ended',stop);
+ songs.forEach((song,i)=>{
+ const row=document.createElement('article');row.className='t5-card';
+ const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);row.append(rank);
+ const cover=document.createElement('div');cover.className='t5-cover';cover.addEventListener('contextmenu',e=>e.preventDefault());
+ if(song.cover){const img=new Image();img.src=song.cover;img.alt='Portada de '+song.title;cover.append(img)}else{const mark=document.createElement('span');mark.className='t5-music';mark.textContent='♫';cover.append(mark)}
+ const button=document.createElement('button');button.type='button';button.className='t5-play';button.textContent='▶';button.disabled=!song.preview;button.setAttribute('aria-label','Escuchar 30 segundos');button.addEventListener('click',async()=>{if(active===button){stop();return}stop();active=button;audio.src=song.preview;try{await audio.play();button.textContent='Ⅱ'}catch{stop()}});cover.append(button);row.append(cover);
+ const info=document.createElement('div');info.className='t5-details';const h=document.createElement('h3');h.textContent=song.title||'Por anunciar';const a=document.createElement('p');a.className='t5-artist';a.textContent=song.artist||'Artista por confirmar';const d=document.createElement('p');d.className='t5-desc';d.textContent=song.description||'El ranking de esta semana se publicará próximamente.';info.append(h,a,d);row.append(info);
+ const place=document.createElement('div');place.className='t5-position';place.textContent=song.movement||'PUESTO '+(i+1);row.append(place);root.append(row);
+ });
+ window.stopTop5Audio=stop;
+})();
+</script></body>
 </html>
