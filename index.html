@@ -2117,7 +2117,18 @@ border-radius:0 0 16px 16px;
 #top5latino .t5-position{font-size:12px;color:#f8d391;font-weight:800;text-align:right}
 #top5latino .t5-outro{text-align:center;color:#ccb4d2;font-size:14px;margin:25px 0 0}
 @media(max-width:800px){#top5latino .t5-hero{height:290px;background-size:auto 290px}#top5latino .t5-meta h2{font-size:17px}#top5latino .t5-meta p{font-size:14px}#top5latino .t5-content{padding:20px 10px}#top5latino .t5-card{grid-template-columns:42px 90px 1fr;gap:10px;padding:9px}#top5latino .t5-rank{font-size:28px}#top5latino .t5-cover{width:90px;height:83px}#top5latino .t5-details h3{font-size:16px}#top5latino .t5-position{grid-column:3;text-align:left}}
-</style><style id="top5-artwork-overrides">#top5latino .t5-cover iframe{height:175px!important;width:660px!important;max-width:none!important;object-fit:initial!important;pointer-events:none!important}#top5latino .t5-cover{isolation:isolate}#top5latino .t5-play{z-index:2;box-shadow:0 0 8px #30113d}</style></head>
+</style><style id="top5-artwork-overrides">#top5latino .t5-cover iframe{height:175px!important;width:660px!important;max-width:none!important;object-fit:initial!important;pointer-events:none!important}#top5latino .t5-cover{isolation:isolate}#top5latino .t5-play{z-index:2;box-shadow:0 0 8px #30113d}</style><style id="top5-compact-layout">
+#top5latino .t5-content{max-width:1050px}
+#top5latino .t5-cards{gap:12px}
+#top5latino .t5-card{display:grid;grid-template-columns:82px minmax(0,660px) 112px;justify-content:center;gap:13px;align-items:center;min-height:190px;padding:9px 12px;background:transparent;border:0;box-shadow:none}
+#top5latino .t5-rank{display:flex;align-items:center;justify-content:center;min-height:86px;width:82px;padding:7px;border:1px solid #a34cbb;border-radius:12px;background:#20102f;font-size:38px;color:#ffca75;box-shadow:0 0 14px #ad31dd35}
+#top5latino .t5-card:first-child .t5-rank{border-color:#edaa4b}
+#top5latino .t5-embedded{min-width:0;width:100%;height:175px;overflow:hidden;border:1px solid #b84ae2;border-radius:13px;box-shadow:0 0 14px #a72edb36;background:#1c1227}
+#top5latino .t5-embedded iframe{display:block;width:100%;height:175px;border:0}
+#top5latino .t5-position{display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:6px;min-height:86px;width:112px;border:1px solid #8637a5;border-radius:12px;background:#20102f;color:#ffd597;font-size:13px}
+#top5latino .t5-position span{font-size:11px;color:#f08be5}
+@media(max-width:850px){#top5latino .t5-card{grid-template-columns:56px minmax(0,1fr) 68px;gap:7px;padding:4px 2px;min-height:185px}#top5latino .t5-rank{width:56px;font-size:23px;min-height:70px}#top5latino .t5-position{width:68px;min-height:70px;font-size:11px}#top5latino .t5-position span{font-size:10px}#top5latino .t5-embedded{height:175px}#top5latino .t5-embedded iframe{height:175px}}
+</style></head>
 
 <body>
 
@@ -4450,37 +4461,34 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script id="top5-inline-script">
 (function(){
- // Edición de prueba: 10 de octubre de 2026. Cada semana, actualizar esta lista.
  const songs=[
- {title:'BbY WOW',artist:'KAROL G, Judeline y rusowsky',description:'Una colaboración de ritmos tropicales y energía urbana.',id:'6796864754'},
- {title:'DtMF',artist:'Bad Bunny',description:'Uno de los temas más populares del álbum DeBÍ TiRAR MáS FOToS.',id:'1787023936'},
- {title:'Ahí',artist:'KAROL G y Drake',description:'Una colaboración entre melodías urbanas y sonidos afrobeats.',id:'6796864746'},
- {title:'KOKO',artist:'Omar Courtz',description:'Una canción del álbum POR SI MAÑANA NO ESTOY.',id:'1877482633'},
- {title:'Ayúdame',artist:'Los Dos de Tamaulipas',description:'Un tema de música mexicana publicado en 2026.',id:'1880109891'}
+ {title:'BbY WOW',artist:'KAROL G, Judeline y rusowsky',id:'6796864754'},
+ {title:'DtMF',artist:'Bad Bunny',id:'1787023936'},
+ {title:'Ahí',artist:'KAROL G y Drake',id:'6796864746'},
+ {title:'KOKO',artist:'Omar Courtz',id:'1877482633'},
+ {title:'Ayúdame',artist:'Los Dos de Tamaulipas',id:'1880109891'}
  ];
  const section=document.getElementById('top5latino');
- const note=section.querySelector('.t5-note');
- note.textContent='Edición experimental · Clasificación de la semana del 10 de octubre de 2026.';
+ section.querySelector('.t5-note').textContent='Edición experimental · Clasificación de la semana del 10 de octubre de 2026.';
  section.querySelector('.t5-date').textContent='Edición de prueba · 10 de octubre de 2026';
  const root=document.getElementById('t5-cards');root.textContent='';
- const modal=document.createElement('div');modal.id='t5-apple-modal';modal.style.cssText='display:none;position:fixed;inset:0;background:#080414e8;z-index:20000;align-items:center;justify-content:center;padding:22px';
- const shell=document.createElement('div');shell.style.cssText='position:relative;width:min(690px,100%);background:#190d26;padding:45px 15px 18px;border:1px solid #ce4bf2;border-radius:16px;box-shadow:0 0 40px #b335ff77';
- const close=document.createElement('button');close.textContent='✕ Cerrar';close.type='button';close.style.cssText='position:absolute;top:9px;right:12px;padding:6px 12px;border-radius:9px;border:1px solid #ce4bf2;background:#371147;color:white;cursor:pointer';
- const frame=document.createElement('iframe');frame.style.cssText='display:block;width:100%;height:175px;border:0;max-width:660px;margin:auto;border-radius:12px';frame.title='Apple Music - Vista previa oficial';frame.allow='autoplay *; encrypted-media *; fullscreen *';
- shell.append(close,frame);modal.append(shell);document.body.append(modal);
- function hide(){frame.removeAttribute('src');modal.style.display='none'}close.addEventListener('click',hide);modal.addEventListener('click',e=>{if(e.target===modal)hide()});document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});window.stopTop5Audio=hide;
- function preview(id){frame.src='https://embed.music.apple.com/us/song/'+encodeURIComponent(id);modal.style.display='flex'}
+ const frames=[];
  songs.forEach((song,i)=>{
- const row=document.createElement('article');row.className='t5-card';
- const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);row.append(rank);
- const cover=document.createElement('div');cover.className='t5-cover';cover.addEventListener('contextmenu',e=>e.preventDefault());
- const img=document.createElement('iframe');img.title='Portada oficial: '+song.title;img.loading='lazy';img.setAttribute('aria-hidden','true');img.tabIndex=-1;img.style.cssText='position:absolute;left:-13px;top:-41px;width:660px;height:175px;border:0;pointer-events:none;max-width:none;object-fit:initial;display:block';img.src='https://embed.music.apple.com/us/song/'+encodeURIComponent(song.id);
- cover.append(img);
- const button=document.createElement('button');button.type='button';button.className='t5-play';button.textContent='▶';button.title='Escuchar la vista previa oficial de Apple Music';button.setAttribute('aria-label','Escuchar '+song.title+' en Apple Music');button.addEventListener('click',()=>preview(song.id));cover.append(button);row.append(cover);
- const info=document.createElement('div');info.className='t5-details';const h=document.createElement('h3');h.textContent=song.title;const a=document.createElement('p');a.className='t5-artist';a.textContent=song.artist;const d=document.createElement('p');d.className='t5-desc';d.textContent=song.description;info.append(h,a,d);row.append(info);
- const place=document.createElement('div');place.className='t5-position';place.textContent='PUESTO '+(i+1);row.append(place);root.append(row);
-
+  const row=document.createElement('article');row.className='t5-card';
+  const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);
+  const player=document.createElement('div');player.className='t5-embedded';
+  const frame=document.createElement('iframe');frame.title='Apple Music: '+song.title+' — '+song.artist;
+  frame.loading='lazy';frame.allow='autoplay *; encrypted-media *; fullscreen *';
+  frame.src='https://embed.music.apple.com/us/song/'+encodeURIComponent(song.id);
+  frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  player.append(frame);frames.push(frame);
+  const status=document.createElement('div');status.className='t5-position';
+  const label=document.createElement('strong');label.textContent='PUESTO '+(i+1);
+  const change=document.createElement('span');change.textContent='NUEVO';
+  status.append(label,change);
+  row.append(rank,player,status);root.append(row);
  });
+ window.stopTop5Audio=function(){frames.forEach(frame=>{frame.src='about:blank'});};
 })();
 </script></body>
 </html>
