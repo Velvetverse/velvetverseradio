@@ -4480,8 +4480,20 @@ document.addEventListener("DOMContentLoaded", function () {
  const info=document.createElement('div');info.className='t5-details';const h=document.createElement('h3');h.textContent=song.title;const a=document.createElement('p');a.className='t5-artist';a.textContent=song.artist;const d=document.createElement('p');d.className='t5-desc';d.textContent=song.description;info.append(h,a,d);row.append(info);
  const place=document.createElement('div');place.className='t5-position';place.textContent='PUESTO '+(i+1);row.append(place);root.append(row);
  // Apple's public lookup metadata supplies the licensed catalog artwork URL, not an uploaded copy.
- fetch('https://itunes.apple.com/lookup?id='+encodeURIComponent(song.id)+'&country=us&entity=song')
- .then(r=>r.json()).then(j=>{const entry=j.results&&j.results.find(v=>v.trackId==song.id);if(entry&&entry.artworkUrl100){img.src=entry.artworkUrl100.replace('100x100bb','600x600bb');img.onload=()=>{img.style.display='block';mark.style.display='none'}}}).catch(()=>{});
+ // Apple iTunes API permite JSONP; evita bloqueios CORS do Firefox.
+ const callback='vvTop5Artwork_'+i;
+ window[callback]=function(data){
+  const entry=data&&data.results&&data.results.find(v=>String(v.trackId)===String(song.id));
+  if(entry&&entry.artworkUrl100){
+   img.src=entry.artworkUrl100.replace(/100x100bb/,'600x600bb');
+   img.onload=()=>{img.style.display='block';mark.style.display='none'};
+  }
+  delete window[callback];
+ };
+ const request=document.createElement('script');
+ request.src='https://itunes.apple.com/lookup?id='+encodeURIComponent(song.id)+'&country=us&callback='+callback;
+ request.onerror=()=>{delete window[callback];};
+ document.head.append(request);
  });
 })();
 </script></body>
