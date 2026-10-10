@@ -2117,7 +2117,7 @@ border-radius:0 0 16px 16px;
 #top5latino .t5-position{font-size:12px;color:#f8d391;font-weight:800;text-align:right}
 #top5latino .t5-outro{text-align:center;color:#ccb4d2;font-size:14px;margin:25px 0 0}
 @media(max-width:800px){#top5latino .t5-hero{height:290px;background-size:auto 290px}#top5latino .t5-meta h2{font-size:17px}#top5latino .t5-meta p{font-size:14px}#top5latino .t5-content{padding:20px 10px}#top5latino .t5-card{grid-template-columns:42px 90px 1fr;gap:10px;padding:9px}#top5latino .t5-rank{font-size:28px}#top5latino .t5-cover{width:90px;height:83px}#top5latino .t5-details h3{font-size:16px}#top5latino .t5-position{grid-column:3;text-align:left}}
-</style></head>
+</style><style id="top5-artwork-overrides">#top5latino .t5-cover iframe{height:175px!important;width:660px!important;max-width:none!important;object-fit:initial!important;pointer-events:none!important}#top5latino .t5-cover{isolation:isolate}#top5latino .t5-play{z-index:2;box-shadow:0 0 8px #30113d}</style></head>
 
 <body>
 
@@ -4474,26 +4474,12 @@ document.addEventListener("DOMContentLoaded", function () {
  const row=document.createElement('article');row.className='t5-card';
  const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);row.append(rank);
  const cover=document.createElement('div');cover.className='t5-cover';cover.addEventListener('contextmenu',e=>e.preventDefault());
- const img=document.createElement('img');img.alt='Portada: '+song.title;img.loading='lazy';img.style.display='none';
- const mark=document.createElement('span');mark.className='t5-music';mark.textContent='♫';cover.append(img,mark);
+ const img=document.createElement('iframe');img.title='Portada oficial: '+song.title;img.loading='lazy';img.setAttribute('aria-hidden','true');img.tabIndex=-1;img.style.cssText='position:absolute;left:-13px;top:-41px;width:660px;height:175px;border:0;pointer-events:none;max-width:none;object-fit:initial;display:block';img.src='https://embed.music.apple.com/us/song/'+encodeURIComponent(song.id);
+ cover.append(img);
  const button=document.createElement('button');button.type='button';button.className='t5-play';button.textContent='▶';button.title='Escuchar la vista previa oficial de Apple Music';button.setAttribute('aria-label','Escuchar '+song.title+' en Apple Music');button.addEventListener('click',()=>preview(song.id));cover.append(button);row.append(cover);
  const info=document.createElement('div');info.className='t5-details';const h=document.createElement('h3');h.textContent=song.title;const a=document.createElement('p');a.className='t5-artist';a.textContent=song.artist;const d=document.createElement('p');d.className='t5-desc';d.textContent=song.description;info.append(h,a,d);row.append(info);
  const place=document.createElement('div');place.className='t5-position';place.textContent='PUESTO '+(i+1);row.append(place);root.append(row);
- // Apple's public lookup metadata supplies the licensed catalog artwork URL, not an uploaded copy.
- // Apple iTunes API permite JSONP; evita bloqueios CORS do Firefox.
- const callback='vvTop5Artwork_'+i;
- window[callback]=function(data){
-  const entry=data&&data.results&&data.results.find(v=>String(v.trackId)===String(song.id));
-  if(entry&&entry.artworkUrl100){
-   img.src=entry.artworkUrl100.replace(/100x100bb/,'600x600bb');
-   img.onload=()=>{img.style.display='block';mark.style.display='none'};
-  }
-  delete window[callback];
- };
- const request=document.createElement('script');
- request.src='https://itunes.apple.com/lookup?id='+encodeURIComponent(song.id)+'&country=us&callback='+callback;
- request.onerror=()=>{delete window[callback];};
- document.head.append(request);
+
  });
 })();
 </script></body>
