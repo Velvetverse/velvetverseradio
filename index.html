@@ -2128,6 +2128,34 @@ border-radius:0 0 16px 16px;
 #top5latino .t5-position{display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:6px;min-height:86px;width:112px;border:1px solid #8637a5;border-radius:12px;background:#20102f;color:#ffd597;font-size:13px}
 #top5latino .t5-position span{font-size:11px;color:#f08be5}
 @media(max-width:850px){#top5latino .t5-card{grid-template-columns:56px minmax(0,1fr) 68px;gap:7px;padding:4px 2px;min-height:185px}#top5latino .t5-rank{width:56px;font-size:23px;min-height:70px}#top5latino .t5-position{width:68px;min-height:70px;font-size:11px}#top5latino .t5-position span{font-size:10px}#top5latino .t5-embedded{height:175px}#top5latino .t5-embedded iframe{height:175px}}
+</style><style id="top5-voting-styles">
+#top5latino .t5-voting{margin:30px auto 10px;max-width:1120px;padding:23px 20px 20px;background:linear-gradient(115deg,#12091f,#230a2b 65%,#15091e);border:2px solid #d333f8;border-radius:17px;box-shadow:0 0 18px #d02af777;color:white}
+#top5latino .t5-vote-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:15px}
+#top5latino .t5-vote-head h2{font-size:27px;margin:0;color:#fff;text-shadow:0 0 9px #e546fa}
+#top5latino .t5-vote-head p{margin:5px 0 0;color:#d8c1e1;font-size:13px}
+#top5latino .t5-live{font-size:12px;color:#a9f4c8}
+#top5latino .t5-vote-layout{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:15px;align-items:stretch}
+#top5latino .t5-vote-list{display:grid;gap:6px}
+#top5latino .t5-vote-row{display:grid;grid-template-columns:25px 41px minmax(0,1fr) 75px 69px minmax(75px,120px) 38px;gap:8px;align-items:center;min-height:48px;padding:5px 8px;border:1px solid #713382;border-radius:8px;background:#1b1029}
+#top5latino .t5-vote-num{font-size:20px;font-weight:900;color:#ffd16f}
+#top5latino .t5-vote-art{width:40px;height:40px;object-fit:cover;border-radius:5px;background:#542368}
+#top5latino .t5-vote-track{min-width:0}
+#top5latino .t5-vote-track strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top5latino .t5-vote-track span{display:block;font-size:11px;color:#d8b8df;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top5latino .t5-vote-btn{color:#fff;background:linear-gradient(110deg,#5e0c61,#b111a8);border:1px solid #fb59d7;border-radius:7px;font-weight:700;font-size:12px;padding:9px 4px;cursor:pointer}
+#top5latino .t5-vote-btn:disabled{opacity:.48;cursor:default}
+#top5latino .t5-vote-count{font-size:11px;white-space:nowrap;text-align:right}
+#top5latino .t5-vote-trackbar{height:10px;background:#3a2c4e;border-radius:9px;overflow:hidden}
+#top5latino .t5-vote-fill{height:100%;width:0;background:linear-gradient(90deg,#a81aff,#ec30ed);border-radius:9px;transition:width .55s ease}
+#top5latino .t5-vote-pct{font-size:11px;text-align:right}
+#top5latino .t5-winner{border:1px solid #d53ce8;border-radius:12px;background:radial-gradient(ellipse at top,#511057,#1c0a2b 67%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:18px 12px;text-align:center;box-shadow:inset 0 0 16px #ae2beb40}
+#top5latino .t5-winner h3{margin:0;color:#ffda75;font-size:17px}
+#top5latino .t5-winner img{width:115px;height:115px;object-fit:cover;border-radius:10px;border:2px solid #b739e5}
+#top5latino .t5-winner strong{font-size:18px}
+#top5latino .t5-winner p{font-size:12px;color:#e4cde5;margin:0}
+#top5latino .t5-vote-msg{min-height:18px;font-size:12px;color:#e3badc;margin:10px 0 0}
+@media(max-width:900px){#top5latino .t5-vote-layout{grid-template-columns:1fr}#top5latino .t5-winner{min-height:175px}#top5latino .t5-vote-row{grid-template-columns:21px 38px minmax(0,1fr) 63px 48px minmax(52px,1fr) 30px;gap:5px;padding:5px}#top5latino .t5-vote-count{font-size:10px}}
+@media(max-width:600px){#top5latino .t5-voting{padding:15px 8px}#top5latino .t5-vote-row{grid-template-columns:22px 36px minmax(0,1fr) 58px 43px;row-gap:6px}#top5latino .t5-vote-trackbar{grid-column:3/5}#top5latino .t5-vote-pct{grid-column:5}#top5latino .t5-vote-art{width:36px;height:36px}#top5latino .t5-vote-head h2{font-size:21px}}
 </style></head>
 
 <body>
@@ -2473,7 +2501,11 @@ border-radius:0 0 16px 16px;
 <section class="t5-hero" aria-label="Top 5 Latino">
  <div class="t5-meta"><h2>Con Adrian Vega (Noia)</h2><p>Viernes · 08:15 · Toronto</p><div class="t5-date">Próxima edición: 23 de octubre de 2026</div></div>
 </section>
-<div class="t5-content"><h2>LAS CINCO CANCIONES DE LA SEMANA</h2><p class="t5-note">La clasificación oficial de esta semana se publicará próximamente.</p><div class="t5-cards" id="t5-cards"></div><p class="t5-outro">¿Quieres escuchar las canciones completas? ¡Sintoniza VelvetVerse Radio!</p></div>
+<div class="t5-content"><h2>LAS CINCO CANCIONES DE LA SEMANA</h2><p class="t5-note">La clasificación oficial de esta semana se publicará próximamente.</p><div class="t5-cards" id="t5-cards"></div><section class="t5-voting" aria-label="Votación del público">
+ <div class="t5-vote-head"><div><h2>♡ Votación del público</h2><p>Vota por tu canción favorita de esta semana. ¡Tu voto cuenta!</p></div><span class="t5-live">● Resultados de la votación</span></div>
+ <div class="t5-vote-layout"><div class="t5-vote-list" id="t5-vote-list"></div><aside class="t5-winner" id="t5-winner" aria-live="polite"><h3>♛ Favorita del público</h3><p>Los resultados aparecerán aquí.</p></aside></div>
+ <p class="t5-vote-msg" id="t5-vote-msg" role="status" aria-live="polite"></p>
+</section><p class="t5-outro">¿Quieres escuchar las canciones completas? ¡Sintoniza VelvetVerse Radio!</p></div>
 </div>
     <div id="schedule" class="section">
   <div class="panel">
@@ -4489,6 +4521,79 @@ document.addEventListener("DOMContentLoaded", function () {
   row.append(rank,player,status);root.append(row);
  });
  window.stopTop5Audio=function(){frames.forEach(frame=>{frame.src='about:blank'});};
+})();
+</script><script id="top5-vote-script">
+(function(){
+const site=document.getElementById('top5latino'), list=document.getElementById('t5-vote-list'),msg=document.getElementById('t5-vote-msg'),winner=document.getElementById('t5-winner');
+if(!site||!list)return;
+const cfg={url:'https://bxndpplrxplszhaxules.supabase.co',key:'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou'};
+const rows=[];let songs=[],edition='',counts={},ready=false;
+const headers={'apikey':cfg.key,'Authorization':'Bearer '+cfg.key,'Content-Type':'application/json'};
+function thisWeek(){
+ const p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+ const get=t=>p.find(x=>x.type===t).value;
+ const dt=new Date(Date.UTC(+get('year'),+get('month')-1,+get('day')));
+ dt.setUTCDate(dt.getUTCDate()-(dt.getUTCDay()+2)%7);
+ return dt.toISOString().slice(0,10);
+}
+function collect(){
+ const frames=[...site.querySelectorAll('#t5-cards .t5-embedded iframe')];
+ return frames.map((frame,i)=>{const title=frame.title.replace(/^Apple Music:\s*/,''),parts=title.split(' — ');return {id:(frame.src.match(/\/song\/(\d+)/)||[])[1]||String(i),title:parts[0]||'Canción '+(i+1),artist:parts.slice(1).join(' — '),art:''}});
+}
+function getVisitor(){
+ const key='vv_top5_visitor';let id;try{id=localStorage.getItem(key);if(!id){id=crypto.randomUUID();localStorage.setItem(key,id)}}catch(e){id=null}return id;
+}
+const visitor=getVisitor();
+async function call(name,payload){
+ const r=await fetch(cfg.url+'/rest/v1/rpc/'+name,{method:'POST',headers,body:JSON.stringify(payload)});
+ if(!r.ok)throw Error('Votación no disponible ('+r.status+')');
+ return r.json();
+}
+async function covers(){
+ await Promise.all(songs.map(async(s,i)=>{try{const r=await fetch('https://itunes.apple.com/lookup?id='+encodeURIComponent(s.id)+'&country=us');if(!r.ok)return;const j=await r.json();const art=j.results&&j.results[0]&&j.results[0].artworkUrl100;if(art){s.art=art;rows[i].img.src=art;updateWinner()}}catch(e){}}));
+}
+function updateWinner(){
+ const total=songs.reduce((n,s)=>n+(counts[s.id]||0),0),top=songs.map((s,i)=>({...s,i,votes:counts[s.id]||0})).sort((a,b)=>b.votes-a.votes)[0];
+ rows.forEach((r,i)=>{const n=counts[songs[i].id]||0,p=total?Math.round(n/total*100):0;r.count.textContent=n.toLocaleString('es')+' votos';r.fill.style.width=p+'%';r.percent.textContent=p+'%';r.btn.disabled=!ready||!visitor||!!localStorage.getItem('vv_top5_voted_'+edition);});
+ winner.replaceChildren();const h=document.createElement('h3');h.textContent='♛ Favorita del público';winner.append(h);
+ if(!top||!total){const p=document.createElement('p');p.textContent='Aún no hay votos. ¡Sé el primero!';winner.append(p);return}
+ if(top.art){const im=document.createElement('img');im.src=top.art;im.alt='Portada de '+top.title;winner.append(im)}
+ const b=document.createElement('strong');b.textContent=top.title;winner.append(b);
+ const a=document.createElement('p');a.textContent=top.artist;winner.append(a);
+ const p=document.createElement('p');p.textContent=top.votes.toLocaleString('es')+' votos · '+Math.round(top.votes/total*100)+'%';winner.append(p);
+}
+async function refresh(){
+ try{
+ const data=await call('top5_get_counts',{p_edition:edition});
+ counts={};(data||[]).forEach(x=>{counts[String(x.song_id)]=Number(x.votes)});
+ ready=true;msg.textContent='';updateWinner();
+ }catch(e){ready=false;msg.textContent='La votación estará disponible próximamente.';updateWinner()}
+}
+async function vote(id){
+ if(!ready||!visitor||localStorage.getItem('vv_top5_voted_'+edition))return;
+ ready=false;updateWinner();
+ try{await call('top5_cast_vote',{p_edition:edition,p_song_id:id,p_visitor:visitor});localStorage.setItem('vv_top5_voted_'+edition,id);msg.textContent='¡Gracias por participar!';await refresh();}
+ catch(e){msg.textContent='No se ha podido registrar el voto. Inténtalo más tarde.';await refresh();}
+}
+function render(){
+ songs=collect();if(songs.length!==5)return;
+ // Per-Friday voting round; music IDs are read directly from the displayed players.
+ edition=thisWeek()+'_'+songs.map(s=>s.id).join('_');
+ list.replaceChildren();rows.length=0;
+ songs.forEach((song,i)=>{
+ const row=document.createElement('div');row.className='t5-vote-row';
+ const num=document.createElement('b');num.className='t5-vote-num';num.textContent=i+1;
+ const img=document.createElement('img');img.className='t5-vote-art';img.alt='';img.loading='lazy';
+ const name=document.createElement('div');name.className='t5-vote-track';const title=document.createElement('strong');title.textContent=song.title;const artist=document.createElement('span');artist.textContent=song.artist;name.append(title,artist);
+ const btn=document.createElement('button');btn.type='button';btn.className='t5-vote-btn';btn.textContent='♡ Votar';btn.disabled=true;btn.addEventListener('click',()=>vote(song.id));
+ const count=document.createElement('span');count.className='t5-vote-count';count.textContent='0 votos';
+ const bar=document.createElement('div');bar.className='t5-vote-trackbar';const fill=document.createElement('div');fill.className='t5-vote-fill';bar.append(fill);
+ const percent=document.createElement('span');percent.className='t5-vote-pct';percent.textContent='0%';
+ row.append(num,img,name,btn,count,bar,percent);list.append(row);rows.push({img,btn,count,fill,percent});
+ });
+ updateWinner();covers();refresh();
+}
+render();setInterval(()=>{const current=collect();const key=thisWeek()+'_'+current.map(s=>s.id).join('_');if(key!==edition)render();else if(document.visibilityState==='visible')refresh()},30000);
 })();
 </script></body>
 </html>
