@@ -4450,26 +4450,39 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script id="top5-inline-script">
 (function(){
+ // Edición de prueba: 10 de octubre de 2026. Cada semana, actualizar esta lista.
  const songs=[
- {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
- {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
- {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
- {title:'',artist:'',description:'',cover:'',preview:'',movement:''},
- {title:'',artist:'',description:'',cover:'',preview:'',movement:''}
+ {title:'BbY WOW',artist:'KAROL G, Judeline y rusowsky',description:'Una colaboración de ritmos tropicales y energía urbana.',id:'6796864754'},
+ {title:'DtMF',artist:'Bad Bunny',description:'Uno de los temas más populares del álbum DeBÍ TiRAR MáS FOToS.',id:'1787023936'},
+ {title:'Ahí',artist:'KAROL G y Drake',description:'Una colaboración entre melodías urbanas y sonidos afrobeats.',id:'6796864746'},
+ {title:'KOKO',artist:'Omar Courtz',description:'Una canción del álbum POR SI MAÑANA NO ESTOY.',id:'1877482633'},
+ {title:'Ayúdame',artist:'Los Dos de Tamaulipas',description:'Un tema de música mexicana publicado en 2026.',id:'1880109891'}
  ];
- const root=document.getElementById('t5-cards');const audio=new Audio();audio.preload='none';let active=null;
- function stop(){audio.pause();audio.removeAttribute('src');audio.load();if(active){active.textContent='▶';active=null}}
- audio.addEventListener('timeupdate',()=>{if(audio.currentTime>=30)stop()});audio.addEventListener('ended',stop);
+ const section=document.getElementById('top5latino');
+ const note=section.querySelector('.t5-note');
+ note.textContent='Edición experimental · Clasificación de la semana del 10 de octubre de 2026.';
+ section.querySelector('.t5-date').textContent='Edición de prueba · 10 de octubre de 2026';
+ const root=document.getElementById('t5-cards');root.textContent='';
+ const modal=document.createElement('div');modal.id='t5-apple-modal';modal.style.cssText='display:none;position:fixed;inset:0;background:#080414e8;z-index:20000;align-items:center;justify-content:center;padding:22px';
+ const shell=document.createElement('div');shell.style.cssText='position:relative;width:min(690px,100%);background:#190d26;padding:45px 15px 18px;border:1px solid #ce4bf2;border-radius:16px;box-shadow:0 0 40px #b335ff77';
+ const close=document.createElement('button');close.textContent='✕ Cerrar';close.type='button';close.style.cssText='position:absolute;top:9px;right:12px;padding:6px 12px;border-radius:9px;border:1px solid #ce4bf2;background:#371147;color:white;cursor:pointer';
+ const frame=document.createElement('iframe');frame.style.cssText='display:block;width:100%;height:175px;border:0;max-width:660px;margin:auto;border-radius:12px';frame.title='Apple Music - Vista previa oficial';frame.allow='autoplay *; encrypted-media *; fullscreen *';
+ shell.append(close,frame);modal.append(shell);document.body.append(modal);
+ function hide(){frame.removeAttribute('src');modal.style.display='none'}close.addEventListener('click',hide);modal.addEventListener('click',e=>{if(e.target===modal)hide()});document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});window.stopTop5Audio=hide;
+ function preview(id){frame.src='https://embed.music.apple.com/us/song/'+encodeURIComponent(id);modal.style.display='flex'}
  songs.forEach((song,i)=>{
  const row=document.createElement('article');row.className='t5-card';
  const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);row.append(rank);
  const cover=document.createElement('div');cover.className='t5-cover';cover.addEventListener('contextmenu',e=>e.preventDefault());
- if(song.cover){const img=new Image();img.src=song.cover;img.alt='Portada de '+song.title;cover.append(img)}else{const mark=document.createElement('span');mark.className='t5-music';mark.textContent='♫';cover.append(mark)}
- const button=document.createElement('button');button.type='button';button.className='t5-play';button.textContent='▶';button.disabled=!song.preview;button.setAttribute('aria-label','Escuchar 30 segundos');button.addEventListener('click',async()=>{if(active===button){stop();return}stop();active=button;audio.src=song.preview;try{await audio.play();button.textContent='Ⅱ'}catch{stop()}});cover.append(button);row.append(cover);
- const info=document.createElement('div');info.className='t5-details';const h=document.createElement('h3');h.textContent=song.title||'Por anunciar';const a=document.createElement('p');a.className='t5-artist';a.textContent=song.artist||'Artista por confirmar';const d=document.createElement('p');d.className='t5-desc';d.textContent=song.description||'El ranking de esta semana se publicará próximamente.';info.append(h,a,d);row.append(info);
- const place=document.createElement('div');place.className='t5-position';place.textContent=song.movement||'PUESTO '+(i+1);row.append(place);root.append(row);
+ const img=document.createElement('img');img.alt='Portada: '+song.title;img.loading='lazy';img.style.display='none';
+ const mark=document.createElement('span');mark.className='t5-music';mark.textContent='♫';cover.append(img,mark);
+ const button=document.createElement('button');button.type='button';button.className='t5-play';button.textContent='▶';button.title='Escuchar la vista previa oficial de Apple Music';button.setAttribute('aria-label','Escuchar '+song.title+' en Apple Music');button.addEventListener('click',()=>preview(song.id));cover.append(button);row.append(cover);
+ const info=document.createElement('div');info.className='t5-details';const h=document.createElement('h3');h.textContent=song.title;const a=document.createElement('p');a.className='t5-artist';a.textContent=song.artist;const d=document.createElement('p');d.className='t5-desc';d.textContent=song.description;info.append(h,a,d);row.append(info);
+ const place=document.createElement('div');place.className='t5-position';place.textContent='PUESTO '+(i+1);row.append(place);root.append(row);
+ // Apple's public lookup metadata supplies the licensed catalog artwork URL, not an uploaded copy.
+ fetch('https://itunes.apple.com/lookup?id='+encodeURIComponent(song.id)+'&country=us&entity=song')
+ .then(r=>r.json()).then(j=>{const entry=j.results&&j.results.find(v=>v.trackId==song.id);if(entry&&entry.artworkUrl100){img.src=entry.artworkUrl100.replace('100x100bb','600x600bb');img.onload=()=>{img.style.display='block';mark.style.display='none'}}}).catch(()=>{});
  });
- window.stopTop5Audio=stop;
 })();
 </script></body>
 </html>
