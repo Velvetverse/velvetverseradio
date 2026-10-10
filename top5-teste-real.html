@@ -1,0 +1,4623 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head><meta name="robots" content="noindex,nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VelvetVerse Radio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(125, 0, 255, 0.18), transparent 35%),
+        radial-gradient(circle at top right, rgba(255, 0, 140, 0.12), transparent 30%),
+        #07070d;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+    .section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+.panel{
+  padding:40px 20px;
+  background:#0b0b0f;
+}
+
+.panel-box{
+  max-width:1000px;
+  margin:auto;
+  border:1px solid #a855f7;
+  border-radius:16px;
+  padding:35px;
+  box-shadow:0 0 15px rgba(168,85,247,0.35);
+  line-height:1.7;
+}
+
+.panel-box h1,
+.panel-box h2{
+  color:#a855f7;
+}
+
+.vv-schedule{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.vv-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:30px;
+  padding:30px;
+  border-radius:20px;
+  border:1px solid #a855f7;
+  background:linear-gradient(145deg,#0b0b0f,#1a0f2a);
+  box-shadow:0 0 25px rgba(168,85,247,0.5);
+}
+
+.vv-card img{
+  width:200px;
+  height:200px;
+  object-fit:contain;
+  background:#050509;
+  border-radius:12px;
+  border:2px solid #a855f7;
+}
+
+.vv-time{
+  font-size:20px;
+  font-weight:bold;
+  color:#a855f7;
+  text-align:center;
+  min-width:80px;
+}
+
+.vv-info h2{
+  margin:0;
+  color:#fff;
+}
+
+.vv-info p{
+  margin:4px 0;
+  color:#c084fc;
+  font-weight:bold;
+}
+
+.vv-info span{
+  font-size:14px;
+  opacity:0.8;
+}
+.schedule-live-badge{
+  position:absolute;
+  top:10px;
+  right:15px;
+  background:red;
+  color:white;
+  font-weight:bold;
+  padding:5px 10px;
+  border-radius:10px;
+  font-size:12px;
+  box-shadow:0 0 10px red;
+}
+    .mini-player{
+  display:none;
+  height:74px;
+  margin-top:92px;
+  padding:7px 20px;
+max-width:1100px;
+margin-left:auto;
+margin-right:auto;
+border-left:1px solid rgba(183,51,255,0.45);
+border-right:1px solid rgba(183,51,255,0.45);
+border-radius:0 0 16px 16px;
+  align-items:center;
+  gap:16px;
+  background:rgba(7,6,15,0.97);
+  border-bottom:1px solid rgba(183,51,255,0.55);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  position:sticky;
+  top:92px;
+  z-index:9998;
+  overflow:hidden;
+}
+
+.mini-player.show{
+  display:flex;
+}
+
+.mini-artwork{
+  width:56px;
+  height:56px;
+  min-width:56px;
+  object-fit:cover;
+  border-radius:50%;
+  border:2px solid #c43cff;
+  box-shadow:0 0 12px rgba(196,60,255,0.55);
+}
+
+.mini-meta{
+  width:320px;
+  min-width:0;
+  overflow:hidden;
+}
+
+.mini-song{
+  font-size:16px;
+  font-weight:800;
+  color:#fff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-artist{
+  margin-top:4px;
+  font-size:13px;
+  font-weight:700;
+  color:#c46cff;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.mini-play{
+  width:48px;
+  height:48px;
+  min-width:48px;
+  border-radius:50%;
+  border:2px solid #b83cff;
+  background:#171020;
+  color:#fff;
+  font-size:20px;
+  cursor:pointer;
+  box-shadow:0 0 14px rgba(184,60,255,0.55);
+}
+.mini-wave{
+  width:200px;
+  height:34px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:3px;
+  overflow:hidden;
+  flex-shrink:0;
+}
+
+.mini-wave span{
+  flex:1;
+  max-width:8px;
+  min-width:3px;
+  height:18%;
+  border-radius:2px 2px 0 0;
+  background:linear-gradient(to top,#6824ff,#f400ff,#ff176c);
+  box-shadow:0 0 6px rgba(243,0,255,.42);
+  animation:miniEqMove .9s ease-in-out infinite alternate;
+  animation-play-state:paused;
+}
+
+.mini-wave.playing span{
+  animation-play-state:running;
+}
+
+.mini-wave span:nth-child(3n){animation-duration:.55s;}
+.mini-wave span:nth-child(4n){animation-duration:.8s;}
+.mini-wave span:nth-child(5n){animation-duration:1.05s;}
+
+@keyframes miniEqMove{
+  from{height:14%;}
+  to{height:92%;}
+}
+.mini-volume-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:auto;
+  min-width:180px;
+}
+
+.mini-volume{
+  width:130px;
+}
+
+.mini-live{
+  flex-shrink:0;
+  color:#fff;
+  background:#c9003f;
+  border:1px solid #ff1760;
+  border-radius:18px;
+  padding:7px 14px;
+  font-size:12px;
+  font-weight:800;
+  box-shadow:0 0 12px rgba(255,0,80,0.55);
+}
+    .top-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 92px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 34px;
+      background: rgba(6, 6, 12, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(183, 51, 255, 0.35);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ff008c;
+      box-shadow: 0 0 20px rgba(255, 0, 140, 0.45);
+    }
+
+    .brand-text h1 {
+      font-size: 24px;
+      color: #d95cff;
+      line-height: 1;
+    }
+
+    .brand-text p {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #e6e6ee;
+      letter-spacing: 1.4px;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .main-nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 16px;
+      border: 1px solid rgba(179, 76, 255, 0.45);
+      border-radius: 8px;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .main-nav a:hover,
+    .main-nav a.active {
+      background: linear-gradient(135deg, #bd3cff, #7d24ff);
+      border-color: transparent;
+      box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
+    }
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background: transparent;
+    color: white;
+    border: 1px solid #4b236e;
+    border-radius: 8px;
+    padding: 11px 18px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: 0.25s ease;
+}
+
+.dropdown:hover .dropbtn {
+    background: linear-gradient(135deg, #bd3cff, #7d24ff);
+    border-color: transparent;
+    box-shadow: 0 0 18px rgba(176, 57, 255, 0.55);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 210px;
+    background: #0d0913;
+    border: 1px solid #4b236e;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    overflow: hidden;
+    z-index: 5000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 12px 16px;
+    color: white;
+    text-decoration: none;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+}
+
+.dropdown-content a:hover {
+    background: #24102f;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+    .header-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      text-decoration: none;
+      color: white;
+      font-weight: 800;
+      border-radius: 28px;
+      padding: 14px 22px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .listen-btn {
+      border: 2px solid #ff006e;
+      background: rgba(255, 0, 110, 0.06);
+    }
+
+    .discover-btn {
+      background: linear-gradient(135deg, #ff008c, #7928ff);
+      box-shadow: 0 0 24px rgba(183, 40, 255, 0.35);
+    }
+
+    .page-content {
+      padding-top: 118px;
+      padding-left: 36px;
+      padding-right: 36px;
+      padding-bottom: 0;
+      max-width: 1900px;
+      margin: 0 auto;
+    }
+
+    .tagline {
+      color: #cfc7ff;
+      font-size: 13px;
+      letter-spacing: 8px;
+      margin-bottom: 22px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background:
+        linear-gradient(
+          180deg,
+          rgba(20, 17, 34, 0.92),
+          rgba(9, 9, 18, 0.95)
+        );
+      border: 1px solid rgba(167, 52, 255, 0.62);
+      border-radius: 14px;
+      box-shadow: 0 0 24px rgba(104, 0, 180, 0.12);
+    }
+
+    .live-panel {
+      min-height: 420px;
+      padding: 24px;
+    }
+
+    .live-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .live-badge {
+      background: linear-gradient(135deg, #ff003c, #ff005d);
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-weight: 900;
+      box-shadow: 0 0 22px rgba(255, 0, 74, 0.4);
+      animation: liveBlink 1.2s ease-in-out infinite;
+    }
+@keyframes liveBlink {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 22px rgba(255, 0, 74, 0.65);
+  }
+
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 8px rgba(255, 0, 74, 0.25);
+  }
+}
+    .live-title span:last-child {
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .player-area {
+      display: grid;
+      grid-template-columns: 230px 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .cover-placeholder {
+      width: 230px;
+      height: 230px;
+      border-radius: 14px;
+      background:
+        linear-gradient(135deg, rgba(0, 210, 255, 0.25), rgba(120, 0, 255, 0.35)),
+        #111726;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ddd;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 18px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .now-playing-label {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 2px solid #cf38ff;
+      border-radius: 20px;
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .song-title {
+      font-size: 38px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .artist-name {
+      font-size: 22px;
+      color: #bdb7e8;
+      margin-bottom: 26px;
+    }
+
+    .live-wave {
+  width:100%;
+  height:42px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:4px;
+  margin:8px 0 16px;
+  overflow:hidden;
+}
+
+.live-wave span {
+  flex:1;
+  max-width:9px;
+  min-width:3px;
+  height:18%;
+  border-radius:2px 2px 0 0;
+  background:linear-gradient(to top,#6824ff,#f400ff,#ff176c);
+  box-shadow:0 0 7px rgba(243,0,255,.45);
+  animation:liveEqMove 1s ease-in-out infinite alternate;
+  animation-play-state:paused;
+}
+
+.live-wave.playing span {
+  animation-play-state:running;
+}
+
+.live-wave span:nth-child(3n){animation-duration:.55s;}
+.live-wave span:nth-child(4n){animation-duration:.8s;}
+.live-wave span:nth-child(5n){animation-duration:1.05s;}
+
+@keyframes liveEqMove {
+  from{height:12%;}
+  to{height:90%;}
+}
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: #cbc8df;
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      font-size: 25px;
+    }
+
+    .play-main {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid #ff008c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(255,0,140,.18), rgba(91,0,255,.2));
+      box-shadow: 0 0 20px rgba(255, 0, 140, 0.35);
+      font-size: 26px;
+    }
+
+    .recent-panel {
+      padding: 20px;
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .panel-heading h2 {
+      font-size: 24px;
+    }
+
+    .panel-heading a {
+      color: #dc62ff;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .track {
+      display: grid;
+      grid-template-columns: 38px 48px 1fr 1fr 60px;
+      gap: 10px;
+      align-items: center;
+      min-height: 52px;
+      padding: 7px 10px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+    }
+
+    .track:first-child {
+      background: linear-gradient(90deg, rgba(124, 38, 171, 0.45), rgba(80, 24, 104, 0.28));
+    }
+
+    .track-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.06);
+    }
+
+    .track-cover {
+      width: 44px;
+      height: 44px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #194d70, #702d85);
+    }
+
+    .track-song {
+      font-weight: 800;
+    }
+
+    .track-artist,
+    .track-time {
+      color: #c4c0df;
+      font-size: 13px;
+    }
+
+    .lower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+   .info-panel {
+    min-height: 320px;
+    padding: 20px;
+}
+
+.promo-slider-panel {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    min-height: 320px;
+    height: 100%;
+}
+
+.promo-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 320px;
+    overflow: hidden;
+}
+
+.promo-slide {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    display: block;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.promo-slide.active {
+    opacity: 1;
+}
+
+.promo-mini-banner {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    z-index: 5;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(216, 70, 255, 0.65);
+    border-radius: 8px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(18, 9, 35, 0.96),
+        rgba(92, 20, 128, 0.96),
+        rgba(18, 9, 35, 0.96)
+    );
+
+    box-shadow: 0 0 12px rgba(190, 40, 255, 0.25);
+
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.promo-mini-banner-top {
+    top: 9px;
+}
+
+.promo-mini-banner-bottom {
+    bottom: 9px;
+}
+    .blink-star {
+    display: inline-block;
+    animation: blinkStar 2.4s infinite ease-in-out;
+}
+
+.blink-star:last-child {
+    animation-delay: 1.2s;
+}
+
+@keyframes blinkStar {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+
+    .schedule-item:last-child {
+      border-bottom: none;
+    }
+
+    .schedule-time {
+      color: #d8d3ff;
+      font-weight: 700;
+    }
+
+    .schedule-name {
+      font-weight: 800;
+      margin-bottom: 3px;
+    }
+
+    .schedule-desc {
+      color: #a9a5c4;
+      font-size: 13px;
+    }
+
+    .request-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .request-form input {
+      width: 100%;
+      padding: 13px 14px;
+      border-radius: 7px;
+      border: 1px solid rgba(162, 105, 255, .3);
+      background: #141421;
+      color: white;
+      outline: none;
+    }
+
+    .request-button {
+      grid-column: 1 / -1;
+      padding: 14px;
+      margin-top: 4px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #ff008c, #7a20ff);
+      color: white;
+      font-weight: 900;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .podcast-card {
+      display: grid;
+      grid-template-columns: 72px 1fr 44px;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+
+    .podcast-card:last-child {
+      border-bottom: none;
+    }
+
+    .podcast-scroll-window {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.podcast-scroll-track {
+    display: flex;
+    flex-direction: column;
+    animation: podcastScroll 30s linear infinite;
+}
+
+.podcast-scroll-window:hover .podcast-scroll-track {
+    animation-play-state: paused;
+}
+
+@keyframes podcastScroll {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}
+
+    .podcast-cover {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #ff0066, #3d045c);
+    }
+.backstage-cover {
+    background-image: url("backstage-legends-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+    .inside-cover {
+    background-image: url("inside-velvetverse-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+    .brasil-cover {
+    background-image: url("brasil-de-norte-a-sul-logo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+    .podcast-title {
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+
+    .podcast-desc {
+      color: #aaa5c0;
+      font-size: 13px;
+    }
+.coming-soon {
+    display: block;
+    margin-top: 4px;
+    color: #ff4fd8;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+}
+    .round-play {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+    border: none;
+
+    background-image: url("backstage-button.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 0;
+    text-decoration: none;
+    cursor: pointer;
+
+    position: relative;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.round-play::after {
+    content: "→";
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1;
+    text-shadow: 0 1px 4px #000000;
+}
+
+.round-play:hover {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+}
+    .future-block {
+  margin-top: 18px;
+  width: 100%;
+  aspect-ratio: 6 / 1;
+  padding: 0;
+  overflow: hidden;
+  border-style: solid;
+      position: relative;
+}
+.future-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 4s ease-in-out;
+}
+
+.future-slide.active {
+  opacity: 1;
+}
+    .site-footer {
+      width: 100%;
+      min-height: 64px;
+      margin-top: 0;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      align-items: center;
+      gap: 20px;
+      background: #08080f;
+      border-top: 1px solid #7b25b6;
+      color: #ffffff;
+      font-size: 12px;
+    }
+
+    .footer-left {
+      text-align: left;
+    }
+
+    .footer-left a {
+      color: #a64cff;
+      text-decoration: none;
+    }
+
+    .footer-center {
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .footer-center a {
+      color: #a64cff;
+      text-decoration: none;
+    }
+
+    .footer-social {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+    }
+
+  .social-icon {
+  width: 23px;
+  height: 23px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #b851f5;
+  text-decoration: none;
+}
+
+.social-icon svg {
+  width: 23px;
+  height: 23px;
+  fill: currentColor;
+}
+
+.social-icon:hover {
+  color: #ec72ff;
+}
+    /* =========================
+   LIVE NOW - CONCEITO 2
+========================= */
+
+.live-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  padding: 24px;
+  isolation: isolate;
+}
+
+.live-panel-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(7, 7, 14, 0.96) 0%,
+      rgba(10, 8, 20, 0.82) 45%,
+      rgba(12, 7, 24, 0.56) 100%
+    ),
+  url("radio-studio.jpg?v=2");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.live-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at 75% 35%,
+      rgba(179, 0, 255, 0.20),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.10),
+      rgba(0, 0, 0, 0.34)
+    );
+}
+
+.live-title,
+.player-area {
+  position: relative;
+  z-index: 2;
+}
+
+.live-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.live-program-card {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 6px 14px 6px 7px;
+  min-width: 230px;
+  min-height: 60px;
+  border: 1px solid rgba(170, 69, 255, 0.62);
+  border-radius: 28px;
+  background: rgba(13, 8, 22, 0.72);
+  box-shadow: 0 0 14px rgba(161, 65, 255, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.live-program-photo {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a849ff;
+  box-shadow: 0 0 10px rgba(161, 65, 255, 0.58);
+}
+
+.live-program-copy {
+  min-width: 0;
+  text-align: left;
+  line-height: 1.12;
+}
+
+.live-program-name {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.live-program-host {
+  margin-top: 4px;
+  color: #d8cfea;
+  font-size: 12px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.live-cover-wrap {
+  width: 230px;
+  height: 230px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.50),
+    0 0 26px rgba(134, 35, 255, 0.16);
+}
+
+.live-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.live-player-info {
+  min-width: 0;
+}
+
+.control-btn {
+  border: none;
+  background: transparent;
+  color: white;
+
+  width: 38px;
+  height: 38px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 23px;
+  cursor: pointer;
+
+  opacity: 0.92;
+}
+
+.control-btn:hover {
+  color: #ef52ff;
+}
+
+.play-main {
+  border: 2px solid #ff008c;
+  color: white;
+  cursor: pointer;
+
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 0, 140, 0.24),
+      rgba(91, 0, 255, 0.24)
+    );
+
+  box-shadow:
+    0 0 20px rgba(255, 0, 140, 0.35),
+    inset 0 0 12px rgba(255,255,255,0.05);
+
+  font-size: 25px;
+}
+
+.volume-row {
+  margin-top: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  color: white;
+}
+
+.volume-bar {
+  width: 180px;
+  height: 7px;
+
+  overflow: hidden;
+
+  border-radius: 10px;
+  background: rgba(255,255,255,0.14);
+}
+
+.volume-bar > div {
+  width: 66%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      #dd2cff,
+      #8b35ff
+    );
+}
+
+@media (max-width: 900px) {
+
+  .live-program-card {
+    min-width: 205px;
+  }
+
+  .live-program-name {
+    font-size: 12px;
+  }
+
+  .live-program-host {
+    font-size: 10px;
+  }
+
+  .live-cover-wrap {
+    width: 200px;
+    height: 200px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .live-cover-wrap {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .volume-row {
+    justify-content: center;
+  }
+
+}
+
+    @media (max-width: 1450px) {
+      .main-nav {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .lower-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-actions .discover-btn {
+        display: none;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .site-footer {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-left,
+      .footer-center {
+        text-align: center;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .top-header {
+        padding: 0 14px;
+        height: 78px;
+      }
+
+      .brand-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      .brand-text h1 {
+        font-size: 18px;
+      }
+
+      .brand-text p {
+        font-size: 10px;
+      }
+
+      .page-content {
+        padding-top: 100px;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .player-area {
+        grid-template-columns: 1fr;
+      }
+
+      .cover-placeholder {
+        width: 100%;
+        max-width: 280px;
+        height: 280px;
+        margin: 0 auto;
+      }
+
+      .request-form {
+        grid-template-columns: 1fr;
+      }
+
+      .track {
+        grid-template-columns: 34px 44px 1fr 55px;
+      }
+
+      .track-artist {
+        display: none;
+      }
+    }
+    /* 📸 GALLERY GRID */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+  margin-top:20px;
+}
+
+.gallery-grid img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  border-radius:12px;
+  cursor:pointer;
+  border:2px solid #a855f7;
+  transition:0.3s;
+  box-shadow:0 0 10px rgba(168,85,247,0.4);
+}
+
+.gallery-grid img:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 25px #a855f7;
+}
+
+/* 🔥 LIGHTBOX */
+#lightbox{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+#lightbox img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:12px;
+  box-shadow:0 0 30px black;
+}
+
+.lightbox-close{
+  position:absolute;
+  top:20px;
+  right:30px;
+  font-size:40px;
+  color:white;
+  cursor:pointer;
+}
+  .contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:12px;
+  margin-bottom:14px;
+  border-radius:10px;
+  border:1px solid #a855f7;
+  background:#0b0b0f;
+  color:white;
+  font-size:15px;
+}
+
+.contact-form textarea{
+  height:130px;
+  resize:vertical;
+}
+
+.contact-form button{
+  padding:12px 24px;
+  border-radius:26px;
+  background:#a855f7;
+  color:#000;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:15px;
+  box-shadow:0 0 15px rgba(168,85,247,0.6);
+}
+
+.contact-form button:hover{
+  background:#c084fc;
+}
+#comments-form + hr{
+  margin-top:22px;
+}
+  /* APPROVED COMMENTS */
+.approved-comments{
+  display:grid;
+  gap:18px;
+  margin-top:20px;
+}
+
+.comment-card{
+  display:flex;
+  gap:16px;
+  align-items:flex-start;
+  background:linear-gradient(145deg,rgba(11,11,15,0.95),rgba(25,10,35,0.85));
+  border:1px solid #a855f7;
+  border-radius:18px;
+  padding:18px;
+  box-shadow:
+    0 0 18px rgba(168,85,247,0.45),
+    inset 0 0 14px rgba(168,85,247,0.08);
+  transition:0.3s ease;
+}
+
+.comment-card:hover{
+  transform:translateY(-4px);
+  box-shadow:
+    0 0 28px rgba(168,85,247,0.85),
+    0 0 55px rgba(168,85,247,0.35),
+    inset 0 0 18px rgba(168,85,247,0.12);
+}
+
+.comment-card img{
+  width:66px;
+  height:66px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #a855f7;
+  box-shadow:
+    0 0 14px rgba(168,85,247,0.85),
+    0 0 28px rgba(168,85,247,0.35);
+  flex-shrink:0;
+}
+
+.comment-content strong{
+  color:#c084fc;
+  font-size:18px;
+  display:block;
+  text-shadow:0 0 8px rgba(168,85,247,0.8);
+}
+
+.comment-date{
+  font-size:12px;
+  opacity:0.65;
+  margin-top:2px;
+}
+
+.comment-content p{
+  margin:8px 0 0;
+  line-height:1.5;
+}
+
+.comment-note{
+  font-size:14px;
+  opacity:0.75;
+}
+    /* =========================================================
+   DISCOS PEDIDOS - HOME NEW
+   ========================================================= */
+
+#requests{
+  width:100%;
+}
+
+#requests .requests-page{
+  width:100%;
+  color:#f7f4fb;
+}
+
+/* HERO */
+
+#requests .requests-hero{
+  position:relative;
+  min-height:280px;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  isolation:isolate;
+  background-image:url('discos-pedidos-mockup.png');
+  background-repeat:no-repeat;
+  background-size:100% auto;
+  background-position:center 19%;
+  border-bottom:1px solid rgba(168,61,255,.25);
+}
+
+#requests .requests-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(
+    90deg,
+    #050509 0%,
+    #050509 47%,
+    rgba(5,5,9,.94) 53%,
+    rgba(5,5,9,.28) 72%,
+    rgba(5,5,9,.08) 100%
+  );
+}
+
+#requests .requests-hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  height:90px;
+  z-index:-1;
+  background:linear-gradient(transparent,#07070b);
+}
+
+#requests .requests-hero-content{
+  width:min(1400px,100%);
+  margin:0 auto;
+  padding:34px 6.8% 42px;
+}
+
+#requests .requests-hero h1{
+  margin:0;
+  font-size:clamp(48px,5.2vw,78px);
+  line-height:.98;
+  letter-spacing:-2.5px;
+  text-shadow:0 5px 25px #000;
+}
+
+#requests .requests-hero h1 span{
+  color:#e600bd;
+  background:linear-gradient(135deg,#f000b1,#9d2dff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+#requests .requests-tagline{
+  margin:12px 0 21px;
+  color:#e8e0ef;
+  font-size:clamp(14px,1.45vw,22px);
+  letter-spacing:8px;
+  text-transform:uppercase;
+}
+
+#requests .requests-hero-lead{
+  margin:0 0 6px;
+  font-size:clamp(18px,1.5vw,24px);
+  font-weight:800;
+}
+
+#requests .requests-hero-copy{
+  max-width:650px;
+  margin:0;
+  color:#e2dce7;
+  font-size:clamp(15px,1.25vw,19px);
+  line-height:1.45;
+}
+
+
+/* CONTEÚDO */
+
+#requests .requests-page-content{
+  width:min(1400px,calc(100% - 64px));
+  margin:0 auto;
+  padding:18px 0 30px;
+}
+
+#requests .requests-content-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1.4fr) minmax(360px,1fr);
+  gap:16px;
+  align-items:start;
+}
+
+#requests .requests-side-column{
+  display:grid;
+  gap:16px;
+}
+
+
+/* CARDS */
+
+#requests .requests-card{
+  position:relative;
+  overflow:hidden;
+  padding:27px 30px;
+  border:1px solid rgba(152,48,238,.86);
+  border-radius:11px;
+  background:linear-gradient(
+    145deg,
+    rgba(14,15,21,.98),
+    rgba(8,9,13,.98)
+  );
+  box-shadow:
+    0 11px 35px rgba(0,0,0,.34),
+    inset 0 1px rgba(255,255,255,.025);
+}
+
+#requests .requests-card::before{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  right:-110px;
+  top:-120px;
+  border-radius:50%;
+  background:rgba(162,38,255,.09);
+  filter:blur(8px);
+}
+
+#requests .requests-card-title{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin:0 0 7px;
+  font-size:clamp(24px,2.1vw,34px);
+  line-height:1.1;
+}
+
+#requests .requests-card-title.requests-small{
+  font-size:clamp(22px,1.75vw,29px);
+}
+
+#requests .requests-accent{
+  color:#bd43ff;
+}
+
+#requests .requests-title-icon{
+  color:#b840ff;
+  font-size:35px;
+  line-height:1;
+  filter:drop-shadow(0 0 10px rgba(183,57,255,.5));
+}
+
+#requests .requests-card-intro{
+  margin:0 0 20px;
+  color:#d6cfdd;
+  font-size:16px;
+  line-height:1.45;
+}
+
+#requests .requests-card-intro em{
+  color:#f2ebf7;
+}
+
+
+/* FORMULÁRIO */
+
+#requests .requests-form-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:17px 18px;
+}
+
+#requests .requests-field{
+  grid-column:span 2;
+}
+
+#requests .requests-field.requests-half{
+  grid-column:span 3;
+}
+
+#requests .requests-field.requests-full{
+  grid-column:1/-1;
+}
+
+#requests label{
+  display:block;
+  margin:0 0 8px;
+  font-size:15px;
+  font-weight:800;
+}
+
+#requests .requests-required{
+  color:#ff3158;
+  margin-left:3px;
+}
+
+#requests .requests-optional{
+  font-weight:400;
+  color:#d6ccdf;
+  margin-left:7px;
+}
+
+#requests input,
+#requests textarea{
+  width:100%;
+  color:#fff;
+  background:linear-gradient(145deg,#161820,#111219);
+  border:1px solid #4b4f5d;
+  border-radius:7px;
+  outline:none;
+  transition:.2s ease;
+  box-sizing:border-box;
+}
+
+#requests input{
+  height:48px;
+  padding:0 15px;
+}
+
+#requests textarea{
+  min-height:86px;
+  padding:14px 15px;
+  resize:vertical;
+}
+
+#requests input::placeholder,
+#requests textarea::placeholder{
+  color:#9b97a4;
+}
+
+#requests input:focus,
+#requests textarea:focus{
+  border-color:#bd43ff;
+  box-shadow:
+    0 0 0 3px rgba(173,59,255,.14),
+    0 0 18px rgba(173,59,255,.13);
+}
+
+
+/* MENSAGENS */
+
+#requests .requests-form-message{
+  display:none;
+  align-items:center;
+  gap:14px;
+  grid-column:1/-1;
+  min-height:47px;
+  padding:10px 15px;
+  border:1px solid #ff395d;
+  border-radius:7px;
+  color:#ff9aac;
+  background:linear-gradient(
+    90deg,
+    rgba(139,7,33,.45),
+    rgba(70,5,24,.28)
+  );
+}
+
+#requests .requests-form-message.show{
+  display:flex;
+}
+
+#requests .requests-form-message.success{
+  border-color:#21d68b;
+  color:#b9f8dc;
+  background:linear-gradient(
+    90deg,
+    rgba(8,106,70,.45),
+    rgba(5,59,43,.28)
+  );
+}
+
+#requests .requests-message-icon{
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 29px;
+  height:29px;
+  border-radius:50%;
+  color:#180009;
+  background:#ff3158;
+  font-weight:900;
+}
+
+#requests .requests-form-message.success .requests-message-icon{
+  color:#00170e;
+  background:#21d68b;
+}
+
+
+/* BOTÃO */
+
+#requests .requests-submit{
+  grid-column:1/-1;
+  min-height:53px;
+  border:0;
+  border-radius:8px;
+  color:#fff;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:900;
+  background:linear-gradient(100deg,#ef009d,#7122ff);
+  box-shadow:0 0 22px rgba(181,21,255,.3);
+  transition:.2s ease;
+}
+
+#requests .requests-submit:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 30px rgba(205,26,255,.52);
+}
+
+#requests .requests-submit:disabled{
+  cursor:wait;
+  opacity:.68;
+  transform:none;
+  box-shadow:none;
+}
+
+#requests .requests-submit span{
+  margin-right:11px;
+  font-size:21px;
+}
+
+#requests .requests-privacy-note{
+  grid-column:1/-1;
+  margin:0;
+  text-align:center;
+  color:#b8afc4;
+  font-size:12px;
+}
+
+
+/* REGRAS */
+
+#requests .requests-rules{
+  margin-top:10px;
+  border-top:1px solid #353641;
+}
+
+#requests .requests-rule{
+  display:grid;
+  grid-template-columns:52px 1fr;
+  align-items:center;
+  gap:14px;
+  padding:13px 7px;
+  border-bottom:1px solid #353641;
+}
+
+#requests .requests-rule:last-child{
+  border-bottom:0;
+  padding-bottom:0;
+}
+
+#requests .requests-rule-number{
+  display:grid;
+  place-items:center;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  font-size:20px;
+  font-weight:900;
+  background:linear-gradient(145deg,#5c1f83,#8e147e);
+  box-shadow:0 0 12px rgba(170,38,255,.18);
+}
+
+#requests .requests-rule p{
+  margin:0;
+  color:#f0ebf4;
+  font-size:15px;
+  line-height:1.4;
+}
+
+
+/* LISTA DE MÚSICAS */
+
+#requests .requests-requested-subtitle{
+  margin:-2px 0 14px 53px;
+  color:#d2c9db;
+  font-size:14px;
+}
+
+#requests .requests-request-list{
+  display:grid;
+  gap:8px;
+}
+
+#requests .request-item{
+  display:grid;
+  grid-template-columns:34px auto 20px 1fr;
+  align-items:center;
+  gap:10px;
+  min-height:43px;
+  padding:6px 11px;
+  border:1px solid #464955;
+  border-radius:7px;
+  background:linear-gradient(145deg,#171920,#121319);
+}
+
+#requests .request-number{
+  display:grid;
+  place-items:center;
+  width:29px;
+  height:29px;
+  border-radius:50%;
+  background:#3a3e49;
+  font-size:14px;
+  font-weight:900;
+}
+
+#requests .request-artist{
+  font-weight:900;
+  white-space:nowrap;
+}
+
+#requests .request-separator{
+  color:#81788c;
+  text-align:center;
+}
+
+#requests .request-song{
+  color:#ded6e5;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+#requests .requests-empty-state{
+  padding:18px;
+  text-align:center;
+  border:1px dashed #4c4058;
+  border-radius:8px;
+  color:#bdb3c8;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:1180px){
+
+  #requests .requests-content-grid{
+    grid-template-columns:1fr;
+  }
+
+  #requests .requests-side-column{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:850px){
+.future-block {
+  aspect-ratio: 3 / 1;
+}
+  #requests .requests-hero{
+    min-height:390px;
+    background-size:auto 720px;
+    background-position:63% 20%;
+    align-items:flex-end;
+  }
+
+  #requests .requests-hero::before{
+    background:linear-gradient(
+      0deg,
+      #050509 0%,
+      rgba(5,5,9,.96) 52%,
+      rgba(5,5,9,.25) 100%
+    );
+  }
+
+  #requests .requests-hero-content{
+    padding:120px 25px 38px;
+  }
+
+  #requests .requests-hero h1{
+    font-size:48px;
+    letter-spacing:-1.5px;
+  }
+
+  #requests .requests-tagline{
+    font-size:12px;
+    letter-spacing:4px;
+  }
+
+  #requests .requests-page-content{
+    width:min(calc(100% - 28px),1400px);
+  }
+
+  #requests .requests-side-column{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+
+  #requests .requests-card{
+    padding:23px 18px;
+  }
+
+  #requests .requests-card-title{
+    font-size:26px;
+  }
+
+  #requests .requests-form-grid{
+    display:block;
+  }
+
+  #requests .requests-field,
+  #requests .requests-form-message,
+  #requests .requests-submit,
+  #requests .requests-privacy-note{
+    margin-bottom:16px;
+  }
+
+  #requests .requests-privacy-note{
+    margin-bottom:0;
+  }
+
+  #requests .request-item{
+    grid-template-columns:32px 1fr;
+    gap:5px 10px;
+    padding:8px;
+  }
+
+  #requests .request-artist,
+  #requests .request-song{
+    white-space:normal;
+  }
+
+  #requests .request-separator{
+    display:none;
+  }
+
+  #requests .request-song{
+    grid-column:2;
+  }
+
+  #requests .requests-requested-subtitle{
+    margin-left:0;
+  }
+}
+  </style>
+
+<style>
+.new-rubrics-marquee{
+  overflow:hidden;
+  white-space:nowrap;
+  width:100%;
+}
+
+.new-rubrics-track{
+  display:flex;
+  width:max-content;
+  animation:newRubricsMove 18s linear infinite;
+}
+
+.new-rubrics-item{
+  display:inline-flex;
+  align-items:center;
+  white-space:nowrap;
+  padding-right:0;
+}
+
+.new-rubrics-mic{
+  width:18px;
+  height:18px;
+  object-fit:contain;
+  margin:0 8px;
+  flex-shrink:0;
+}
+
+@keyframes newRubricsMove{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-50%);
+  }
+}
+</style>
+
+<style id="top5-inline-styles">
+#top5latino{padding:0;background:#0d0717;color:#fff;font-family:Arial,sans-serif}
+#top5latino .t5-hero{height:390px;position:relative;display:flex;justify-content:center;align-items:flex-end;text-align:center;background:url('top-5-latino-background.jpg') center top/cover no-repeat;overflow:hidden}
+#top5latino .t5-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:115px;background:linear-gradient(to bottom,transparent,#0d0717 90%);pointer-events:none}
+#top5latino .t5-meta{position:relative;z-index:1;text-align:center;padding:0 20px 14px;background:radial-gradient(ellipse at center,#0c0619 10%,#0c0619e0 43%,transparent 75%);min-width:min(690px,100%)}
+#top5latino .t5-meta h2{font-size:22px;font-weight:900;color:white;margin:0 0 7px;text-shadow:0 2px 4px black}
+#top5latino .t5-meta p{font-size:18px;color:#ffe09a;font-weight:800;letter-spacing:1px;margin:0 0 9px;text-shadow:0 2px 4px black}
+#top5latino .t5-date{display:inline-block;padding:9px 23px;border-radius:22px;border:1px solid #c03cc7;background:#200b2e;font-size:13px;color:#fff}
+#top5latino .t5-content{max-width:1310px;margin:0 auto;padding:24px 25px 36px}
+#top5latino .t5-content>h2{text-align:center;font-size:21px;margin:6px 0 12px}
+#top5latino .t5-note{text-align:center;color:#decde4;font-size:14px;margin:0 0 20px}
+#top5latino .t5-cards{display:grid;gap:10px}
+#top5latino .t5-card{display:grid;grid-template-columns:75px 155px minmax(0,1fr) 115px;gap:18px;align-items:center;min-height:116px;padding:9px 22px;border:1px solid #8738a8;border-radius:11px;background:linear-gradient(90deg,#130d21,#2a0d31);box-shadow:0 0 12px #9c16aa29}
+#top5latino .t5-card:first-child{border-color:#edaa4b}
+#top5latino .t5-rank{font-size:47px;font-weight:900;color:#ffd18b}
+#top5latino .t5-cover{height:95px;width:155px;position:relative;display:grid;place-items:center;border-radius:8px;background:linear-gradient(125deg,#672173,#c13f70);overflow:hidden}
+#top5latino .t5-cover img{width:100%;height:100%;object-fit:cover}
+#top5latino .t5-cover .t5-music{font-size:35px}
+#top5latino .t5-play{position:absolute;right:7px;bottom:6px;border:1px solid white;color:white;background:#481757cb;border-radius:50%;width:35px;height:35px;cursor:pointer}
+#top5latino .t5-play:disabled{opacity:.5;cursor:not-allowed}
+#top5latino .t5-details h3{font-size:23px;margin:0 0 5px}
+#top5latino .t5-artist{color:#f778e4;font-weight:800;margin:0 0 5px}
+#top5latino .t5-desc{font-size:13px;color:#dfd4e7;margin:0}
+#top5latino .t5-position{font-size:12px;color:#f8d391;font-weight:800;text-align:right}
+#top5latino .t5-outro{text-align:center;color:#ccb4d2;font-size:14px;margin:25px 0 0}
+@media(max-width:800px){#top5latino .t5-hero{height:290px;background-size:auto 290px}#top5latino .t5-meta h2{font-size:17px}#top5latino .t5-meta p{font-size:14px}#top5latino .t5-content{padding:20px 10px}#top5latino .t5-card{grid-template-columns:42px 90px 1fr;gap:10px;padding:9px}#top5latino .t5-rank{font-size:28px}#top5latino .t5-cover{width:90px;height:83px}#top5latino .t5-details h3{font-size:16px}#top5latino .t5-position{grid-column:3;text-align:left}}
+</style><style id="top5-artwork-overrides">#top5latino .t5-cover iframe{height:175px!important;width:660px!important;max-width:none!important;object-fit:initial!important;pointer-events:none!important}#top5latino .t5-cover{isolation:isolate}#top5latino .t5-play{z-index:2;box-shadow:0 0 8px #30113d}</style><style id="top5-compact-layout">
+#top5latino .t5-content{max-width:1050px}
+#top5latino .t5-cards{gap:12px}
+#top5latino .t5-card{display:grid;grid-template-columns:82px minmax(0,660px) 112px;justify-content:center;gap:13px;align-items:center;min-height:190px;padding:9px 12px;background:transparent;border:0;box-shadow:none}
+#top5latino .t5-rank{display:flex;align-items:center;justify-content:center;min-height:86px;width:82px;padding:7px;border:1px solid #a34cbb;border-radius:12px;background:#20102f;font-size:38px;color:#ffca75;box-shadow:0 0 14px #ad31dd35}
+#top5latino .t5-card:first-child .t5-rank{border-color:#edaa4b}
+#top5latino .t5-embedded{min-width:0;width:100%;height:175px;overflow:hidden;border:2px solid #bc43f4;border-radius:13px;box-shadow:0 0 0 1px #e484ff75,0 0 16px #bb39ec9c;background:#1c1227}
+#top5latino .t5-embedded iframe{display:block;width:100%;height:175px;border:0}
+#top5latino .t5-position{display:flex;align-items:center;justify-content:center;text-align:center;flex-direction:column;gap:6px;min-height:86px;width:112px;border:1px solid #8637a5;border-radius:12px;background:#20102f;color:#ffd597;font-size:13px}
+#top5latino .t5-position span{font-size:11px;color:#f08be5}
+@media(max-width:850px){#top5latino .t5-card{grid-template-columns:56px minmax(0,1fr) 68px;gap:7px;padding:4px 2px;min-height:185px}#top5latino .t5-rank{width:56px;font-size:23px;min-height:70px}#top5latino .t5-position{width:68px;min-height:70px;font-size:11px}#top5latino .t5-position span{font-size:10px}#top5latino .t5-embedded{height:175px}#top5latino .t5-embedded iframe{height:175px}}
+</style><style id="top5-voting-styles">
+#top5latino .t5-voting{margin:30px auto 10px;max-width:1120px;padding:23px 20px 20px;background:linear-gradient(115deg,#12091f,#230a2b 65%,#15091e);border:2px solid #d333f8;border-radius:17px;box-shadow:0 0 18px #d02af777;color:white}
+#top5latino .t5-vote-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:15px}
+#top5latino .t5-vote-head h2{font-size:27px;margin:0;color:#fff;text-shadow:0 0 9px #e546fa}
+#top5latino .t5-vote-head p{margin:5px 0 0;color:#d8c1e1;font-size:13px}
+#top5latino .t5-live{font-size:12px;color:#a9f4c8}
+#top5latino .t5-vote-layout{display:grid;grid-template-columns:minmax(0,1fr) 265px;gap:15px;align-items:stretch}
+#top5latino .t5-vote-list{display:grid;gap:6px}
+#top5latino .t5-vote-row{display:grid;grid-template-columns:25px 41px minmax(0,1fr) 75px 69px minmax(75px,120px) 38px;gap:8px;align-items:center;min-height:48px;padding:5px 8px;border:1px solid #713382;border-radius:8px;background:#1b1029}
+#top5latino .t5-vote-num{font-size:20px;font-weight:900;color:#ffd16f}
+#top5latino .t5-vote-art{width:40px;height:40px;object-fit:cover;border-radius:5px;background:#542368}
+#top5latino .t5-vote-track{min-width:0}
+#top5latino .t5-vote-track strong{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top5latino .t5-vote-track span{display:block;font-size:11px;color:#d8b8df;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top5latino .t5-vote-btn{color:#fff;background:linear-gradient(110deg,#5e0c61,#b111a8);border:1px solid #fb59d7;border-radius:7px;font-weight:700;font-size:12px;padding:9px 4px;cursor:pointer}
+#top5latino .t5-vote-btn:disabled{opacity:.48;cursor:default}
+#top5latino .t5-vote-count{font-size:11px;white-space:nowrap;text-align:right}
+#top5latino .t5-vote-trackbar{height:10px;background:#3a2c4e;border-radius:9px;overflow:hidden}
+#top5latino .t5-vote-fill{height:100%;width:0;background:linear-gradient(90deg,#a81aff,#ec30ed);border-radius:9px;transition:width .55s ease}
+#top5latino .t5-vote-pct{font-size:11px;text-align:right}
+#top5latino .t5-winner{border:1px solid #d53ce8;border-radius:12px;background:radial-gradient(ellipse at top,#511057,#1c0a2b 67%);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:18px 12px;text-align:center;box-shadow:inset 0 0 16px #ae2beb40}
+#top5latino .t5-winner h3{margin:0;color:#ffda75;font-size:17px}
+#top5latino .t5-winner img{width:115px;height:115px;object-fit:cover;border-radius:10px;border:2px solid #b739e5}
+#top5latino .t5-winner strong{font-size:18px}
+#top5latino .t5-winner p{font-size:12px;color:#e4cde5;margin:0}
+#top5latino .t5-vote-msg{min-height:18px;font-size:12px;color:#e3badc;margin:10px 0 0}
+@media(max-width:900px){#top5latino .t5-vote-layout{grid-template-columns:1fr}#top5latino .t5-winner{min-height:175px}#top5latino .t5-vote-row{grid-template-columns:21px 38px minmax(0,1fr) 63px 48px minmax(52px,1fr) 30px;gap:5px;padding:5px}#top5latino .t5-vote-count{font-size:10px}}
+@media(max-width:600px){#top5latino .t5-voting{padding:15px 8px}#top5latino .t5-vote-row{grid-template-columns:22px 36px minmax(0,1fr) 58px 43px;row-gap:6px}#top5latino .t5-vote-trackbar{grid-column:3/5}#top5latino .t5-vote-pct{grid-column:5}#top5latino .t5-vote-art{width:36px;height:36px}#top5latino .t5-vote-head h2{font-size:21px}}
+</style></head>
+
+<body>
+
+  <header class="top-header">
+
+    <div class="brand">
+      <img src="icon-192.png" alt="VelvetVerse Radio" class="brand-logo">
+
+      <div class="brand-text">
+        <h1>VelvetVerse</h1>
+        <p>RADIO LIVE</p>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <a href="#" onclick="showSection('home', this); return false;" class="active">Home</a>
+      <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
+      <a href="#" onclick="showSection('top5latino', this); return false;">Top 5 Latino</a>
+      <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
+      <a href="#" onclick="showSection('about', this); return false;">About</a>
+      <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
+      <a href="#" onclick="showSection('comments', this); return false;">Comments</a>
+      <div class="dropdown">
+  <button class="dropbtn">Podcasts</button>
+
+  <div class="dropdown-content">
+    <a href="backstage-legends.html">Backstage Legends</a>
+    <a href="inside-velvetverse.html">Inside VelvetVerse</a>
+    <a href="brasil-de-norte-a-sul.html">Brasil de Norte a Sul</a>
+    <a href="e-se.html">E Se...?</a>
+    <a href="um-futuro-proximo.html">Um Futuro Próximo</a>
+  </div>
+</div>
+      <a href="#" onclick="showSection('requests', this); return false;">Discos Pedidos</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="#" onclick="window.open('player.html','VelvetVersePlayer','width=784,height=508,resizable=yes,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn">◉ LISTEN LIVE</a>
+      <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn">Discover VelvetVerse</a>
+    </div>
+
+  </header>
+
+  <div id="miniPlayer" class="mini-player">
+  <img id="miniArtwork" class="mini-artwork" src="logo.png" alt="Capa da música">
+
+  <div class="mini-meta">
+    <div id="miniSong" class="mini-song">VelvetVerse Radio</div>
+    <div id="miniArtist" class="mini-artist">Live</div>
+  </div>
+
+  <button id="miniPlay" class="mini-play" type="button" aria-label="Play/Pause">▶</button>
+<div id="miniWave" class="mini-wave" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+  <div class="mini-volume-wrap">
+    <span class="mini-volume-icon">🔊</span>
+    <input id="miniVolume" class="mini-volume" type="range" min="0" max="1" step="0.01" value="0.7">
+  </div>
+
+  <div class="mini-live">● LIVE</div>
+</div>
+
+ <main id="home" class="page-content section active">
+
+    <div class="tagline">MUSIC NEVER STOPS</div>
+
+    <section class="hero-grid">
+
+<div class="panel live-panel">
+
+  <div class="live-panel-bg"></div>
+
+  <div class="live-overlay"></div>
+
+  <div class="live-title">
+    <div class="live-badge">◉ LIVE NOW</div>
+    <span>VelvetVerse Radio</span>
+    <div class="live-program-card" id="liveProgramCard" aria-live="polite">
+      <img class="live-program-photo" id="liveProgramPhoto" src="beto.png" alt="Locutor atual">
+      <div class="live-program-copy">
+        <div class="live-program-name" id="liveProgramName">Rock Sem Limites</div>
+        <div class="live-program-host" id="liveProgramHost">com Beto Sousa</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="player-area">
+
+    <div class="live-cover-wrap">
+      <img
+        id="liveArtwork"
+        src="logo.png"
+        alt="Capa da música atual"
+        class="live-cover"
+      >
+    </div>
+
+    <div class="live-player-info">
+
+      <div class="now-playing-label">NOW PLAYING</div>
+
+      <div class="song-title" id="liveSong">
+        A carregar...
+      </div>
+
+      <div class="artist-name" id="liveArtist">
+        VelvetVerse Radio
+      </div>
+
+     <div class="live-wave" id="liveWave" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+      <div class="player-controls">
+
+        <button
+          class="play-main"
+          id="livePlay"
+          aria-label="Play Pause">
+          ▶
+        </button>
+
+      </div>
+
+      <div class="volume-row">
+
+        <span>🔊</span>
+
+        <input
+          id="liveVolume"
+          type="range"
+          min="0"
+          max="100"
+          value="70"
+          aria-label="Volume"
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <audio
+    id="liveRadio"
+    preload="none"
+    src="https://stream.rcast.net/73595">
+  </audio>
+
+</div>
+
+      <div class="panel recent-panel">
+
+        <div class="panel-heading">
+          <h2>♫ Últimas 5 músicas</h2>
+        </div>
+
+        <div class="track-list" id="recentTracks">
+
+  <div class="track">
+    <div class="track-number">1</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">2</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">3</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">4</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+  <div class="track">
+    <div class="track-number">5</div>
+    <img class="track-cover" src="logo.png" alt="">
+    <div class="track-song">A carregar...</div>
+    <div class="track-artist">VelvetVerse Radio</div>
+    <div class="track-time">--:--</div>
+  </div>
+
+</div>
+
+      </div>
+
+    </section>
+
+    <section class="lower-grid">
+
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>Programação de Hoje</h2>
+          <a href="#" onclick="showSection('schedule', this); return false;">Ver programação completa →</a>
+        </div>
+
+       <div id="dynamicSchedule"></div>
+
+      </div>
+
+      <div class="panel promo-slider-panel">
+
+<div class="promo-slider">
+
+    <div class="promo-mini-banner promo-mini-banner-top">
+  <span class="blink-star">✦</span>
+  <span>EM DESTAQUE NA VELVETVERSE RADIO</span>
+  <span class="blink-star">✦</span>
+</div>
+
+    <img src="card-ritmo-latino.png" class="promo-slide active" alt="Ritmo Latino">
+    <img src="card-top-5-latino.png" class="promo-slide" alt="Top 5 Latino">
+    <img src="Suzy.png" class="promo-slide" alt="Alma Portuguesa">
+    <img src="Carlos.png" class="promo-slide" alt="Corações & Memórias">
+    <img src="LARA.png" class="promo-slide" alt="Coração Brasileiro">
+    <img src="Beto.png" class="promo-slide" alt="Rock Sem Limites">
+    <img src="card-the-sound-of-velvetverse.png" class="promo-slide" alt="The Sound of VelvetVerse">
+    <img src="Velvet After Dark.png" class="promo-slide" alt="Velvet After Dark">
+    <img src="Midnight Flow.png" class="promo-slide" alt="Midnight Flow">
+    <img src="ricky-sousa-backstage-legends.png" class="promo-slide" alt="Backstage Legends">
+    <img src="card-e-se.png" class="promo-slide" alt="E Se...?">
+    <img src="card-um-futuro-proximo.png" class="promo-slide" alt="Um Futuro Próximo">
+
+    <div class="promo-mini-banner promo-mini-banner-bottom">
+        8 PROGRAMAS • TODOS OS DIAS • 24/7
+    </div>
+
+</div>
+
+</div>
+      <div class="panel info-panel">
+
+        <div class="panel-heading">
+          <h2>Podcasts / Episódios</h2>
+        </div>
+      <div class="podcast-scroll-window"> 
+        <div class="podcast-scroll-track">
+        
+        <div class="podcast-card">
+    <div class="podcast-cover backstage-cover"></div>
+
+    <div>
+        <div class="podcast-title">Backstage Legends</div>
+        <div class="podcast-desc">
+            Uma viagem pelos bastidores da música, pelas histórias que marcaram gerações e pelas lendas que nunca se esquecem, com Ricky Sousa.
+        </div>
+    </div>
+
+    <a class="round-play" href="backstage-legends.html">→</a>
+</div>
+        <div class="podcast-card">
+    <div class="podcast-cover brasil-cover"></div>
+
+    <div>
+        <div class="podcast-title">Brasil de Norte a Sul</div>
+        <div class="podcast-desc">
+            Uma nova rubrica com Lara Ingrid, dedicada aos ritmos, tradições e curiosidades do Brasil.
+            <br><span class="coming-soon">Todos os sábados • 17:00 Toronto • com Lara Ingrid</span>
+        </div>
+    </div>
+
+   <a class="round-play" href="brasil-de-norte-a-sul.html"></a>
+</div>
+
+        <div class="podcast-card">
+   <div class="podcast-cover" style="background-image: url('logo-e-se.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+    <div>
+        <div class="podcast-title">E Se...?</div>
+        <div class="podcast-desc">
+            Perguntas que fazem pensar. Cenários imaginativos e possibilidades que desafiam a forma como vemos o mundo.
+            <br><span class="coming-soon">Domingos alternados • 10:00 Toronto • com Rui Freitas</span>
+        </div>
+    </div>
+
+    <a class="round-play" href="e-se.html">›</a>
+</div>
+
+<div class="podcast-card">
+    <div class="podcast-cover" style="background-image: url('logo-um-futuro-proximo.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+
+    <div>
+        <div class="podcast-title">Um Futuro Próximo</div>
+        <div class="podcast-desc">
+            Tecnologia, cidades, trabalho e mudanças que poderão transformar o mundo de amanhã.
+            <br><span class="coming-soon">Domingos alternados • 10:00 Toronto • com Rui Freitas</span>
+        </div>
+    </div>
+
+    <a class="round-play" href="um-futuro-proximo.html">›</a>
+</div>
+
+      </div>
+</div>
+        
+        </div>
+
+    </section>
+
+    <section class="panel future-block">
+      <img class="future-slide active"
+     src="velvetverse-toronto-studio-banner.png"
+     alt="VelvetVerse Studio Toronto de dia">
+
+<img class="future-slide"
+     src="velvetverse-toronto-studio-night-banner.png"
+     alt="VelvetVerse Studio Toronto à noite">
+    </section>
+
+
+
+  </main>
+    <div id="top5latino" class="section" lang="es">
+<section class="t5-hero" aria-label="Top 5 Latino">
+ <div class="t5-meta"><h2>Con Adrian Vega (Noia)</h2><p>Viernes · 08:15 · Toronto</p><div class="t5-date">Próxima edición: 23 de octubre de 2026</div></div>
+</section>
+<div id="vv-test-panel" style="max-width:1050px;margin:16px auto;background:#2c143e;border:2px solid #ffcb7b;border-radius:12px;padding:18px;color:#fff;text-align:center">
+<strong style="font-size:19px">PRUEBA PRIVADA — Cambio de canciones y votación</strong>
+<p style="margin:10px 0">Esta página usa rondas de prueba: no afecta a los votos del Top 5 público.</p>
+<button type="button" id="vv-test-original" style="background:#51216b;color:white;padding:12px;margin:4px;border:1px solid #da7bfa;border-radius:8px">Semana original</button>
+<button type="button" id="vv-test-new" style="background:#51216b;color:white;padding:12px;margin:4px;border:1px solid #da7bfa;border-radius:8px">Semana nueva (2 canciones distintas)</button>
+<div id="vv-test-status" style="margin-top:8px;color:#fbd792">Semana original</div></div><div class="t5-content"><h2>LAS CINCO CANCIONES DE LA SEMANA</h2><p class="t5-note">La clasificación oficial de esta semana se publicará próximamente.</p><div class="t5-cards" id="t5-cards"></div><section class="t5-voting" aria-label="Votación del público">
+ <div class="t5-vote-head"><div><h2>♡ Votación del público</h2><p>Vota por tu canción favorita de esta semana. ¡Tu voto cuenta!</p></div><span class="t5-live">● Resultados de la votación</span></div>
+ <div class="t5-vote-layout"><div class="t5-vote-list" id="t5-vote-list"></div><aside class="t5-winner" id="t5-winner" aria-live="polite"><h3>♛ Favorita del público</h3><p>Los resultados aparecerán aquí.</p></aside></div>
+ <p class="t5-vote-msg" id="t5-vote-msg" role="status" aria-live="polite"></p>
+</section><p class="t5-outro">¿Quieres escuchar las canciones completas? ¡Sintoniza VelvetVerse Radio!</p></div>
+</div>
+    <div id="schedule" class="section">
+  <div class="panel">
+    <div class="panel-box">
+      <div id="vv-clock" style="
+  text-align:right;
+  font-size:18px;
+  color:#ff3b5c;
+  margin-bottom:20px;
+  font-weight:bold;
+">
+  --:--:--
+</div>
+
+      <h1 style="text-align:center; margin-top:-55px;">SCHEDULE</h1>
+
+      <div style="
+        margin:18px auto 24px;
+        max-width:680px;
+        padding:12px 18px;
+        border:1px solid rgba(168,85,247,0.65);
+        border-radius:10px;
+        background:rgba(168,85,247,0.10);
+        color:#ffffff;
+        font-weight:800;
+        box-shadow:0 0 14px rgba(168,85,247,0.18);
+        overflow:hidden;
+      ">
+        <div class="new-rubrics-marquee">
+          <div class="new-rubrics-track">
+            <span class="new-rubrics-item">✨✨✨✨✨Novas rubricas a partir de 19 de outubro✨✨✨✨✨<img src="microfone-rubricas.png" alt="Microfone" class="new-rubrics-mic"></span>
+            <span class="new-rubrics-item">✨✨✨✨✨Novas rubricas a partir de 19 de outubro✨✨✨✨✨<img src="microfone-rubricas.png" alt="Microfone" class="new-rubrics-mic"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="vv-schedule">
+
+        <!-- Adrian -->
+        <div class="vv-card" data-start="07:00" data-end="10:00">
+  <img src="adrian.png">
+  <div class="vv-time">07:00<br>10:00</div>
+  <div class="vv-info">
+    <h2>Ritmo Latino 🔥</h2>
+    <p>Adrian Vega (Noia)</p>
+    <span>¡Empieza tu día con energía y ritmo latino!</span>
+    <br><br>
+    🎵 Top 5 Latino<br>
+    <p>Las cinco canciones latinas más fuertes de la semana.</p>
+    Sexta-feira • 08:15
+  </div>
+</div>
+        <!-- Suzy -->
+        <div class="vv-card" data-start="10:00" data-end="13:00">
+  <img src="suzy.png">
+  <div class="vv-time">10:00<br>13:00</div>
+  <div class="vv-info">
+    <h2>Alma Portuguesa 🇵🇹</h2>
+    <p>Suzy Mendes</p>
+    <span>Música portuguesa com alma e emoção.</span>
+    <br><br>
+
+📖 Baú de Histórias<br>
+<p>Pequenas histórias que o tempo não esqueceu.</p>
+Todos os dias • 11:30
+  </div>
+</div>
+
+        <!-- Carlos -->
+     <div class="vv-card" data-start="13:00" data-end="16:00">
+  <img src="carlos.png">
+  <div class="vv-time">13:00<br>16:00</div>
+  <div class="vv-info">
+    <h2>Corações & Memórias ❤️</h2>
+    <p>Carlos Moreira</p>
+    <span>Clássicos e romantismo dos anos 80/90.</span>
+
+    <br><br>
+🎙️ Backstage Legends<br>
+<p>Ricky Sousa</p>
+Domingo • 14:30
+  </div>
+</div>
+
+        <!-- Lara -->
+       <div class="vv-card" data-start="16:00" data-end="19:00">
+  <img src="lara.png">
+  <div class="vv-time">16:00<br>19:00</div>
+  <div class="vv-info">
+    <h2>Coração Brasileiro 🇧🇷</h2>
+    <p>Lara Ingrid</p>
+    <span>Boa vibe brasileira para o fim do dia.</span>
+    <br><br>
+    <div style="display:flex; gap:34px; align-items:flex-start; flex-wrap:wrap;">
+      <div style="flex:1; min-width:220px;">
+        🇧🇷 Brasil de Norte a Sul<br>
+        <p>Com Lara Ingrid</p>
+        Sábado • 17:00
+      </div>
+      <div style="flex:1; min-width:220px;">
+        🎶 Discos Pedidos<br>
+        <p>As escolhas dos ouvintes.</p>
+        Domingo • 17:00–18:00
+      </div>
+    </div>
+  </div>
+</div>
+
+        <!-- Beto -->
+       <div class="vv-card" data-start="19:00" data-end="21:00">
+  <img src="beto.png">
+  <div class="vv-time">19:00<br>21:00</div>
+  <div class="vv-info">
+    <h2>Rock Sem Limites ⚡</h2>
+    <p>Beto Sousa</p>
+    <span>Rock clássico e energia máxima!</span>
+  </div>
+</div>
+        <!-- VelvetVerse -->
+     <div class="vv-card" data-start="21:00" data-end="23:00">
+  <img src="rui-freitas-velvetverse-experience.png">
+  <div class="vv-time">21:00<br>23:00</div>
+  <div class="vv-info">
+    <h2>The Sound of VelvetVerse 🎙️</h2>
+    <p>Rui Freitas</p>
+    <span>Duas horas dedicadas à música da VelvetVerse Band.</span>
+<br><br>
+
+   <span>🎙 E Se...? / Um Futuro Próximo</span><br>
+<p style="color:#c084fc; font-weight:bold; margin:4px 0;">Com Rui Freitas</p>
+Domingo • 21:30 • alternam entre si todas as semanas
+  </div>
+</div>
+
+  <!-- Velvet After Dark -->
+<div class="vv-card" data-start="23:00" data-end="03:00">
+<img src="velvetverse.png">
+<div class="vv-time">23:00<br>03:00</div>
+<div class="vv-info">
+
+<h2>Velvet After Dark 🌙</h2>
+
+<p>VelvetVerse Radio</p>
+
+<span>
+Rock suave, clássicos nocturnos,
+late night vibes, emoções,
+atmosferas e viagens sonoras.
+</span>
+
+</div>
+</div>
+
+<!-- Midnight Flow -->
+<div class="vv-card" data-start="03:00" data-end="07:00">
+<img src="logo.png">
+<div class="vv-time">03:00<br>07:00</div>
+<div class="vv-info">
+
+<h2>Midnight Flow 🌙</h2>
+
+<p>Auto DJ</p>
+
+<span>
+Música ambiente, instrumental
+e deep night soundscape.
+</span>
+
+</div>
+</div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+    <div id="gallery" class="section">
+  <div class="panel">
+    <div class="panel-box">
+      <h1 style="text-align:center;">Photo Gallery</h1>
+
+      <div class="gallery-grid">
+        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
+        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
+        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
+        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
+        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
+        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
+        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Gallery photo 7">
+        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Gallery photo 8">
+        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Gallery photo 9">
+        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Gallery photo 10">
+      </div>
+
+      <div id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img id="lightbox-img" src="" alt="Expanded gallery photo">
+      </div>
+
+    </div>
+  </div>
+</div>
+ <div id="about" class="section">
+    <div class="panel">
+      <div class="panel-box">
+        <h1>About Us</h1>
+
+        <h2>Português</h2>
+
+        <p>A VelvetVerse nasceu da paixão pela música e da vontade de criar algo que vai além de uma banda tradicional. Somos um projeto musical de estúdio, formado por artistas com décadas de experiência, unidos pela criação sonora sem limites de palco ou fronteiras físicas.</p>
+
+        <p>Não somos uma banda de atuações ao vivo — somos um estúdio criativo, onde cada faixa é construída com detalhe, emoção e uma identidade própria.</p>
+
+        <p>A nossa música está disponível em plataformas digitais, chegando a ouvintes em todo o mundo. Mas sentimos que a nossa expressão artística precisava de ir mais longe.</p>
+
+        <p>Foi assim que nasceu a <strong>VelvetVerse Radio</strong>, um prolongamento natural do projeto, onde partilhamos não só as nossas criações originais, mas também uma seleção cuidada de música que reflete as nossas influências e o nosso universo sonoro.</p>
+
+        <p>A nossa rádio é mais do que uma transmissão — é uma experiência. Cerca de 50% da programação é dedicada às nossas produções, enquanto o restante é preenchido por sons que representam a nossa identidade musical.</p>
+
+        <p>A VelvetVerse é composta por:<br><br>
+        <strong>Lara Ingrid, Suzy Mendes, Carlos Moreira, Beto Sousa e Noia.</strong></p>
+
+        <p>Com uma base sólida construída ao longo de décadas, incluindo atuações em Portugal e no estrangeiro e partilhas de palco com nomes consagrados da música portuguesa, o projeto reúne experiência, maturidade e paixão num só espaço criativo.</p>
+
+        <p>Aqui, não existem fronteiras entre artista e ouvinte — apenas música, emoção e conexão.</p>
+
+        <p>Mais do que uma banda com uma rádio, somos um projeto em constante evolução, onde a música é a nossa linguagem e o estúdio é o nosso palco.</p>
+
+        <p><strong>Bem-vindo ao nosso mundo.</strong></p>
+
+        <hr>
+
+        <h2>English</h2>
+
+        <p>VelvetVerse was born from a deep passion for music and the desire to create something beyond a traditional band. We are a studio-based music project formed by artists with decades of experience, driven by sonic creation without stage boundaries or physical limits.</p>
+
+        <p>We are not a live-performing band — we are a creative studio where every track is crafted with detail, emotion, and a unique identity.</p>
+
+        <p>Our music is available across digital platforms, reaching listeners worldwide. But we felt the need to go further in our artistic expression.</p>
+
+        <p>This led to the creation of <strong>VelvetVerse Radio</strong>, a natural extension of the project, where we share not only our original productions but also a carefully curated selection of music that reflects our influences and sonic universe.</p>
+
+        <p>Our radio is more than a broadcast — it is an experience. Around 50% of the programming features our original work, while the rest showcases music that represents our artistic identity.</p>
+
+        <p>VelvetVerse consists of:<br><br>
+        <strong>Lara Ingrid, Suzy Mendes, Carlos Moreira, Beto Sousa, and Noia.</strong></p>
+
+        <p>Built on decades of experience, including performances across Portugal and internationally, and sharing stages with renowned Portuguese artists, the project brings together maturity, creativity, and passion.</p>
+
+        <p>Here, there are no boundaries between artist and listener — only music, emotion, and connection.</p>
+
+        <p>More than just a band with a radio station, we are an evolving creative project where music is our language and the studio is our stage.</p>
+
+        <p><strong>Welcome to our world.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact" class="section">
+    <div class="panel">
+      <div class="panel-box">
+        <h1>Contact Us</h1>
+
+        <p>For music, radio, collaborations or general enquiries, feel free to contact VelvetVerse Radio.</p>
+
+        <form class="contact-form" action="https://formsubmit.co/velvetverseradio@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New Message from VelvetVerse Radio">
+          <input type="hidden" name="_captcha" value="false">
+
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Your Message" required></textarea>
+
+          <button type="submit">Send Message</button>
+        </form>
+
+        <p style="margin-top:20px;">
+          Or email us directly:<br>
+          <a href="mailto:velvetverseradio@gmail.com">velvetverseradio@gmail.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+   <div id="comments" class="section">
+    <div class="panel">
+      <div class="panel-box">
+        <h1>Comments</h1>
+
+        <h2>Leave a Comment</h2>
+        <p>Comments are reviewed before being published on this page.</p>
+
+      <form class="contact-form" id="comments-form">
+          
+
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="url" name="photo" placeholder="Profile Photo Link (optional)">
+          <textarea name="comment" placeholder="Your Comment" required></textarea>
+
+          <button type="submit">Send Comment</button>
+        <p id="comment-form-message" class="comment-note"></p>
+        </form>
+
+       <div style="height:22px;"></div><hr>
+      
+
+        <h2>Approved Comments</h2>
+
+        <div class="approved-comments" id="approved-comments">
+
+          <div class="comment-card">
+            <img src="lurdes-ribeiro.png" alt="Lurdes Ribeiro">
+            <div class="comment-content">
+              <strong>Lurdes Ribeiro</strong>
+              <div class="comment-date">April 2026</div>
+              <p>Uma rádio com muito bom gosto, excelente energia e uma seleção musical que dá mesmo vontade de continuar a ouvir. Parabéns à VelvetVerse Radio!</p>
+            </div>
+          </div>
+
+          <div class="comment-card">
+            <img src="https://ui-avatars.com/api/?name=Liam+Thompson&background=0b0b0f&color=a855f7" alt="Liam Thompson">
+            <div class="comment-content">
+              <strong>Liam Thompson</strong>
+              <div class="comment-date">April 2026</div>
+              <p>Great sound, beautiful vibe and a very professional radio experience. VelvetVerse Radio has a unique identity. Keep it going!</p>
+            </div>
+          </div>
+
+          <!-- EXEMPLO PARA QUANDO QUISERES ADICIONAR MAIS COMENTÁRIOS APROVADOS:
+
+          <div class="comment-card">
+            <img src="https://ui-avatars.com/api/?name=Maria+Silva&background=0b0b0f&color=a855f7" alt="Maria Silva">
+            <div class="comment-content">
+              <strong>Maria Silva</strong>
+              <div class="comment-date">April 2026</div>
+              <p>Adoro esta rádio! Excelente som e muita boa energia.</p>
+            </div>
+          </div>
+
+          -->
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="requests" class="section">
+  <div class="requests-page">
+
+    <section class="requests-hero">
+      <div class="requests-hero-content">
+        <h1>Discos <span>Pedidos</span></h1>
+        <p class="requests-tagline">A tua música. A nossa rádio.</p>
+        <p class="requests-hero-lead">
+          Pede a tua música e ouve-a no nosso programa de domingo!
+        </p>
+        <p class="requests-hero-copy">
+          Na VelvetVerse Radio, a tua voz também toca. Envia o teu pedido
+          e faz parte da nossa emissão especial de domingo.
+        </p>
+      </div>
+    </section>
+
+    <div class="requests-page-content">
+      <div class="requests-content-grid">
+
+        <section class="requests-card requests-request-card"
+                 aria-labelledby="request-title">
+
+          <h2 class="requests-card-title" id="request-title">
+            <span class="requests-title-icon">♫</span>
+            Faz o teu <span class="requests-accent">pedido</span>
+          </h2>
+
+          <p class="requests-card-intro">
+            Preenche o formulário abaixo e pede <em>a tua música</em>
+            para o nosso programa de domingo.
+          </p>
+
+          <form id="request-form" class="requests-form-grid">
+
+            <div class="requests-field">
+              <label for="name">
+                Nome <span class="requests-required">*</span>
+              </label>
+              <input id="name" name="name" type="text"
+                     placeholder="O teu nome"
+                     autocomplete="name"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field">
+              <label for="city">
+                Cidade <span class="requests-required">*</span>
+              </label>
+              <input id="city" name="city" type="text"
+                     placeholder="A tua cidade"
+                     autocomplete="address-level2"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field">
+              <label for="country">
+                País <span class="requests-required">*</span>
+              </label>
+              <input id="country" name="country" type="text"
+                     placeholder="O teu país"
+                     autocomplete="country-name"
+                     maxlength="100" required>
+            </div>
+
+            <div class="requests-field requests-half">
+              <label for="artist">
+                Artista <span class="requests-required">*</span>
+              </label>
+              <input id="artist" name="artist" type="text"
+                     placeholder="Nome do artista"
+                     maxlength="150" required
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+
+            <div class="requests-field requests-half">
+              <label for="song">
+                Música <span class="requests-required">*</span>
+              </label>
+              <input id="song" name="song" type="text"
+                     placeholder="Nome da música"
+                     maxlength="150" required
+                     oninput="this.value=this.value.toUpperCase()">
+            </div>
+
+            <div class="requests-field requests-full">
+              <label for="dedication">
+                Dedicatória
+                <span class="requests-optional">(Opcional)</span>
+              </label>
+              <textarea id="dedication" name="dedication"
+                        placeholder="Deixa aqui a tua dedicatória..."
+                        maxlength="500"></textarea>
+            </div>
+
+            <div id="form-message"
+                 class="requests-form-message"
+                 role="status"
+                 aria-live="polite">
+              <span class="requests-message-icon">!</span>
+              <span id="form-message-text"></span>
+            </div>
+
+            <button class="requests-submit" type="submit">
+              <span>➤</span> Enviar Pedido
+            </button>
+
+            <p class="requests-privacy-note">
+              🔒 O teu pedido será analisado pela nossa equipa.
+              Obrigado por ouvires a VelvetVerse Radio!
+            </p>
+
+          </form>
+        </section>
+
+        <aside class="requests-side-column">
+
+          <section class="requests-card" aria-labelledby="rules-title">
+
+            <h2 class="requests-card-title requests-small"
+                id="rules-title">
+              <span class="requests-title-icon">ⓘ</span>
+              Regras <span class="requests-accent">dos Pedidos</span>
+            </h2>
+
+            <div class="requests-rules">
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">1</span>
+                <p>
+                  Pedidos enviados de segunda a sábado entram
+                  para o próximo domingo.
+                </p>
+              </div>
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">2</span>
+                <p>
+                  Pedidos enviados ao domingo passam automaticamente
+                  para o domingo seguinte.
+                </p>
+              </div>
+
+              <div class="requests-rule">
+                <span class="requests-rule-number">3</span>
+                <p>Músicas repetidas não serão aceites.</p>
+              </div>
+
+            </div>
+          </section>
+
+          <section class="requests-card"
+                   aria-labelledby="requested-title">
+
+            <h2 class="requests-card-title requests-small"
+                id="requested-title">
+              <span class="requests-title-icon">♫</span>
+              Já pedidas para
+              <span class="requests-accent"
+                    id="target-sunday-label">este domingo</span>
+            </h2>
+
+            <p class="requests-requested-subtitle">
+              Estas músicas já foram pedidas pelos nossos ouvintes.
+            </p>
+
+            <div id="request-list" class="requests-request-list">
+              <div class="requests-empty-state">
+                A carregar a lista de músicas...
+              </div>
+            </div>
+
+          </section>
+        </aside>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+  <footer class="site-footer"> 
+
+      <div class="footer-left">
+        <a href="mailto:velvetverseradio@gmail.com">
+          velvetverseradio@gmail.com
+        </a>
+      </div>
+
+      <div class="footer-center">
+        Use of this Website assumes acceptance of
+        <a href="terms.html">Terms &amp; Conditions</a>
+        and @2026
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+
+  <div class="footer-social">
+
+  <a href="https://www.facebook.com/VelvetVerseRadio/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Facebook"
+     class="social-icon">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z"/>
+    </svg>
+
+  </a>
+
+  <a href="https://www.instagram.com/velvetverseradio/"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Instagram"
+     class="social-icon">
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm0 2A2.5 2.5 0 1 0 14.5 12 2.5 2.5 0 0 0 12 9.5zm5.25-3.1a1.05 1.05 0 1 1-1.05 1.05 1.05 1.05 0 0 1 1.05-1.05z"/>
+    </svg>
+
+  </a>
+
+</div>
+
+    </footer>
+  <script>
+    function showSection(id, link) {
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.remove('active');
+  });
+
+  document.getElementById(id).classList.add('active');
+  if (id !== 'top5latino' && window.stopTop5Audio) window.stopTop5Audio();
+
+  document.querySelectorAll('.main-nav a').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  if (link) {
+    link.classList.add('active');
+  }
+const miniPlayer = document.getElementById('miniPlayer');
+
+if (id === 'home' || id === 'top5latino') {
+  miniPlayer.classList.remove('show');
+} else {
+  miniPlayer.classList.add('show');
+}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+    function getTorontoMinutes() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Toronto',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false
+  }).formatToParts(new Date());
+
+  const hour = Number(parts.find(p => p.type === 'hour').value);
+  const minute = Number(parts.find(p => p.type === 'minute').value);
+
+  return hour * 60 + minute;
+}
+function updateVVClock() {
+  const clock = document.getElementById('vv-clock');
+  if (!clock) return;
+
+  const time = new Intl.DateTimeFormat('pt-PT', {
+    timeZone: 'America/Toronto',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).format(new Date());
+
+  clock.textContent = '⏰ ' + time;
+}
+
+updateVVClock();
+setInterval(updateVVClock, 1000);
+function updateLiveShow() {
+  const current = getTorontoMinutes();
+
+  document.querySelectorAll('.vv-card').forEach(card => {
+    const start = card.getAttribute('data-start');
+    const end = card.getAttribute('data-end');
+
+    if (!start || !end) return;
+
+    const [sh, sm] = start.split(':').map(Number);
+    const [eh, em] = end.split(':').map(Number);
+
+    const startMin = sh * 60 + sm;
+    const endMin = eh * 60 + em;
+
+    let isLive = false;
+
+    if (endMin < startMin) {
+      isLive = current >= startMin || current < endMin;
+    } else {
+      isLive = current >= startMin && current < endMin;
+    }
+
+    if (isLive) {
+      activateScheduleCard(card);
+    } else {
+      deactivateScheduleCard(card);
+    }
+  });
+}
+
+function activateScheduleCard(card) {
+  card.style.border = '2px solid red';
+  card.style.boxShadow = '0 0 30px red';
+
+  if (!card.querySelector('.schedule-live-badge')) {
+    const badge = document.createElement('div');
+    badge.className = 'schedule-live-badge';
+    badge.innerText = '🔴 LIVE NOW';
+    card.appendChild(badge);
+  }
+}
+
+function deactivateScheduleCard(card) {
+  card.style.border = '1px solid #a855f7';
+  card.style.boxShadow = '0 0 25px rgba(168,85,247,0.5)';
+
+  const badge = card.querySelector('.schedule-live-badge');
+  if (badge) badge.remove();
+}
+
+updateLiveShow();
+setInterval(updateLiveShow, 30000);
+
+const livePrograms = [
+  { start: 420,  end: 600,  name: 'Ritmo Latino',             host: 'Adrian Vega (Noia)', photo: 'adrian.png' },
+  { start: 600,  end: 780,  name: 'Alma Portuguesa',          host: 'Suzy Mendes',         photo: 'suzy.png' },
+  { start: 780,  end: 960,  name: 'Corações & Memórias',      host: 'Carlos',              photo: 'carlos.png' },
+  { start: 960,  end: 1140, name: 'Coração Brasileiro',       host: 'Lara Ingrid',         photo: 'lara.png' },
+  { start: 1140, end: 1260, name: 'Rock Sem Limites',         host: 'Beto Sousa',          photo: 'beto.png' },
+  { start: 1260, end: 1380, name: 'The Sound of VelvetVerse', host: 'Rui Freitas',         photo: 'rui-freitas-velvetverse-experience.png' },
+  { start: 1380, end: 1440, name: 'Velvet After Dark',        host: 'VelvetVerse Radio',   photo: 'velvetverse.png' },
+  { start: 0,    end: 180,  name: 'Velvet After Dark',        host: 'VelvetVerse Radio',   photo: 'velvetverse.png' },
+  { start: 180,  end: 420,  name: 'Midnight Flow',            host: 'Auto DJ',             photo: 'velvetverse.png' }
+];
+
+function updateLiveProgramCard() {
+  const now = getTorontoMinutes();
+  const currentProgram =
+    livePrograms.find(program => now >= program.start && now < program.end) ||
+    livePrograms[0];
+
+  const photo = document.getElementById('liveProgramPhoto');
+  const name = document.getElementById('liveProgramName');
+  const host = document.getElementById('liveProgramHost');
+
+  if (!photo || !name || !host) return;
+
+  name.textContent = currentProgram.name;
+  host.textContent = 'com ' + currentProgram.host;
+  photo.src = currentProgram.photo;
+  photo.alt = currentProgram.host;
+}
+
+updateLiveProgramCard();
+setInterval(updateLiveProgramCard, 60000);
+const liveRadio = document.getElementById('liveRadio');
+const livePlay = document.getElementById('livePlay');
+const liveVolume = document.getElementById('liveVolume');
+const liveArtwork = document.getElementById('liveArtwork');
+const liveArtist = document.getElementById('liveArtist');
+const liveSong = document.getElementById('liveSong');
+const liveWave = document.getElementById('liveWave');
+const miniPlayerEl = document.getElementById('miniPlayer');
+const miniArtwork = document.getElementById('miniArtwork');
+const miniSong = document.getElementById('miniSong');
+const miniArtist = document.getElementById('miniArtist');
+const miniPlay = document.getElementById('miniPlay');
+const miniVolume = document.getElementById('miniVolume');
+    const miniWave = document.getElementById('miniWave');
+liveRadio.volume = 0.7;
+
+livePlay.addEventListener('click', async () => {
+  if (!liveRadio.paused) {
+    liveRadio.pause();
+    return;
+  }
+
+  liveRadio.src = 'https://stream.rcast.net/73595?ts=' + Date.now();
+
+  try {
+    await liveRadio.play();
+  } catch (e) {
+    console.log('Não foi possível iniciar a emissão.');
+  }
+});
+
+liveRadio.addEventListener('playing', () => {
+  livePlay.textContent = '❚❚';
+  liveWave.classList.add('playing');
+  miniWave.classList.add('playing');
+});
+
+liveRadio.addEventListener('pause', () => {
+  livePlay.textContent = '▶';
+  liveWave.classList.remove('playing');
+  miniWave.classList.remove('playing');
+});
+
+liveVolume.addEventListener('input', () => {
+  liveRadio.volume = liveVolume.value / 100;
+});
+miniVolume.value = liveRadio.volume;
+
+miniPlay.addEventListener('click', () => {
+  livePlay.click();
+});
+
+miniVolume.addEventListener('input', () => {
+  liveRadio.volume = Number(miniVolume.value);
+  liveVolume.value = Math.round(liveRadio.volume * 100);
+});
+
+liveVolume.addEventListener('input', () => {
+  miniVolume.value = liveRadio.volume;
+});
+
+liveRadio.addEventListener('playing', () => {
+  miniPlay.textContent = '❚❚';
+});
+
+liveRadio.addEventListener('pause', () => {
+  miniPlay.textContent = '▶';
+});
+let liveLastTrack = '';
+
+const velvetverseCovers = {
+  'lady in red': 'VelvetVerse performing Lady in Red by (Chris de Burgh).png',
+  'amei-te demais': 'Amei-te demais.png',
+  'amor que fica': 'Amor que fica MP3 Cover.png',
+  'angel wings': 'Angel Wings - capa MP3.png',
+  'apaixonado por uma e.t.': 'Apaixonado por uma E.T..png',
+  'areia fina': 'Areia Fina.png',
+  'before i run out of time': 'Before I Run Out of Time MP3 Cover.png',
+  'bica bica': 'Bica Bica MP3 cover.png',
+  'bruxas e fadas': 'Bruxas e Fadas.png',
+  'cai neve na cidade': 'Cai Neve na Cidade.png',
+  'caminho de volta': 'Caminho de volta MP3 cover.png',
+  'camionista madrugador': 'Camionista Madrugador MP3 Cover.png',
+  'canto pra curar o mundo': 'Canto Pra Curar o Mundo MP3 Cover.png',
+  'careless whisper': 'Careless Whisper - George Michael - VelvetVerse Band Cover.png',
+  'chama ancestral': 'Chama Ancestral cover mp3..png',
+  'contigo vou à lua': 'Contigo Vou à Lua - mp3 cover.png',
+  'coração de viana': 'Coração de Viana MP3 Cover.png',
+  'coração que não volta': 'Coração que Não Volta.png',
+  'despautério': 'DESPAUTÉRIO MP3 Cover.png',
+  'dança comigo': 'Dança comigo MP3 cover.png',
+  'deixa o sol entrar': 'Deixa o Sol Entrar.png',
+  'deixa-me navegar': 'Deixa-me  Navegar.png',
+  'diz o povo': 'Diz o Povo (e Tem Razao).png',
+  'diz-me porque': 'Diz-me Porque mp3 cover.png',
+  'eagles in the fire': 'Eagles in the Fire MP3 cover.png',
+  'ecos da liberdade': 'Ecos da Liberdade.png',
+  'ela ja nao esta': 'Ela ja nao esta MP3 cover.png',
+  'entre nos': 'Entre Nos.png',
+  'entre a neve e a saudade': 'Entre a neve e a saudade mp3 Cover.png',
+  'entre o céu e a rua': 'Entre o Céu e a Rua MP3 Cover.png',
+  'feitos de mil povos': 'Feitos de Mil Povos mp3 cover.png',
+  'férias no quintal': 'Ferias no Quintal Suzy MP3 cover.png',
+  'fica mais um pouco': 'Fiica Mais um Pouco.png',
+  'fly high blue jays': 'Fly High Jays.png',
+  'fugir da chuva': 'Fugir da Chuva MP3 Cover.png',
+  'high voltage': 'High Voltage mp3 cover.png',
+  'highway 401': 'Highway 401 - MP3 cover.png',
+  'lines we walk': 'Lines We Walk mp3 cover.png',
+  'louça faladora': 'Louça faladora MP3 Cover.png',
+  'mar de ferro': 'Mar de Ferro MP3 Cover.png',
+  'mistério da vila': 'Mistério da Vila MP3 Cover.png',
+  'no azul do mar': 'No Azul Do Mar.png',
+  'no fundo do baú': 'No Fundo do Bau Mp3 cover.png',
+  'no mesmo ritmo': 'No Mesmo Ritmo.png',
+  'noite de luz': 'Noite de Luz MP3 Cover.png',
+  'não brinques com quem te ama': 'Não Brinques Com Quem Te Ama MP3 Cover.png',
+  'o amor que não passou': 'O Amor que Não Passou.png',
+  'o galo do vizinho': 'O Galo do vizinho MP3 Cover.png',
+  'o meu paraíso': 'O Meu Paraíso_ MP3 cover.png',
+  'olhos abertos': 'Ohos Abertos.png',
+  'olhos no ecrã': 'Olhos no Ecrã.png',
+  'olivia my little light': 'Olivia my Little Light.png',
+  'ouve o mar chamar': 'Ouve o Mar Chamar.png',
+  'parabens pr\'a ti': 'Parabens pr\'a ti MP3 cover.png',
+  'perto de ti': 'Perto de Ti.png',
+  'power & shadows': 'Power & Shadows - MP3 cover.png',
+  'precisamos de mais pontes': 'Precisamos de Mais Pontes.png',
+  'quando foi': 'Quando foi.png',
+  'quando o destino chamou': 'Quando o destino Chamou - MP3 Cover.png',
+  'quem roubou meu robot': 'Quem Roubou Meu Robot mp3 cover.png',
+  'quem sabe um dia': 'Quem Sabe Um Dia.png',
+  'queremos paz no mundo': 'Queremos Paz no Mundo.png',
+  'retrato antigo': 'Retrato Antigo.png',
+  'retratos do mundo': 'Retratos do Mundo.png',
+  'reunited in heaven': 'Reunited in Heaven MP3 cover.png',
+  'rosa maria': 'Rosa Maria MP3 Cover.png',
+  'rostos na rua': 'Rostos na Rua.png',
+  'running high': 'Running High - Capa.png',
+  'self control': 'SELF CONTROL MP3 cover.png',
+  'sos cafe': 'SOS Cafe.png',
+  'sereia do meu verão': 'Sereia do Meu Verão.png',
+  'sombras de saudade': 'Sombras de Saudade MP3 cover.png',
+  'sorria p\'ra vida': 'Sorria p\'ra Vida.png',
+  'stars in my hands': 'Stars in my Hands MP3 Cover.png',
+  'static world': 'Static World - Capa - Mp3.png',
+  'sussurros na pele': 'Sussurros na Pele.png',
+  'só tu e eu': 'Só Tu e Eu MP3 Cover.png',
+  'ta tudo chill': 'Ta Tudo Chill MP3 Cover.png',
+  'tempestade em toronto': 'Tempestade em Toronto.png',
+  'teu olhar de marfim': 'Teu Olhar de Marfim MP3 Cover.png',
+  'tomorrow keeps moving on': 'Tomorrow Keeps Moving On - mp3 Cover.png',
+  'torres vedras chama por mim': 'Torres Vedras Chama por mim MP3 Cover.png',
+  'tropeço do destino': 'Tropeco do Destino.png',
+  'vamos andando': 'Vamos Andando, Mano MP3 cover.png',
+  'vamos erguer portugal': 'Vamos Erguer Portugal MP3 Cover.png',
+  'verão sem fim': 'Verão Sem Fim.png',
+  'vida à deriva': 'Vida à Deriva MP3 Cover.png',
+  'voz que não se cala': 'Voz Que Não Se Cala MP3 cover.png',
+  'grinch': 'grinch cover.png',
+  '25 anos': '25 Anos.png',
+  'a ponte': 'A Ponte.png',
+  'amores a muitos': 'Amores a muitos (Mas a minha era pior).png',
+  'autoestrada para nenhures': 'Autoestrada para Nenhures.png',
+  'cavalheiro a moda antiga': 'Cavalheiro a moda antiga.png',
+  'chamas de aço': 'Chamas de Aço.png',
+  'entre estrelas e sombras': 'Entre Estrelas e Sombras.png',
+  'eterno em mim': 'Eterno em mim.png',
+  'lisboa luz e cor': 'Lisboa, Luz e Cor.png',
+  'mena minha paixao': 'Mena Minha Paixao.png',
+  'noite de fumo e neon': 'Noite de fumo e neon.png',
+  'perfume barato': 'Perfume Barato.png',
+  'portugal meu': 'Portugal Meu.png',
+  'portugal vamos vencer': 'Portugal, vamos vencer.png',
+  'respira terra': 'Respira Terra.png',
+  'storm of love': 'Storm of Love.png',
+  'volta pro natal': 'Volta Pro Natal.png'
+};
+
+const normalizeVelvetTitle = (value) =>
+  String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/['’´`]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+async function updateLiveArtwork(artist, song) {
+
+  const key = (artist + '|' + song).toLowerCase();
+
+  if (key === liveLastTrack) return;
+
+  liveLastTrack = key;
+
+
+
+
+{
+  const songLower = normalizeVelvetTitle(song);
+
+  for (const [title, file] of Object.entries(velvetverseCovers)) {
+    const titleLower = normalizeVelvetTitle(title);
+
+    if (
+      songLower === titleLower ||
+      songLower.includes(titleLower) ||
+      titleLower.includes(songLower)
+    ) {
+      const localCover = 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
+      liveArtwork.src = localCover;
+      miniArtwork.src = localCover;
+      return;
+    }
+  }
+}
+
+  liveArtwork.src = 'logo.png';
+
+  try {
+
+    const term = encodeURIComponent(artist + ' ' + song);
+
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('artwork');
+
+    const data = await res.json();
+
+    const image = data.results?.[0]?.artworkUrl100;
+
+    if (image) {
+      liveArtwork.src = image.replace('100x100bb', '600x600bb');
+    }
+miniArtwork.src = liveArtwork.src;
+  } catch (e) {
+    liveArtwork.src = 'logo.png';
+    miniArtwork.src = 'logo.png';
+  }
+}
+
+
+
+const velvetverseDisplayTitles = [
+  "lady in red",
+  "amei-te demais",
+  "amor que fica",
+  "angel wings",
+  "apaixonado por uma e.t.",
+  "areia fina",
+  "before i run out of time",
+  "bica bica",
+  "bruxas e fadas",
+  "cai neve na cidade",
+  "caminho de volta",
+  "camionista madrugador",
+  "canto pra curar o mundo",
+  "careless whisper",
+  "chama ancestral",
+  "contigo vou à lua",
+  "coração de viana",
+  "coração que não volta",
+  "despautério",
+  "dança comigo",
+  "deixa o sol entrar",
+  "deixa-me navegar",
+  "diz o povo",
+  "diz-me porque",
+  "eagles in the fire",
+  "ecos da liberdade",
+  "ela ja nao esta",
+  "entre nos",
+  "entre a neve e a saudade",
+  "entre o céu e a rua",
+  "feitos de mil povos",
+  "férias no quintal",
+  "fica mais um pouco",
+  "fly high blue jays",
+  "fugir da chuva",
+  "high voltage",
+  "highway 401",
+  "lines we walk",
+  "louça faladora",
+  "mar de ferro",
+  "mistério da vila",
+  "no azul do mar",
+  "no fundo do baú",
+  "no mesmo ritmo",
+  "noite de luz",
+  "não brinques com quem te ama",
+  "o amor que não passou",
+  "o galo do vizinho",
+  "o meu paraíso",
+  "olhos abertos",
+  "olhos no ecrã",
+  "olivia my little light",
+  "ouve o mar chamar",
+  "parabens pr'a ti",
+  "perto de ti",
+  "power & shadows",
+  "precisamos de mais pontes",
+  "quando foi",
+  "quando o destino chamou",
+  "quem roubou meu robot",
+  "quem sabe um dia",
+  "queremos paz no mundo",
+  "retrato antigo",
+  "retratos do mundo",
+  "reunited in heaven",
+  "rosa maria",
+  "rostos na rua",
+  "running high",
+  "self control",
+  "sos cafe",
+  "sereia do meu verão",
+  "sombras de saudade",
+  "sorria p'ra vida",
+  "stars in my hands",
+  "static world",
+  "sussurros na pele",
+  "só tu e eu",
+  "ta tudo chill",
+  "tempestade em toronto",
+  "teu olhar de marfim",
+  "tomorrow keeps moving on",
+  "torres vedras chama por mim",
+  "tropeço do destino",
+  "vamos andando",
+  "vamos erguer portugal",
+  "verão sem fim",
+  "vida à deriva",
+  "voz que não se cala",
+  "grinch",
+  "25 anos",
+  "a ponte",
+  "amores a muitos",
+  "autoestrada para nenhures",
+  "cavalheiro a moda antiga",
+  "chamas de aço",
+  "entre estrelas e sombras",
+  "eterno em mim",
+  "lisboa luz e cor",
+  "mena minha paixao",
+  "noite de fumo e neon",
+  "perfume barato",
+  "portugal meu",
+  "portugal vamos vencer",
+  "respira terra",
+  "storm of love",
+  "volta pro natal"
+];
+
+function normalizeVelvetDisplayTitle(value) {
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/['’´`]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isVelvetVerseSong(song) {
+  const normalizedSong = normalizeVelvetDisplayTitle(song);
+  if (!normalizedSong) return false;
+
+  return velvetverseDisplayTitles.some(title => {
+    const normalizedTitle = normalizeVelvetDisplayTitle(title);
+    return normalizedSong === normalizedTitle ||
+      normalizedSong.includes(normalizedTitle) ||
+      normalizedTitle.includes(normalizedSong);
+  });
+}
+
+function formatVelvetVerseArtist(artist, song) {
+  const rawArtist = String(artist || '').trim();
+
+  if (!isVelvetVerseSong(song)) {
+    return rawArtist || 'VelvetVerse Radio';
+  }
+
+  if (/^velvetverse\s+band$/i.test(rawArtist)) {
+    return 'VelvetVerse Band';
+  }
+
+  if (/^velvetverse\s+band\s*[•·\-–—]/i.test(rawArtist)) {
+    return rawArtist;
+  }
+
+  return rawArtist
+    ? 'VelvetVerse Band • ' + rawArtist
+    : 'VelvetVerse Band';
+}
+
+function cleanRadioDisplay(artist, song) {
+  const rawArtist = String(artist || '').trim();
+  const rawSong = String(song || '').trim();
+
+  const clockPattern =
+    /(?:\bclock\b|\b\d{1,2}\s*horas?\b|\bhor[aá]rio\b)/i;
+
+  const isClock =
+    clockPattern.test(rawSong) ||
+    clockPattern.test(rawArtist);
+
+  if (isClock) {
+    return {
+      artist: 'VelvetVerse Radio',
+      song: 'Horário VelvetVerse Radio',
+      technical: true
+    };
+  }
+
+  const technicalPattern =
+    /\b(sweeper|sweepers|jingle|jingles|intro|outro|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b/i;
+
+  const isTechnical =
+    technicalPattern.test(rawSong) ||
+    technicalPattern.test(rawArtist);
+
+  if (!isTechnical) {
+    return {
+      artist: formatVelvetVerseArtist(rawArtist, rawSong),
+      song: rawSong || 'Emissão ao vivo',
+      technical: false
+    };
+  }
+
+  let cleanSong = rawSong
+    .replace(/\s*[-–—:]?\s*\b(sweeper|sweepers|jingle|jingles|intro|outro|station\s*id|radio\s*id|liner|vinheta|voicetrack|voice\s*track)\b.*$/i, '')
+    .replace(/\s+\d+\s*$/i, '')
+    .trim();
+
+  if (!cleanSong || /^(principal|daily|radio|station)$/i.test(cleanSong)) {
+    cleanSong = 'VelvetVerse Radio';
+  }
+
+  cleanSong = cleanSong
+    .toLowerCase()
+    .replace(/(^|\s|[-–—])([a-záàâãéêíóôõúç])/g, (m, p1, p2) => p1 + p2.toUpperCase());
+
+  return {
+    artist: 'VelvetVerse Radio',
+    song: cleanSong,
+    technical: true
+  };
+}
+
+async function updateLiveTrack() {
+
+  try {
+
+    const res = await fetch(
+      'https://live3.rcast.net/api/v1/stations/73595/now-playing?ts=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('metadata');
+
+    const json = await res.json();
+
+    const current = json.data || {};
+
+    const artist = (current.artist || 'VelvetVerse Radio').trim();
+
+    let song = (
+      current.title ||
+      current.raw ||
+      'Emissão ao vivo'
+    ).trim();
+
+    const prefix = artist + ' - ';
+
+    if (song.toLowerCase().startsWith(prefix.toLowerCase())) {
+      song = song.slice(prefix.length).trim();
+    }
+
+    const display = cleanRadioDisplay(artist, song);
+
+    liveArtist.textContent = display.artist;
+    liveSong.textContent = display.song;
+    miniArtist.textContent = display.artist;
+    miniSong.textContent = display.song;
+
+    if (display.technical) {
+      liveArtwork.src = 'logo.png';
+      miniArtwork.src = 'logo.png';
+    } else {
+      updateLiveArtwork(artist, song);
+    }
+
+  } catch (e) {
+    console.log('Erro ao atualizar metadata.');
+  }
+}
+
+liveArtwork.addEventListener('error', () => {
+  if (!liveArtwork.src.endsWith('/logo.png')) {
+    liveArtwork.src = 'logo.png';
+  }
+});
+
+updateLiveTrack();
+
+setInterval(updateLiveTrack, 10000);
+    async function getRecentArtwork(artist, song) {
+  const songLower = normalizeVelvetTitle(song);
+
+  for (const [title, file] of Object.entries(velvetverseCovers)) {
+    const titleLower = normalizeVelvetTitle(title);
+
+    if (
+      songLower === titleLower ||
+      songLower.includes(titleLower) ||
+      titleLower.includes(songLower)
+    ) {
+      return 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
+    }
+  }
+
+  try {
+    const term = encodeURIComponent(artist + ' ' + song);
+
+    const res = await fetch(
+      `https://itunes.apple.com/search?term=${term}&entity=song&limit=1`,
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('artwork');
+
+    const data = await res.json();
+    const image = data.results?.[0]?.artworkUrl100;
+
+    if (image) {
+      return image.replace('100x100bb', '300x300bb');
+    }
+  } catch (e) {}
+
+  return 'logo.png';
+}
+
+function formatRecentTime(value) {
+  if (!value) return '--:--';
+
+  try {
+    const date = new Date(value);
+
+    return new Intl.DateTimeFormat('pt-PT', {
+      timeZone: 'America/Toronto',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).format(date);
+  } catch (e) {
+    return '--:--';
+  }
+}
+
+async function updateRecentTracks() {
+  try {
+    const res = await fetch(
+      'https://live3.rcast.net/api/v1/stations/73595/history?ts=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    if (!res.ok) throw new Error('history');
+
+    const json = await res.json();
+
+    const history =
+      json.data ||
+      json.history ||
+      json.items ||
+      [];
+
+    const tracks = Array.isArray(history)
+      ? history.slice(0, 5)
+      : [];
+
+    const rows = document.querySelectorAll('#recentTracks .track');
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const item = tracks[i];
+
+      if (!item) continue;
+
+      let artist = (
+        item.artist ||
+        item.songartist ||
+        item.performer ||
+        'Unknown Artist'
+      ).trim();
+
+      let song = (
+        item.title ||
+        item.song ||
+        item.track ||
+        item.raw ||
+        'Unknown Track'
+      ).trim();
+
+      const prefix = artist + ' - ';
+
+      if (song.toLowerCase().startsWith(prefix.toLowerCase())) {
+        song = song.slice(prefix.length).trim();
+      }
+
+      const display = cleanRadioDisplay(artist, song);
+
+      row.querySelector('.track-song').textContent = display.song;
+      row.querySelector('.track-artist').textContent = display.artist;
+
+      const timeValue =
+        item.played_at ||
+        item.timestamp ||
+        item.time ||
+        item.date ||
+        '';
+
+      row.querySelector('.track-time').textContent = '';
+
+      const cover = row.querySelector('.track-cover');
+      cover.src = display.technical
+        ? 'logo.png'
+        : await getRecentArtwork(artist, song);
+    }
+
+  } catch (e) {
+    console.log('Erro ao atualizar histórico.');
+  }
+}
+
+updateRecentTracks();
+
+setInterval(updateRecentTracks, 30000);
+  /* 📸 LIGHTBOX */
+function openLightbox(src){
+  document.getElementById("lightbox").style.display = "flex";
+  document.getElementById("lightbox-img").src = src;
+}
+
+function closeLightbox(){
+  document.getElementById("lightbox").style.display = "none";
+}
+ const COMMENTS_SUPABASE_URL = 'https://bxndpplrxplszhaxules.supabase.co';
+const COMMENTS_SUPABASE_KEY = 'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+
+const commentsForm = document.getElementById('comments-form');
+const commentFormMessage = document.getElementById('comment-form-message');
+
+commentsForm.addEventListener('submit', async function(event){
+  event.preventDefault();
+
+  const formData = new FormData(commentsForm);
+
+  const newComment = {
+    name: formData.get('name').trim(),
+    photo: formData.get('photo').trim() || null,
+    comment: formData.get('comment').trim()
+  };
+
+  commentFormMessage.textContent = 'Sending comment...';
+
+  try{
+    const response = await fetch(`${COMMENTS_SUPABASE_URL}/rest/v1/comments`, {
+      method: 'POST',
+      headers: {
+        'apikey': COMMENTS_SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(newComment)
+    });
+
+    if(!response.ok){
+      throw new Error(`Supabase responded with ${response.status}`);
+    }
+
+    commentsForm.reset();
+    commentFormMessage.textContent = 'Thank you! Your comment has been sent for approval.';
+  }catch(error){
+    console.error('Comment submission error:', error);
+    commentFormMessage.textContent = 'Sorry, your comment could not be sent. Please try again.';
+  }
+});
+  
+const featuredComments = [
+  {
+    name: 'Luisa Guerreiro',
+    photo: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCABIAEgDASIAAhEBAxEB/8QAGwAAAwEAAwEAAAAAAAAAAAAAAAUGBAEDBwL/xAAxEAACAQMCBQEGBQUAAAAAAAABAgMABBEFIQYSEzFBURQiQmGBkRUyccHRI6Gx4fD/xAAXAQADAQAAAAAAAAAAAAAAAAABAgME/8QAHREAAgIDAQEBAAAAAAAAAAAAAAECESExQQMiE//aAAwDAQACEQMRAD8Ae1wdq5pbrd57Hp00gOGxhfmTRYCX4q1hrm4NpC5EEZw2Pib/AFU0TnaiV8sSdya+Rt3pRjZDGGQ439TTvRdFW6gklnBw55VA229aVadG8pXmBSHOC/KSBV7b9K1tUKsOko71OT4Vgusn7JJdB1ZEJJt5ts1YRMHQMCCD6Ug19UuNJkl5WXp4dWIxmtHDV57VaMrHLqd6aDE9FWh1RXNFUJHFS/GD4s1XOPf7fSqdjgZrzziS/a9v3QHEURIHzPrQY0RCRk1sjsnklREGSfB8ms0K9SUAnAJ3PoK2xXZjvFIHuhs4pWNGryPLe1uraykDzMPd2XOy/SmOjvPLps8Eb4mXcMd6z3Vz17RY4/zN3rZw9FNH1OrGE5vynOc1G7NVUj51CC6j4evBcy9TEOTkb5B71j4JY9SZT5QEUy4iuulw/dBlxJJ/Sx8yf4pTwdKPaEHlkKn6VWJnnstKKKKqROqbJQjONt68qvCVlkHkMa9SvZ0trSWaQ4VFJNeVXL9Sd2O3Oc0j2MtHXFmmXJGtqGIHOxxml8KjlJJwAa7ZSxuVXJPLgUGOsDdR7UIVBwVXGRVNpliEQFu+B2Y/zSazsJQUMqcoPY9iKo1hkjs2WKQ9VlITA842qHTVdIm+ML1WKWcZLNF7znPZj2H2z96ycKSiPU4j8J7j0yKVSK63LxSsWkJPMxOSWzvVNoOnwLas4j60rjGM7Kf18D/hVkqVGVu3ZZCiuq2Vkt41c8zBQCfU0VUkTXGl6IYbe3785LsvrjsPv/iosIZJRnwcGqbieI3eqtIxIijQxqRvuBk/3OPpSNLWfkLIhOASKm2iii6MkRPOUU+6zUzs9NMyK65LMftWRohHbBse8x2pvpkz2BjlDCWLlDsB6H9xQbGSKLSkkluUaTJjEQGCdsinyQoCpVQCDmsljGEhVgBkjxW0HKjHY0YpAlJ2Q3EGhzRX011DEXiZixwM1j0vUvw+XnRmVWPvR4yCPl+lejeM0k1Lhu0umeWNRFI2+R2z64otATsZWdzHdwLLEwYH0opRpVvPpSNCX5yTlsjb6UUv6x6F+UuCmRvabuRm3yxOKaWdsgIOBjFFFZ3s1rCMl9oYuLpemQockD5HuP3o03See1mjaMdRWKTITsc7hh6UUVWGSM3RR2KukXJKuGUYyOxFd8XxqfhORRRVUQeT78Vyu64P6UUUwDFepydNvIPKT8vFFFFZfRfRq838n//Z',
+    comment: 'Que grande descoberta! A Velvet Verse Radio tem uma energia fantástica e uma playlist que não dá vontade de desligar. Um projeto feito com muito carinho e que transborda simpatia em cada detalhe. Muito sucesso, continuem a espalhar essa magia!'
+  },
+  {
+    name: 'Maria Santos',
+    photo: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCABIAEgDASIAAhEBAxEB/8QAGwAAAwADAQEAAAAAAAAAAAAAAAUGAwQHAgH/xAAwEAACAQMDAgQFBAIDAAAAAAABAgMABBEFEiExQQYTInEyUWGBkRUjQqEU4Qdiwf/EABgBAAMBAQAAAAAAAAAAAAAAAAECAwAE/8QAHREAAwEAAwEBAQAAAAAAAAAAAAERAhIhMVEiQf/aAAwDAQACEQMRAD8A8Sa4bgiMRABuDWSxCxS4UDLUnEEiXO8RFQGxim8chLiMxlWx1FcLS/gxn1qaa5W206FmQzHLlODtFOdNs4LO1URxIMd8c1G6hNK+szJHGZZEiCou4jvyeKoNCNzNayrMrJ5WON2c8djVpOiufBpewWd0uyRY0k7EEBh7UpMzw3J0+8YOQN0Tn+a/KtGNNSbUXa2EMOCc+YOWNNNbtJLvRvO8vy7u3/dTHYjqB70cudh0r0GiFFjaxlJJtz6Gz1Qklfx0+1NhGCCyMNoqV02+SaW2ulIAYeW/0z/uqiK1OC7vhfpSvH6qJHsSrCjE5bjtRRsjc7RKMniiq8RWzVvbWB/MfaF246Vr6fYs8ct0yl1HCUwuLWZ45xwu/wCGl+n6g9tps9rO6idX2jaf7ps4lQzdEmmSRKb2edQziTbg9cCm9jqyLGVMDlm52pj+smpe/iMGp3C5IWQ5OD9wa3NMkl2ASvJIc8MGC8e2Kk7S2Y1Chjv0F2UuEAOcqfmK3bidWiOzlcUkudPkuFEpncqo4Xg/3ivGo3H6folwwYl9hVCeuTStuwaL0mLVvJmnRSQpcsPzV/aztcWcRUkgryK55bMZoLWfHLZic57/ADNXvhqOR7Q4YBVOBmqpz0539M0aMrklSOKKZX2oW2k2RluAHYHgDqaKomD0zyqs6i36OuCSKRX+iR/qkTozbiOQKeu8dvG85645qfk8V24EjCF/NB2qH4H5rJx0WVCvxHaINR2Rthtg/NaFpeSWY9SAjOCPka1Lu+lu7x5XYeYW3EA9KxQzmeUgnqSPwajpFsOMpU1Ga7ixFHhehJpfrsTTabKpOWxX2zd4nKYI3D5d6YTxGZBGAWY9QBk1FWl3EiO0C9gjL2s/pV2DoT/FxXStNv7K302I5AA4IUZOa53rGkf4N0gcBWnUnAPQisFvdXdqXVJztXGd3NdfC9nHZ0dD8T2M+q2ULWSoy53ZJxkUVoeHtQgaFxc3yI8h+EcL0HNFOm0pDdMaeJJAujys0rxYZfUgyRk46d65fLJdyXLruleVz/Hgn3roWv3gu5Y9JsMTXUjBmOfTGB3NbGl+HobK29X7srOS0jDk0HlC05/BpV5BdxTSiVUPUqNxx7VXR6J5zqWADEcPtxnjv9ap4LWMx7GUenpWY23bH3oPKYeXwUW+hRMyy3kpJXGAhwD701S3ijQmOMIvtyaypCiHPxN8zzivrjPFDOUgvTfpA+OYShtrruJNv2xUqJEMZByCTknFXnjyNf0VWPxeaoH91zRlm4cMW28+32qqcE9GUk9tHdeVZvM8JHDSAAk456fWisTxiWJXiGN3qXHb6UVqYu/ANiwN1fzj9yRQiZ7Dqf8AyrHb6QKKKUJ5VfVkV7JoooMyAV8IooogZFf8hz4hs4P+5c/Yf7qQsVhJj88sIi672UZZRnnH2oopkA35f8PTtTL2O27tA2Y0nX4xj1cY7e1FFFAJ/9k=',
+    comment: 'A Velvet Verse Radio é como um abraço em forma de música. A seleção musical é impecável e tem o superpoder de transformar qualquer dia cinzento num momento de pura paz. Obrigada pela companhia constante e por trazerem tanta sensibilidade e beleza para a nossa rotina! Continuem com este trabalho maravilhoso.'
+  },
+  {
+    name: 'Joel P.',
+    photo: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCABIAEgDASIAAhEBAxEB/8QAGgAAAgMBAQAAAAAAAAAAAAAAAAIBAwUGBP/EAC0QAAICAQMDAgUDBQAAAAAAAAECAAMRBAUSITFBUWETIiNxkQYUNFKBocHx/8QAGAEBAQEBAQAAAAAAAAAAAAAAAAECBAP/xAAcEQEAAgMBAQEAAAAAAAAAAAAAAQIDESESMUH/2gAMAwEAAhEDEQA/AO1VJYFjKscCVCYhiPiQRAUDrKbNbTXZ8P5mfyFHb+8usdaqnsbPFFLHA64HWc4+stN5Va3ZCC4Zex8zFraemOnp0lbpanJDkfbqJJEzdo1Isbg6slli8gp64A9fyJq4lidxtm1fM6VFYSwiE0ygCTASRADIkmIzhFLHsBkwGx6zjNWaa9zuRLmArsKYAP4m5drrLCyq3EeAJh26B9RqrLbLeJtfJC9O3j8eZL45mG8WWK278dB+nxU2laxWDNkpk9wBNbE5HRo+nSwKx4Mchf6T7TY23VubArsSjds+JqKahi1/VttUiEDCQLCQIQJlOobFD/aWmefVfx3+0QMOzFTK3IAFsGWYDBXHr/mK4SzIfoB1DBscfeZGt1epSxV0/wBekdfiBsMfbEt7zVumOLNhUZuKoOR9PWWaemzTcTZxyD2U5xMJNwutXi/xE9mX/c19LddayVgCy3HzY8feSmT2t8Xj9dKDlQfUQkAYUD0EIeZI2YgMnMAJiMAwIIyD0jExMwOW3Wg12vUhJQMMAmVUacsRzbA8gdJZv2tTS7gUauxg3Fua9QCfBnhTf9v6/VIIPXKn1mprE9la3mORLQ/a1gds48nrNPaQKtZnxYMAzml3/T2ErRXZY2Ce2B6z37BrdVqdzrF9a1UEEqO5J8TWucZm3euyzCLmE81UgycwhACYhMIQOK37Lb3aTjioA7d+kxgU5pWygryBxCE6Y+OefpkKJYEVOKknAM2dndxuWm+fChwcex/7CEs/E/XcZhCE5XS//9k=',
+    comment: 'A Velvet Verse Radio já faz parte da minha rotina e o site oficial é o lugar perfeito para deixar este agradecimento. Sou fã absoluto da vossa grelha, especialmente da energia contagiante do Rock Sem Limites, que dá sempre um ritmo incrível ao meu dia, e da sensibilidade única do Corações e Memórias, que nos faz viajar no tempo através de grandes canções. Parabéns por fazerem uma rádio com tanta alma, bom gosto e simpatia. Continuem com o excelente trabalho!'
+  },
+  {
+    name: 'Steve',
+    photo: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCABIAEgDASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAAAAEDBAUGAgf/xAAuEAABBAEDAwMCBQUAAAAAAAABAAIDEQQFEiExQWEGIlGRsRMycYGhFBUkUmP/xAAYAQADAQEAAAAAAAAAAAAAAAAAAQIDBP/EAB0RAAMAAwEBAQEAAAAAAAAAAAABAhIhMREDE0H/2gAMAwEAAhEDEQA/AAxeFW6hgSZs+PDESC9+3jz1V8+NGG0M1CB9D8236rmWjp6LH6XxIIg23kAdSo0+i4kfIjWpmNRk9qVM+VjpKc4dDXKZojOZGJDE87WAfsoGoYUUmPvDacPhWmoZkAebeAEzFJFOwta4OsHgppsVJPRDwz/hxA8ENop0kWkMZhYyMEHu8dwSOE26/hZ10EtCyOHZC5c1CfgjWvSYzmjIaHAUT34pcyPATAkpwcOxtDEiRrn90kMxxJC2ONvSgA4/H0VZo8EmXFPJkuJdFyNp7rTExZUVCnNI4spYBA3FniYGsawcnymWtHnWXhSHIcHby2+reoU7EiEZDhuaAOjjal5j2tkP4b2F4N0mTKJWbqAKpvQvF6cujDi+YkA7dtfKYcE84exvAtNuHhZ09jGyabSEj27jzwhUiDRONpolK5/HKjvl+FIy30uf2vjvlpsDweqi5me4slxMWEvlv3Hafaf1+VV/1Tsd/wCK13LOSPHwtDjncd7bDpmh4r4IVJNL0PVwxT8TLikJcXbrN2CPukidLG4tl6npSudU04szt75y4k3to8KBnw0GMqyT1V9E0lwUSgtYXGt1geSgnlNao1rdLNcGPa4KtjzpGtG73j+UvzdbQnal+Msn8FCijKjkqyWnyhTjSHkmXT5q6lQ58naCboBMmXc7k2B1PyomS8vkbGO/Lv0XXPymTCvo2Oyyk6dLIer+Atf6cyZJdIxxI0tmhYGGx1A6fxSx0wvEI7Bq9V02DHm0fC3MFiFtEcEcKfrOXBxSnpl9XlO4SAMsdQb+ypAXTShzzYC2+oaBDlusTvZ+wKZh9N4kLQHF0ldbNX9FjhX9Nc4XDFZuJPmYkwhYXBjS5x7ADlZxpuJewZkEcWmzxQsa1pjcAAPBXkBG1tLoicUYVWTBr+aKFxVCwhWQWYNlkY78lNRvMksj+xdwhCBkkm4XjwvUPT79+iYZ/wCTfshCVATyuSB3QhSBFzqGLLf+h+y8Zk/NSEKkBy7hoCEIQI//2Q==',
+    comment: '¡Qué gran acierto es la Velvet Verse Radio! No hay mejor manera de empezar el día que sintonizar Ritmo Latino de 7 a 10 de la mañana. Su energía, alegría y buena música son la combinación perfecta para llenarse de vitalidad desde temprano. Muchas gracias a todo el equipo por contagiarnos siempre tanta simpatía y hacernos las mañanas muchísimo más felices. ¡Sigan así!'
+  },
+  {
+    name: 'Jessica Gomes',
+    photo: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCABIAEgDASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAAUDBAYCAQf/xAA1EAACAQMDAgQDBgUFAAAAAAABAgMABBEFEiExUQYTQWEiIzIUcYGhsdEHFXOR0hdCUnLh/8QAGAEAAwEBAAAAAAAAAAAAAAAAAAECAwT/xAAeEQADAQACAgMAAAAAAAAAAAAAARECAyESEzFBUf/aAAwDAQACEQMRAD8AZaU2LuD+oK185YIVj+tuB7e9YmxfZNG3ZlP51tY3RmLllyeAM9BQAguIylwvOWHqaW3hk/mCEhc7u9OdQAW4BpNqDhLtXPRTk/2oAkvLsQRxuV+Yh3bc8YxjrWcl1y4tZGcuDvOdrHP5VNdXLO+XPJ+JvbsKs2uh2slstzdx+ZNL8Zyfp7Ck9QrOXo4tfEMUsqR3C+WXxhh0z79qdZwOazGsaGh3TwOVJ/2+lT6TNJexwiU5kVhGeeuP/KjXJFSvW7GaRUl4+W2D7UU1UIIFEnAPAorWGRlITg1qZkBjE0fA9R2rLLwTWgXVrdEUBXb4QGGKQzvUx8cTe1INbbbIq/8AIj9KZXepCfaFiI29zSLVZjLeR+m0en30mNCu6kG8lj1bH4Zp/b6h9qwkaqyKOCuQePY0m05Ip9TImbCRqX/HNaXT0t/LlmUYJBALdSKy124dHGoqJbq+jfMaq7EdsYqPw+FW/d3ISJZWyfTOKijtbfaZCRuVuf71S0q9ukhk8m2WYPIWLFsYzUxtdBt/puZ7xXLbZY3jByB0xRWOutV1BYmK20KAdTuzRVXlf0ZTA+MLJH5kjCNc9TURu7KPrM0h7KKqapfG9uNq8Qr0HeqjPHDGXZcgfnWpmMv5pFuCw2rMT6uaW3U/mXrNwOeg+6qsWol+QdoJxgVE7/MZs9TSZaPLSVV1GMP9LnbWo1N3FsETdtx64IrEXHMg9MEYq42pXBtyss7EAYA9TUaVZrjUXYalciG38tG+Y/UD0FcaTqMdshjkB2seo9KVSlmyx65qSLaMIBl/0q85hjvd7NPMY57KVo2DKVPSis/80Ptz17Girhn5IecKewqjfXB8xVHPICjvXepuViGOm7mlk1xuZWP1KwP4UINX4ObVZPtSg5GT07Cr+4PKO2eapRzNvLtyU9ewqxZPvdiOgxipaLy6iG54k4ryNQSgf15r2dgZR7c1JcL5TwtjCuDSKKc/0A9v1qa2QlhgYAGSahYhphH1GcmrW8q5CjAxVox2yJWYzbhyAxFFQxylPMb0zxRTpLVPr0vgvTJU2s9zjOfrH7VWl/h9o78mS8H3SL/jRRUmkKY8E6QA3ytVO7g/Ev7VJF4M0mJSiR6mM8E7l/aiigYJ4G0h5W41IZGMsygfpXj+D9OkwTDqR2qAPjXp7fDRRQByvgnSkk3CHUSfdx2/61dPgHSWYsZbwEjGPMH7UUUCiIf9ONG27fOvcf1V/wAaKKKBn//Z',
+    comment: 'Just wanted to drop a quick note on the site to say how much I love Velvet Verse Radio! The playlist is always on point, and the energy is incredibly uplifting and sweet. It’s my absolute go-to whenever I need a little mood boost. Keep killing it, you guys are the best!'
+  },
+  {
+    name: 'Helena B.',
+    photo: null,
+    comment: 'Velvet Verse Radio is literally my favorite escape! The music is always so cozy and aesthetic, and the vibe is just pure good energy. Thank you for making my days so much brighter!'
+  }
+];
+
+function renderFeaturedComments(container){
+  featuredComments.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'comment-card';
+
+    const photo = document.createElement('img');
+    photo.src = item.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=0b0b0f&color=a855f7`;
+    photo.alt = item.name;
+
+    const content = document.createElement('div');
+    content.className = 'comment-content';
+
+    const name = document.createElement('strong');
+    name.textContent = item.name;
+
+    const date = document.createElement('div');
+    date.className = 'comment-date';
+    date.textContent = 'October 2026';
+
+    const text = document.createElement('p');
+    text.textContent = item.comment;
+
+    content.appendChild(name);
+    content.appendChild(date);
+    content.appendChild(text);
+
+    card.appendChild(photo);
+    card.appendChild(content);
+    container.appendChild(card);
+  });
+}
+
+async function loadApprovedComments(){
+  const approvedComments = document.getElementById('approved-comments');
+
+  renderFeaturedComments(approvedComments);
+
+  try{
+    const response = await fetch(
+      `${COMMENTS_SUPABASE_URL}/rest/v1/comments?select=name,photo,comment,created_at&approved=eq.true&order=created_at.asc`,
+      {
+        headers: {
+          'apikey': COMMENTS_SUPABASE_KEY
+        }
+      }
+    );
+
+    if(!response.ok){
+      throw new Error(`Supabase responded with ${response.status}`);
+    }
+
+    const comments = await response.json();
+
+    comments.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'comment-card';
+
+      const photo = document.createElement('img');
+      photo.src = item.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(item.name)}&background=0b0b0f&color=a855f7`;
+      photo.alt = item.name;
+
+      const content = document.createElement('div');
+      content.className = 'comment-content';
+
+      const name = document.createElement('strong');
+      name.textContent = item.name;
+
+      const date = document.createElement('div');
+      date.className = 'comment-date';
+      date.textContent = new Date(item.created_at).toLocaleDateString('en-US', {
+        month: 'long',
+        year: 'numeric'
+      });
+
+      const text = document.createElement('p');
+      text.textContent = item.comment;
+
+      content.appendChild(name);
+      content.appendChild(date);
+      content.appendChild(text);
+
+      card.appendChild(photo);
+      card.appendChild(content);
+
+      approvedComments.appendChild(card);
+    });
+
+  }catch(error){
+    console.error('Could not load approved comments:', error);
+  }
+}
+
+loadApprovedComments();
+  </script>
+  
+<script>
+(function () {
+
+  const requestsSupabaseUrl =
+    'https://bxndpplrxplszhaxules.supabase.co';
+
+  const requestsSupabaseKey =
+    'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou';
+
+  const requestsForm =
+    document.getElementById('request-form');
+
+  const requestsSubmitButton =
+    requestsForm.querySelector('.requests-submit');
+
+  const requestsFormMessage =
+    document.getElementById('form-message');
+
+  const requestsFormMessageText =
+    document.getElementById('form-message-text');
+
+  const requestsList =
+    document.getElementById('request-list');
+
+
+  async function requestsCallSupabase(functionName, body = {}) {
+
+    const response = await fetch(
+      `${requestsSupabaseUrl}/rest/v1/rpc/${functionName}`,
+      {
+        method: 'POST',
+
+        headers: {
+          'apikey': requestsSupabaseKey,
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(body)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Supabase respondeu com o código ${response.status}`
+      );
+    }
+
+    return response.json();
+  }
+
+
+  function requestsShowMessage(message, success = false) {
+
+    requestsFormMessageText.textContent = message;
+
+    requestsFormMessage.classList.toggle(
+      'success',
+      success
+    );
+
+    requestsFormMessage
+      .querySelector('.requests-message-icon')
+      .textContent = success ? '✓' : '!';
+
+    requestsFormMessage.classList.add('show');
+
+    requestsFormMessage.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest'
+    });
+  }
+
+
+  function requestsFormatSunday(dateText) {
+
+    const date =
+      new Date(`${dateText}T12:00:00`);
+
+    return date.toLocaleDateString(
+      'pt-PT',
+      {
+        day: 'numeric',
+        month: 'long',
+        timeZone: 'America/Toronto'
+      }
+    );
+  }
+
+
+  async function requestsLoadTargetSunday() {
+
+    try {
+
+      const targetSunday =
+        await requestsCallSupabase(
+          'next_request_sunday'
+        );
+
+      document
+        .getElementById('target-sunday-label')
+        .textContent =
+          requestsFormatSunday(targetSunday);
+
+    } catch (error) {
+
+      console.error(
+        'Não foi possível obter a data do próximo domingo.',
+        error
+      );
+    }
+  }
+
+
+  async function requestsLoadSongs() {
+
+    requestsList.innerHTML =
+      '<div class="requests-empty-state">A carregar a lista de músicas...</div>';
+
+    try {
+
+      const songs =
+        await requestsCallSupabase(
+          'get_requested_songs'
+        );
+
+      requestsList.replaceChildren();
+
+      if (!songs.length) {
+
+        requestsList.innerHTML =
+          '<div class="requests-empty-state">Ainda não existem músicas pedidas para este domingo.</div>';
+
+        return;
+      }
+
+
+      songs.forEach((item, index) => {
+
+        const row =
+          document.createElement('div');
+
+        row.className = 'request-item';
+
+
+        const number =
+          document.createElement('span');
+
+        number.className = 'request-number';
+        number.textContent = index + 1;
+
+
+        const artist =
+          document.createElement('span');
+
+        artist.className = 'request-artist';
+        artist.textContent = item.artist;
+
+
+        const separator =
+          document.createElement('span');
+
+        separator.className =
+          'request-separator';
+
+        separator.textContent = '—';
+
+
+        const song =
+          document.createElement('span');
+
+        song.className = 'request-song';
+        song.textContent = item.song;
+
+
+        row.append(
+          number,
+          artist,
+          separator,
+          song
+        );
+
+        requestsList.appendChild(row);
+      });
+
+
+    } catch (error) {
+
+      console.error(
+        'Não foi possível carregar a lista.',
+        error
+      );
+
+      requestsList.innerHTML =
+        '<div class="requests-empty-state">Não foi possível carregar a lista. Tenta novamente dentro de momentos.</div>';
+    }
+  }
+
+
+  requestsForm.addEventListener(
+    'submit',
+    async function (event) {
+
+      event.preventDefault();
+
+      requestsFormMessage
+        .classList.remove('show');
+
+      requestsSubmitButton.disabled = true;
+
+      requestsSubmitButton.innerHTML =
+        '<span>◌</span> A enviar...';
+
+
+      const formData =
+        new FormData(requestsForm);
+
+
+      try {
+
+        const result =
+          await requestsCallSupabase(
+            'submit_song_request',
+            {
+              p_listener_name:
+                formData.get('name'),
+
+              p_city:
+                formData.get('city'),
+
+              p_country:
+                formData.get('country'),
+
+              p_artist:
+                formData.get('artist'),
+
+              p_song:
+                formData.get('song'),
+
+              p_dedication:
+                formData.get('dedication') || null
+            }
+          );
+
+
+        requestsShowMessage(
+          result.message,
+          result.success === true
+        );
+
+
+        if (result.success) {
+
+          requestsForm.reset();
+
+          await requestsLoadSongs();
+        }
+
+
+      } catch (error) {
+
+        console.error(
+          'Não foi possível enviar o pedido.',
+          error
+        );
+
+        requestsShowMessage(
+          'Não foi possível enviar o pedido. Tenta novamente dentro de momentos.'
+        );
+
+
+      } finally {
+
+        requestsSubmitButton.disabled = false;
+
+        requestsSubmitButton.innerHTML =
+          '<span>➤</span> Enviar Pedido';
+      }
+    }
+  );
+
+
+  requestsLoadTargetSunday();
+  requestsLoadSongs();
+
+})();
+</script>
+
+  <script>
+const velvetSchedule = [
+  {
+    start: 180,
+    end: 420,
+    time: "03:00 - 07:00",
+    name: "Midnight Flow 🌙",
+    desc: "Música para atravessar a madrugada."
+  },
+  {
+    start: 420,
+    end: 600,
+    time: "07:00 - 10:00",
+    name: "Ritmo Latino 🔥",
+    desc: "Adrian Vega (Noia) — ¡Empieza tu día con energía y ritmo latino!"
+  },
+  {
+    start: 600,
+    end: 780,
+    time: "10:00 - 13:00",
+    name: "Alma Portuguesa 🇵🇹",
+    desc: "Suzy Mendes — Música portuguesa com alma e emoção."
+  },
+  {
+    start: 780,
+    end: 960,
+    time: "13:00 - 16:00",
+    name: "Corações & Memórias ❤️",
+    desc: "Carlos — Canções que ficam no coração e na memória."
+  },
+  {
+    start: 960,
+    end: 1140,
+    time: "16:00 - 19:00",
+    name: "Coração Brasileiro 🇧🇷",
+    desc: "Lara Ingrid — O melhor da música brasileira."
+  },
+  {
+    start: 1140,
+    end: 1260,
+    time: "19:00 - 21:00",
+    name: "Rock Sem Limites ⚡",
+    desc: "Beto Sousa — Rock sem fronteiras e sem limites."
+  },
+  {
+    start: 1260,
+    end: 1380,
+    time: "21:00 - 23:00",
+    name: "The Sound of VelvetVerse 🎙️",
+    desc: "Rui Freitas — Duas horas dedicadas à música da VelvetVerse Band."
+  },
+  {
+    start: 1380,
+    end: 1620,
+    time: "23:00 - 03:00",
+    name: "Velvet After Dark 🌌",
+    desc: "A banda sonora perfeita para depois da meia-noite."
+  }
+];
+
+function updateDynamicSchedule() {
+  const torontoParts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Toronto",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(new Date());
+
+  const hour = Number(
+    torontoParts.find(part => part.type === "hour").value
+  );
+
+  const minute = Number(
+    torontoParts.find(part => part.type === "minute").value
+  );
+
+  let nowMinutes = (hour * 60) + minute;
+
+  if (nowMinutes < 180) {
+    nowMinutes += 1440;
+  }
+
+  let currentIndex = velvetSchedule.findIndex(program => {
+    return nowMinutes >= program.start && nowMinutes < program.end;
+  });
+
+  if (currentIndex === -1) {
+    currentIndex = 0;
+  }
+
+  const container = document.getElementById("dynamicSchedule");
+
+  container.innerHTML = "";
+
+  for (let i = 0; i < 4; i++) {
+    const program =
+      velvetSchedule[(currentIndex + i) % velvetSchedule.length];
+
+    const item = document.createElement("div");
+    item.className = "schedule-item";
+
+    item.innerHTML = `
+      <div class="schedule-time">${program.time}</div>
+      <div>
+        <div class="schedule-name">${program.name}</div>
+        <div class="schedule-desc">${program.desc}</div>
+      </div>
+    `;
+
+    container.appendChild(item);
+  }
+}
+
+updateDynamicSchedule();
+
+setInterval(updateDynamicSchedule, 60000);
+</script>
+
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const slides = document.querySelectorAll(".promo-slide");
+
+    if (!slides.length) return;
+
+    let currentSlide = 0;
+
+    setInterval(function () {
+        slides[currentSlide].classList.remove("active");
+
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        slides[currentSlide].classList.add("active");
+    }, 10000);
+});
+</script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const futureSlides = document.querySelectorAll(".future-slide");
+
+  if (futureSlides.length < 2) return;
+
+  let futureCurrent = 0;
+
+  setInterval(function () {
+    futureSlides[futureCurrent].classList.remove("active");
+
+    futureCurrent = (futureCurrent + 1) % futureSlides.length;
+
+    futureSlides[futureCurrent].classList.add("active");
+  }, 10000);
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const track = document.querySelector(".podcast-scroll-track");
+
+    if (!track) return;
+
+    const cards = Array.from(track.children);
+
+    cards.forEach(function (card) {
+        const clone = card.cloneNode(true);
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
+    });
+});
+</script>
+<script id="top5-inline-script">
+(function(){
+ const songs=[
+ {title:'BbY WOW',artist:'KAROL G, Judeline y rusowsky',id:'6796864754'},
+ {title:'DtMF',artist:'Bad Bunny',id:'1787023936'},
+ {title:'Ahí',artist:'KAROL G y Drake',id:'6796864746'},
+ {title:'KOKO',artist:'Omar Courtz',id:'1877482633'},
+ {title:'Ayúdame',artist:'Los Dos de Tamaulipas',id:'1880109891'}
+ ];
+ const section=document.getElementById('top5latino');
+ section.querySelector('.t5-note').textContent='Edición experimental · Clasificación de la semana del 10 de octubre de 2026.';
+ section.querySelector('.t5-date').textContent='Edición de prueba · 10 de octubre de 2026';
+ const root=document.getElementById('t5-cards');root.textContent='';
+ const frames=[];
+ songs.forEach((song,i)=>{
+  const row=document.createElement('article');row.className='t5-card';
+  const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);
+  const player=document.createElement('div');player.className='t5-embedded';
+  const frame=document.createElement('iframe');frame.title='Apple Music: '+song.title+' — '+song.artist;
+  frame.loading='lazy';frame.allow='autoplay *; encrypted-media *; fullscreen *';
+  frame.src='https://embed.music.apple.com/us/song/'+encodeURIComponent(song.id);
+  frame.setAttribute('referrerpolicy','strict-origin-when-cross-origin');
+  player.append(frame);frames.push(frame);
+  const status=document.createElement('div');status.className='t5-position';
+  const label=document.createElement('strong');label.textContent='PUESTO '+(i+1);
+  const change=document.createElement('span');change.textContent='NUEVO';
+  status.append(label,change);
+  row.append(rank,player,status);root.append(row);
+ });
+ window.stopTop5Audio=function(){frames.forEach(frame=>{frame.src='about:blank'});};
+})();
+</script><script id="top5-vote-script">
+(function(){
+const site=document.getElementById('top5latino'), list=document.getElementById('t5-vote-list'),msg=document.getElementById('t5-vote-msg'),winner=document.getElementById('t5-winner');
+if(!site||!list)return;
+const cfg={url:'https://bxndpplrxplszhaxules.supabase.co',key:'sb_publishable_5yb8Ij6FevaAk9r3IOrmYQ_BYs_5Aou'};
+const rows=[];let songs=[],edition='',counts={},ready=false;
+const headers={'apikey':cfg.key,'Authorization':'Bearer '+cfg.key,'Content-Type':'application/json'};
+function thisWeek(){
+ const p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+ const get=t=>p.find(x=>x.type===t).value;
+ const dt=new Date(Date.UTC(+get('year'),+get('month')-1,+get('day')));
+ dt.setUTCDate(dt.getUTCDate()-(dt.getUTCDay()+2)%7);
+ return dt.toISOString().slice(0,10);
+}
+function collect(){
+ const frames=[...site.querySelectorAll('#t5-cards .t5-embedded iframe')];
+ return frames.map((frame,i)=>{const title=frame.title.replace(/^Apple Music:\s*/,''),parts=title.split(' — ');return {id:(frame.src.match(/\/song\/(\d+)/)||[])[1]||String(i),title:parts[0]||'Canción '+(i+1),artist:parts.slice(1).join(' — '),art:''}});
+}
+function getVisitor(){
+ const key='vv_top5_visitor';let id;try{id=localStorage.getItem(key);if(!id){id=crypto.randomUUID();localStorage.setItem(key,id)}}catch(e){id=null}return id;
+}
+const visitor=getVisitor();
+async function call(name,payload){
+ const r=await fetch(cfg.url+'/rest/v1/rpc/'+name,{method:'POST',headers,body:JSON.stringify(payload)});
+ if(!r.ok)throw Error('Votación no disponible ('+r.status+')');
+ return r.json();
+}
+async function covers(){
+ await Promise.all(songs.map(async(s,i)=>{try{const r=await fetch('https://itunes.apple.com/lookup?id='+encodeURIComponent(s.id)+'&country=us');if(!r.ok)return;const j=await r.json();const art=j.results&&j.results[0]&&j.results[0].artworkUrl100;if(art){s.art=art;rows[i].img.src=art;updateWinner()}}catch(e){}}));
+}
+function updateWinner(){
+ const total=songs.reduce((n,s)=>n+(counts[s.id]||0),0),top=songs.map((s,i)=>({...s,i,votes:counts[s.id]||0})).sort((a,b)=>b.votes-a.votes)[0];
+ rows.forEach((r,i)=>{const n=counts[songs[i].id]||0,p=total?Math.round(n/total*100):0;r.count.textContent=n.toLocaleString('es')+' votos';r.fill.style.width=p+'%';r.percent.textContent=p+'%';r.btn.disabled=!ready||!visitor||!!localStorage.getItem('vv_top5_voted_'+edition);});
+ winner.replaceChildren();const h=document.createElement('h3');h.textContent='♛ Favorita del público';winner.append(h);
+ if(!top||!total){const p=document.createElement('p');p.textContent='Aún no hay votos. ¡Sé el primero!';winner.append(p);return}
+ if(top.art){const im=document.createElement('img');im.src=top.art;im.alt='Portada de '+top.title;winner.append(im)}
+ const b=document.createElement('strong');b.textContent=top.title;winner.append(b);
+ const a=document.createElement('p');a.textContent=top.artist;winner.append(a);
+ const p=document.createElement('p');p.textContent=top.votes.toLocaleString('es')+' votos · '+Math.round(top.votes/total*100)+'%';winner.append(p);
+}
+async function refresh(){
+ try{
+ const data=await call('top5_get_counts',{p_edition:edition});
+ counts={};(data||[]).forEach(x=>{counts[String(x.song_id)]=Number(x.votes)});
+ ready=true;msg.textContent='';updateWinner();
+ }catch(e){ready=false;msg.textContent='La votación estará disponible próximamente.';updateWinner()}
+}
+async function vote(id){
+ if(!ready||!visitor||localStorage.getItem('vv_top5_voted_'+edition))return;
+ ready=false;updateWinner();
+ try{await call('top5_cast_vote',{p_edition:edition,p_song_id:id,p_visitor:visitor});localStorage.setItem('vv_top5_voted_'+edition,id);msg.textContent='¡Gracias por participar!';await refresh();}
+ catch(e){msg.textContent='No se ha podido registrar el voto. Inténtalo más tarde.';await refresh();}
+}
+function render(){
+ songs=collect();if(songs.length!==5)return;
+ // Per-Friday voting round; music IDs are read directly from the displayed players.
+ edition='TEST_'+thisWeek()+'_'+songs.map(s=>s.id).join('_');
+ list.replaceChildren();rows.length=0;
+ songs.forEach((song,i)=>{
+ const row=document.createElement('div');row.className='t5-vote-row';
+ const num=document.createElement('b');num.className='t5-vote-num';num.textContent=i+1;
+ const img=document.createElement('img');img.className='t5-vote-art';img.alt='';img.loading='lazy';
+ const name=document.createElement('div');name.className='t5-vote-track';const title=document.createElement('strong');title.textContent=song.title;const artist=document.createElement('span');artist.textContent=song.artist;name.append(title,artist);
+ const btn=document.createElement('button');btn.type='button';btn.className='t5-vote-btn';btn.textContent='♡ Votar';btn.disabled=true;btn.addEventListener('click',()=>vote(song.id));
+ const count=document.createElement('span');count.className='t5-vote-count';count.textContent='0 votos';
+ const bar=document.createElement('div');bar.className='t5-vote-trackbar';const fill=document.createElement('div');fill.className='t5-vote-fill';bar.append(fill);
+ const percent=document.createElement('span');percent.className='t5-vote-pct';percent.textContent='0%';
+ row.append(num,img,name,btn,count,bar,percent);list.append(row);rows.push({img,btn,count,fill,percent});
+ });
+ updateWinner();covers();refresh();
+}
+window.addEventListener('vv-test-rerender',render);render();setInterval(()=>{const current=collect();const key='TEST_'+thisWeek()+'_'+current.map(s=>s.id).join('_');if(key!==edition)render();else if(document.visibilityState==='visible')refresh()},30000);
+})();
+</script><script id="vv-test-controller">
+(function(){
+const old=[{title:'KOKO',artist:'Omar Courtz',id:'1877482633'},{title:'Ayúdame',artist:'Los Dos de Tamaulipas',id:'1880109891'}];
+const fresh=[{title:'TQG',artist:'KAROL G y Shakira',id:'1731060239'},{title:'Si Antes Te Hubiera Conocido',artist:'KAROL G',id:'1819545673'}];
+function apply(newWeek){
+ const entries=newWeek?fresh:old;
+ const frames=document.querySelectorAll('#top5latino #t5-cards .t5-embedded iframe');
+ if(frames.length!==5)return;
+ for(let i=0;i<2;i++){
+  const frame=frames[i+3],song=entries[i];
+  frame.title='Apple Music: '+song.title+' — '+song.artist;
+  frame.src='https://embed.music.apple.com/us/song/'+song.id;
+ }
+ document.getElementById('vv-test-status').textContent=newWeek?'Semana nueva: TQG y Si Antes Te Hubiera Conocido':'Semana original: KOKO y Ayúdame';
+ window.dispatchEvent(new Event('vv-test-rerender'));
+}
+document.getElementById('vv-test-original').addEventListener('click',()=>apply(false));
+document.getElementById('vv-test-new').addEventListener('click',()=>apply(true));
+})();
+</script></body>
+</html>
