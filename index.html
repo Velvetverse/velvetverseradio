@@ -3086,6 +3086,7 @@ e deep night soundscape.
     const radioStream = document.getElementById('liveRadio');
     if (radioStream && !radioStream.paused) radioStream.pause();
   }
+  if (id === 'top5latino' && window.resumeTop5Audio) window.resumeTop5Audio();
   if (id !== 'top5latino' && window.stopTop5Audio) window.stopTop5Audio();
 
   document.querySelectorAll('.main-nav a').forEach(item => {
@@ -4524,7 +4525,8 @@ document.addEventListener("DOMContentLoaded", function () {
   status.append(label,change);
   row.append(rank,player,status);root.append(row);
  });
- window.stopTop5Audio=function(){frames.forEach(frame=>{frame.src='about:blank'});};
+ window.stopTop5Audio=function(){frames.forEach(frame=>{if(frame.getAttribute('src')!=='about:blank')frame.setAttribute('src','about:blank')});};
+ window.resumeTop5Audio=function(){frames.forEach((frame,i)=>{const expected='https://embed.music.apple.com/us/song/'+encodeURIComponent(songs[i].id);if(frame.getAttribute('src')!==expected)frame.setAttribute('src',expected)});};
 })();
 </script><script id="top5-vote-script">
 (function(){
