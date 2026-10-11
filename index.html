@@ -3082,6 +3082,10 @@ e deep night soundscape.
   });
 
   document.getElementById(id).classList.add('active');
+  if (id === 'top5latino') {
+    const radioStream = document.getElementById('liveRadio');
+    if (radioStream && !radioStream.paused) radioStream.pause();
+  }
   if (id !== 'top5latino' && window.stopTop5Audio) window.stopTop5Audio();
 
   document.querySelectorAll('.main-nav a').forEach(item => {
