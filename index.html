@@ -4071,7 +4071,7 @@ loadApprovedComments();
   const requestsClosedNotice = document.createElement('div');
   requestsClosedNotice.setAttribute('role', 'status');
   requestsClosedNotice.style.cssText =
-    'display:none;margin:0 0 16px;padding:16px;border:1px solid #a855f7;border-radius:12px;background:#251036;color:#fff;font-weight:700;text-align:center;line-height:1.5;';
+    'display:none;grid-column:1 / -1;width:100%;box-sizing:border-box;margin:0 0 14px;padding:12px 14px;border:1px solid #a855f7;border-radius:12px;background:rgba(168,85,247,0.12);color:#f3e8ff;font-size:0.95rem;font-weight:700;text-align:center;line-height:1.4;';
   requestsSubmitButton.before(requestsClosedNotice);
 
   function requestsUpdateCapacity(count) {
@@ -4082,7 +4082,7 @@ loadApprovedComments();
       : '<span>➤</span> Enviar Pedido';
     requestsClosedNotice.style.display = requestsAreClosed ? 'block' : 'none';
     requestsClosedNotice.textContent = requestsAreClosed
-      ? '🔒 Pedidos encerrados para este domingo! Já recebemos 12 músicas. Volta na próxima semana para fazeres o teu pedido.'
+      ? '🔒 Pedidos encerrados para este domingo — já recebemos 12 músicas. Volta na próxima semana para fazeres o teu pedido.'
       : '';
   }
 
