@@ -4066,6 +4066,26 @@ loadApprovedComments();
   const requestsList =
     document.getElementById('request-list');
 
+  const requestsMaxPerSunday = 12;
+  let requestsAreClosed = false;
+  const requestsClosedNotice = document.createElement('div');
+  requestsClosedNotice.setAttribute('role', 'status');
+  requestsClosedNotice.style.cssText =
+    'display:none;margin:0 0 16px;padding:16px;border:1px solid #a855f7;border-radius:12px;background:#251036;color:#fff;font-weight:700;text-align:center;line-height:1.5;';
+  requestsSubmitButton.before(requestsClosedNotice);
+
+  function requestsUpdateCapacity(count) {
+    requestsAreClosed = count >= requestsMaxPerSunday;
+    requestsSubmitButton.disabled = requestsAreClosed;
+    requestsSubmitButton.innerHTML = requestsAreClosed
+      ? '<span>🔒</span> Pedidos encerrados para este domingo'
+      : '<span>➤</span> Enviar Pedido';
+    requestsClosedNotice.style.display = requestsAreClosed ? 'block' : 'none';
+    requestsClosedNotice.textContent = requestsAreClosed
+      ? '🔒 Pedidos encerrados para este domingo! Já recebemos 12 músicas. Volta na próxima semana para fazeres o teu pedido.'
+      : '';
+  }
+
 
   async function requestsCallSupabase(functionName, body = {}) {
 
@@ -4168,6 +4188,7 @@ loadApprovedComments();
         );
 
       requestsList.replaceChildren();
+      requestsUpdateCapacity(songs.length);
 
       if (!songs.length) {
 
@@ -4246,6 +4267,8 @@ loadApprovedComments();
 
       event.preventDefault();
 
+      if (requestsAreClosed) return;
+
       requestsFormMessage
         .classList.remove('show');
 
@@ -4297,6 +4320,8 @@ loadApprovedComments();
           requestsForm.reset();
 
           await requestsLoadSongs();
+        } else if (result.error === 'week_full') {
+          await requestsLoadSongs();
         }
 
 
@@ -4313,11 +4338,10 @@ loadApprovedComments();
 
 
       } finally {
-
-        requestsSubmitButton.disabled = false;
-
-        requestsSubmitButton.innerHTML =
-          '<span>➤</span> Enviar Pedido';
+        if (!requestsAreClosed) {
+          requestsSubmitButton.disabled = false;
+          requestsSubmitButton.innerHTML = '<span>➤</span> Enviar Pedido';
+        }
       }
     }
   );
