@@ -4081,8 +4081,8 @@ loadApprovedComments();
       ? '<span>🔒</span> Pedidos encerrados para este domingo'
       : '<span>➤</span> Enviar Pedido';
     requestsClosedNotice.style.display = requestsAreClosed ? 'block' : 'none';
-    requestsClosedNotice.textContent = requestsAreClosed
-      ? '🔒 Pedidos encerrados para este domingo — já recebemos 12 músicas. Volta na próxima semana para fazeres o teu pedido.'
+    requestsClosedNotice.innerHTML = requestsAreClosed
+      ? '<strong>Obrigado pela vossa participação!</strong><div style="margin-top:6px">Já recebemos os 12 pedidos de limite maximos para este domingo! 💜</div><div style="margin-top:6px;font-weight:400">As inscrições estão temporariamente encerradas, mas voltam a abrir na próxima semana. Contamos contigo!</div>'
       : '';
   }
 
