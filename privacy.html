@@ -32,18 +32,23 @@ a{
 a:hover{
   text-decoration:underline;
 }
-.legal-heading{display:flex;align-items:center;gap:16px;margin:0 0 22px;}
+body{padding:0;}
+.legal-topbar{position:sticky;top:0;z-index:100;background:rgba(11,11,15,.97);border-bottom:1px solid rgba(168,85,247,.35);box-shadow:0 5px 22px rgba(0,0,0,.3);}
+.legal-topbar-inner{max-width:900px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:10px 22px;}
+.container{padding:24px 22px 34px;}
+.legal-back{display:inline-flex;align-items:center;white-space:nowrap;padding:9px 14px;border:1px solid #a855f7;border-radius:9px;font-weight:bold;font-size:14px;color:white;text-decoration:none;}
+.legal-back:hover{background:rgba(168,85,247,.18);text-decoration:none;}
+.legal-heading{display:flex;align-items:center;gap:16px;margin:0;}
 .legal-heading img{width:68px;height:68px;object-fit:contain;flex-shrink:0;}
 .legal-heading h1{margin:0;}
-@media(max-width:480px){.legal-heading img{width:54px;height:54px;}.legal-heading{gap:12px;}.legal-heading h1{font-size:1.8rem;}}
+@media(max-width:480px){.legal-heading img{width:48px;height:48px;}.legal-heading{gap:10px;}.legal-heading h1{font-size:1.25rem;}.legal-topbar-inner{padding:9px 12px;gap:10px;}.legal-back{font-size:12px;padding:8px 10px;}.container{padding:20px 16px;}}
 </style>
 </head>
 
 <body>
 
+<header class="legal-topbar"><div class="legal-topbar-inner"><div class="legal-heading"><img src="logo.png" alt="VelvetVerse Radio" width="68" height="68"><h1>Privacy Policy</h1></div><a class="legal-back" href="https://velvetverseradio.com/">← Back Home</a></div></header>
 <div class="container">
-
-<div class="legal-heading"><img src="logo.png" alt="VelvetVerse Radio" width="68" height="68"><h1>Privacy Policy</h1></div>
 
 <p>VelvetVerse Radio respects your privacy. This policy explains how we handle information when you use our website.</p>
 
