@@ -27,6 +27,10 @@ h1{
 a{
   color:#a855f7;
 }
+.legal-heading{display:flex;align-items:center;gap:16px;margin:0 0 22px;}
+.legal-heading img{width:68px;height:68px;object-fit:contain;flex-shrink:0;}
+.legal-heading h1{margin:0;}
+@media(max-width:480px){.legal-heading img{width:54px;height:54px;}.legal-heading{gap:12px;}.legal-heading h1{font-size:1.8rem;}}
 </style>
 </head>
 
@@ -34,7 +38,7 @@ a{
 
 <div class="container">
 
-<h1>Terms & Conditions</h1>
+<div class="legal-heading"><img src="logo.png" alt="VelvetVerse Radio" width="68" height="68"><h1>Terms & Conditions</h1></div>
 
 <p>Welcome to VelvetVerse Radio. By accessing and using this website, you accept and agree to be bound by the terms and conditions outlined below.</p>
 
