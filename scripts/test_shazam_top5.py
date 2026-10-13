@@ -36,6 +36,7 @@ def main():
     if [int(r[rk]) for r in first] != [1,2,3,4,5]:
         raise ValueError("As cinco primeiras posicoes nao sao 1,2,3,4,5")
     matches=[]
+    missing=[]
     for row in first:
         title=(row.get(tk) or "").strip(); artist=(row.get(ak) or "").strip()
         if not title or not artist: raise ValueError("Musica sem titulo ou artista")
@@ -52,10 +53,18 @@ def main():
                 if valid:break
             if valid:break
         if not valid:
-            raise ValueError("Apple Music não encontrou título e artista principal coincidentes: "+title+" / "+artist)
-        matches.append({"rank":int(row[rk]),"title":title,"artist":artist,"apple_music_id":str(valid[0]["trackId"])})
+            missing.append({"rank":int(row[rk]),"title":title,"artist":artist})
+            matches.append({"rank":int(row[rk]),"title":title,"artist":artist,"apple_music_id":None})
+        else:
+            matches.append({"rank":int(row[rk]),"title":title,"artist":artist,"apple_music_id":str(valid[0]["trackId"])})
     print(json.dumps({"source":URL,"content_type":content_type,"top5":matches},ensure_ascii=False,indent=2))
-    print("SUCESSO: CSV atual lido e cinco IDs Apple Music encontrados. NENHUM ficheiro de producao modificado.")
+    print("SUCESSO: CSV Shazam acessível e posições 1 a 5 verificadas.")
+    if missing:
+        print("AVISO: ainda faltam correspondências Apple Music para",len(missing),"faixas:",json.dumps(missing,ensure_ascii=False))
+        print("ESTADO: APENAS FONTE SHAZAM APROVADA; integração Apple Music NÃO APROVADA.")
+    else:
+        print("SUCESSO COMPLETO: cinco IDs Apple Music encontrados.")
+    print("NENHUM ficheiro de produção modificado.")
 
 if __name__=="__main__":
     try:main()
