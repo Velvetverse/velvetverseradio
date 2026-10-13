@@ -71,3 +71,11 @@
 - **Implementação:** remover o bloqueio que restringia a recolha às segundas-feiras às 10:00, e passar a consultar por GitHub Actions de hora a hora em horários úteis. Quando a data Billboard recebida for mais recente e os cinco leitores Apple Music tiverem correspondência, o JSON público é atualizado automaticamente; caso contrário, mantém a edição anterior.
 - **Aviso:** a recolha direta pela biblioteca `billboard.py` ainda depende de acesso ao site Billboard e não foi verificada numa execução GitHub Actions. Não confundir o agendamento implementado com garantia de obtenção dos dados.
 - **O programa do Noia permanece à sexta às 08:15.** A votação continua com a janela segunda 10:00–quarta 18:00; esta janela não retarda a página nem o ranking oficial.
+
+## 10. Teste da alternativa monitorLATINO — 13/10/2026
+
+- A monitorLATINO publica artigos semanais atuais com os números **1** por país (artigo de 12/10/2026), mas isso **não disponibiliza os lugares 2–5** de um ranking único para construir rigorosamente um Top 5.
+- A própria organização indica os charts Top 20 em `https://charts.monitorlatino.com/top20/Mexico` e variantes, mas o acesso automatizado aos endereços testados não foi possível. O link de Charts no portal remete a serviço que devolveu erro **503** neste teste.
+- O quadro `https://mldigital.monitorlatino.com/` aparece em resultados de pesquisa, mas a cópia indexada é antiga e não garante atualização semanal; não o usar para anunciar uma edição corrente.
+- **Veredito:** monitorLATINO é uma fonte editorial válida, mas **não passou o teste de extração automática do Top 5 atual**. Não substituir Billboard, não criar automação monitorLATINO nem apresentar cinco músicas de países diferentes como se fossem as cinco posições de uma única classificação.
+- A edição e a infraestrutura Billboard já publicada permanecem sem alterações. Ainda é necessário validar uma fonte com cinco posições disponíveis de modo consistente (por exemplo, uma API de charts explicitamente acessível e datada), antes de prometer autonomia.
