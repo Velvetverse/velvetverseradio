@@ -17,9 +17,8 @@ import billboard
 ROOT = Path(__file__).resolve().parents[1]
 FILE = ROOT / "top5-weekly.json"
 toronto = dt.datetime.now(ZoneInfo("America/Toronto"))
-if toronto.weekday() != 0 or toronto.hour != 10:
-    print("Fora da janela de publicação (segunda, 10:00 Toronto).")
-    sys.exit(0)
+# A classificação pública é independente da estreia do programa de rádio.
+# Atualizar assim que uma edição oficial mais recente estiver disponível.
 
 current = json.loads(FILE.read_text(encoding="utf-8"))
 try:
