@@ -66,6 +66,7 @@ def main():
     if missing:
         print("AVISO: ainda faltam correspondências Apple Music para",len(missing),"faixas:",json.dumps(missing,ensure_ascii=False))
         print("ESTADO: APENAS FONTE SHAZAM APROVADA; integração Apple Music NÃO APROVADA.")
+        raise RuntimeError("Teste completo ainda não aprovado: "+str(len(missing))+" músicas sem Apple Music")
     else:
         print("SUCESSO COMPLETO: cinco IDs Apple Music encontrados.")
     print("NENHUM ficheiro de produção modificado.")
