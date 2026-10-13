@@ -23,7 +23,9 @@ def main():
     text=raw.decode("utf-8-sig")
     lines=list(csv.DictReader(io.StringIO(text)))
     if len(lines)<5: raise ValueError("Ranking com menos de cinco registos")
-    header={k.strip().lower():k for k in lines[0]}
+    header={k.strip().lower():k for k in lines[0] if k is not None}
+    print("CSV content type:",content_type,"rows:",len(lines),"headers:",list(lines[0].keys()))
+    print("First CSV records:",repr(lines[:2])[:1800])
     rk=header.get("rank"); ak=header.get("artist") or header.get("subtitle")
     tk=header.get("title") or header.get("name")
     if not all((rk,ak,tk)): raise ValueError("Cabecalhos CSV inesperados: "+repr(list(lines[0])))
@@ -32,7 +34,7 @@ def main():
         raise ValueError("As cinco primeiras posicoes nao sao 1,2,3,4,5")
     matches=[]
     for row in first:
-        title=row[tk].strip(); artist=row[ak].strip()
+        title=(row.get(tk) or "").strip(); artist=(row.get(ak) or "").strip()
         if not title or not artist: raise ValueError("Musica sem titulo ou artista")
         query=urllib.parse.urlencode({"term": title+" "+artist,"entity":"song","country":"us","limit":50})
         body,_=get("https://itunes.apple.com/search?"+query)
