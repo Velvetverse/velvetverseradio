@@ -1,0 +1,32 @@
+name: Atualizar Top 5 Latino
+on:
+  schedule:
+    - cron: '0 * * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar-top5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Atualizar top 5 (segunda às 10h de Toronto)
+        run: python scripts/update_top5.py
+      - name: Publicar ranking
+        run: |
+          if git diff --quiet -- top5-weekly.json && [ -f top5-weekly.json ]; then
+            echo "Sem alterações"
+          else
+            git config user.name "velvetverse-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add top5-weekly.json
+            if ! git diff --cached --quiet; then
+              git commit -m "Top 5 Latino: atualização semanal Apple Music"
+              git push
+            fi
+          fi
