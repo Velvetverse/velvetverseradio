@@ -2,7 +2,7 @@ name: Testar Shazam Global Latin (sem publicar)
 on:
   workflow_dispatch:
   schedule:
-    - cron: '33 * * * *'
+    - cron: '*/5 * * * *'
 permissions:
   contents: read
 jobs:
