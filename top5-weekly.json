@@ -1,39 +1,39 @@
 {
-  "source": "Billboard Hot Latin Songs",
-  "chart_date": "2026-10-10",
-  "week": "2026-10-12",
+  "source": "Shazam Global Latin Chart",
+  "chart_date": "2026-10-13",
+  "week": "2026-10-13",
   "verified": true,
-  "source_url": "https://www.billboard.com/charts/latin-songs/2026-10-10/",
+  "source_url": "https://www.shazam.com/charts/genre/world/latin",
   "songs": [
     {
       "rank": 1,
       "title": "BbY WOW",
-      "artist": "KAROL G, Judeline y rusowsky",
+      "artist": "KAROL G, Judeline & rusowsky",
       "id": "6796864754"
     },
     {
       "rank": 2,
-      "title": "DtMF",
-      "artist": "Bad Bunny",
-      "id": "1787023936"
+      "title": "Bonito, Bonito",
+      "artist": "Thiago Navarro Music",
+      "id": "6810810195"
     },
     {
       "rank": 3,
-      "title": "Ahí",
-      "artist": "KAROL G y Drake",
-      "id": "6796864746"
+      "title": "COMPA COLETO (uy_como)",
+      "artist": "ARIA VEGA",
+      "id": "6809977487"
     },
     {
       "rank": 4,
-      "title": "KOKO",
-      "artist": "Omar Courtz",
-      "id": "1877482633"
+      "title": "OLIVIA LA FLAKA",
+      "artist": "Natanael Cano, Tito Double P, Victor Mendivil & Ovi",
+      "id": "6814967656"
     },
     {
       "rank": 5,
-      "title": "Ayúdame",
-      "artist": "Los Dos de Tamaulipas",
-      "id": "1880109891"
+      "title": "Y Qué Fue?",
+      "artist": "Don Miguelo",
+      "id": "1708289078"
     }
   ]
 }
