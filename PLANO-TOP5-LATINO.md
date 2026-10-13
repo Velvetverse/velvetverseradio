@@ -101,3 +101,12 @@
 - Confirmado o ranking oficial legível https://www.shazam.com/charts/genre/world/latin, com 5 primeiras posições visíveis. O endpoint CSV https://www.shazam.com/services/charts/csv/genre/world/latin/ respondeu com `text/csv` ao leitor web, que não suporta apresentar esse formato. A máquina local do assistente não tem resolução DNS externa, pelo que não conseguiu descarregar o conteúdo.
 - Foi criado **teste sem publicação**, em `scripts/test_shazam_top5.py` e `.github/workflows/test-shazam-top5.yml`. A cada hora, no GitHub Actions, tenta descarregar o CSV, validar posições 1–5 e associar títulos/artistas a IDs Apple Music. Não altera `index.html` nem `top5-weekly.json`.
 - **Pendente:** observar logs da primeira execução do GitHub Actions e confirmar sucesso fim-a-fim; não alterar a fonte pública até confirmar. A validação de títulos e artistas está deliberadamente estrita, pelo que pode falhar em músicas cujo nome no catálogo Apple difere. Isso protege contra publicar músicas erradas.
+
+## 14. Shazam em produção — 13/10/2026
+
+- **Mudança editorial aprovada:** Top 5 Latino mantém 5 músicas, mas a fonte passa a ser **Shazam Global Latin Chart** (não Billboard). Apple Music continua apenas para os leitores.
+- O teste Shazam #6 (`https://github.com/Velvetverse/velvetverseradio/actions/runs/38467800178`) passou com êxito e logs mostram cinco posições com cinco IDs Apple Music completos. É um teste real confirmado, não uma garantia de execuções futuras.
+- Atualizado `top5-weekly.json` com as cinco posições do CSV datado de 13/10/2026. O `index.html` passou a aceitar e identificar explicitamente o Shazam como fonte, mantendo layout e players.
+- A rotina de recolha validada `scripts/test_shazam_top5.py` permite `--publish`, publicando apenas quando o CSV contém data mais recente, cinco posições corretas e todos os IDs Apple Music verificados. Conserva os dados anteriores em falhas.
+- GitHub Actions `.github/workflows/test-shazam-top5.yml` passou a atualizar o site em três verificações diárias; intervalo agressivo de 5 minutos removido. A antiga rotina automática Billboard foi **desativada**, mantendo-se acessível só para execução manual.
+- **Limite de validação:** foi comprovado o teste da recolha sem publicação. Ainda não se confirmou uma execução do workflow de publicação `--publish` no GitHub Actions, nem teste direto dos leitores no browser. Não afirmar que a publicação contínua está definitivamente provada até ser observada uma execução bem-sucedida do novo workflow.
