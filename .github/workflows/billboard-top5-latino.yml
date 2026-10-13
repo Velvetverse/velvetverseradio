@@ -1,7 +1,8 @@
-name: Billboard Top 5 Latino semanal
+name: Billboard Top 5 Latino — atualizar página
 on:
   schedule:
-    - cron: '0 * * * 1'
+    - cron: '17 12-23 * * *'
+    - cron: '17 0-3 * * *'
   workflow_dispatch:
 
 permissions:
