@@ -86,3 +86,12 @@
 - Testados endpoints Apple Marketing Tools Most Played para México e EUA e uma rota iTunes com género. A ferramenta de consulta web devolveu erro de acesso; o ambiente de execução também não conseguiu resolver os domínios, pelo que **não houve resposta JSON validada**. Isto é uma limitação do teste, não prova que os serviços Apple estejam fora do ar.
 - Não se confirmou feed oficial atual e exclusivo para género latino com cinco posições e IDs Apple Music. Um Top 5 geral do México ou uma filtragem manual de canções latinas entre as 100 mais tocadas **não é** uma classificação oficial Top 5 Latino.
 - **Resultado: fonte Apple RSS não aprovada para substituição automática da Billboard.** Nenhuma alteração de músicas, fonte oficial, programação ou site foi feita durante este teste. Para avançar seria necessário testar com rede acessível um feed específico por género e validar conteúdo, datas, estabilidade e IDs antes de publicar.
+
+## 12. Fonte alternativa concreta — Shazam Global Latin (13/10/2026)
+
+- Página oficial Apple/Shazam: https://www.shazam.com/charts/genre/world/latin (Top Latin global, com posições numeradas e botão **Download CSV**).
+- Endpoint CSV encontrado em código aberto da biblioteca ShazamIO: https://www.shazam.com/services/charts/csv/genre/world/latin/ . A consulta web recebeu **HTTP 400 da ferramenta por formato CSV não suportado** (não uma resposta de conteúdo inválido do Shazam). O site exibe Top 10 e mais faixas; falta fazer um download e parse real através de runner com rede.
+- **A classificação Shazam mede pesquisas/identificações de músicas, não vendas/rádio/streams da Billboard.** Ao adotar, alterar expressamente o crédito de fonte na página para «Shazam Global Latin Chart» e não manter «Billboard».
+- Teste técnico obrigatório antes de publicar: baixar CSV; validar cabeçalhos Rank,Artist,Title, data de recolha, posições 1..N e títulos; procurar cada música no Apple Music pelo ID e confirmar títulos/artistas; só atualizar JSON se TODOS confirmados; caso contrário preservar edição anterior e alertar. Recolha semanal, separada da gravação do programa. Checar termos de uso.
+- A expressão recente do utilizador «as 6 primeiras» exige confirmar se deseja manter o nome **Top 5** (cinco músicas) ou alterar para **Top 6** antes de mexer no layout/locução.
+- **Ainda não foi feito teste de execução real nem foi alterada a fonte no site.** Esta é a primeira alternativa com um URL CSV público específico e estrutura documentada.
