@@ -25,7 +25,8 @@ def main():
     print("CSV content type:",content_type,"first rows:",repr(csv_rows[:3])[:1200])
     header_index=next((i for i,row in enumerate(csv_rows[:10]) if len(row)>=3 and row[0].strip().lower()=="rank" and "artist" in [v.strip().lower() for v in row] and "title" in [v.strip().lower() for v in row]),None)
     if header_index is None: raise ValueError("Cabeçalho Rank,Artist,Title não encontrado")
-    lines=list(csv.DictReader(io.StringIO("\n".join(",".join(row) for row in csv_rows[header_index:]))))
+    columns=csv_rows[header_index]
+    lines=[dict(zip(columns,row)) for row in csv_rows[header_index+1:] if len(row)>=len(columns)]
     if len(lines)<5: raise ValueError("Ranking com menos de cinco registos")
     header={k.strip().lower():k for k in lines[0] if k is not None}
     rk=header.get("rank"); ak=header.get("artist") or header.get("subtitle")
