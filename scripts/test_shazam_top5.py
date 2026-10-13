@@ -39,14 +39,20 @@ def main():
     for row in first:
         title=(row.get(tk) or "").strip(); artist=(row.get(ak) or "").strip()
         if not title or not artist: raise ValueError("Musica sem titulo ou artista")
-        query=urllib.parse.urlencode({"term": title+" "+artist,"entity":"song","country":"us","limit":50})
-        body,_=get("https://itunes.apple.com/search?"+query)
-        results=json.loads(body).get("results",[])
-        valid=[item for item in results if normalized(item.get("trackName",""))==normalized(title)
-               and normalized(artist).split(" ")[0] in normalized(item.get("artistName","")).split(" ")
-               and str(item.get("trackId","")).isdigit()]
+        valid=[]
+        primary=normalized(artist.split(",")[0].split(" & ")[0]).split()
+        for country in ("us","mx"):
+            for term in (title+" "+artist, title+" "+artist.split(",")[0], title):
+                query=urllib.parse.urlencode({"term":term,"entity":"song","country":country,"limit":100})
+                body,_=get("https://itunes.apple.com/search?"+query)
+                results=json.loads(body).get("results",[])
+                valid=[item for item in results if normalized(item.get("trackName",""))==normalized(title)
+                       and all(part in normalized(item.get("artistName","")).split() for part in primary)
+                       and str(item.get("trackId","")).isdigit()]
+                if valid:break
+            if valid:break
         if not valid:
-            raise ValueError("Sem correspondencia Apple Music inequívoca: "+title+" / "+artist)
+            raise ValueError("Apple Music não encontrou título e artista principal coincidentes: "+title+" / "+artist)
         matches.append({"rank":int(row[rk]),"title":title,"artist":artist,"apple_music_id":str(valid[0]["trackId"])})
     print(json.dumps({"source":URL,"content_type":content_type,"top5":matches},ensure_ascii=False,indent=2))
     print("SUCESSO: CSV atual lido e cinco IDs Apple Music encontrados. NENHUM ficheiro de producao modificado.")
