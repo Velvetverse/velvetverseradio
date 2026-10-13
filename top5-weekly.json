@@ -1,0 +1,39 @@
+{
+  "source": "Billboard Hot Latin Songs",
+  "chart_date": "2026-10-10",
+  "week": "2026-10-12",
+  "verified": true,
+  "source_url": "https://www.billboard.com/charts/latin-songs/2026-10-10/",
+  "songs": [
+    {
+      "rank": 1,
+      "title": "BbY WOW",
+      "artist": "KAROL G, Judeline y rusowsky",
+      "id": "6796864754"
+    },
+    {
+      "rank": 2,
+      "title": "DtMF",
+      "artist": "Bad Bunny",
+      "id": "1787023936"
+    },
+    {
+      "rank": 3,
+      "title": "Ahí",
+      "artist": "KAROL G y Drake",
+      "id": "6796864746"
+    },
+    {
+      "rank": 4,
+      "title": "KOKO",
+      "artist": "Omar Courtz",
+      "id": "1877482633"
+    },
+    {
+      "rank": 5,
+      "title": "Ayúdame",
+      "artist": "Los Dos de Tamaulipas",
+      "id": "1880109891"
+    }
+  ]
+}
