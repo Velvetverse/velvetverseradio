@@ -79,3 +79,10 @@
 - O quadro `https://mldigital.monitorlatino.com/` aparece em resultados de pesquisa, mas a cópia indexada é antiga e não garante atualização semanal; não o usar para anunciar uma edição corrente.
 - **Veredito:** monitorLATINO é uma fonte editorial válida, mas **não passou o teste de extração automática do Top 5 atual**. Não substituir Billboard, não criar automação monitorLATINO nem apresentar cinco músicas de países diferentes como se fossem as cinco posições de uma única classificação.
 - A edição e a infraestrutura Billboard já publicada permanecem sem alterações. Ainda é necessário validar uma fonte com cinco posições disponíveis de modo consistente (por exemplo, uma API de charts explicitamente acessível e datada), antes de prometer autonomia.
+
+## 11. Teste RSS Apple — 13/10/2026
+
+- A Apple mantém um gerador oficial de feeds RSS de rankings musicais, com canais de Top Songs e seleção de géneros documentada historicamente. Fonte: https://www.apple.com/ca/rss/ e https://performance-partners.apple.com/tools.
+- Testados endpoints Apple Marketing Tools Most Played para México e EUA e uma rota iTunes com género. A ferramenta de consulta web devolveu erro de acesso; o ambiente de execução também não conseguiu resolver os domínios, pelo que **não houve resposta JSON validada**. Isto é uma limitação do teste, não prova que os serviços Apple estejam fora do ar.
+- Não se confirmou feed oficial atual e exclusivo para género latino com cinco posições e IDs Apple Music. Um Top 5 geral do México ou uma filtragem manual de canções latinas entre as 100 mais tocadas **não é** uma classificação oficial Top 5 Latino.
+- **Resultado: fonte Apple RSS não aprovada para substituição automática da Billboard.** Nenhuma alteração de músicas, fonte oficial, programação ou site foi feita durante este teste. Para avançar seria necessário testar com rede acessível um feed específico por género e validar conteúdo, datas, estabilidade e IDs antes de publicar.
