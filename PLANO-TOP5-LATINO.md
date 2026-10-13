@@ -47,3 +47,11 @@
 ## 6. Diário de alterações
 
 - **13/10/2026:** fonte oficial e leitores confirmados separadamente; identificada a necessidade de resolver o calendário da Billboard (publicação habitualmente à terça); publicado este plano, **nenhuma automação Billboard ativada**.
+
+## 7. Verificação de fonte — 13/10/2026
+
+- Testado o endereço oficial https://www.billboard.com/charts/latin-songs/ : o acesso automatizado devolveu **HTTP 402 (Payment Required)**. Não há, neste teste, uma API oficial pública/estável confirmada que possa ser usada sem contrato.
+- Fontes indexadas/cópias podem apresentar edições antigas. Exemplo encontrado: uma cópia com **Week of October 3, 2026**, que não deve ser confundida com a edição mais recente.
+- Conclusão: **não ativar um scraper nem uma tarefa que anuncie edição nova sem validar data + posições 1–5 diretamente na fonte oficial.**
+- O processo editorial assistido é o único caminho pronto para usar de imediato: verificar semanalmente a fonte oficial, confirmar títulos/artistas e IDs Apple Music e só então publicar uma edição versionada. O acesso direto a dados através de licenciamento/API oficial pode ser avaliado no futuro.
+- **Próxima execução:** implementar um arquivo JSON de edições validadas, adaptar o site para o ler mantendo fallback, e introduzir janela de votação segunda 10:00–quarta 18:00; **não escrever uma rotina de recolha Billboard até haver fonte fiável confirmada**.
