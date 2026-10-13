@@ -95,3 +95,9 @@
 - Teste técnico obrigatório antes de publicar: baixar CSV; validar cabeçalhos Rank,Artist,Title, data de recolha, posições 1..N e títulos; procurar cada música no Apple Music pelo ID e confirmar títulos/artistas; só atualizar JSON se TODOS confirmados; caso contrário preservar edição anterior e alertar. Recolha semanal, separada da gravação do programa. Checar termos de uso.
 - A expressão recente do utilizador «as 6 primeiras» exige confirmar se deseja manter o nome **Top 5** (cinco músicas) ou alterar para **Top 6** antes de mexer no layout/locução.
 - **Ainda não foi feito teste de execução real nem foi alterada a fonte no site.** Esta é a primeira alternativa com um URL CSV público específico e estrutura documentada.
+
+## 13. Teste isolado Shazam — 13/10/2026
+
+- Confirmado o ranking oficial legível https://www.shazam.com/charts/genre/world/latin, com 5 primeiras posições visíveis. O endpoint CSV https://www.shazam.com/services/charts/csv/genre/world/latin/ respondeu com `text/csv` ao leitor web, que não suporta apresentar esse formato. A máquina local do assistente não tem resolução DNS externa, pelo que não conseguiu descarregar o conteúdo.
+- Foi criado **teste sem publicação**, em `scripts/test_shazam_top5.py` e `.github/workflows/test-shazam-top5.yml`. A cada hora, no GitHub Actions, tenta descarregar o CSV, validar posições 1–5 e associar títulos/artistas a IDs Apple Music. Não altera `index.html` nem `top5-weekly.json`.
+- **Pendente:** observar logs da primeira execução do GitHub Actions e confirmar sucesso fim-a-fim; não alterar a fonte pública até confirmar. A validação de títulos e artistas está deliberadamente estrita, pelo que pode falhar em músicas cujo nome no catálogo Apple difere. Isso protege contra publicar músicas erradas.
