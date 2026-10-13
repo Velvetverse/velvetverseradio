@@ -1,0 +1,17 @@
+name: Testar Shazam Global Latin (sem publicar)
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '33 * * * *'
+permissions:
+  contents: read
+jobs:
+  testar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ler Shazam CSV e verificar Top 5 nos leitores Apple Music
+        run: python scripts/test_shazam_top5.py
