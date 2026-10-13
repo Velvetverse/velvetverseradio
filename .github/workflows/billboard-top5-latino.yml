@@ -1,0 +1,31 @@
+name: Billboard Top 5 Latino semanal
+on:
+  schedule:
+    - cron: '0 * * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install billboard.py
+      - name: Consultar Billboard e validar leitores Apple Music
+        run: python scripts/update_billboard_top5.py
+      - name: Publicar apenas se dados foram validados
+        run: |
+          if ! git diff --quiet -- top5-weekly.json; then
+            git config user.name "velvetverse-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add top5-weekly.json
+            git commit -m "Publicar Top 5 Latino Billboard validado"
+            git push
+          else
+            echo "Sem nova edição"
+          fi
