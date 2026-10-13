@@ -2,7 +2,8 @@
 """Non-destructive smoke test: Shazam Global Latin chart CSV + five Apple Music matches.
 Does not update the website or any production files.
 """
-import csv, io, json, re, sys, unicodedata, urllib.parse, urllib.request
+import csv, io, json, re, sys, unicodedata, urllib.parse, urllib.request, datetime as dt
+from pathlib import Path
 
 URL = "https://www.shazam.com/services/charts/csv/genre/world/latin/"
 HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; VelvetVerseRadio/1.0)",
@@ -69,7 +70,21 @@ def main():
         raise RuntimeError("Teste completo ainda não aprovado: "+str(len(missing))+" músicas sem Apple Music")
     else:
         print("SUCESSO COMPLETO: cinco IDs Apple Music encontrados.")
-    print("NENHUM ficheiro de produção modificado.")
+    if "--publish" in sys.argv:
+        dates=[row[0] for row in csv_rows[:header_index] if row and row[0].strip()]
+        if not dates: raise ValueError("Data da tabela Shazam ausente")
+        chart_day=dt.datetime.strptime(dates[-1].split(" [")[0].strip(),"%A, %d %B %Y").date()
+        if abs((dt.date.today()-chart_day).days)>14: raise ValueError("Classificação Shazam antiga ou futura")
+        target=Path(__file__).resolve().parents[1]/"top5-weekly.json"
+        previous=json.loads(target.read_text(encoding="utf-8"))
+        if previous.get("source")=="Shazam Global Latin Chart" and dt.date.fromisoformat(previous["chart_date"]) >= chart_day:
+            print("Sem edição Shazam mais recente; conservada a anterior.")
+            return
+        payload={"source":"Shazam Global Latin Chart","chart_date":chart_day.isoformat(),"week":chart_day.isoformat(),"verified":True,"source_url":"https://www.shazam.com/charts/genre/world/latin","songs":[{"rank":s["rank"],"title":s["title"],"artist":s["artist"],"id":s["apple_music_id"]} for s in matches]}
+        target.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+        print("Publicada nova edição Shazam",chart_day.isoformat())
+    else:
+        print("NENHUM ficheiro de produção modificado.")
 
 if __name__=="__main__":
     try:main()
