@@ -1,8 +1,5 @@
-name: Billboard Top 5 Latino — atualizar página
+name: Billboard Top 5 (arquivado; execução manual)
 on:
-  schedule:
-    - cron: '17 12-23 * * *'
-    - cron: '17 0-3 * * *'
   workflow_dispatch:
 
 permissions:
