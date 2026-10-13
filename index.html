@@ -4535,7 +4535,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script id="top5-inline-script">
 (function(){
- const songs=[
+ let songs=[
  {title:'BbY WOW',artist:'KAROL G, Judeline y rusowsky',id:'6796864754'},
  {title:'DtMF',artist:'Bad Bunny',id:'1787023936'},
  {title:'Ahí',artist:'KAROL G y Drake',id:'6796864746'},
@@ -4543,10 +4543,12 @@ document.addEventListener("DOMContentLoaded", function () {
  {title:'Ayúdame',artist:'Los Dos de Tamaulipas',id:'1880109891'}
  ];
  const section=document.getElementById('top5latino');
- section.querySelector('.t5-note').textContent='Clasificación de la semana del 10 de octubre de 2026.';
- section.querySelector('.t5-date').textContent='Edición de prueba · 10 de octubre de 2026';
+ section.querySelector('.t5-note').textContent='Billboard Hot Latin Songs · lista del 10 de octubre de 2026';
+ section.querySelector('.t5-date').textContent='Billboard · 10 de octubre de 2026';
  const root=document.getElementById('t5-cards');root.textContent='';
- const frames=[];
+ let frames=[];
+ function drawSongs(){
+ frames=[];root.replaceChildren();
  songs.forEach((song,i)=>{
   const row=document.createElement('article');row.className='t5-card';
   const rank=document.createElement('div');rank.className='t5-rank';rank.textContent='#'+(i+1);
@@ -4562,8 +4564,29 @@ document.addEventListener("DOMContentLoaded", function () {
   status.append(label,change);
   row.append(rank,player,status);root.append(row);
  });
+ }
+ drawSongs();
  window.stopTop5Audio=function(){frames.forEach(frame=>{if(frame.getAttribute('src')!=='about:blank')frame.setAttribute('src','about:blank')});};
  window.resumeTop5Audio=function(){frames.forEach((frame,i)=>{const expected='https://embed.music.apple.com/us/song/'+encodeURIComponent(songs[i].id);if(frame.getAttribute('src')!==expected)frame.setAttribute('src',expected)});};
+ // Uma fonte única versionada; os cinco leitores continuam a ser os mesmos.
+ (async function loadVerifiedEdition(){
+  try{
+   const response=await fetch('top5-weekly.json',{cache:'no-store'});
+   if(!response.ok)throw Error('Ranking indisponível');
+   const data=await response.json();
+   if(data.source!=='Billboard Hot Latin Songs'||data.verified!==true||!/^\\d{4}-\\d{2}-\\d{2}$/.test(data.chart_date)||!Array.isArray(data.songs)||data.songs.length!==5)throw Error('Edição inválida');
+   const unique=new Set();
+   data.songs.forEach((s,i)=>{if(s.rank!==i+1||!s.title||!s.artist||!/^\\d+$/.test(String(s.id))||unique.has(String(s.id)))throw Error('Faixas inválidas');unique.add(String(s.id));});
+   songs=data.songs.map(s=>({title:s.title,artist:s.artist,id:String(s.id)}));
+   const date=new Date(data.chart_date+'T12:00:00Z');
+   const dateLabel=new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(date);
+   section.dataset.chartDate=data.chart_date;
+   section.querySelector('.t5-note').textContent='Billboard Hot Latin Songs · clasificación oficial del '+dateLabel+'.';
+   section.querySelector('.t5-date').textContent='Billboard · '+dateLabel;
+   drawSongs();
+   window.dispatchEvent(new Event('top5-edition-updated'));
+  }catch(error){console.warn('Top 5: se conserva la última edición verificada.',error);}
+ })();
 })();
 </script><script id="top5-vote-script">
 (function(){
@@ -4576,12 +4599,17 @@ function thisWeek(){
  const p=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
  const get=t=>p.find(x=>x.type===t).value;
  const dt=new Date(Date.UTC(+get('year'),+get('month')-1,+get('day')));
- dt.setUTCDate(dt.getUTCDate()-(dt.getUTCDay()+2)%7);
+ dt.setUTCDate(dt.getUTCDate()-(dt.getUTCDay()+6)%7);
  return dt.toISOString().slice(0,10);
 }
 function collect(){
  const frames=[...site.querySelectorAll('#t5-cards .t5-embedded iframe')];
  return frames.map((frame,i)=>{const title=frame.title.replace(/^Apple Music:\s*/,''),parts=title.split(' — ');return {id:(frame.src.match(/\/song\/(\d+)/)||[])[1]||String(i),title:parts[0]||'Canción '+(i+1),artist:parts.slice(1).join(' — '),art:''}});
+}
+function voteWindowOpen(){
+ const parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/Toronto',weekday:'short',hour:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+ const day=parts.find(p=>p.type==='weekday').value,hour=Number(parts.find(p=>p.type==='hour').value);
+ return (day==='Mon'&&hour>=10)||day==='Tue'||(day==='Wed'&&hour<18);
 }
 function getVisitor(){
  const key='vv_top5_visitor';let id;try{id=localStorage.getItem(key);if(!id){id=crypto.randomUUID();localStorage.setItem(key,id)}}catch(e){id=null}return id;
@@ -4597,7 +4625,7 @@ async function covers(){
 }
 function updateWinner(){
  const total=songs.reduce((n,s)=>n+(counts[s.id]||0),0),top=songs.map((s,i)=>({...s,i,votes:counts[s.id]||0})).sort((a,b)=>b.votes-a.votes)[0];
- rows.forEach((r,i)=>{const n=counts[songs[i].id]||0,p=total?Math.round(n/total*100):0;r.count.textContent=n.toLocaleString('es')+' votos';r.fill.style.width=p+'%';r.percent.textContent=p+'%';r.btn.disabled=!ready||!visitor||!!localStorage.getItem('vv_top5_voted_'+edition);});
+ rows.forEach((r,i)=>{const n=counts[songs[i].id]||0,p=total?Math.round(n/total*100):0;r.count.textContent=n.toLocaleString('es')+' votos';r.fill.style.width=p+'%';r.percent.textContent=p+'%';r.btn.disabled=!ready||!visitor||!voteWindowOpen()||!!localStorage.getItem('vv_top5_voted_'+edition);});
  winner.replaceChildren();const h=document.createElement('h3');h.textContent='♛ Favorita del público';winner.append(h);
  if(!top||!total){const p=document.createElement('p');p.textContent='Aún no hay votos. ¡Sé el primero!';winner.append(p);return}
  if(top.art){const im=document.createElement('img');im.src=top.art;im.alt='Portada de '+top.title;winner.append(im)}
@@ -4613,7 +4641,7 @@ async function refresh(){
  }catch(e){ready=false;msg.textContent='La votación estará disponible próximamente.';updateWinner()}
 }
 async function vote(id){
- if(!ready||!visitor||localStorage.getItem('vv_top5_voted_'+edition))return;
+ if(!ready||!visitor||!voteWindowOpen()||localStorage.getItem('vv_top5_voted_'+edition))return;
  ready=false;updateWinner();
  try{await call('top5_cast_vote',{p_edition:edition,p_song_id:id,p_visitor:visitor});localStorage.setItem('vv_top5_voted_'+edition,id);msg.textContent='¡Gracias por participar!';await refresh();}
  catch(e){msg.textContent='No se ha podido registrar el voto. Inténtalo más tarde.';await refresh();}
@@ -4636,6 +4664,7 @@ function render(){
  });
  updateWinner();covers();refresh();
 }
+window.addEventListener('top5-edition-updated',render);
 render();setInterval(()=>{const current=collect();const key=thisWeek()+'_'+current.map(s=>s.id).join('_');if(key!==edition)render();else if(document.visibilityState==='visible')refresh()},30000);
 })();
 </script></body>
