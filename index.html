@@ -1676,6 +1676,12 @@ border-radius:0 0 16px 16px;
 }
 
 
+/* Textos ingleses discretos na secção Discos Pedidos */
+#requests .requests-en-line{display:block;margin-top:4px;color:#c3b7d0;font-size:0.86em;font-weight:400;line-height:1.45}
+#requests .requests-en-label{font-weight:400;color:#cbbdd8;font-size:0.87em;margin-left:5px}
+#requests .requests-en-button{display:block;margin-top:2px;font-size:0.69em;font-weight:400;line-height:1.2}
+#requests .requests-en-closed{margin-top:10px;padding-top:8px;border-top:1px solid rgba(220,180,255,.22);font-size:0.85em;font-weight:400;line-height:1.5;color:#d8cbe5}
+
 /* FORMULÁRIO */
 
 #requests .requests-form-grid{
@@ -2882,56 +2888,57 @@ e deep night soundscape.
           <p class="requests-card-intro">
             Preenche o formulário abaixo e pede <em>a tua música</em>
             para o nosso programa de domingo.
+            <span class="requests-en-line" lang="en">Fill in the form below and request your song for our Sunday show.</span>
           </p>
 
           <form id="request-form" class="requests-form-grid">
 
             <div class="requests-field">
               <label for="name">
-                Nome <span class="requests-required">*</span>
+                Nome <span class="requests-required">*</span> <span class="requests-en-label" lang="en">Name</span>
               </label>
               <input id="name" name="name" type="text"
-                     placeholder="O teu nome"
+                     placeholder="O teu nome / Your name"
                      autocomplete="name"
                      maxlength="100" required>
             </div>
 
             <div class="requests-field">
               <label for="city">
-                Cidade <span class="requests-required">*</span>
+                Cidade <span class="requests-required">*</span> <span class="requests-en-label" lang="en">City</span>
               </label>
               <input id="city" name="city" type="text"
-                     placeholder="A tua cidade"
+                     placeholder="A tua cidade / Your city"
                      autocomplete="address-level2"
                      maxlength="100" required>
             </div>
 
             <div class="requests-field">
               <label for="country">
-                País <span class="requests-required">*</span>
+                País <span class="requests-required">*</span> <span class="requests-en-label" lang="en">Country</span>
               </label>
               <input id="country" name="country" type="text"
-                     placeholder="O teu país"
+                     placeholder="O teu país / Your country"
                      autocomplete="country-name"
                      maxlength="100" required>
             </div>
 
             <div class="requests-field requests-half">
               <label for="artist">
-                Artista <span class="requests-required">*</span>
+                Artista <span class="requests-required">*</span> <span class="requests-en-label" lang="en">Artist</span>
               </label>
               <input id="artist" name="artist" type="text"
-                     placeholder="Nome do artista"
+                     placeholder="Nome do artista / Artist name"
                      maxlength="150" required
                      oninput="this.value=this.value.toUpperCase()">
             </div>
 
             <div class="requests-field requests-half">
               <label for="song">
-                Música <span class="requests-required">*</span>
+                Música <span class="requests-required">*</span> <span class="requests-en-label" lang="en">Song</span>
               </label>
               <input id="song" name="song" type="text"
-                     placeholder="Nome da música"
+                     placeholder="Nome da música / Song title"
                      maxlength="150" required
                      oninput="this.value=this.value.toUpperCase()">
             </div>
@@ -2939,10 +2946,10 @@ e deep night soundscape.
             <div class="requests-field requests-full">
               <label for="dedication">
                 Dedicatória
-                <span class="requests-optional">(Opcional)</span>
+                <span class="requests-optional">(Opcional)</span> <span class="requests-en-label" lang="en">Dedication (Optional)</span>
               </label>
               <textarea id="dedication" name="dedication"
-                        placeholder="Deixa aqui a tua dedicatória..."
+                        placeholder="Deixa aqui a tua dedicatória... / Leave your dedication here..."
                         maxlength="500"></textarea>
             </div>
 
@@ -2955,7 +2962,7 @@ e deep night soundscape.
             </div>
 
             <button class="requests-submit" type="submit">
-              <span>➤</span> Enviar Pedido
+              <span>➤</span> Enviar Pedido<span class="requests-en-button" lang="en">Send request</span>
             </button>
 
             <p class="requests-privacy-note">
@@ -2966,6 +2973,7 @@ e deep night soundscape.
               e os
               <a href="terms.html" style="color:#d8a6ff;text-decoration:underline">Terms &amp; Conditions</a>.
               Obrigado por ouvires a VelvetVerse Radio!
+              <span class="requests-en-line" lang="en">Your request will be reviewed by our team. Your name, city, country and dedication may be mentioned on air. By submitting, you accept the show rules and can read our <a href="privacy.html" style="color:#d8a6ff;text-decoration:underline">Privacy Policy</a> and <a href="terms.html" style="color:#d8a6ff;text-decoration:underline">Terms &amp; Conditions</a>. Thank you for listening to VelvetVerse Radio!</span>
             </p>
 
           </form>
@@ -4083,11 +4091,11 @@ loadApprovedComments();
     requestsAreClosed = count >= requestsMaxPerSunday;
     requestsSubmitButton.disabled = requestsAreClosed;
     requestsSubmitButton.innerHTML = requestsAreClosed
-      ? '<span>🔒</span> Pedidos encerrados para este domingo'
-      : '<span>➤</span> Enviar Pedido';
+      ? '<span>🔒</span> Pedidos encerrados para este domingo<span class="requests-en-button" lang="en">Requests closed for this Sunday</span>'
+      : '<span>➤</span> Enviar Pedido<span class="requests-en-button" lang="en">Send request</span>';
     requestsClosedNotice.style.display = requestsAreClosed ? 'block' : 'none';
     requestsClosedNotice.innerHTML = requestsAreClosed
-      ? '<strong>Obrigado pela vossa participação!</strong><div style="margin-top:6px">Já atingimos o limite máximo de 12 pedidos para este domingo! 💜</div><div style="margin-top:6px;font-weight:400">As inscrições estão temporariamente encerradas, mas voltam a abrir na próxima semana. Contamos contigo!</div>'
+      ? '<strong>Obrigado pela vossa participação!</strong><div style="margin-top:6px">Já atingimos o limite máximo de 12 pedidos para este domingo! 💜</div><div style="margin-top:6px;font-weight:400">As inscrições estão temporariamente encerradas, mas voltam a abrir na próxima semana. Contamos contigo!</div><div class="requests-en-closed" lang="en">Thank you for your participation!<br>We have reached the maximum of 12 requests for this Sunday! 💜<br>Requests are temporarily closed and will reopen next week. We look forward to hearing from you!</div>'
       : '';
   }
 
