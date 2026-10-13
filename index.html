@@ -4574,15 +4574,15 @@ document.addEventListener("DOMContentLoaded", function () {
    const response=await fetch('top5-weekly.json',{cache:'no-store'});
    if(!response.ok)throw Error('Ranking indisponível');
    const data=await response.json();
-   if(data.source!=='Billboard Hot Latin Songs'||data.verified!==true||!/^\d{4}-\d{2}-\d{2}$/.test(data.chart_date)||!Array.isArray(data.songs)||data.songs.length!==5)throw Error('Edição inválida');
+   if(data.source!=='Shazam Global Latin Chart'||data.verified!==true||!/^\d{4}-\d{2}-\d{2}$/.test(data.chart_date)||!Array.isArray(data.songs)||data.songs.length!==5)throw Error('Edição inválida');
    const unique=new Set();
    data.songs.forEach((s,i)=>{if(s.rank!==i+1||!s.title||!s.artist||!/^\d+$/.test(String(s.id))||unique.has(String(s.id)))throw Error('Faixas inválidas');unique.add(String(s.id));});
    songs=data.songs.map(s=>({title:s.title,artist:s.artist,id:String(s.id)}));
    const date=new Date(data.chart_date+'T12:00:00Z');
    const dateLabel=new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(date);
    section.dataset.chartDate=data.chart_date;
-   section.querySelector('.t5-note').textContent='Billboard Hot Latin Songs · clasificación oficial del '+dateLabel+'.';
-   section.querySelector('.t5-date').textContent='Billboard · '+dateLabel;
+   section.querySelector('.t5-note').textContent='Shazam Global Latin Chart · clasificación del '+dateLabel+'.';
+   section.querySelector('.t5-date').textContent='Shazam Global Latin · '+dateLabel;
    drawSongs();
    window.dispatchEvent(new Event('top5-edition-updated'));
   }catch(error){console.warn('Top 5: se conserva la última edición verificada.',error);}
