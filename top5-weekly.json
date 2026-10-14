@@ -1,7 +1,7 @@
 {
   "source": "Shazam Global Latin Chart",
-  "chart_date": "2026-10-13",
-  "week": "2026-10-13",
+  "chart_date": "2026-10-14",
+  "week": "2026-10-14",
   "verified": true,
   "source_url": "https://www.shazam.com/charts/genre/world/latin",
   "songs": [
@@ -25,15 +25,15 @@
     },
     {
       "rank": 4,
-      "title": "OLIVIA LA FLAKA",
-      "artist": "Natanael Cano, Tito Double P, Victor Mendivil & Ovi",
-      "id": "6814967656"
-    },
-    {
-      "rank": 5,
       "title": "Y Qué Fue?",
       "artist": "Don Miguelo",
       "id": "1708289078"
+    },
+    {
+      "rank": 5,
+      "title": "OLIVIA LA FLAKA",
+      "artist": "Natanael Cano, Tito Double P, Victor Mendivil & Ovi",
+      "id": "6814967656"
     }
   ]
 }
