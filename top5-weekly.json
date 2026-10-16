@@ -1,7 +1,7 @@
 {
   "source": "Shazam Global Latin Chart",
-  "chart_date": "2026-10-15",
-  "week": "2026-10-15",
+  "chart_date": "2026-10-16",
+  "week": "2026-10-16",
   "verified": true,
   "source_url": "https://www.shazam.com/charts/genre/world/latin",
   "songs": [
@@ -31,9 +31,9 @@
     },
     {
       "rank": 5,
-      "title": "OLIVIA LA FLAKA",
-      "artist": "Natanael Cano, Tito Double P, Victor Mendivil & Ovi",
-      "id": "6814967656"
+      "title": "BOTZ",
+      "artist": "Daddy Yankee",
+      "id": "6820223917"
     }
   ]
 }
