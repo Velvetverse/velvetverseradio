@@ -4754,5 +4754,19 @@ function render(){
 window.addEventListener('top5-edition-updated',render);
 render();setInterval(()=>{const current=collect();const key=thisWeek()+'_'+current.map(s=>s.id).join('_');if(key!==edition)render();else if(document.visibilityState==='visible')refresh()},30000);
 })();
-</script></body>
+</script>
+<script id="open-stage-preview-access">
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if(params.get('preview') !== 'open-stage') return;
+  function showPreview(){
+    if(typeof showSection === 'function' && document.getElementById('open-stage')) {
+      showSection('open-stage', null);
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded',showPreview,{once:true});
+  else showPreview();
+})();
+</script>
+</body>
 </html>
