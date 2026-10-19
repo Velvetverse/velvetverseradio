@@ -328,15 +328,12 @@
       lastTrack=key;
       artwork.src='../logo.png';
       const songLower=normalizeVelvetTitle(song);
-      const artistLower=normalizeVelvetTitle(artist);
-      // Usar as capas locais apenas para títulos da VelvetVerse Band,
-      // evitando atribuí-las a músicas de outros artistas com o mesmo título.
-      if(artistLower.includes('velvetverse') || artistLower==='carlos e beto'){
-        for(const [title,file] of Object.entries(velvetverseCovers)){
-          if(songLower===normalizeVelvetTitle(title)){
-            artwork.src='../covers/velvetverse/'+encodeURIComponent(file);
-            return;
-          }
+      // Igual ao player do site: dar prioridade à capa local pelo título.
+      for(const [title,file] of Object.entries(velvetverseCovers)){
+        const titleLower=normalizeVelvetTitle(title);
+        if(songLower===titleLower || songLower.includes(titleLower) || titleLower.includes(songLower)){
+          artwork.src='../covers/velvetverse/'+encodeURIComponent(file);
+          return;
         }
       }
       try{
@@ -345,7 +342,7 @@
         if(!res.ok) throw new Error('artwork');
         const data=await res.json();
         const image=data.results?.[0]?.artworkUrl100;
-        if(image) artwork.src=image.replace('100x100bb','600x600bb');
+        if(image && lastTrack===key) artwork.src=image.replace('100x100bb','600x600bb');
       }catch(e){/* mantém o logótipo quando não existe capa */}
     }
     async function updateTrack(){
