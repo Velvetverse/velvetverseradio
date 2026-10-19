@@ -3496,6 +3496,16 @@ async function updateLiveArtwork(artist, song) {
 
   liveLastTrack = key;
 
+  const rubricCovers = [{"terms":["backstage legends"],"file":"backstage-legends-logo.png"},{"terms":["brasil de norte a sul"],"file":"brasil-de-norte-a-sul-logo.png"},{"terms":["um futuro proximo"],"file":"logo-um-futuro-proximo.png"},{"terms":["e se"],"file":"logo-e-se.png"},{"terms":["bau de historia","bau de historias"],"file":"Bau de Historias logo.png"}];
+  const rubricTitle = normalizeVelvetTitle(song);
+  const rubric = rubricCovers.find(item => item.terms.some(term => rubricTitle.includes(term)));
+  if (rubric) {
+    const cover = encodeURIComponent(rubric.file);
+    liveArtwork.src = cover;
+    miniArtwork.src = cover;
+    return;
+  }
+
   // Capa oficial quando o ficheiro do programa Discos Pedidos está no ar.
   if (normalizeVelvetTitle(song).includes('discos pedidos')) {
     const cover = 'Discos%20Pedidos%20Neon%20Radio%20Show.png';
