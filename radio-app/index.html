@@ -326,6 +326,10 @@
       const key=(artist+'|'+song).toLowerCase();
       if(key===lastTrack) return;
       lastTrack=key;
+      if(normalizeVelvetTitle(song).includes('discos pedidos')){
+        artwork.src='../Discos%20Pedidos%20Neon%20Radio%20Show.png';
+        return;
+      }
       artwork.src='../logo.png';
       const songLower=normalizeVelvetTitle(song);
       // Igual ao player do site: dar prioridade à capa local pelo título.
