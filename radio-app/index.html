@@ -326,7 +326,7 @@
       const key=(artist+'|'+song).toLowerCase();
       if(key===lastTrack) return;
       lastTrack=key;
-      const rubricCovers = [{"terms":["backstage legends"],"file":"backstage-legends-logo.png"},{"terms":["brasil de norte a sul"],"file":"brasil-de-norte-a-sul-logo.png"},{"terms":["um futuro proximo"],"file":"logo-um-futuro-proximo.png"},{"terms":["e se"],"file":"logo-e-se.png"},{"terms":["bau de historia","bau de historias"],"file":"Bau de Historias logo.png"}];
+      const rubricCovers = [{"terms":["top 5 latino"],"file":"Top 5 Latino.png"},{"terms":["backstage legends"],"file":"backstage-legends-logo.png"},{"terms":["brasil de norte a sul"],"file":"brasil-de-norte-a-sul-logo.png"},{"terms":["um futuro proximo"],"file":"logo-um-futuro-proximo.png"},{"terms":["e se"],"file":"logo-e-se.png"},{"terms":["bau de historia","bau de historias"],"file":"Bau de Historias logo.png"}];
       const rubricTitle = normalizeVelvetTitle(song);
       const rubric = rubricCovers.find(item => item.terms.some(term => rubricTitle.includes(term)));
       if(rubric){
