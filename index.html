@@ -3496,6 +3496,14 @@ async function updateLiveArtwork(artist, song) {
 
   liveLastTrack = key;
 
+  // Capa oficial quando o ficheiro do programa Discos Pedidos está no ar.
+  if (normalizeVelvetTitle(song).includes('discos pedidos')) {
+    const cover = 'Discos%20Pedidos%20Neon%20Radio%20Show.png';
+    liveArtwork.src = cover;
+    miniArtwork.src = cover;
+    return;
+  }
+
 
 
 
