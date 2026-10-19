@@ -187,9 +187,20 @@
     }
 
     radio.volume=.7;
+    let resumeLive=false;
     play.addEventListener('click',async()=>{
-      if(!radio.paused){radio.pause();return}
+      if(!radio.paused){
+        resumeLive=true;
+        radio.pause();
+        return;
+      }
       statusEl.textContent='A ligar à emissão…';
+      // Ao retomar depois de pausa, voltar ao ponto atual da emissão.
+      // No primeiro Play, aproveitar a ligação já preparada pelo navegador.
+      if(resumeLive){
+        radio.src='https://stream.rcast.net/73595?live='+Date.now();
+        resumeLive=false;
+      }
       try{await radio.play()}catch(e){statusEl.textContent='Não foi possível iniciar. Toque novamente.'}
     });
     radio.addEventListener('playing',()=>{play.classList.add('playing');eq.classList.add('active');statusEl.textContent='Emissão ao vivo'});
