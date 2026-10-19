@@ -4795,6 +4795,18 @@ async function submitOpenStageApplication(event){
  if(!form||!status)return false;
  // This feature flag remains false until public launch is explicitly approved.
  const OPEN_STAGE_SUBMISSIONS_ENABLED=false;
+ if(new URLSearchParams(location.search).get('test')==='form' && new URLSearchParams(location.search).get('preview')==='open-stage'){
+   if(!form.reportValidity())return false;
+   const values=new FormData(form);
+   if(values.get('rights_confirmed')!=='on'){status.textContent='Confirma a autorização / Please accept the rights declaration.';return false;}
+   const image=values.get('image');
+   if(image instanceof File && image.size>5*1024*1024){status.textContent='Imagem acima de 5 MB / Image exceeds 5 MB.';return false;}
+   if(image instanceof File && image.size>0 && !['image/jpeg','image/png','image/webp'].includes(image.type)){status.textContent='Formato de imagem inválido / Invalid image format.';return false;}
+   const token=window.turnstile?.getResponse?.()||'';
+   if(!token){status.textContent='Conclui a verificação Cloudflare / Complete the Cloudflare verification.';return false;}
+   status.textContent='✓ Ensaio local concluído / Local form test passed. Nenhum dado foi enviado / No data was submitted.';
+   return false;
+ }
  if(!OPEN_STAGE_SUBMISSIONS_ENABLED){
    status.textContent=form.closest('#os-dialog')?.classList.contains('os-en')?'Applications are not open yet.':'As candidaturas ainda não estão abertas.';
    return false;
@@ -4818,5 +4830,5 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Teste local: não envia dados / Local test only';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Modo de ensaio: podes preencher e validar, mas nada será enviado. / Test mode: validation only, no submission.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script></body>
 </html>
