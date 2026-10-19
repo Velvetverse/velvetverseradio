@@ -87,10 +87,14 @@
     }
     @media(max-width:350px){.brand{font-size:14px}.artist{font-size:20px}.site{font-size:8px;letter-spacing:1.5px}}
     @media(min-height:900px){.app{justify-content:center}}
+    .install-strip{display:none;width:100%;margin:0 0 12px;text-align:center}
+    .install-strip button{background:linear-gradient(90deg,#7734ea,#e500a8);color:#fff;border:1px solid #c877ff;border-radius:22px;padding:10px 18px;font-weight:800;cursor:pointer}
+    .install-strip p{font-size:12px;color:#ddd0ef;margin:7px 0 0;line-height:1.5}
   </style>
 </head>
 <body>
   <main class="app">
+    <div class="install-strip" id="installStrip"><button type="button" id="installNow">📱 Instalar VelvetVerse Radio</button><p id="installHint" aria-live="polite">Instala a rádio no teu telemóvel.</p></div>
     <div class="brand"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>VelvetVerse</span><strong>Radio</strong></div>
     <div class="live"><span class="live-dot"></span>LIVE</div>
 
@@ -137,6 +141,35 @@
 
   <audio id="radio" preload="none" src="https://stream.rcast.net/73595"></audio>
   <script>
+    // Instalação PWA: o Chrome só permite apresentar a janela após um toque do utilizador.
+    let deferredInstallPrompt=null;
+    const installStrip=document.getElementById('installStrip');
+    const installNow=document.getElementById('installNow');
+    const installHint=document.getElementById('installHint');
+    const installedMode=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+    const isAndroid=/Android/i.test(navigator.userAgent);
+    if(isAndroid && !installedMode){
+      installStrip.style.display='block';
+      installHint.textContent='Toque para instalar; confirme na janela do Chrome.';
+    }
+    window.addEventListener('beforeinstallprompt',(event)=>{
+      event.preventDefault();
+      deferredInstallPrompt=event;
+      if(isAndroid && !installedMode) installStrip.style.display='block';
+    });
+    installNow.addEventListener('click',async()=>{
+      if(deferredInstallPrompt){
+        const promptEvent=deferredInstallPrompt;
+        deferredInstallPrompt=null;
+        await promptEvent.prompt();
+        const choice=await promptEvent.userChoice;
+        if(choice.outcome==='accepted') installHint.textContent='Aguarde pela instalação da aplicação.';
+        else installHint.textContent='A instalação foi cancelada. Pode tentar novamente pelo menu do Chrome.';
+      }else{
+        installHint.textContent='No Chrome: ⋮ → Instalar e criar atalho → Instalar. Se já instalou a app, abra-a pelo ícone.';
+      }
+    });
+    window.addEventListener('appinstalled',()=>{installStrip.style.display='none';deferredInstallPrompt=null;});
     const radio = document.getElementById('radio');
     const play = document.getElementById('play');
     const statusEl = document.getElementById('status');
