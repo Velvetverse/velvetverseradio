@@ -139,7 +139,7 @@
     </section>
   </main>
 
-  <audio id="radio" preload="none" src="https://stream.rcast.net/73595"></audio>
+  <audio id="radio" preload="metadata" src="https://stream.rcast.net/73595"></audio>
   <script>
     // Instalação PWA: o Chrome só permite apresentar a janela após um toque do utilizador.
     let deferredInstallPrompt=null;
@@ -190,7 +190,6 @@
     play.addEventListener('click',async()=>{
       if(!radio.paused){radio.pause();return}
       statusEl.textContent='A ligar à emissão…';
-      radio.src='https://stream.rcast.net/73595?ts='+Date.now();
       try{await radio.play()}catch(e){statusEl.textContent='Não foi possível iniciar. Toque novamente.'}
     });
     radio.addEventListener('playing',()=>{play.classList.add('playing');eq.classList.add('active');statusEl.textContent='Emissão ao vivo'});
