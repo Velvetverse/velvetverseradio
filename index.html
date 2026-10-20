@@ -2225,7 +2225,8 @@ border-radius:0 0 16px 16px;
 #open-stage .os-card-copy b:not([hidden]),#open-stage .os-card-copy p:not([hidden]){max-width:100%}
 @media(max-width:740px){#open-stage .os-artists{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:460px){#open-stage .os-artists{grid-template-columns:1fr}}
-</style><style id="vv-home-language-css">.vv-lang-desktop{display:flex;gap:3px;padding:4px;border:1px solid #a855f7;border-radius:10px;background:#160b25;flex-shrink:0}.vv-lang-desktop button{cursor:pointer;color:#ddd;background:transparent;border:0;border-radius:7px;padding:8px 9px;font-weight:800}.vv-lang-desktop button[aria-pressed="true"]{background:#8c2ae4;color:white}@media(max-width:1450px){.vv-lang-desktop{margin-left:auto}}@media(max-width:700px){.vv-lang-desktop{padding:2px}.vv-lang-desktop button{padding:6px}}</style></head>
+</style><style id="vv-home-language-css">.vv-lang-desktop{display:flex;gap:3px;padding:4px;border:1px solid #a855f7;border-radius:10px;background:#160b25;flex-shrink:0}.vv-lang-desktop button{cursor:pointer;color:#ddd;background:transparent;border:0;border-radius:7px;padding:8px 9px;font-weight:800}.vv-lang-desktop button[aria-pressed="true"]{background:#8c2ae4;color:white}@media(max-width:1450px){.vv-lang-desktop{margin-left:auto}}@media(max-width:700px){.vv-lang-desktop{padding:2px}.vv-lang-desktop button{padding:6px}} .vv-app-lang-actions{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.vv-app-lang-actions .vv-lang-desktop{margin-left:0}@media(max-width:700px){.vv-app-lang-actions{gap:6px}}
+</style></head>
 
 <body>
 
@@ -2263,7 +2264,7 @@ border-radius:0 0 16px 16px;
 <span class="os-soon" aria-label="Open Stage em breve" title="Em breve"><span class="vv-i18n" data-pt="Open Stage · Em breve" data-en="Open Stage · Coming soon">Open Stage · Em breve</span></span>
     </nav>
 
-    <div class="vv-lang-desktop" role="group" aria-label="Idioma / Language"><button type="button" data-vv-lang="pt" aria-pressed="true">PT</button><button type="button" data-vv-lang="en" aria-pressed="false">EN</button></div>
+    
     <div class="header-actions">
       <a href="#" onclick="window.open('player.html','VelvetVersePlayer','width=784,height=508,resizable=yes,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn"><span class="vv-i18n" data-pt="◉ OUVIR EM DIRETO" data-en="◉ LISTEN LIVE">◉ OUVIR EM DIRETO</span></a>
       <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn"><span class="vv-i18n" data-pt="Conhecer VelvetVerse" data-en="Discover VelvetVerse">Conhecer VelvetVerse</span></a>
@@ -2297,7 +2298,7 @@ border-radius:0 0 16px 16px;
 
     <div class="app-access-row">
       <div class="tagline"><span class="vv-i18n" data-pt="A MÚSICA NÃO PARA" data-en="MUSIC NEVER STOPS">A MÚSICA NÃO PARA</span></div>
-      <a class="app-access-link" href="#app-install" onclick="showSection('app-install'); return false;" aria-label="Instalar app VelvetVerse Radio no Android ou iPhone">📱 App Android / iPhone</a>
+      <div class="vv-app-lang-actions"><a class="app-access-link" href="#app-install" onclick="showSection('app-install'); return false;" aria-label="Instalar app VelvetVerse Radio no Android ou iPhone">📱 App Android / iPhone</a><div class="vv-lang-desktop" role="group" aria-label="Idioma / Language"><button type="button" data-vv-lang="pt" aria-pressed="true">PT</button><button type="button" data-vv-lang="en" aria-pressed="false">EN</button></div></div>
     </div>
 
     <section class="hero-grid">
@@ -3150,8 +3151,8 @@ e deep night soundscape.
 
       <div class="footer-center">
         © 2026 VelvetVerse Radio ·
-        <a href="terms.html">Terms &amp; Conditions</a> ·
-        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html"><span class="vv-i18n" data-pt="Termos e Condições" data-en="Terms &amp; Conditions">Termos e Condições</span></a> ·
+        <a href="privacy.html"><span class="vv-i18n" data-pt="Política de Privacidade" data-en="Privacy Policy">Política de Privacidade</span></a>
       </div>
 
   <div class="footer-social">
