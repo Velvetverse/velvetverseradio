@@ -2766,24 +2766,24 @@ border-radius:0 0 16px 16px;
     <div id="gallery" class="section">
   <div class="panel">
     <div class="panel-box">
-      <h1 style="text-align:center;">Photo Gallery</h1>
+      <h1 style="text-align:center;"><span class="vv-i18n" data-pt="Galeria de Fotografias" data-en="Photo Gallery">Galeria de Fotografias</span></h1>
 
       <div class="gallery-grid">
-        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Gallery photo 1">
-        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Gallery photo 2">
-        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Gallery photo 3">
-        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Gallery photo 4">
-        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Gallery photo 5">
-        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Gallery photo 6">
-        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Gallery photo 7">
-        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Gallery photo 8">
-        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Gallery photo 9">
-        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Gallery photo 10">
+        <img src="gallery-1.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 1" data-alt-pt="Fotografia da galeria 1" data-alt-en="Gallery photo 1">
+        <img src="gallery-2.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 2" data-alt-pt="Fotografia da galeria 2" data-alt-en="Gallery photo 2">
+        <img src="gallery-3.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 3" data-alt-pt="Fotografia da galeria 3" data-alt-en="Gallery photo 3">
+        <img src="gallery-4.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 4" data-alt-pt="Fotografia da galeria 4" data-alt-en="Gallery photo 4">
+        <img src="gallery-5.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 5" data-alt-pt="Fotografia da galeria 5" data-alt-en="Gallery photo 5">
+        <img src="gallery-6.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 6" data-alt-pt="Fotografia da galeria 6" data-alt-en="Gallery photo 6">
+        <img src="gallery-7.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 7" data-alt-pt="Fotografia da galeria 7" data-alt-en="Gallery photo 7">
+        <img src="gallery-8.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 8" data-alt-pt="Fotografia da galeria 8" data-alt-en="Gallery photo 8">
+        <img src="gallery-9.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 9" data-alt-pt="Fotografia da galeria 9" data-alt-en="Gallery photo 9">
+        <img src="gallery-10.png" onclick="openLightbox(this.src)" alt="Fotografia da galeria 10" data-alt-pt="Fotografia da galeria 10" data-alt-en="Gallery photo 10">
       </div>
 
       <div id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">×</span>
-        <img id="lightbox-img" src="" alt="Expanded gallery photo">
+        <img id="lightbox-img" src="" alt="Fotografia da galeria ampliada" data-alt-pt="Fotografia da galeria ampliada" data-alt-en="Expanded gallery photo">
       </div>
 
     </div>
@@ -4870,5 +4870,5 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-alt-pt][data-alt-en]').forEach(el=>{el.alt=el.getAttribute('data-alt-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
 </html>
