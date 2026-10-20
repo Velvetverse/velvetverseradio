@@ -41,7 +41,7 @@ audio{width:100%;}
 <body>
 <div class="container">
 
-<a class="back-btn" href="index.html">← Back to VelvetVerse Radio</a>
+<a class="back-btn" href="index.html"><span class="vv-translated" data-pt="← Voltar à VelvetVerse Radio" data-en="← Back to VelvetVerse Radio">← Voltar à VelvetVerse Radio</span></a>
 
 <section class="hero">
 <img class="hero-logo" src="./inside-velvetverse-logo-v2.png">
@@ -50,22 +50,19 @@ audio{width:100%;}
 <h1>Inside VelvetVerse</h1>
 
 <p>
-O universo oficial da VelvetVerse.
-Histórias da banda, bastidores,
-entrevistas exclusivas, novos lançamentos
-e tudo o que acontece dentro da VelvetVerse Radio.
+<span class="vv-translated" data-pt="Entra no universo VelvetVerse: histórias da banda, bastidores, entrevistas exclusivas, novos lançamentos e tudo o que acontece na VelvetVerse Radio." data-en="Step inside the VelvetVerse universe: band stories, behind-the-scenes moments, exclusive interviews, new releases and everything happening at VelvetVerse Radio.">Entra no universo VelvetVerse: histórias da banda, bastidores, entrevistas exclusivas, novos lançamentos e tudo o que acontece na VelvetVerse Radio.</span>
 </p>
 
 <div class="live-info">
-📻 Todos os Sábados e Domingos • 22:00<br>
-🎙️ Exclusivo VelvetVerse Radio
+<span class="vv-translated" data-pt="📻 Sábados e domingos • 22:00" data-en="📻 Saturdays and Sundays • 22:00">📻 Sábados e domingos • 22:00</span><br>
+<span class="vv-translated" data-pt="🎙️ Exclusivo VelvetVerse Radio" data-en="🎙️ Exclusively on VelvetVerse Radio">🎙️ Exclusivo VelvetVerse Radio</span>
 </div>
 
 <div class="host">
 <img src="./rui-freitas-profile-v2.png">
 <div class="host-info">
 <strong>Rui Freitas</strong>
-<span>Host • Inside VelvetVerse</span>
+<span><span class="vv-translated" data-pt="Apresentador • Inside VelvetVerse" data-en="Host • Inside VelvetVerse">Apresentador • Inside VelvetVerse</span></span>
 </div>
 </div>
 
@@ -76,13 +73,10 @@ e tudo o que acontece dentro da VelvetVerse Radio.
 <img class="player-cover" id="mainCover" src="./velvetverse-band-logo-v2.png">
 
 <div class="player-content">
-<h2 id="mainTitle">Episode 01 — Origem da Banda</h2>
+<h2 id="mainTitle"><span class="vv-translated" data-pt="Episódio 01 — Origem da Banda" data-en="Episode 01 — The Band's Origins">Episódio 01 — Origem da Banda</span></h2>
 
 <p id="mainDescription">
-A verdadeira origem da VelvetVerse,
-como tudo começou,
-as primeiras ideias,
-os músicos e o nascimento da banda.
+<span class="vv-translated" data-pt="A verdadeira origem da VelvetVerse: como tudo começou, as primeiras ideias, os músicos e o nascimento da banda." data-en="Discover the true origins of VelvetVerse: where it all began, the first ideas, the musicians and the birth of the band.">A verdadeira origem da VelvetVerse: como tudo começou, as primeiras ideias, os músicos e o nascimento da banda.</span>
 </p>
 
 <audio id="mainPlayer" controls>
@@ -91,23 +85,23 @@ os músicos e o nascimento da banda.
 </div>
 </section>
 
-<h2 class="section-title">Arquivo VelvetVerse</h2>
+<h2 class="section-title"><span class="vv-translated" data-pt="Arquivo VelvetVerse" data-en="VelvetVerse Archive">Arquivo VelvetVerse</span></h2>
 
 <section class="story-list">
 
 <div class="story-card" onclick="changeStory('./velvetverse-band-logo-v2.png','Episode 01 — Origem da Banda','A verdadeira origem da VelvetVerse, como tudo começou, as primeiras ideias, os músicos e o nascimento da banda.','./Episode 01 - Origem da Banda.mp3')">
 <img src="./velvetverse-band-logo-v2.png">
 <div class="story-card-content">
-<h3>Origem da Banda</h3>
-<p>Como nasceu o universo VelvetVerse.</p>
+<h3 class="vv-translated" data-pt="Origem da Banda" data-en="The Band's Origins">Origem da Banda</h3>
+<p class="vv-translated" data-pt="Como nasceu o universo VelvetVerse." data-en="How the VelvetVerse universe began.">Como nasceu o universo VelvetVerse.</p>
 </div>
 </div>
 
 <div class="story-card" onclick="changeStory('./logo.png','Episode 02 — Origem da Radio','Como nasceu a VelvetVerse Radio, os desafios, as ideias e o conceito por trás da rádio.','./Episode 02 - Origem da Radio.mp3')">
 <img src="./logo.png">
 <div class="story-card-content">
-<h3>Origem da Radio</h3>
-<p>Os bastidores da criação da rádio.</p>
+<h3 class="vv-translated" data-pt="Origem da Rádio" data-en="The Radio's Origins">Origem da Rádio</h3>
+<p class="vv-translated" data-pt="Os bastidores da criação da rádio." data-en="The story behind creating the radio station.">Os bastidores da criação da rádio.</p>
 </div>
 </div>
 
@@ -124,5 +118,17 @@ document.getElementById("mainPlayer").load();
 }
 </script>
 
+<script id="vv-inside-language">(function(){
+const episodes={
+"01":{ptTitle:"Episódio 01 — Origem da Banda",enTitle:"Episode 01 — The Band's Origins",ptDesc:"A verdadeira origem da VelvetVerse, como tudo começou, as primeiras ideias, os músicos e o nascimento da banda.",enDesc:"Discover the true origins of VelvetVerse: where it all began, the first ideas, the musicians and the birth of the band."},
+"02":{ptTitle:"Episódio 02 — Origem da Rádio",enTitle:"Episode 02 — The Radio's Origins",ptDesc:"Como nasceu a VelvetVerse Radio, os desafios, as ideias e o conceito por trás da rádio.",enDesc:"How VelvetVerse Radio came to life: the challenges, the ideas and the vision behind the station."}
+};
+function language(){try{return localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){return 'pt'}}
+let selected='01';
+function update(){const en=language()==='en',e=episodes[selected];document.documentElement.lang=en?'en':'pt';document.querySelectorAll('.vv-translated').forEach(el=>el.textContent=el.dataset[en?'en':'pt']);document.getElementById('mainTitle').textContent=en?e.enTitle:e.ptTitle;document.getElementById('mainDescription').textContent=en?e.enDesc:e.ptDesc;}
+const original=window.changeStory;
+window.changeStory=function(cover,title,description,audio){selected=title.includes('02')?'02':'01';original(cover,title,description,audio);update();};
+update();
+})();</script>
 </body>
 </html>
