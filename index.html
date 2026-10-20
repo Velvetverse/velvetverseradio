@@ -4174,6 +4174,7 @@ loadApprovedComments();
   const requestsList =
     document.getElementById('request-list');
 
+  const vvReqT = (pt,en) => window.vvCurrentSiteLang === 'en' ? en : pt;
   const requestsMaxPerSunday = 12;
   let requestsAreClosed = false;
   const requestsClosedNotice = document.createElement('div');
@@ -4185,15 +4186,15 @@ loadApprovedComments();
   function requestsUpdateCapacity(count) {
     requestsAreClosed = count >= requestsMaxPerSunday;
     requestsSubmitButton.disabled = requestsAreClosed;
+    const en = window.vvCurrentSiteLang === 'en';
     requestsSubmitButton.innerHTML = requestsAreClosed
-      ? '<span>🔒</span> Pedidos encerrados para este domingo<span class="requests-en-button" lang="en">Requests closed for this Sunday</span>'
-      : '<span>➤</span> Enviar Pedido<span class="requests-en-button" lang="en">Send request</span>';
+      ? '<span>🔒</span> ' + vvReqT('Pedidos encerrados para este domingo','Requests closed for this Sunday')
+      : '<span>➤</span> ' + vvReqT('Enviar pedido','Send request');
     requestsClosedNotice.style.display = requestsAreClosed ? 'block' : 'none';
     requestsClosedNotice.innerHTML = requestsAreClosed
-      ? '<strong>Obrigado pela vossa participação!</strong><div style="margin-top:6px">Já atingimos o limite máximo de 12 pedidos para este domingo! 💜</div><div style="margin-top:6px;font-weight:400">As inscrições estão temporariamente encerradas, mas voltam a abrir na próxima semana. Contamos contigo!</div><div class="requests-en-closed" lang="en">Thank you for your participation!<br>We have reached the maximum of 12 requests for this Sunday! 💜<br>Requests are temporarily closed and will reopen next week. We look forward to hearing from you!</div>'
-      : '';
+      ? (en ? '<strong>Thank you for taking part!</strong><div style="margin-top:6px">We have reached the limit of 12 requests for this Sunday! 💜</div><div style="margin-top:6px;font-weight:400">Requests are temporarily closed and will reopen next week.</div>'
+      : '<strong>Obrigado pela vossa participação!</strong><div style="margin-top:6px">Já atingimos o limite máximo de 12 pedidos para este domingo! 💜</div><div style="margin-top:6px;font-weight:400">Os pedidos estão temporariamente encerrados e voltam a abrir na próxima semana.</div>') : '';
   }
-
 
   async function requestsCallSupabase(functionName, body = {}) {
 
@@ -4249,7 +4250,7 @@ loadApprovedComments();
       new Date(`${dateText}T12:00:00`);
 
     return date.toLocaleDateString(
-      'pt-PT',
+      window.vvCurrentSiteLang === 'en' ? 'en-CA' : 'pt-PT',
       {
         day: 'numeric',
         month: 'long',
@@ -4268,10 +4269,8 @@ loadApprovedComments();
           'next_request_sunday'
         );
 
-      document
-        .getElementById('target-sunday-label')
-        .textContent =
-          requestsFormatSunday(targetSunday);
+      document.getElementById('target-sunday-label').dataset.dateIso = targetSunday;
+      document.getElementById('target-sunday-label').textContent = requestsFormatSunday(targetSunday);
 
     } catch (error) {
 
@@ -4286,7 +4285,7 @@ loadApprovedComments();
   async function requestsLoadSongs() {
 
     requestsList.innerHTML =
-      '<div class="requests-empty-state">A carregar a lista de músicas...</div>';
+      '<div class="requests-empty-state">' + vvReqT('A carregar a lista de músicas...','Loading requested songs...') + '</div>';
 
     try {
 
@@ -4301,7 +4300,7 @@ loadApprovedComments();
       if (!songs.length) {
 
         requestsList.innerHTML =
-          '<div class="requests-empty-state">Ainda não existem músicas pedidas para este domingo.</div>';
+          '<div class="requests-empty-state">' + vvReqT('Ainda não existem músicas pedidas para este domingo.','No songs have been requested for this Sunday yet.') + '</div>';
 
         return;
       }
@@ -4364,7 +4363,7 @@ loadApprovedComments();
       );
 
       requestsList.innerHTML =
-        '<div class="requests-empty-state">Não foi possível carregar a lista. Tenta novamente dentro de momentos.</div>';
+        '<div class="requests-empty-state">' + vvReqT('Não foi possível carregar a lista. Tenta novamente dentro de momentos.','Unable to load the list. Please try again shortly.') + '</div>';
     }
   }
 
@@ -4383,7 +4382,7 @@ loadApprovedComments();
       requestsSubmitButton.disabled = true;
 
       requestsSubmitButton.innerHTML =
-        '<span>◌</span> A enviar...';
+        '<span>◌</span> ' + vvReqT('A enviar...','Sending...');
 
 
       const formData =
@@ -4441,14 +4440,14 @@ loadApprovedComments();
         );
 
         requestsShowMessage(
-          'Não foi possível enviar o pedido. Tenta novamente dentro de momentos.'
+          vvReqT('Não foi possível enviar o pedido. Tenta novamente dentro de momentos.','Unable to send your request. Please try again shortly.')
         );
 
 
       } finally {
         if (!requestsAreClosed) {
           requestsSubmitButton.disabled = false;
-          requestsSubmitButton.innerHTML = '<span>➤</span> Enviar Pedido';
+          requestsSubmitButton.innerHTML = '<span>➤</span> ' + vvReqT('Enviar pedido','Send request');
         }
       }
     }
@@ -4854,5 +4853,5 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;if(typeof window.vvRefreshRequestsLanguage==='function')window.vvRefreshRequestsLanguage();document.body.classList.toggle('vv-site-en',lang==='en');if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-alt-pt][data-alt-en]').forEach(el=>{el.alt=el.getAttribute('data-alt-'+lang)});document.querySelectorAll('[data-placeholder-pt][data-placeholder-en]').forEach(el=>{el.placeholder=el.getAttribute('data-placeholder-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script><script id="vv-requests-language-js">(function(){const request=document.getElementById('requests');if(!request)return;window.vvRefreshRequestsLanguage=function(){const en=window.vvCurrentSiteLang==='en';const sunday=document.getElementById('target-sunday-label');if(sunday&&sunday.dataset.dateIso){sunday.textContent=new Date(sunday.dataset.dateIso+'T12:00:00').toLocaleDateString(en?'en-CA':'pt-PT',{day:'numeric',month:'long',timeZone:'America/Toronto'});}const submit=request.querySelector('.requests-submit');if(submit&&!submit.disabled)submit.innerHTML='<span>➤</span> '+(en?'Send request':'Enviar pedido');};})();</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;if(typeof window.vvRefreshRequestsLanguage==='function')window.vvRefreshRequestsLanguage();document.body.classList.toggle('vv-site-en',lang==='en');if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-alt-pt][data-alt-en]').forEach(el=>{el.alt=el.getAttribute('data-alt-'+lang)});document.querySelectorAll('[data-placeholder-pt][data-placeholder-en]').forEach(el=>{el.placeholder=el.getAttribute('data-placeholder-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script><script id="vv-requests-language-js">(function(){const request=document.getElementById('requests');if(!request)return;window.vvRefreshRequestsLanguage=function(){const en=window.vvCurrentSiteLang==='en';const sunday=document.getElementById('target-sunday-label');if(sunday&&sunday.dataset.dateIso){sunday.textContent=new Date(sunday.dataset.dateIso+'T12:00:00').toLocaleDateString(en?'en-CA':'pt-PT',{day:'numeric',month:'long',timeZone:'America/Toronto'});}const submit=request.querySelector('.requests-submit');if(submit&&!submit.disabled)submit.innerHTML='<span>➤</span> '+(en?'Send request':'Enviar pedido');};window.vvRefreshRequestsLanguage();})();</script></body>
 </html>
