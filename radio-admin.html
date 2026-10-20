@@ -14,7 +14,7 @@ const date=v=>v?new Date(v).toLocaleString('pt-PT'):'—';
 const songNames=new Map();
 function editionLabel(raw){
  const test=raw.startsWith('TEST_');
- const match=raw.match(/(?:^|TEST_)(\\d{4})-(\\d{2})-(\\d{2})_/);
+ const match=raw.match(/(?:^|TEST_)([0-9]{4})-([0-9]{2})-([0-9]{2})_/);
  if(!match)return (test?'Teste · ':'')+'Edição sem data identificada';
  const d=new Date(match[1]+'-'+match[2]+'-'+match[3]+'T12:00:00Z');
  return (test?'Teste · ':'')+'Edição de '+new Intl.DateTimeFormat('pt-PT',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(d);
