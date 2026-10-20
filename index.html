@@ -2879,26 +2879,26 @@ border-radius:0 0 16px 16px;
    <div id="comments" class="section">
     <div class="panel">
       <div class="panel-box">
-        <h1>Comments</h1>
+        <h1><span class="vv-i18n" data-pt="Comentários" data-en="Comments">Comentários</span></h1>
 
-        <h2>Leave a Comment</h2>
-        <p>Comments are reviewed before being published on this page.</p>
+        <h2><span class="vv-i18n" data-pt="Deixa o teu comentário" data-en="Leave a Comment">Deixa o teu comentário</span></h2>
+        <p><span class="vv-i18n" data-pt="Os comentários são analisados antes de serem publicados nesta página." data-en="Comments are reviewed before appearing on this page.">Os comentários são analisados antes de serem publicados nesta página.</span></p>
 
       <form class="contact-form" id="comments-form">
           
 
-          <input type="text" name="name" placeholder="Your Name" required>
-          <input type="url" name="photo" placeholder="Profile Photo Link (optional)">
-          <textarea name="comment" placeholder="Your Comment" required></textarea>
+          <input type="text" name="name" placeholder="O teu nome" data-placeholder-pt="O teu nome" data-placeholder-en="Your Name" required>
+          <input type="url" name="photo" placeholder="Ligação para fotografia de perfil (opcional)" data-placeholder-pt="Ligação para fotografia de perfil (opcional)" data-placeholder-en="Profile Photo Link (optional)">
+          <textarea name="comment" placeholder="O teu comentário" data-placeholder-pt="O teu comentário" data-placeholder-en="Your Comment" required></textarea>
 
-          <button type="submit">Send Comment</button>
-        <p id="comment-form-message" class="comment-note"></p><p style="margin:10px 0 0;color:#c9bfd6;font-size:12px;line-height:1.6">Your name, comment and optional linked photo may be published after review. By submitting, you agree to the <a href="privacy.html" target="_blank" rel="noopener noreferrer" style="color:#d8a6ff;text-decoration:underline">Privacy Policy</a> and <a href="terms.html" target="_blank" rel="noopener noreferrer" style="color:#d8a6ff;text-decoration:underline">Terms &amp; Conditions</a>.</p>
+          <button type="submit"><span class="vv-i18n" data-pt="Enviar comentário" data-en="Send Comment">Enviar comentário</span></button>
+        <p id="comment-form-message" class="comment-note"></p><p style="margin:10px 0 0;color:#c9bfd6;font-size:12px;line-height:1.6"><span class="vv-i18n" data-pt="O teu nome, comentário e eventual fotografia poderão ser publicados após análise. Ao enviares, aceitas a " data-en="Your name, comment and optional linked photo may be published after review. By submitting, you agree to the ">O teu nome, comentário e eventual fotografia poderão ser publicados após análise. Ao enviares, aceitas a </span><a href="privacy.html" target="_blank" rel="noopener noreferrer" style="color:#d8a6ff;text-decoration:underline"><span class="vv-i18n" data-pt="Política de Privacidade" data-en="Privacy Policy">Política de Privacidade</span></a> and <a href="terms.html" target="_blank" rel="noopener noreferrer" style="color:#d8a6ff;text-decoration:underline"><span class="vv-i18n" data-pt="Termos e Condições" data-en="Terms &amp; Conditions">Termos e Condições</span></a>.</p>
         </form>
 
        <div style="height:22px;"></div><hr>
       
 
-        <h2>Approved Comments</h2>
+        <h2><span class="vv-i18n" data-pt="Comentários aprovados" data-en="Approved Comments">Comentários aprovados</span></h2>
 
         <div class="approved-comments" id="approved-comments">
 
@@ -2906,7 +2906,7 @@ border-radius:0 0 16px 16px;
             <img src="lurdes-ribeiro.png" alt="Lurdes Ribeiro">
             <div class="comment-content">
               <strong>Lurdes Ribeiro</strong>
-              <div class="comment-date">April 2026</div>
+              <div class="comment-date"><span class="vv-i18n" data-pt="Abril de 2026" data-en="April 2026">Abril de 2026</span></div>
               <p>Uma rádio com muito bom gosto, excelente energia e uma seleção musical que dá mesmo vontade de continuar a ouvir. Parabéns à VelvetVerse Radio!</p>
             </div>
           </div>
@@ -2915,7 +2915,7 @@ border-radius:0 0 16px 16px;
             <img src="https://ui-avatars.com/api/?name=Liam+Thompson&background=0b0b0f&color=a855f7" alt="Liam Thompson">
             <div class="comment-content">
               <strong>Liam Thompson</strong>
-              <div class="comment-date">April 2026</div>
+              <div class="comment-date"><span class="vv-i18n" data-pt="Abril de 2026" data-en="April 2026">Abril de 2026</span></div>
               <p>Great sound, beautiful vibe and a very professional radio experience. VelvetVerse Radio has a unique identity. Keep it going!</p>
             </div>
           </div>
@@ -2926,7 +2926,7 @@ border-radius:0 0 16px 16px;
             <img src="https://ui-avatars.com/api/?name=Maria+Silva&background=0b0b0f&color=a855f7" alt="Maria Silva">
             <div class="comment-content">
               <strong>Maria Silva</strong>
-              <div class="comment-date">April 2026</div>
+              <div class="comment-date"><span class="vv-i18n" data-pt="Abril de 2026" data-en="April 2026">Abril de 2026</span></div>
               <p>Adoro esta rádio! Excelente som e muita boa energia.</p>
             </div>
           </div>
@@ -4013,7 +4013,7 @@ commentsForm.addEventListener('submit', async function(event){
     comment: formData.get('comment').trim()
   };
 
-  commentFormMessage.textContent = 'Sending comment...';
+  commentFormMessage.textContent = (window.vvCurrentSiteLang === 'en' ? 'Sending comment...' : 'A enviar comentário...');
 
   try{
     const response = await fetch(`${COMMENTS_SUPABASE_URL}/rest/v1/comments`, {
@@ -4031,10 +4031,10 @@ commentsForm.addEventListener('submit', async function(event){
     }
 
     commentsForm.reset();
-    commentFormMessage.textContent = 'Thank you! Your comment has been sent for approval.';
+    commentFormMessage.textContent = (window.vvCurrentSiteLang === 'en' ? 'Thank you! Your comment has been sent for approval.' : 'Obrigado! O teu comentário foi enviado para aprovação.');
   }catch(error){
     console.error('Comment submission error:', error);
-    commentFormMessage.textContent = 'Sorry, your comment could not be sent. Please try again.';
+    commentFormMessage.textContent = (window.vvCurrentSiteLang === 'en' ? 'Sorry, your comment could not be sent. Please try again.' : 'Não foi possível enviar o comentário. Tenta novamente.');
   }
 });
   
