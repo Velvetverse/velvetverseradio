@@ -220,7 +220,7 @@ width:100%;
 
 }
 
-.vv-podcast-languages{display:inline-flex;gap:6px;margin-left:12px;border:1px solid #c58b45;border-radius:12px;padding:5px}.vv-podcast-languages button{border:0;background:#181818;color:#fff;border-radius:7px;padding:9px 13px;font-weight:bold;cursor:pointer}.vv-podcast-languages button[aria-pressed="true"]{background:#c58b45;color:#111}</style>
+</style>
 </head>
 
 <body>
@@ -486,10 +486,7 @@ function refresh(){const l=lang();document.documentElement.lang=l;document.query
 const originalChange=window.changeStory;
 window.changeStory=function(cover,title,description,audio){currentTitle=title;currentPt=description;originalChange(cover,title,description,audio);refresh()};
 const reset=document.querySelector('.reset-btn');if(reset)reset.addEventListener('click',()=>{});
-const controls=document.createElement('div');controls.className='vv-podcast-languages';controls.innerHTML='<button type="button" data-language="pt">PT</button><button type="button" data-language="en">EN</button>';document.querySelector('.back-btn').after(controls);
-controls.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>{try{localStorage.setItem('vv_site_lang',button.dataset.language)}catch(e){}refresh();state()}));
-function state(){controls.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.language===lang())))}
-refresh();state();
+refresh();
 })();
 </script></body>
 </html>
