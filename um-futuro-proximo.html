@@ -237,7 +237,7 @@ width:100%;
 <div class="container">
 
 <a class="back-btn" href="index.html">
-← Back to VelvetVerse Radio
+<span class="vv-podcast-tr" data-pt="← Voltar à VelvetVerse Radio" data-en="← Back to VelvetVerse Radio">← Voltar à VelvetVerse Radio</span>
 </a>
 
 <section class="hero">
@@ -250,17 +250,12 @@ alt="Um Futuro Próximo">
 
 <h1>Um Futuro Próximo</h1>
 
-<p>
-Uma viagem pelas mudanças que podem estar mais perto do que imaginamos.
-Tecnologia, cidades, trabalho, hábitos e novas formas de viver, explicados
-de forma simples e com base em tendências reais e cenários possíveis.
-Uma rubrica apresentada por Rui Freitas.
-</p>
+<p><span class="vv-podcast-tr" data-pt="Uma viagem pelas mudanças que podem estar mais perto do que imaginamos. Tecnologia, cidades, trabalho, hábitos e novas formas de viver, explicados de forma simples com base em tendências reais e cenários possíveis. Uma rubrica apresentada por Rui Freitas." data-en="Explore changes that may be closer than we think. Technology, cities, work, everyday habits and new ways of living, explained through real trends and plausible futures. Presented by Rui Freitas.">Uma viagem pelas mudanças que podem estar mais perto do que imaginamos. Tecnologia, cidades, trabalho, hábitos e novas formas de viver, explicados de forma simples com base em tendências reais e cenários possíveis. Uma rubrica apresentada por Rui Freitas.</span></p>
 
 <div class="live-info">
 
-📻 Domingos alternados • 10:00 — hora de Toronto<br>
-🎙️ Exclusivo VelvetVerse Radio
+<span class="vv-podcast-tr" data-pt="📻 Domingos alternados • 10:00 — hora de Toronto" data-en="📻 Alternate Sundays • 10:00 — Toronto time">📻 Domingos alternados • 10:00 — hora de Toronto</span><br>
+<span class="vv-podcast-tr" data-pt="🎙️ Exclusivo VelvetVerse Radio" data-en="🎙️ Exclusively on VelvetVerse Radio">🎙️ Exclusivo VelvetVerse Radio</span>
 
 </div>
 
@@ -270,7 +265,7 @@ Uma rubrica apresentada por Rui Freitas.
 
 <div class="host-info">
 <strong>Rui Freitas</strong>
-<span>Host • Um Futuro Próximo</span>
+<span><span class="vv-podcast-tr" data-pt="Apresentador • Um Futuro Próximo" data-en="Host • Um Futuro Próximo">Apresentador • Um Futuro Próximo</span></span>
 </div>
 
 </div>
@@ -289,16 +284,15 @@ alt="Um Futuro Próximo">
 <div class="player-content">
 
 <h2 id="mainTitle">
-Episódio 01 — Em preparação
+<span class="vv-podcast-tr" data-pt="Episódio 01 — Em preparação" data-en="Episode 01 — In preparation">Episódio 01 — Em preparação</span>
 </h2>
 
 <p id="mainDescription">
-O primeiro episódio de “Um Futuro Próximo” está em preparação.
-Aqui ficará sempre o episódio mais recente da rubrica, com os anteriores guardados no arquivo abaixo.
+<span class="vv-podcast-tr" data-pt="O primeiro episódio de “Um Futuro Próximo” está em preparação. Aqui ficará o episódio mais recente, com os anteriores disponíveis no arquivo." data-en="The first episode of “Um Futuro Próximo” is in preparation. The latest episode will appear here, with earlier episodes saved in the archive.">O primeiro episódio de “Um Futuro Próximo” está em preparação. Aqui ficará o episódio mais recente, com os anteriores disponíveis no arquivo.</span>
 </p>
 
 <div class="coming-soon">
-🎙️ Primeiro episódio em breve na VelvetVerse Radio.
+<span class="vv-podcast-tr" data-pt="🎙️ Primeiro episódio em breve na VelvetVerse Radio." data-en="🎙️ First episode coming soon to VelvetVerse Radio.">🎙️ Primeiro episódio em breve na VelvetVerse Radio.</span>
 </div>
 
 </div>
@@ -306,14 +300,13 @@ Aqui ficará sempre o episódio mais recente da rubrica, com os anteriores guard
 </section>
 
 <h2 class="section-title">
-Arquivo Um Futuro Próximo
+<span class="vv-podcast-tr" data-pt="Arquivo Um Futuro Próximo" data-en="Um Futuro Próximo Archive">Arquivo Um Futuro Próximo</span>
 </h2>
 
 <section class="story-list" id="archiveList">
 
 <div class="coming-soon">
-Ainda não existem episódios anteriores no arquivo.
-Assim que o Episódio 02 for publicado, o Episódio 01 passa para esta zona.
+<span class="vv-podcast-tr" data-pt="Ainda não existem episódios anteriores no arquivo. Assim que o Episódio 02 for publicado, o Episódio 01 ficará aqui disponível." data-en="There are no earlier episodes in the archive yet. Once Episode 02 is released, Episode 01 will be available here.">Ainda não existem episódios anteriores no arquivo. Assim que o Episódio 02 for publicado, o Episódio 01 ficará aqui disponível.</span>
 </div>
 
 </section>
@@ -340,5 +333,5 @@ player.load();
 
 </script>
 
-</body>
+<script id="vv-podcast-language">(function(){let l='pt';try{l=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}document.documentElement.lang=l;document.querySelectorAll('.vv-podcast-tr').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});})();</script></body>
 </html>
