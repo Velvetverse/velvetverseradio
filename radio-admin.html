@@ -13,11 +13,12 @@ function p(v){return node('p',v)}function detail(label,value){const el=node('spa
 const date=v=>v?new Date(v).toLocaleString('pt-PT'):'—';
 const songNames=new Map();
 function editionLabel(raw){
- const test=raw.startsWith('TEST_');
- const match=raw.match(/(?:^|TEST_)([0-9]{4})-([0-9]{2})-([0-9]{2})_/);
- if(!match)return (test?'Teste · ':'')+'Edição sem data identificada';
- const d=new Date(match[1]+'-'+match[2]+'-'+match[3]+'T12:00:00Z');
- return (test?'Teste · ':'')+'Edição de '+new Intl.DateTimeFormat('pt-PT',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(d);
+ const source=String(raw||'');
+ const test=source.startsWith('TEST_');
+ const datePart=(test?source.slice(5):source).split('_')[0];
+ const parsed=new Date(datePart+'T12:00:00Z');
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(datePart)||Number.isNaN(parsed.getTime())) return (test?'Teste · ':'')+'Edição '+source;
+ return (test?'Teste · ':'')+'Edição de '+new Intl.DateTimeFormat('pt-PT',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}).format(parsed);
 }
 function songLabel(id){const item=songNames.get(String(id));return item?item:'Música Apple Music #'+id;}
 async function loadSongNames(){
