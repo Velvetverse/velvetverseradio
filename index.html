@@ -4487,56 +4487,64 @@ const velvetSchedule = [
     end: 420,
     time: "03:00 - 07:00",
     name: "Midnight Flow 🌙",
-    desc: "Música para atravessar a madrugada."
+    desc: "Música para atravessar a madrugada.",
+    descEn: "Music to carry you through the night."
   },
   {
     start: 420,
     end: 600,
     time: "07:00 - 10:00",
     name: "Ritmo Latino 🔥",
-    desc: "Adrian Vega (Noia) — ¡Empieza tu día con energía y ritmo latino!"
+    desc: "Adrian Vega (Noia) — ¡Empieza tu día con energía y ritmo latino!",
+    descEn: "Adrian Vega (Noia) — Start your day with the energy of Latin rhythms!"
   },
   {
     start: 600,
     end: 780,
     time: "10:00 - 13:00",
     name: "Alma Portuguesa 🇵🇹",
-    desc: "Suzy Mendes — Música portuguesa com alma e emoção."
+    desc: "Suzy Mendes — Música portuguesa com alma e emoção.",
+    descEn: "Suzy Mendes — Portuguese music filled with heart and soul."
   },
   {
     start: 780,
     end: 960,
     time: "13:00 - 16:00",
     name: "Corações & Memórias ❤️",
-    desc: "Carlos — Canções que ficam no coração e na memória."
+    desc: "Carlos — Canções que ficam no coração e na memória.",
+    descEn: "Carlos — Songs that stay in your heart and memory."
   },
   {
     start: 960,
     end: 1140,
     time: "16:00 - 19:00",
     name: "Coração Brasileiro 🇧🇷",
-    desc: "Lara Ingrid — O melhor da música brasileira."
+    desc: "Lara Ingrid — O melhor da música brasileira.",
+    descEn: "Lara Ingrid — The best of Brazilian music."
   },
   {
     start: 1140,
     end: 1260,
     time: "19:00 - 21:00",
     name: "Rock Sem Limites ⚡",
-    desc: "Beto Sousa — Rock sem fronteiras e sem limites."
+    desc: "Beto Sousa — Rock sem fronteiras e sem limites.",
+    descEn: "Beto Sousa — Rock without borders or limits."
   },
   {
     start: 1260,
     end: 1380,
     time: "21:00 - 23:00",
     name: "The Sound of VelvetVerse 🎙️",
-    desc: "Rui Freitas — Duas horas dedicadas à música da VelvetVerse Band."
+    desc: "Rui Freitas — Duas horas dedicadas à música da VelvetVerse Band.",
+    descEn: "Rui Freitas — Two hours celebrating the music of VelvetVerse Band."
   },
   {
     start: 1380,
     end: 1620,
     time: "23:00 - 03:00",
     name: "Velvet After Dark 🌌",
-    desc: "A banda sonora perfeita para depois da meia-noite."
+    desc: "A banda sonora perfeita para depois da meia-noite.",
+    descEn: "The perfect soundtrack for after midnight."
   }
 ];
 
@@ -4585,7 +4593,7 @@ function updateDynamicSchedule() {
       <div class="schedule-time">${program.time}</div>
       <div>
         <div class="schedule-name">${program.name}</div>
-        <div class="schedule-desc">${program.desc}</div>
+        <div class="schedule-desc">${(window.vvCurrentSiteLang === "en" ? program.descEn : program.desc)}</div>
       </div>
     `;
 
@@ -4865,5 +4873,5 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
 </html>
