@@ -2225,6 +2225,33 @@ border-radius:0 0 16px 16px;
 #open-stage .os-card-copy b:not([hidden]),#open-stage .os-card-copy p:not([hidden]){max-width:100%}
 @media(max-width:740px){#open-stage .os-artists{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:460px){#open-stage .os-artists{grid-template-columns:1fr}}
+</style><style id="vv-bilingual-navigation">
+.vv-navigation-controls{display:flex;align-items:center;gap:8px;margin-left:auto}
+.vv-lang-label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+#vvLanguage,.vv-menu-toggle{background:#170d27;color:#fff;border:1px solid #a855f7;border-radius:9px;font-weight:700;min-height:42px}
+#vvLanguage{padding:0 9px;cursor:pointer}
+.vv-menu-toggle{display:none;font-size:24px;width:48px;cursor:pointer}
+@media(min-width:1451px){.vv-navigation-controls{margin-left:6px}}
+@media(max-width:1450px){
+.top-header{gap:10px}
+.vv-navigation-controls{margin-left:auto}
+.vv-menu-toggle{display:inline-flex;align-items:center;justify-content:center}
+.main-nav{display:none!important;position:absolute;top:100%;left:12px;right:12px;max-height:calc(100dvh - 105px);overflow-y:auto;flex-direction:column;align-items:stretch;gap:5px;padding:14px;border:1px solid #a855f7;border-radius:0 0 14px 14px;background:#120b20;box-shadow:0 20px 40px #000b;z-index:10001}
+.main-nav.vv-open{display:flex!important}
+.main-nav a,.main-nav .dropbtn{width:100%;display:block;text-align:left;padding:12px 14px;font-size:15px}
+.main-nav .dropdown{width:100%}
+.main-nav .dropdown-content{position:static;display:none;box-shadow:none;border:0;background:#1c1030;margin:5px 0 0;padding:5px;border-radius:8px}
+.main-nav .dropdown.vv-expanded .dropdown-content{display:block}
+.main-nav .os-soon{display:block;padding:12px 14px;opacity:.7}
+}
+@media(max-width:700px){
+.top-header .header-actions{gap:5px}
+.top-header .listen-btn{font-size:11px;padding:9px 10px}
+.top-header .brand-text h1{font-size:16px}
+#vvLanguage{padding:0 5px;min-height:39px}
+.vv-menu-toggle{width:40px;min-height:39px}
+}
+@media(max-width:390px){.top-header .header-actions .listen-btn{font-size:0;padding:9px 10px}.top-header .header-actions .listen-btn:after{content:'▶';font-size:18px}}
 </style></head>
 
 <body>
@@ -2240,18 +2267,18 @@ border-radius:0 0 16px 16px;
       </div>
     </div>
 
-    <nav class="main-nav">
-      <a href="#" onclick="showSection('home', this); return false;" class="active">Home</a>
-      <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
+    <nav class="main-nav" id="vvMainNav" aria-label="Navegação principal">
+      <a href="#" onclick="showSection('home', this); return false;" class="active" data-pt="Início" data-en="Home">Início</a>
+      <a href="#" onclick="showSection('schedule', this); return false;" data-pt="Programação" data-en="Schedule">Programação</a>
       <a href="#" onclick="showSection('top5latino', this); return false;">Top 5 Latino</a>
-      <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
-      <a href="#" onclick="showSection('about', this); return false;">About</a>
-      <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
-      <a href="#" onclick="showSection('comments', this); return false;">Comments</a>
+      <a href="#" onclick="showSection('gallery', this); return false;" data-pt="Galeria" data-en="Gallery">Galeria</a>
+      <a href="#" onclick="showSection('about', this); return false;" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</a>
+      <a href="#" onclick="showSection('contact', this); return false;" data-pt="Contactos" data-en="Contact">Contactos</a>
+      <a href="#" onclick="showSection('comments', this); return false;" data-pt="Comentários" data-en="Comments">Comentários</a>
       <div class="dropdown">
-  <button class="dropbtn">Podcasts</button>
+  <button class="dropbtn" type="button" aria-expanded="false" aria-controls="vvPodcastLinks">Podcasts <span aria-hidden="true">▾</span></button>
 
-  <div class="dropdown-content">
+  <div class="dropdown-content" id="vvPodcastLinks">
     <a href="backstage-legends.html">Backstage Legends</a>
     <a href="inside-velvetverse.html">Inside VelvetVerse</a>
     <a href="brasil-de-norte-a-sul.html">Brasil de Norte a Sul</a>
@@ -2259,10 +2286,11 @@ border-radius:0 0 16px 16px;
     <a href="um-futuro-proximo.html">Um Futuro Próximo</a>
   </div>
 </div>
-      <a href="#" onclick="showSection('requests', this); return false;">Discos Pedidos</a>
+      <a href="#" onclick="showSection('requests', this); return false;" data-pt="Discos Pedidos" data-en="Song Requests">Discos Pedidos</a>
 <span class="os-soon" aria-label="Open Stage em breve" title="Em breve">Open Stage · Em breve</span>
     </nav>
 
+    <div class="vv-navigation-controls"><label class="vv-lang-label" for="vvLanguage">Idioma</label><select id="vvLanguage" aria-label="Escolher idioma"><option value="pt">PT</option><option value="en">EN</option></select><button id="vvMenuToggle" class="vv-menu-toggle" type="button" aria-label="Abrir menu" aria-controls="vvMainNav" aria-expanded="false">☰</button></div>
     <div class="header-actions">
       <a href="#" onclick="window.open('player.html','VelvetVersePlayer','width=784,height=508,resizable=yes,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn">◉ LISTEN LIVE</a>
       <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn">Discover VelvetVerse</a>
@@ -4863,5 +4891,28 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-bilingual-navigation-js">
+(function(){
+const sel=document.getElementById('vvLanguage'),toggle=document.getElementById('vvMenuToggle'),nav=document.getElementById('vvMainNav'),drop=nav&&nav.querySelector('.dropdown'),dropbtn=drop&&drop.querySelector('.dropbtn');
+if(!sel||!toggle||!nav)return;
+function setLanguage(lang){
+lang=lang==='en'?'en':'pt';document.documentElement.lang=lang;sel.value=lang;
+try{localStorage.setItem('vv_site_lang',lang)}catch(e){}
+nav.querySelectorAll('[data-pt][data-en]').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});
+const listen=document.querySelector('.header-actions .listen-btn'),discover=document.querySelector('.header-actions .discover-btn'),soon=nav.querySelector('.os-soon');
+if(listen)listen.textContent=lang==='en'?'◉ LISTEN LIVE':'◉ OUVIR EM DIRETO';
+if(discover)discover.textContent=lang==='en'?'Discover VelvetVerse':'Conhecer VelvetVerse';
+if(soon){soon.textContent=lang==='en'?'Open Stage · Coming soon':'Open Stage · Em breve';soon.title=lang==='en'?'Coming soon':'Em breve'}
+toggle.setAttribute('aria-label',lang==='en'?'Open menu':'Abrir menu');
+}
+let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLanguage(initial);
+sel.addEventListener('change',()=>setLanguage(sel.value));
+function closeMenu(){nav.classList.remove('vv-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰'}
+toggle.addEventListener('click',()=>{const open=nav.classList.toggle('vv-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'✕':'☰'});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(a.getAttribute('href')==='#'||a.getAttribute('href')?.endsWith('.html'))closeMenu()}));
+if(dropbtn){dropbtn.addEventListener('click',()=>{const expanded=drop.classList.toggle('vv-expanded');dropbtn.setAttribute('aria-expanded',String(expanded))})}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!toggle.contains(e.target))closeMenu()});
+})();
+</script></body>
 </html>
