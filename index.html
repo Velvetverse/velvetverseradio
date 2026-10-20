@@ -2226,7 +2226,7 @@ border-radius:0 0 16px 16px;
 @media(max-width:740px){#open-stage .os-artists{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:460px){#open-stage .os-artists{grid-template-columns:1fr}}
 </style><style id="vv-home-language-css">.vv-lang-desktop{display:flex;gap:3px;padding:4px;border:1px solid #a855f7;border-radius:10px;background:#160b25;flex-shrink:0}.vv-lang-desktop button{cursor:pointer;color:#ddd;background:transparent;border:0;border-radius:7px;padding:8px 9px;font-weight:800}.vv-lang-desktop button[aria-pressed="true"]{background:#8c2ae4;color:white}@media(max-width:1450px){.vv-lang-desktop{margin-left:auto}}@media(max-width:700px){.vv-lang-desktop{padding:2px}.vv-lang-desktop button{padding:6px}} .vv-app-lang-actions{display:flex;align-items:center;gap:10px;margin-left:auto;flex-wrap:wrap;justify-content:flex-end}.vv-app-lang-actions .vv-lang-desktop{margin-left:0}@media(max-width:700px){.vv-app-lang-actions{gap:6px}}
-<style id="vv-compact-header-actions">.top-header{gap:8px;padding-left:18px;padding-right:18px}.top-header .brand{gap:9px;flex-shrink:0}.top-header .brand-logo{width:52px;height:52px}.top-header .brand-text h1{font-size:20px}.top-header .brand-text p{font-size:11px}.top-header .main-nav{gap:5px;min-width:0}.top-header .main-nav>a{font-size:12px;padding:10px 9px}.top-header .main-nav .dropbtn{font-size:12px;padding:10px 9px}.top-header .header-actions{gap:6px;flex-shrink:0}.top-header .header-actions .btn{font-size:11px;padding:10px 11px;font-weight:800;letter-spacing:0}.top-header .header-actions .listen-btn{border-width:1px}@media(max-width:1450px){.top-header .brand-logo{width:52px;height:52px}}</style></style></head>
+<style id="vv-compact-header-actions">.top-header{gap:8px;padding-left:18px;padding-right:18px}.top-header .brand{gap:9px;flex-shrink:0}.top-header .brand-logo{width:52px;height:52px}.top-header .brand-text h1{font-size:20px}.top-header .brand-text p{font-size:11px}.top-header .main-nav{gap:5px;min-width:0}.top-header .main-nav>a{font-size:12px;padding:10px 9px}.top-header .main-nav .dropbtn{font-size:12px;padding:10px 9px}.top-header .header-actions{gap:6px;flex-shrink:0}.top-header .header-actions .btn{font-size:11px;padding:10px 11px;font-weight:800;letter-spacing:0}.top-header .header-actions .listen-btn{border-width:1px}@media(max-width:1450px){.top-header .brand-logo{width:52px;height:52px}}</style><style id="vv-about-bilingual-style">#about .vv-about-en{display:none}body.vv-site-en #about .vv-about-pt{display:none}body.vv-site-en #about .vv-about-en{display:block}</style></style></head>
 
 <body>
 
@@ -2792,9 +2792,9 @@ border-radius:0 0 16px 16px;
  <div id="about" class="section">
     <div class="panel">
       <div class="panel-box">
-        <h1>About Us</h1>
+        <h1><span class="vv-i18n" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</span></h1>
 
-        <h2>Português</h2>
+        <div class="vv-about-pt" lang="pt">
 
         <p>A VelvetVerse nasceu da paixão pela música e da vontade de criar algo que vai além de uma banda tradicional. Somos um projeto musical de estúdio, formado por artistas com décadas de experiência, unidos pela criação sonora sem limites de palco ou fronteiras físicas.</p>
 
@@ -2817,9 +2817,8 @@ border-radius:0 0 16px 16px;
 
         <p><strong>Bem-vindo ao nosso mundo.</strong></p>
 
-        <hr>
-
-        <h2>English</h2>
+        </div>
+        <div class="vv-about-en" lang="en">
 
         <p>VelvetVerse was born from a deep passion for music and the desire to create something beyond a traditional band. We are a studio-based music project formed by artists with decades of experience, driven by sonic creation without stage boundaries or physical limits.</p>
 
@@ -2841,6 +2840,7 @@ border-radius:0 0 16px 16px;
         <p>More than just a band with a radio station, we are an evolving creative project where music is our language and the studio is our stage.</p>
 
         <p><strong>Welcome to our world.</strong></p>
+        </div>
       </div>
     </div>
   </div>
@@ -4870,5 +4870,5 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-alt-pt][data-alt-en]').forEach(el=>{el.alt=el.getAttribute('data-alt-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';window.vvCurrentSiteLang=lang;document.body.classList.toggle('vv-site-en',lang==='en');if(typeof updateDynamicSchedule==="function")updateDynamicSchedule();document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-alt-pt][data-alt-en]').forEach(el=>{el.alt=el.getAttribute('data-alt-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
 </html>
