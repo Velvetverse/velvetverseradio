@@ -2239,6 +2239,36 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
 #top5latino .t5-lang-picker button[aria-pressed="true"]{background:#a42ce4}
 #top5latino:not(.active) .t5-lang-picker{display:none!important}
 @media(max-width:700px){#top5latino .t5-hero .t5-lang-picker{right:8px!important;bottom:6px!important}}
+</style><style id="vv-mobile-menu-styles">
+.vv-mobile-controls{display:none}
+@media(max-width:1450px){
+.top-header{gap:8px}
+.top-header .main-nav{display:none;position:absolute;top:100%;left:12px;right:12px;max-height:calc(100dvh - 95px);overflow-y:auto;z-index:20000;background:#11091b;border:1px solid #8a32c2;border-radius:0 0 16px 16px;box-shadow:0 14px 35px #000b;padding:12px;flex-direction:column;align-items:stretch;gap:5px}
+.top-header .main-nav.vv-mobile-open{display:flex!important}
+.top-header .main-nav>a,.top-header .main-nav .dropbtn{box-sizing:border-box;width:100%;font-size:15px!important;display:block;text-align:left;padding:12px 15px}
+.top-header .main-nav .dropdown{width:100%;display:block}
+.top-header .main-nav .dropdown-content{position:static;display:none;min-width:0;width:100%;border:0;box-shadow:none;background:#20112e;margin-top:5px}
+.top-header .main-nav .dropdown:hover .dropdown-content{display:none}
+.top-header .main-nav .dropdown.vv-submenu-open .dropdown-content{display:block!important}
+.vv-mobile-controls{display:flex;align-items:center;gap:7px;margin-left:auto;flex-shrink:0}
+.vv-mobile-language{display:flex;gap:2px;background:#1a0d28;border:1px solid #753a9f;border-radius:9px;padding:3px}
+.vv-mobile-language button{padding:8px 9px;border:0;border-radius:6px;background:transparent;color:#fff;font-size:12px;font-weight:800;cursor:pointer}
+.vv-mobile-language button[aria-pressed=true]{background:#8b2ee5}
+.vv-mobile-menu-toggle{min-height:42px;min-width:44px;background:#1a0d28;color:#fff;border:1px solid #a34ee0;border-radius:9px;font-size:24px;cursor:pointer}
+.top-header .header-actions{flex-shrink:0}
+}
+@media(max-width:700px){
+.top-header{height:78px!important;padding-left:9px!important;padding-right:9px!important}
+.top-header .brand{gap:5px}
+.top-header .brand-logo{width:39px!important;height:39px!important}
+.top-header .brand-text h1{font-size:14px!important}
+.top-header .brand-text p{font-size:9px!important}
+.top-header .header-actions .btn{padding:9px 7px!important;font-size:10px!important}
+.top-header .header-actions .discover-btn{display:none!important}
+.vv-mobile-language button{padding:7px}
+.vv-mobile-menu-toggle{min-width:40px;min-height:39px}
+}
+@media(max-width:390px){.top-header .header-actions .listen-btn{font-size:0!important;min-width:35px}.top-header .header-actions .listen-btn .vv-i18n{font-size:0!important}.top-header .header-actions .listen-btn:after{content:'▶';font-size:15px}}
 </style></head>
 
 <body>
@@ -2254,7 +2284,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
       </div>
     </div>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="vvMobileNav" aria-label="Navegação principal">
       <a href="#" onclick="showSection('home', this); return false;" class="active"><span class="vv-i18n" data-pt="Início" data-en="Home">Início</span></a>
       <a href="#" onclick="showSection('schedule', this); return false;"><span class="vv-i18n" data-pt="Programação" data-en="Schedule">Programação</span></a>
       <a href="#" onclick="showSection('top5latino', this); return false;">Top 5 Latino</a>
@@ -2278,6 +2308,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
     </nav>
 
     
+    <div class="vv-mobile-controls"><div class="vv-mobile-language" role="group" aria-label="Idioma"><button type="button" data-vv-lang="pt" aria-pressed="true">PT</button><button type="button" data-vv-lang="en" aria-pressed="false">EN</button></div><button class="vv-mobile-menu-toggle" id="vvMobileMenuToggle" type="button" aria-label="Abrir menu" aria-controls="vvMobileNav" aria-expanded="false">☰</button></div>
     <div class="header-actions">
       <a href="#" onclick="window.open('player.html','VelvetVersePlayer','width=784,height=508,resizable=yes,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn"><span class="vv-i18n" data-pt="◉ OUVIR EM DIRETO" data-en="◉ LISTEN LIVE">◉ OUVIR EM DIRETO</span></a>
       <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn"><span class="vv-i18n" data-pt="Conhecer VelvetVerse" data-en="Discover VelvetVerse">Conhecer VelvetVerse</span></a>
@@ -4892,5 +4923,15 @@ const ranks=page.querySelector('#t5-cards');if(ranks)new MutationObserver(()=>up
 if(date)new MutationObserver(()=>{if(date.children.length===0){const current=date.textContent;if(current!==localizeDate(rawDate)){rawDate=current;update()}}}).observe(date,{childList:true,characterData:true,subtree:true});
 if(note)new MutationObserver(()=>{if(note.children.length===0){const current=note.textContent;if(current!==localizeDate(rawNote)){rawNote=current;update()}}}).observe(note,{childList:true,characterData:true,subtree:true});
 update();
+})();</script><script id="vv-mobile-menu-script">(function(){
+const nav=document.getElementById('vvMobileNav'),toggle=document.getElementById('vvMobileMenuToggle');if(!nav||!toggle)return;
+const podcast=nav.querySelector('.dropdown'),podcastButton=podcast?.querySelector('.dropbtn');
+function close(){nav.classList.remove('vv-mobile-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰';if(podcast){podcast.classList.remove('vv-submenu-open');podcastButton?.setAttribute('aria-expanded','false')}}
+toggle.addEventListener('click',()=>{const open=nav.classList.toggle('vv-mobile-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'✕':'☰'});
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
+if(podcastButton){podcastButton.setAttribute('aria-expanded','false');podcastButton.addEventListener('click',()=>{if(window.innerWidth>1450)return;const open=podcast.classList.toggle('vv-submenu-open');podcastButton.setAttribute('aria-expanded',String(open))})}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!toggle.contains(e.target))close()});
+window.addEventListener('resize',()=>{if(window.innerWidth>1450)close()});
 })();</script></body>
 </html>
