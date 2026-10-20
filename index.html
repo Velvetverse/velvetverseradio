@@ -2225,7 +2225,7 @@ border-radius:0 0 16px 16px;
 #open-stage .os-card-copy b:not([hidden]),#open-stage .os-card-copy p:not([hidden]){max-width:100%}
 @media(max-width:740px){#open-stage .os-artists{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:460px){#open-stage .os-artists{grid-template-columns:1fr}}
-</style></head>
+</style><style id="vv-home-language-css">.vv-lang-desktop{display:flex;gap:3px;padding:4px;border:1px solid #a855f7;border-radius:10px;background:#160b25;flex-shrink:0}.vv-lang-desktop button{cursor:pointer;color:#ddd;background:transparent;border:0;border-radius:7px;padding:8px 9px;font-weight:800}.vv-lang-desktop button[aria-pressed="true"]{background:#8c2ae4;color:white}@media(max-width:1450px){.vv-lang-desktop{margin-left:auto}}@media(max-width:700px){.vv-lang-desktop{padding:2px}.vv-lang-desktop button{padding:6px}}</style></head>
 
 <body>
 
@@ -2241,13 +2241,13 @@ border-radius:0 0 16px 16px;
     </div>
 
     <nav class="main-nav">
-      <a href="#" onclick="showSection('home', this); return false;" class="active">Home</a>
-      <a href="#" onclick="showSection('schedule', this); return false;">Schedule</a>
+      <a href="#" onclick="showSection('home', this); return false;" class="active"><span class="vv-i18n" data-pt="Início" data-en="Home">Início</span></a>
+      <a href="#" onclick="showSection('schedule', this); return false;"><span class="vv-i18n" data-pt="Programação" data-en="Schedule">Programação</span></a>
       <a href="#" onclick="showSection('top5latino', this); return false;">Top 5 Latino</a>
-      <a href="#" onclick="showSection('gallery', this); return false;">Gallery</a>
-      <a href="#" onclick="showSection('about', this); return false;">About</a>
-      <a href="#" onclick="showSection('contact', this); return false;">Contact</a>
-      <a href="#" onclick="showSection('comments', this); return false;">Comments</a>
+      <a href="#" onclick="showSection('gallery', this); return false;"><span class="vv-i18n" data-pt="Galeria" data-en="Gallery">Galeria</span></a>
+      <a href="#" onclick="showSection('about', this); return false;"><span class="vv-i18n" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</span></a>
+      <a href="#" onclick="showSection('contact', this); return false;"><span class="vv-i18n" data-pt="Contactos" data-en="Contact">Contactos</span></a>
+      <a href="#" onclick="showSection('comments', this); return false;"><span class="vv-i18n" data-pt="Comentários" data-en="Comments">Comentários</span></a>
       <div class="dropdown">
   <button class="dropbtn">Podcasts</button>
 
@@ -2259,13 +2259,14 @@ border-radius:0 0 16px 16px;
     <a href="um-futuro-proximo.html">Um Futuro Próximo</a>
   </div>
 </div>
-      <a href="#" onclick="showSection('requests', this); return false;">Discos Pedidos</a>
-<span class="os-soon" aria-label="Open Stage em breve" title="Em breve">Open Stage · Em breve</span>
+      <a href="#" onclick="showSection('requests', this); return false;"><span class="vv-i18n" data-pt="Discos Pedidos" data-en="Song Requests">Discos Pedidos</span></a>
+<span class="os-soon" aria-label="Open Stage em breve" title="Em breve"><span class="vv-i18n" data-pt="Open Stage · Em breve" data-en="Open Stage · Coming soon">Open Stage · Em breve</span></span>
     </nav>
 
+    <div class="vv-lang-desktop" role="group" aria-label="Idioma / Language"><button type="button" data-vv-lang="pt" aria-pressed="true">PT</button><button type="button" data-vv-lang="en" aria-pressed="false">EN</button></div>
     <div class="header-actions">
-      <a href="#" onclick="window.open('player.html','VelvetVersePlayer','width=784,height=508,resizable=yes,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn">◉ LISTEN LIVE</a>
-      <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn">Discover VelvetVerse</a>
+      <a href="#" onclick="window.open('player.html','VelvetVersePlayer','width=784,height=508,resizable=yes,scrollbars=no,menubar=no,toolbar=no,location=no,status=no'); return false;" class="btn listen-btn"><span class="vv-i18n" data-pt="◉ OUVIR EM DIRETO" data-en="◉ LISTEN LIVE">◉ OUVIR EM DIRETO</span></a>
+      <a href="https://velvetverseband.com" target="_blank" rel="noopener noreferrer" class="btn discover-btn"><span class="vv-i18n" data-pt="Conhecer VelvetVerse" data-en="Discover VelvetVerse">Conhecer VelvetVerse</span></a>
     </div>
 
   </header>
@@ -2295,7 +2296,7 @@ border-radius:0 0 16px 16px;
  <main id="home" class="page-content section active">
 
     <div class="app-access-row">
-      <div class="tagline">MUSIC NEVER STOPS</div>
+      <div class="tagline"><span class="vv-i18n" data-pt="A MÚSICA NÃO PARA" data-en="MUSIC NEVER STOPS">A MÚSICA NÃO PARA</span></div>
       <a class="app-access-link" href="#app-install" onclick="showSection('app-install'); return false;" aria-label="Instalar app VelvetVerse Radio no Android ou iPhone">📱 App Android / iPhone</a>
     </div>
 
@@ -2308,7 +2309,7 @@ border-radius:0 0 16px 16px;
   <div class="live-overlay"></div>
 
   <div class="live-title">
-    <div class="live-badge">◉ LIVE NOW</div>
+    <div class="live-badge"><span class="vv-i18n" data-pt="◉ EM DIRETO" data-en="◉ LIVE NOW">◉ EM DIRETO</span></div>
     <span>VelvetVerse Radio</span>
     <div class="live-program-card" id="liveProgramCard" aria-live="polite">
       <img class="live-program-photo" id="liveProgramPhoto" src="beto.png" alt="Locutor atual">
@@ -2332,7 +2333,7 @@ border-radius:0 0 16px 16px;
 
     <div class="live-player-info">
 
-      <div class="now-playing-label">NOW PLAYING</div>
+      <div class="now-playing-label"><span class="vv-i18n" data-pt="A TOCAR AGORA" data-en="NOW PLAYING">A TOCAR AGORA</span></div>
 
       <div class="song-title" id="liveSong">
         A carregar...
@@ -2394,7 +2395,7 @@ border-radius:0 0 16px 16px;
       <div class="panel recent-panel">
 
         <div class="panel-heading">
-          <h2>♫ Últimas 5 músicas</h2>
+          <h2><span class="vv-i18n" data-pt="♫ Últimas 5 músicas" data-en="♫ Last 5 Tracks">♫ Últimas 5 músicas</span></h2>
         </div>
 
         <div class="track-list" id="recentTracks">
@@ -2450,8 +2451,8 @@ border-radius:0 0 16px 16px;
       <div class="panel info-panel">
 
         <div class="panel-heading">
-          <h2>Programação de Hoje</h2>
-          <a href="#" onclick="showSection('schedule', this); return false;">Ver programação completa →</a>
+          <h2><span class="vv-i18n" data-pt="Programação de Hoje" data-en="Today's Schedule">Programação de Hoje</span></h2>
+          <a href="#" onclick="showSection('schedule', this); return false;"><span class="vv-i18n" data-pt="Ver programação completa →" data-en="View Full Schedule →">Ver programação completa →</span></a>
         </div>
 
        <div id="dynamicSchedule"></div>
@@ -2464,7 +2465,7 @@ border-radius:0 0 16px 16px;
 
     <div class="promo-mini-banner promo-mini-banner-top">
   <span class="blink-star">✦</span>
-  <span>EM DESTAQUE NA VELVETVERSE RADIO</span>
+  <span><span class="vv-i18n" data-pt="EM DESTAQUE NA VELVETVERSE RADIO" data-en="FEATURED ON VELVETVERSE RADIO">EM DESTAQUE NA VELVETVERSE RADIO</span></span>
   <span class="blink-star">✦</span>
 </div>
 
@@ -2482,7 +2483,7 @@ border-radius:0 0 16px 16px;
     <img src="card-um-futuro-proximo.png" class="promo-slide" alt="Um Futuro Próximo">
 
     <div class="promo-mini-banner promo-mini-banner-bottom">
-        8 PROGRAMAS • TODOS OS DIAS • 24/7
+        <span class="vv-i18n" data-pt="8 PROGRAMAS • TODOS OS DIAS • 24/7" data-en="8 SHOWS • EVERY DAY • 24/7">8 PROGRAMAS • TODOS OS DIAS • 24/7</span>
     </div>
 
 </div>
@@ -2491,7 +2492,7 @@ border-radius:0 0 16px 16px;
       <div class="panel info-panel">
 
         <div class="panel-heading">
-          <h2>Podcasts / Episódios</h2>
+          <h2><span class="vv-i18n" data-pt="Podcasts / Episódios" data-en="Podcasts / Episodes">Podcasts / Episódios</span></h2>
         </div>
       <div class="podcast-scroll-window"> 
         <div class="podcast-scroll-track">
@@ -2502,7 +2503,7 @@ border-radius:0 0 16px 16px;
     <div>
         <div class="podcast-title">Backstage Legends</div>
         <div class="podcast-desc">
-            Uma viagem pelos bastidores da música, pelas histórias que marcaram gerações e pelas lendas que nunca se esquecem, com Ricky Sousa.
+            <span class="vv-i18n" data-pt="Uma viagem aos bastidores da música, às histórias que marcaram gerações e às lendas inesquecíveis, com Ricky Sousa." data-en="Go behind the music with Ricky Sousa to discover the stories, defining moments and legends that shaped generations.">Uma viagem aos bastidores da música, às histórias que marcaram gerações e às lendas inesquecíveis, com Ricky Sousa.</span>
         </div>
     </div>
 
@@ -2514,8 +2515,8 @@ border-radius:0 0 16px 16px;
     <div>
         <div class="podcast-title">Brasil de Norte a Sul</div>
         <div class="podcast-desc">
-            Uma nova rubrica com Lara Ingrid, dedicada aos ritmos, tradições e curiosidades do Brasil.
-            <br><span class="coming-soon">Todos os sábados • 17:00 Toronto • com Lara Ingrid</span>
+            <span class="vv-i18n" data-pt="Uma rubrica com Lara Ingrid dedicada aos ritmos, tradições e curiosidades do Brasil." data-en="Explore Brazilian rhythms, traditions and fascinating stories with Lara Ingrid.">Uma rubrica com Lara Ingrid dedicada aos ritmos, tradições e curiosidades do Brasil.</span>
+            <br><span class="coming-soon"><span class="vv-i18n" data-pt="Todos os sábados • 17:00 Toronto • com Lara Ingrid" data-en="Every Saturday • 17:00 Toronto • with Lara Ingrid">Todos os sábados • 17:00 Toronto • com Lara Ingrid</span></span>
         </div>
     </div>
 
@@ -2528,8 +2529,8 @@ border-radius:0 0 16px 16px;
     <div>
         <div class="podcast-title">E Se...?</div>
         <div class="podcast-desc">
-            Perguntas que fazem pensar. Cenários imaginativos e possibilidades que desafiam a forma como vemos o mundo.
-            <br><span class="coming-soon">Domingos alternados • 10:00 Toronto • com Rui Freitas</span>
+            <span class="vv-i18n" data-pt="Perguntas que fazem pensar. Cenários imaginativos e possibilidades que desafiam a forma como vemos o mundo." data-en="Thought-provoking questions, imagined scenarios and possibilities that challenge how we see the world.">Perguntas que fazem pensar. Cenários imaginativos e possibilidades que desafiam a forma como vemos o mundo.</span>
+            <br><span class="coming-soon"><span class="vv-i18n" data-pt="Domingos alternados • 10:00 Toronto • com Rui Freitas" data-en="Alternate Sundays • 10:00 Toronto • with Rui Freitas">Domingos alternados • 10:00 Toronto • com Rui Freitas</span></span>
         </div>
     </div>
 
@@ -2542,8 +2543,8 @@ border-radius:0 0 16px 16px;
     <div>
         <div class="podcast-title">Um Futuro Próximo</div>
         <div class="podcast-desc">
-            Tecnologia, cidades, trabalho e mudanças que poderão transformar o mundo de amanhã.
-            <br><span class="coming-soon">Domingos alternados • 10:00 Toronto • com Rui Freitas</span>
+            <span class="vv-i18n" data-pt="Tecnologia, cidades, trabalho e mudanças que poderão transformar o mundo de amanhã." data-en="Technology, cities, work and the changes that could shape tomorrow’s world.">Tecnologia, cidades, trabalho e mudanças que poderão transformar o mundo de amanhã.</span>
+            <br><span class="coming-soon"><span class="vv-i18n" data-pt="Domingos alternados • 10:00 Toronto • com Rui Freitas" data-en="Alternate Sundays • 10:00 Toronto • with Rui Freitas">Domingos alternados • 10:00 Toronto • com Rui Freitas</span></span>
         </div>
     </div>
 
@@ -4863,5 +4864,5 @@ async function submitOpenStageApplication(event){
  finally {submit.disabled=false;window.turnstile?.reset?.(document.getElementById('os-turnstile'));}
  return false;
 }
-</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script></body>
+</script><script id="os-local-form-test">(function(){const qs=new URLSearchParams(location.search);if(qs.get('preview')!=='open-stage'||qs.get('test')!=='form')return;function setup(){const form=document.getElementById('os-application-form');if(!form)return;form.querySelectorAll('input,select,textarea').forEach(x=>x.disabled=false);const submit=form.querySelector('button[type=submit]');if(submit){submit.disabled=false;submit.setAttribute('aria-disabled','false');submit.title='Enviar candidatura de teste / Submit test application';}const status=document.getElementById('os-submit-status');if(status)status.textContent='Teste de envio ao Supabase / Supabase submission test. Aguardar ativação da receção / Awaiting backend activation.';}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();})();</script><script id="vv-home-language-js">(function(){function setLang(v){const lang=v==='en'?'en':'pt';document.querySelectorAll('.vv-i18n').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});document.querySelectorAll('[data-vv-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.vvLang===lang)));try{localStorage.setItem('vv_site_lang',lang)}catch(e){}}window.vvSetSiteLang=setLang;document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.vvLang)));let initial='pt';try{initial=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}setLang(initial)})();</script></body>
 </html>
