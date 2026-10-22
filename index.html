@@ -3610,7 +3610,7 @@ async function updateLiveArtwork(artist, song) {
 
 {
   const songLower = normalizeVelvetTitle(song);
-  const isBand = /^velvetverse\\s+band(?:\\s*[•·\\-–—].*)?$/i.test(String(artist || '').trim());
+  const isBand = /^velvetverse\s+band(?:\s*[•·\-–—].*)?$/i.test(String(artist || '').trim());
 
   for (const [title, file] of Object.entries(velvetverseCovers)) {
     const titleLower = normalizeVelvetTitle(title);
@@ -3896,7 +3896,7 @@ setInterval(updateLiveTrack, 10000);
   for (const [title, file] of Object.entries(velvetverseCovers)) {
     const titleLower = normalizeVelvetTitle(title);
 
-    if (/^velvetverse\\s+band(?:\\s*[•·\\-–—].*)?$/i.test(String(artist || '').trim()) && songLower === titleLower) {
+    if (/^velvetverse\s+band(?:\s*[•·\-–—].*)?$/i.test(String(artist || '').trim()) && songLower === titleLower) {
       return 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
     }
   }
