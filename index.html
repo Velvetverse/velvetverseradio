@@ -3610,15 +3610,12 @@ async function updateLiveArtwork(artist, song) {
 
 {
   const songLower = normalizeVelvetTitle(song);
+  const isBand = /^velvetverse\\s+band(?:\\s*[•·\\-–—].*)?$/i.test(String(artist || '').trim());
 
   for (const [title, file] of Object.entries(velvetverseCovers)) {
     const titleLower = normalizeVelvetTitle(title);
 
-    if (
-      songLower === titleLower ||
-      songLower.includes(titleLower) ||
-      titleLower.includes(songLower)
-    ) {
+    if (isBand && songLower === titleLower) {
       const localCover = 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
       liveArtwork.src = localCover;
       miniArtwork.src = localCover;
@@ -3776,36 +3773,10 @@ function normalizeVelvetDisplayTitle(value) {
     .trim();
 }
 
-function isVelvetVerseSong(song) {
-  const normalizedSong = normalizeVelvetDisplayTitle(song);
-  if (!normalizedSong) return false;
-
-  return velvetverseDisplayTitles.some(title => {
-    const normalizedTitle = normalizeVelvetDisplayTitle(title);
-    return normalizedSong === normalizedTitle ||
-      normalizedSong.includes(normalizedTitle) ||
-      normalizedTitle.includes(normalizedSong);
-  });
-}
-
+// O nome da banda vem dos metadados do artista, nunca de títulos parecidos.
 function formatVelvetVerseArtist(artist, song) {
   const rawArtist = String(artist || '').trim();
-
-  if (!isVelvetVerseSong(song)) {
-    return rawArtist || 'VelvetVerse Radio';
-  }
-
-  if (/^velvetverse\s+band$/i.test(rawArtist)) {
-    return 'VelvetVerse Band';
-  }
-
-  if (/^velvetverse\s+band\s*[•·\-–—]/i.test(rawArtist)) {
-    return rawArtist;
-  }
-
-  return rawArtist
-    ? 'VelvetVerse Band • ' + rawArtist
-    : 'VelvetVerse Band';
+  return rawArtist || 'VelvetVerse Radio';
 }
 
 function cleanRadioDisplay(artist, song) {
@@ -3925,11 +3896,7 @@ setInterval(updateLiveTrack, 10000);
   for (const [title, file] of Object.entries(velvetverseCovers)) {
     const titleLower = normalizeVelvetTitle(title);
 
-    if (
-      songLower === titleLower ||
-      songLower.includes(titleLower) ||
-      titleLower.includes(songLower)
-    ) {
+    if (/^velvetverse\\s+band(?:\\s*[•·\\-–—].*)?$/i.test(String(artist || '').trim()) && songLower === titleLower) {
       return 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
     }
   }
