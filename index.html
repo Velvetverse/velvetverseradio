@@ -3579,6 +3579,17 @@ const normalizeVelvetTitle = (value) =>
     .replace(/\s+/g, ' ')
     .trim();
 
+function isVelvetVerseArtist(artist) {
+  const name = normalizeVelvetTitle(artist);
+  return /^(velvetverse band)( |$)/.test(name) || /^(carlos|beto|suzy|lara|lara ingrid|kamelia|adrian|noia|carlos e beto|carlos beto|suzy carlos|carlos suzy|beto carlos|carlos moreira|beto sousa|suzy mendes)$/.test(name);
+}
+function velvetVerseCoverFor(artist, song) {
+  if (!isVelvetVerseArtist(artist)) return null;
+  const wanted = normalizeVelvetTitle(song);
+  const match = Object.entries(velvetverseCovers).find(([title]) => normalizeVelvetTitle(title) === wanted);
+  return match ? 'covers/velvetverse/' + encodeURIComponent(match[1]).replace(/%2F/g, '/') : null;
+}
+
 async function updateLiveArtwork(artist, song) {
 
   const key = (artist + '|' + song).toLowerCase();
@@ -3608,21 +3619,12 @@ async function updateLiveArtwork(artist, song) {
 
 
 
-{
-  const songLower = normalizeVelvetTitle(song);
-  const isBand = /^velvetverse\s+band(?:\s*[•·\-–—].*)?$/i.test(String(artist || '').trim());
-
-  for (const [title, file] of Object.entries(velvetverseCovers)) {
-    const titleLower = normalizeVelvetTitle(title);
-
-    if (isBand && songLower === titleLower) {
-      const localCover = 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
-      liveArtwork.src = localCover;
-      miniArtwork.src = localCover;
-      return;
-    }
+  const localCover = velvetVerseCoverFor(artist, song);
+  if (localCover) {
+    liveArtwork.src = localCover;
+    miniArtwork.src = localCover;
+    return;
   }
-}
 
   liveArtwork.src = 'logo.png';
 
@@ -3776,7 +3778,9 @@ function normalizeVelvetDisplayTitle(value) {
 // O nome da banda vem dos metadados do artista, nunca de títulos parecidos.
 function formatVelvetVerseArtist(artist, song) {
   const rawArtist = String(artist || '').trim();
-  return rawArtist || 'VelvetVerse Radio';
+  if (!velvetVerseCoverFor(rawArtist, song)) return rawArtist || 'VelvetVerse Radio';
+  if (/^velvetverse\\s+band/i.test(rawArtist)) return rawArtist;
+  return 'VelvetVerse Band • ' + rawArtist;
 }
 
 function cleanRadioDisplay(artist, song) {
@@ -3891,15 +3895,8 @@ updateLiveTrack();
 
 setInterval(updateLiveTrack, 10000);
     async function getRecentArtwork(artist, song) {
-  const songLower = normalizeVelvetTitle(song);
-
-  for (const [title, file] of Object.entries(velvetverseCovers)) {
-    const titleLower = normalizeVelvetTitle(title);
-
-    if (/^velvetverse\s+band(?:\s*[•·\-–—].*)?$/i.test(String(artist || '').trim()) && songLower === titleLower) {
-      return 'covers/velvetverse/' + encodeURIComponent(file).replace(/%2F/g, '/');
-    }
-  }
+  const localCover = velvetVerseCoverFor(artist, song);
+  if (localCover) return localCover;
 
   try {
     const term = encodeURIComponent(artist + ' ' + song);
