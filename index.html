@@ -3779,7 +3779,7 @@ function normalizeVelvetDisplayTitle(value) {
 function formatVelvetVerseArtist(artist, song) {
   const rawArtist = String(artist || '').trim();
   if (!velvetVerseCoverFor(rawArtist, song)) return rawArtist || 'VelvetVerse Radio';
-  if (/^velvetverse\\s+band/i.test(rawArtist)) return rawArtist;
+  if (/^velvetverse\s+band/i.test(rawArtist)) return rawArtist;
   return 'VelvetVerse Band • ' + rawArtist;
 }
 
