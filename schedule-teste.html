@@ -22,8 +22,7 @@ en:{back:'← Back to website',tagline:'Our radio, your music',intro:'Discover o
 let lang='pt';try{lang=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}
 document.documentElement.lang=lang;
 function tr(pt,en){return lang==='en'?en:pt}
-const EN_SHOW={'Baú de História':'History Chest','Corações & Memórias':'Hearts & Memories','Discos Pedidos':'Song Requests','Brasil de Norte a Sul':'Brazil from North to South','Alma Portuguesa':'Portuguese Soul','Coração Brasileiro':'Brazilian Heart','Um Futuro Próximo':'A Near Future','E Se...? / Um Futuro Próximo':'What If...? / A Near Future'};
-function showName(name){return lang==='en'?(EN_SHOW[name]||name):name}
+function showName(name){return name}
 function labels(){const u=UI[lang];document.querySelector('.back').textContent=u.back;document.querySelector('.eyebrow').textContent=u.tagline;document.querySelector('.intro p').textContent=u.intro;document.querySelector('.now').textContent=u.on;document.querySelector('.up-kicker').textContent=u.next;document.querySelector('.test').textContent=u.test;document.querySelector('.note').lastChild.textContent=' · '+u.note;document.querySelector('.up-next').setAttribute('aria-label',lang==='en'?'Next program':'Próximo programa');document.querySelector('.switches').setAttribute('aria-label',lang==='en'?'Day of the week':'Dia da semana');document.title=(lang==='en'?'Schedule':'Programação')+' · VelvetVerse Radio (Teste)'}
 labels();
 
