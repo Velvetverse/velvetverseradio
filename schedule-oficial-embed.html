@@ -21,11 +21,11 @@ const UI={
 pt:{back:'← Voltar ao site',tagline:'A nossa rádio, a tua música',intro:'Descobre os nossos programas, os locutores e o que está no ar. Horários de Toronto.',on:'● NO AR AGORA',next:'◷ A SEGUIR',loading:'A carregar…',today:'Hoje',with:'Com ',base:'PROGRAMA BASE',onShort:'● NO AR',pending:'A confirmar',test:'',note:'A programação atual mantém-se no site principal. Os finais de algumas rubricas são indicativos até confirmação.',days:['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'],full:['Domingo','Segunda-feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado']},
 en:{back:'← Back to website',tagline:'Our radio, your music',intro:'Discover our shows, presenters and what is on air. Toronto local times.',on:'● ON AIR NOW',next:'◷ UP NEXT',loading:'Loading…',today:'Today',with:'With ',base:'MAIN SHOW',onShort:'● ON AIR',pending:'To be confirmed',test:'',note:'The current schedule remains unchanged on the main site. Some special-program end times are estimates awaiting confirmation.',days:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],full:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']}
 };
-let lang='pt';try{lang=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}
+let lang='pt';try{lang=localStorage.getItem('vv_site_lang')==='en'?'en':'pt';if(window.parent!==window&&window.parent.vvCurrentSiteLang)lang=window.parent.vvCurrentSiteLang==='en'?'en':'pt'}catch(e){}
 document.documentElement.lang=lang;
 function tr(pt,en){return lang==='en'?en:pt}
 function showName(name){return name}
-function labels(){const u=UI[lang];document.querySelector('.intro p').textContent=u.intro;document.querySelector('.now').textContent=u.on;document.querySelector('.up-kicker').textContent=u.next;document.querySelector('.up-next').setAttribute('aria-label',lang==='en'?'Next program':'Próximo programa');document.querySelector('.switches').setAttribute('aria-label',lang==='en'?'Day of the week':'Dia da semana');document.title=(lang==='en'?'Schedule':'Programação')+' · VelvetVerse Radio'}
+function labels(){const u=UI[lang];document.querySelector('.intro h1').textContent=lang==='en'?'Radio Schedule':'Programação da Rádio';document.querySelector('.intro p').textContent=u.intro;document.querySelector('.now').textContent=u.on;document.querySelector('.up-kicker').textContent=u.next;document.querySelector('.up-next').setAttribute('aria-label',lang==='en'?'Next program':'Próximo programa');document.querySelector('.switches').setAttribute('aria-label',lang==='en'?'Day of the week':'Dia da semana');document.title=(lang==='en'?'Schedule':'Programação')+' · VelvetVerse Radio'}
 labels();
 
 let selected=null;const $=id=>document.getElementById(id);
@@ -68,4 +68,6 @@ else row.append(el('div'));
 const specials=p.segments.filter(s=>s.days.includes(selected));if(specials.length){const box=el('div','segments');specials.forEach(s=>{const live=p===activeProgram(t)&&selected===t.day&&activeSegment(p,t)===s;const line=el('div','segment'+(live?' active':''));const photo=el('img');photo.src=s.img;photo.alt=tr('Fotografia de ','Photo of ')+s.host;photo.loading='lazy';line.append(photo);const info=el('div','info');info.append(el('strong','',showName(s.name)),el('small','',s.host));line.append(info,el('span','clock',s.start+'–'+s.end));if(live)line.append(el('span','onair',UI[lang].onShort));box.append(line)});row.append(box)}return row});
 $('list').replaceChildren(...items)}
 draw();setInterval(draw,30000);
+/* Acompanhar a escolha PT/EN do site principal, inclusive ao mudar sem recarregar. */
+setInterval(function(){try{if(window.parent===window)return;const parentLang=window.parent.vvCurrentSiteLang==='en'?'en':'pt';if(parentLang!==lang){lang=parentLang;document.documentElement.lang=lang;labels();draw();}}catch(e){}},1000);
 </script></body></html>
