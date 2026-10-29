@@ -33,14 +33,22 @@ const mins=s=>{let [h,m]=s.split(':').map(Number);return h*60+m};
 function toronto(){const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const z=Object.fromEntries(parts.map(p=>[p.type,p.value]));return {day:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[z.weekday],minutes:Number(z.hour)%24*60+Number(z.minute),label:z.hour+':'+z.minute}};
 function within(start,end,m){const a=mins(start),b=mins(end);return b<=a?(m>=a||m<b):m>=a&&m<b}
 function applicable(p,day,m){const start=mins(p.start),end=mins(p.end);return end<=start&&m<end?((day+6)%7):day}
-function activeProgram(t){return PROGRAMS.find(p=>within(p.start,p.end,t.minutes))||PROGRAMS[0]}
+function dailyPrograms(day){
+ if(day!==6)return PROGRAMS;
+ const rock=PROGRAMS.find(p=>p.name==='Rock Sem Limites');
+ return PROGRAMS.flatMap(p=>p!==rock?[p]:[
+  {start:'19:00',end:'20:00',name:'Open Stage',host:'Beto Sousa',img:'Beto.png',emoji:'🎙️',segments:[]},
+  {start:'20:00',end:'21:00',name:'Rock Sem Limites',host:'Beto Sousa',img:'Beto.png',emoji:'⚡',segments:[]}
+ ]);
+}
+function activeProgram(t){return dailyPrograms(t.day).find(p=>within(p.start,p.end,t.minutes))||PROGRAMS[0]}
 function activeSegment(p,t){return p.segments.find(s=>s.days.includes(applicable(p,t.day,t.minutes))&&within(s.start,s.end,t.minutes))}
 function nextShow(t){
  const now=activeProgram(t),current=activeSegment(now,t)||now,nowKey=current.name+'|'+current.host;
  const events=[];
  for(let delta=0;delta<=7;delta++){
   const day=(t.day+delta)%7;
-  for(const p of PROGRAMS){
+  for(const p of dailyPrograms(day)){
    events.push({delta,minute:mins(p.start)});
    for(const seg of p.segments)if(seg.days.includes(day)){events.push({delta,minute:mins(seg.start)});events.push({delta,minute:mins(seg.end)})}
   }
@@ -60,7 +68,7 @@ $('heroImg').src=current.img;$('heroImg').alt=current.host;$('heroName').textCon
 const upcoming=nextShow(t);$('nextName').textContent=upcoming?showName(upcoming.show.name):UI[lang].pending;$('nextHost').textContent=upcoming?upcoming.show.host:'';$('nextTime').textContent=upcoming?(upcoming.day===t.day?UI[lang].today+' · ':UI[lang].full[upcoming.day]+' · ')+upcoming.time+' · Toronto':'';
 $('clock').textContent='Toronto · '+t.label;$('dayTitle').textContent=UI[lang].full[selected];
 $('days').replaceChildren(...UI[lang].days.map((d,i)=>{const b=el('button',selected===i?'active':'',d);b.type='button';b.setAttribute('aria-pressed',String(selected===i));b.onclick=()=>{selected=i;draw()};return b}));
-const items=PROGRAMS.map(p=>{const row=el('article','program'+(p===activeProgram(t)&&selected===t.day?' active':''));
+const items=dailyPrograms(selected).map(p=>{const row=el('article','program'+(p===activeProgram(t)&&selected===t.day?' active':''));
 row.append(el('div','time',p.start+' – '+p.end));const img=el('img','portrait');img.src=p.img;img.alt=tr('Fotografia de ','Photo of ')+p.host;img.loading='lazy';row.append(img);
 const desc=el('div');desc.append(el('div','name',p.emoji+' '+showName(p.name)),el('div','host',p.host));row.append(desc);
 if(p===activeProgram(t)&&selected===t.day)row.append(el('div','onair',activeSegment(p,t)?UI[lang].base:UI[lang].onShort));
