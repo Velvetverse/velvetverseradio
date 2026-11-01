@@ -14,6 +14,7 @@
 footer{color:#ac96ba;border-top:1px solid #483455;margin-top:35px;padding-top:17px;font-size:13px}.credit{margin-top:10px;font-size:12px;color:#b9a7c9}.credit a{color:#dca5ed}
 [data-en]{display:none}html[lang=en] [data-pt]{display:none}html[lang=en] [data-en]{display:initial}
 @media(max-width:700px){.hero{grid-template-columns:96px 1fr;gap:14px;padding:16px}.hero img{width:96px;height:110px}.grid{grid-template-columns:1fr}.ep img{height:210px}.wrap{padding:14px 12px 45px}.hero h1{font-size:26px}}
+.credits{margin-top:14px;font-size:13px;color:#d9c0e8}.credits summary{display:inline-block;cursor:pointer;border:1px solid #68417b;border-radius:10px;padding:8px 13px;background:#23162f;color:#e4c1f4;list-style:none}.credits summary::-webkit-details-marker{display:none}.credits summary:hover{background:#372047}.credits-body{margin-top:12px;border:1px solid #4a3458;border-radius:12px;background:#160f20;padding:11px 16px}.credits-body p{margin:7px 0 13px}.credits-body .source{display:inline-block;color:#b9a7c9;font-size:11px;overflow-wrap:anywhere}
 </style>
 </head>
 <body><div class="wrap">
@@ -27,12 +28,14 @@ footer{color:#ac96ba;border-top:1px solid #483455;margin-top:35px;padding-top:17
 <article class="ep"><img src="arquivos-ep01-hinterkaifeck.jpg" alt="Quinta de Hinterkaifeck em fotografia histórica" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 01</div><div class="number" data-en>EPISODE 01</div><h3>Hinterkaifeck</h3><p data-pt>Um crime numa quinta isolada da Alemanha, marcado por acontecimentos perturbadores e questões ainda debatidas.</p><p data-en>A crime on an isolated German farm, surrounded by unsettling events and unanswered questions.</p><div class="status"><strong data-pt>Áudio em preparação</strong><strong data-en>Audio pending</strong></div></div></article>
 </div></section>
 <footer><div>© 2026 VelvetVerse Radio · Arquivos do Inexplicável</div>
-<div class="credit"><span data-pt>Créditos das imagens: </span><span data-en>Image credits: </span>
-<a href="https://commons.wikimedia.org/wiki/File:Hinterkaifeck-Hof_(cropped).jpg" target="_blank" rel="noopener">Hinterkaifeck</a> ·
-<a href="https://commons.wikimedia.org/wiki/File:30_East_Drive_Chequerfield_Estate,_Pontefract_-_geograph.org.uk_-_4895127.jpg" target="_blank" rel="noopener">Pontefract — Mark Stevenson (CC BY-SA 2.0)</a> ·
-<a href="https://commons.wikimedia.org/wiki/File:The_lighthouse_on_Eilean_Mor_of_the_Flannan_Isles_-_geograph.org.uk_-_100454.jpg" target="_blank" rel="noopener">Flannan — Marc Calhoun (CC BY-SA 2.0)</a> ·
-<a href="https://commons.wikimedia.org/wiki/File:Hessdalen_lights.png" target="_blank" rel="noopener">Hessdalen — SuperWikiaBros (CC BY-SA 4.0)</a>.
-</div></footer>
+<details class="credits"><summary><span data-pt>📷 Créditos das fotografias</span><span data-en>📷 Photo credits</span></summary>
+<div class="credits-body">
+<p>Hinterkaifeck — <span data-pt>domínio público</span><span data-en>public domain</span>.<br><span class="source">commons.wikimedia.org/wiki/File:Hinterkaifeck-Hof_(cropped).jpg</span></p>
+<p>Pontefract — Mark Stevenson · CC BY-SA 2.0.<br><span class="source">commons.wikimedia.org/wiki/File:30_East_Drive_Chequerfield_Estate,_Pontefract_-_geograph.org.uk_-_4895127.jpg</span><br><span class="source">creativecommons.org/licenses/by-sa/2.0/</span></p>
+<p>Flannan — Marc Calhoun · CC BY-SA 2.0.<br><span class="source">commons.wikimedia.org/wiki/File:The_lighthouse_on_Eilean_Mor_of_the_Flannan_Isles_-_geograph.org.uk_-_100454.jpg</span><br><span class="source">creativecommons.org/licenses/by-sa/2.0/</span></p>
+<p>Hessdalen — SuperWikiaBros · CC BY-SA 4.0.<br><span class="source">commons.wikimedia.org/wiki/File:Hessdalen_lights.png</span><br><span class="source">creativecommons.org/licenses/by-sa/4.0/</span></p>
+</div></details>
+</footer>
 </div><script>
 function setLanguage(l){document.documentElement.lang=l;document.getElementById('pt').classList.toggle('active',l==='pt');document.getElementById('en').classList.toggle('active',l==='en');try{localStorage.setItem('vv_site_lang',l)}catch(e){}}
 document.getElementById('pt').onclick=()=>setLanguage('pt');document.getElementById('en').onclick=()=>setLanguage('en');
