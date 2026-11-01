@@ -60,14 +60,14 @@ footer{color:#ac96ba;border-top:1px solid #483455;margin-top:35px;padding-top:17
 <audio preload="none" data-audio></audio>
 <div class="player-note"><span data-pt>Som de demonstração, não é o episódio. O MP3 verdadeiro será ligado após o envio para o R2.</span><span data-en>Demo sound, not the episode. The real MP3 will be linked after upload to R2.</span></div>
 </div></div></article>
-<article class="ep"><img src="arquivos-ep01-hinterkaifeck.jpg" alt="Quinta de Hinterkaifeck em fotografia histórica" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 01</div><div class="number" data-en>EPISODE 01</div><h3>Hinterkaifeck</h3><p data-pt>Um crime numa quinta isolada da Alemanha, marcado por acontecimentos perturbadores e questões ainda debatidas.</p><p data-en>A crime on an isolated German farm, surrounded by unsettling events and unanswered questions.</p><div class="player" data-player>
-<div class="player-label"><span data-pt>▶ TESTAR O PLAYER</span><span data-en>▶ TEST THE PLAYER</span></div>
+<article class="ep"><img src="arquivos-ep01-hinterkaifeck.jpg" alt="Quinta de Hinterkaifeck em fotografia histórica" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 01</div><div class="number" data-en>EPISODE 01</div><h3>Hinterkaifeck</h3><p data-pt>Um crime numa quinta isolada da Alemanha, marcado por acontecimentos perturbadores e questões ainda debatidas.</p><p data-en>A crime on an isolated German farm, surrounded by unsettling events and unanswered questions.</p><div class="player" data-player data-src="https://podcasts.velvetverseradio.com/Arquivos%20do%20Inexplicavel%20-%20Episodio%2001%20-%20COMPLETO.mp3">
+<div class="player-label"><span data-pt>▶ OUVIR EPISÓDIO COMPLETO</span><span data-en>▶ LISTEN TO THE FULL EPISODE</span></div>
 <div class="player-controls">
 <button class="player-play" type="button" data-play aria-label="Play/Pausa">▶</button>
-<div class="player-main"><input class="seek" data-seek type="range" min="0" max="1000" value="0" aria-label="Progresso"><div class="player-times"><span data-current>00:00</span><span data-duration>00:12</span></div></div>
+<div class="player-main"><input class="seek" data-seek type="range" min="0" max="1000" value="0" aria-label="Progresso"><div class="player-times"><span data-current>00:00</span><span data-duration>--:--</span></div></div>
 <div class="player-volume"><span aria-hidden="true">♫</span><input class="volume" data-volume type="range" min="0" max="100" value="60" aria-label="Volume"></div></div>
 <audio preload="none" data-audio></audio>
-<div class="player-note"><span data-pt>Som de demonstração, não é o episódio. O MP3 verdadeiro será ligado após o envio para o R2.</span><span data-en>Demo sound, not the episode. The real MP3 will be linked after upload to R2.</span></div>
+<div class="player-note"><span data-pt>Episódio 01 completo · alojado no Cloudflare R2.</span><span data-en>Full Episode 01 · hosted on Cloudflare R2.</span></div>
 </div></div></article>
 </div></section>
 <footer><div>© 2026 VelvetVerse Radio · Arquivos do Inexplicável</div>
@@ -103,14 +103,15 @@ function formatTime(t){if(!Number.isFinite(t))return '00:00';const k=Math.max(0,
 audioPlayers.forEach(p=>{
  const audio=p.querySelector('[data-audio]'),button=p.querySelector('[data-play]'),seek=p.querySelector('[data-seek]'),volume=p.querySelector('[data-volume]'),current=p.querySelector('[data-current]'),duration=p.querySelector('[data-duration]');
  audio.volume=.6;
- function render(){button.textContent=audio.paused?'▶':'Ⅱ';current.textContent=formatTime(audio.currentTime);duration.textContent=formatTime(audio.duration||12);seek.value=audio.duration?Math.round(audio.currentTime/audio.duration*1000):0}
+ function render(){button.textContent=audio.paused?'▶':'Ⅱ';current.textContent=formatTime(audio.currentTime);duration.textContent=audio.duration&&Number.isFinite(audio.duration)?formatTime(audio.duration):(p.dataset.src?'--:--':'00:12');seek.value=audio.duration?Math.round(audio.currentTime/audio.duration*1000):0}
  button.addEventListener('click',async()=>{
- if(!audio.src)audio.src=createDemoSound();
+ if(!audio.src)audio.src=p.dataset.src||createDemoSound();
  if(audio.paused){audioPlayers.forEach(other=>{if(other!==p)other.querySelector('audio').pause()});try{await audio.play()}catch(e){button.textContent='!'}}else audio.pause();
  render();
  });
  seek.addEventListener('input',()=>{if(audio.src&&audio.duration)audio.currentTime=audio.duration*(Number(seek.value)/1000);render()});
  volume.addEventListener('input',()=>{audio.volume=Number(volume.value)/100});
+ audio.addEventListener('error',()=>{button.textContent='!';p.querySelector('.player-note').textContent=document.documentElement.lang==='en'?'The audio could not be loaded. Please check again shortly.':'Não foi possível carregar o áudio. Tenta novamente dentro de momentos.';});
  ['timeupdate','loadedmetadata','play','pause','ended'].forEach(event=>audio.addEventListener(event,render));
 });
 </script></body></html>
