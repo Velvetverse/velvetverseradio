@@ -15,6 +15,17 @@ footer{color:#ac96ba;border-top:1px solid #483455;margin-top:35px;padding-top:17
 [data-en]{display:none}html[lang=en] [data-pt]{display:none}html[lang=en] [data-en]{display:initial}
 @media(max-width:700px){.hero{grid-template-columns:96px 1fr;gap:14px;padding:16px}.hero img{width:96px;height:110px}.grid{grid-template-columns:1fr}.ep img{height:210px}.wrap{padding:14px 12px 45px}.hero h1{font-size:26px}}
 .credits{margin-top:14px;font-size:13px;color:#d9c0e8}.credits summary{display:inline-block;cursor:pointer;border:1px solid #68417b;border-radius:10px;padding:8px 13px;background:#23162f;color:#e4c1f4;list-style:none}.credits summary::-webkit-details-marker{display:none}.credits summary:hover{background:#372047}.credits-body{margin-top:12px;border:1px solid #4a3458;border-radius:12px;background:#160f20;padding:11px 16px}.credits-body p{margin:7px 0 13px}.credits-body .source{display:inline-block;color:#b9a7c9;font-size:11px;overflow-wrap:anywhere}
+
+.player{border:1px solid #6d4480;border-radius:14px;padding:12px;margin-top:auto;background:linear-gradient(135deg,#271735,#140e1e)}
+.player-label{font-size:11px;letter-spacing:.055em;color:#e2b7f5;font-weight:750;margin-bottom:10px}
+.player-controls{display:flex;gap:10px;align-items:center}
+.player-play{flex:none;border:0;background:#ad59d5;color:#150d20;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;font-weight:800;display:grid;place-items:center}
+.player-play:hover{background:#d18eed}.player-play:focus-visible,.seek:focus-visible,.volume:focus-visible{outline:2px solid #f4bbff;outline-offset:3px}
+.player-main{flex:1;min-width:0}.seek{display:block;width:100%;margin:0;accent-color:#c276e4;cursor:pointer}
+.player-times{display:flex;justify-content:space-between;font-size:11px;color:#c7b1d0;font-variant-numeric:tabular-nums}
+.player-volume{display:flex;align-items:center;gap:4px;color:#d8b9e6}.volume{width:56px;accent-color:#c276e4;cursor:pointer}
+.player-note{color:#ac9ab8;font-size:11px;line-height:1.35;margin-top:9px}
+@media(max-width:460px){.volume{width:43px}.player-controls{gap:7px}}
 </style>
 </head>
 <body><div class="wrap">
@@ -22,10 +33,42 @@ footer{color:#ac96ba;border-top:1px solid #483455;margin-top:35px;padding-top:17
 <section class="hero"><img src="michael-valenca-arquivos-do-inexplicavel.png" alt="Michael Valença"><div><div class="eyebrow">VelvetVerse Radio · Michael Valença</div><h1>Arquivos do Inexplicável</h1><p data-pt>Histórias reais, testemunhos perturbadores e mistérios que continuam a despertar perguntas. Uma viagem documental pelo lado mais desconhecido do nosso mundo.</p><p data-en>True stories, unsettling testimonies and mysteries that still raise questions. A documentary journey into the lesser-known side of our world.</p><div class="schedule" data-pt>Sextas-feiras, 23h15 · Repetição: sábados, 23h15 · Toronto</div><div class="schedule" data-en>Premiere: Friday, 11:15 PM · Replay: Saturday, 11:15 PM · Toronto time</div></div></section>
 <section><div class="heading"><h2 data-pt>Arquivo de episódios</h2><h2 data-en>Episode archive</h2><small data-pt>Os áudios serão disponibilizados aqui depois da estreia na rádio.</small><small data-en>Audio will be available here after its radio premiere.</small></div>
 <div class="grid">
-<article class="ep"><img src="arquivos-ep04-hessdalen.png" alt="Imagem associada às luzes de Hessdalen" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 04</div><div class="number" data-en>EPISODE 04</div><h3 data-pt>As Luzes de Hessdalen</h3><h3 data-en>The Hessdalen Lights</h3><p data-pt>Há décadas, testemunhas descrevem luzes estranhas num vale da Noruega. Os investigadores continuam à procura de respostas.</p><p data-en>For decades, witnesses have reported strange lights in a Norwegian valley. Researchers continue searching for answers.</p><div class="status"><strong data-pt>Áudio em preparação</strong><strong data-en>Audio pending</strong></div></div></article>
-<article class="ep"><img src="arquivos-ep03-flannan.jpg" alt="Farol das Ilhas Flannan" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 03</div><div class="number" data-en>EPISODE 03</div><h3 data-pt>O Mistério das Ilhas Flannan</h3><h3 data-en>The Flannan Isles Mystery</h3><p data-pt>Três faroleiros, uma ilha isolada e um desaparecimento que deu origem a mais de um século de perguntas e lendas.</p><p data-en>Three lighthouse keepers, a remote island and a disappearance that inspired a century of questions and legends.</p><div class="status"><strong data-pt>Áudio em preparação</strong><strong data-en>Audio pending</strong></div></div></article>
-<article class="ep"><img src="arquivos-ep02-pontefract.jpg" alt="Casa número 30 de East Drive, Pontefract" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 02</div><div class="number" data-en>EPISODE 02</div><h3 data-pt>O Monge Negro de Pontefract</h3><h3 data-en>The Black Monk of Pontefract</h3><p data-pt>Uma casa em Yorkshire, uma família e décadas de relatos associados a uma misteriosa figura vestida de negro.</p><p data-en>A Yorkshire house, one family and decades of accounts linked to a mysterious dark-robed figure.</p><div class="status"><strong data-pt>Áudio em preparação</strong><strong data-en>Audio pending</strong></div></div></article>
-<article class="ep"><img src="arquivos-ep01-hinterkaifeck.jpg" alt="Quinta de Hinterkaifeck em fotografia histórica" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 01</div><div class="number" data-en>EPISODE 01</div><h3>Hinterkaifeck</h3><p data-pt>Um crime numa quinta isolada da Alemanha, marcado por acontecimentos perturbadores e questões ainda debatidas.</p><p data-en>A crime on an isolated German farm, surrounded by unsettling events and unanswered questions.</p><div class="status"><strong data-pt>Áudio em preparação</strong><strong data-en>Audio pending</strong></div></div></article>
+<article class="ep"><img src="arquivos-ep04-hessdalen.png" alt="Imagem associada às luzes de Hessdalen" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 04</div><div class="number" data-en>EPISODE 04</div><h3 data-pt>As Luzes de Hessdalen</h3><h3 data-en>The Hessdalen Lights</h3><p data-pt>Há décadas, testemunhas descrevem luzes estranhas num vale da Noruega. Os investigadores continuam à procura de respostas.</p><p data-en>For decades, witnesses have reported strange lights in a Norwegian valley. Researchers continue searching for answers.</p><div class="player" data-player>
+<div class="player-label"><span data-pt>▶ TESTAR O PLAYER</span><span data-en>▶ TEST THE PLAYER</span></div>
+<div class="player-controls">
+<button class="player-play" type="button" data-play aria-label="Play/Pausa">▶</button>
+<div class="player-main"><input class="seek" data-seek type="range" min="0" max="1000" value="0" aria-label="Progresso"><div class="player-times"><span data-current>00:00</span><span data-duration>00:12</span></div></div>
+<div class="player-volume"><span aria-hidden="true">♫</span><input class="volume" data-volume type="range" min="0" max="100" value="60" aria-label="Volume"></div></div>
+<audio preload="none" data-audio></audio>
+<div class="player-note"><span data-pt>Som de demonstração, não é o episódio. O MP3 verdadeiro será ligado após o envio para o R2.</span><span data-en>Demo sound, not the episode. The real MP3 will be linked after upload to R2.</span></div>
+</div></div></article>
+<article class="ep"><img src="arquivos-ep03-flannan.jpg" alt="Farol das Ilhas Flannan" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 03</div><div class="number" data-en>EPISODE 03</div><h3 data-pt>O Mistério das Ilhas Flannan</h3><h3 data-en>The Flannan Isles Mystery</h3><p data-pt>Três faroleiros, uma ilha isolada e um desaparecimento que deu origem a mais de um século de perguntas e lendas.</p><p data-en>Three lighthouse keepers, a remote island and a disappearance that inspired a century of questions and legends.</p><div class="player" data-player>
+<div class="player-label"><span data-pt>▶ TESTAR O PLAYER</span><span data-en>▶ TEST THE PLAYER</span></div>
+<div class="player-controls">
+<button class="player-play" type="button" data-play aria-label="Play/Pausa">▶</button>
+<div class="player-main"><input class="seek" data-seek type="range" min="0" max="1000" value="0" aria-label="Progresso"><div class="player-times"><span data-current>00:00</span><span data-duration>00:12</span></div></div>
+<div class="player-volume"><span aria-hidden="true">♫</span><input class="volume" data-volume type="range" min="0" max="100" value="60" aria-label="Volume"></div></div>
+<audio preload="none" data-audio></audio>
+<div class="player-note"><span data-pt>Som de demonstração, não é o episódio. O MP3 verdadeiro será ligado após o envio para o R2.</span><span data-en>Demo sound, not the episode. The real MP3 will be linked after upload to R2.</span></div>
+</div></div></article>
+<article class="ep"><img src="arquivos-ep02-pontefract.jpg" alt="Casa número 30 de East Drive, Pontefract" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 02</div><div class="number" data-en>EPISODE 02</div><h3 data-pt>O Monge Negro de Pontefract</h3><h3 data-en>The Black Monk of Pontefract</h3><p data-pt>Uma casa em Yorkshire, uma família e décadas de relatos associados a uma misteriosa figura vestida de negro.</p><p data-en>A Yorkshire house, one family and decades of accounts linked to a mysterious dark-robed figure.</p><div class="player" data-player>
+<div class="player-label"><span data-pt>▶ TESTAR O PLAYER</span><span data-en>▶ TEST THE PLAYER</span></div>
+<div class="player-controls">
+<button class="player-play" type="button" data-play aria-label="Play/Pausa">▶</button>
+<div class="player-main"><input class="seek" data-seek type="range" min="0" max="1000" value="0" aria-label="Progresso"><div class="player-times"><span data-current>00:00</span><span data-duration>00:12</span></div></div>
+<div class="player-volume"><span aria-hidden="true">♫</span><input class="volume" data-volume type="range" min="0" max="100" value="60" aria-label="Volume"></div></div>
+<audio preload="none" data-audio></audio>
+<div class="player-note"><span data-pt>Som de demonstração, não é o episódio. O MP3 verdadeiro será ligado após o envio para o R2.</span><span data-en>Demo sound, not the episode. The real MP3 will be linked after upload to R2.</span></div>
+</div></div></article>
+<article class="ep"><img src="arquivos-ep01-hinterkaifeck.jpg" alt="Quinta de Hinterkaifeck em fotografia histórica" loading="lazy"><div class="content"><div class="number" data-pt>EPISÓDIO 01</div><div class="number" data-en>EPISODE 01</div><h3>Hinterkaifeck</h3><p data-pt>Um crime numa quinta isolada da Alemanha, marcado por acontecimentos perturbadores e questões ainda debatidas.</p><p data-en>A crime on an isolated German farm, surrounded by unsettling events and unanswered questions.</p><div class="player" data-player>
+<div class="player-label"><span data-pt>▶ TESTAR O PLAYER</span><span data-en>▶ TEST THE PLAYER</span></div>
+<div class="player-controls">
+<button class="player-play" type="button" data-play aria-label="Play/Pausa">▶</button>
+<div class="player-main"><input class="seek" data-seek type="range" min="0" max="1000" value="0" aria-label="Progresso"><div class="player-times"><span data-current>00:00</span><span data-duration>00:12</span></div></div>
+<div class="player-volume"><span aria-hidden="true">♫</span><input class="volume" data-volume type="range" min="0" max="100" value="60" aria-label="Volume"></div></div>
+<audio preload="none" data-audio></audio>
+<div class="player-note"><span data-pt>Som de demonstração, não é o episódio. O MP3 verdadeiro será ligado após o envio para o R2.</span><span data-en>Demo sound, not the episode. The real MP3 will be linked after upload to R2.</span></div>
+</div></div></article>
 </div></section>
 <footer><div>© 2026 VelvetVerse Radio · Arquivos do Inexplicável</div>
 <details class="credits"><summary><span data-pt>📷 Créditos das fotografias</span><span data-en>📷 Photo credits</span></summary>
@@ -40,4 +83,34 @@ footer{color:#ac96ba;border-top:1px solid #483455;margin-top:35px;padding-top:17
 function setLanguage(l){document.documentElement.lang=l;document.getElementById('pt').classList.toggle('active',l==='pt');document.getElementById('en').classList.toggle('active',l==='en');try{localStorage.setItem('vv_site_lang',l)}catch(e){}}
 document.getElementById('pt').onclick=()=>setLanguage('pt');document.getElementById('en').onclick=()=>setLanguage('en');
 try{if(localStorage.getItem('vv_site_lang')==='en')setLanguage('en')}catch(e){}
+
+const audioPlayers=[...document.querySelectorAll('[data-player]')];
+let demoUrl=null;
+function createDemoSound(){
+ if(demoUrl)return demoUrl;
+ const rate=8000, seconds=12, n=rate*seconds, buffer=new ArrayBuffer(44+n*2), view=new DataView(buffer);
+ function word(off,str){for(let j=0;j<str.length;j++)view.setUint8(off+j,str.charCodeAt(j))}
+ word(0,'RIFF');view.setUint32(4,36+n*2,true);word(8,'WAVE');word(12,'fmt ');view.setUint32(16,16,true);
+ view.setUint16(20,1,true);view.setUint16(22,1,true);view.setUint32(24,rate,true);
+ view.setUint32(28,rate*2,true);view.setUint16(32,2,true);view.setUint16(34,16,true);
+ word(36,'data');view.setUint32(40,n*2,true);
+ for(let i=0;i<n;i++){const t=i/rate;const fade=Math.min(1,t/0.8,(seconds-t)/1.4);
+ const drift=60+3*Math.sin(t*.38),sound=(Math.sin(2*Math.PI*drift*t)*.26+Math.sin(2*Math.PI*(drift*1.5)*t)*.09+Math.sin(2*Math.PI*(240+t*2)*t)*.015)*Math.max(0,fade);
+ view.setInt16(44+i*2,Math.max(-32768,Math.min(32767,Math.round(sound*32767))),true)}
+ demoUrl=URL.createObjectURL(new Blob([buffer],{type:'audio/wav'}));return demoUrl;
+}
+function formatTime(t){if(!Number.isFinite(t))return '00:00';const k=Math.max(0,Math.floor(t));return String(Math.floor(k/60)).padStart(2,'0')+':'+String(k%60).padStart(2,'0')}
+audioPlayers.forEach(p=>{
+ const audio=p.querySelector('[data-audio]'),button=p.querySelector('[data-play]'),seek=p.querySelector('[data-seek]'),volume=p.querySelector('[data-volume]'),current=p.querySelector('[data-current]'),duration=p.querySelector('[data-duration]');
+ audio.volume=.6;
+ function render(){button.textContent=audio.paused?'▶':'Ⅱ';current.textContent=formatTime(audio.currentTime);duration.textContent=formatTime(audio.duration||12);seek.value=audio.duration?Math.round(audio.currentTime/audio.duration*1000):0}
+ button.addEventListener('click',async()=>{
+ if(!audio.src)audio.src=createDemoSound();
+ if(audio.paused){audioPlayers.forEach(other=>{if(other!==p)other.querySelector('audio').pause()});try{await audio.play()}catch(e){button.textContent='!'}}else audio.pause();
+ render();
+ });
+ seek.addEventListener('input',()=>{if(audio.src&&audio.duration)audio.currentTime=audio.duration*(Number(seek.value)/1000);render()});
+ volume.addEventListener('input',()=>{audio.volume=Number(volume.value)/100});
+ ['timeupdate','loadedmetadata','play','pause','ended'].forEach(event=>audio.addEventListener(event,render));
+});
 </script></body></html>
