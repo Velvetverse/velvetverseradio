@@ -229,6 +229,8 @@ width:100%;
 
 }
 
+
+.player-label{color:#d68bff;font-size:13px;letter-spacing:1.5px;font-weight:850;margin-bottom:12px}.player-cover{aspect-ratio:4/5;object-fit:cover;flex:none}.player-content{min-width:0}.player-content #mainTitle{line-height:1.16}.listen-intro{color:#d59aff!important;font-weight:700;margin:15px 0 8px!important}.story-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.story-card{padding:0;color:#fff;font:inherit;text-align:left;display:flex;flex-direction:column}.story-card[aria-pressed=true]{border-color:#c96ef3;box-shadow:0 0 0 1px #b164da}.story-card:focus-visible{outline:2px solid #ce82f4;outline-offset:3px}.story-card img{aspect-ratio:4/3;object-fit:cover}.story-card-content{padding:15px;display:flex;flex-direction:column;gap:8px;flex:1}.ep-no{color:#d899fc;letter-spacing:.08em;font-size:11px}.ep-title{font-size:16px;line-height:1.35}.ep-status{color:#c6afcf;font-size:12px;line-height:1.3;margin-top:auto}.archive-info{color:#bbb;margin:-10px 0 22px;line-height:1.6}#episodeWaiting[hidden],#episodeListening[hidden]{display:none}#mainPlayer{width:100%;max-width:100%}@media(max-width:900px){.story-list{grid-template-columns:repeat(2,minmax(0,1fr))}.player-cover{width:100%;max-width:420px;aspect-ratio:4/3}}@media(max-width:520px){body{padding:15px}.hero,.player-section{padding:20px}.hero-logo{max-width:100%}.story-list{gap:12px}.story-card-content{padding:11px}.ep-title{font-size:14px}}
 </style>
 </head>
 
@@ -254,7 +256,7 @@ alt="E Se...?">
 
 <div class="live-info">
 
-<span class="vv-podcast-tr" data-pt="📻 Domingos alternados • 10:00 — hora de Toronto" data-en="📻 Alternate Sundays • 10:00 — Toronto time">📻 Domingos alternados • 10:00 — hora de Toronto</span><br>
+<span class="vv-podcast-tr" data-pt="📻 Domingos alternados • 21h30–22h00 — Toronto" data-en="📻 Alternate Sundays • 9:30–10:00 PM — Toronto time">📻 Domingos alternados • 10:00 — hora de Toronto</span><br>
 <span class="vv-podcast-tr" data-pt="🎙️ Exclusivo VelvetVerse Radio" data-en="🎙️ Exclusively on VelvetVerse Radio">🎙️ Exclusivo VelvetVerse Radio</span>
 
 </div>
@@ -274,64 +276,52 @@ alt="E Se...?">
 
 </section>
 
-<section class="player-section">
-
-<img class="player-cover"
-id="mainCover"
-src="logo-e-se.png"
-alt="E Se...?">
-
+<section class="player-section" id="featuredEpisode">
+<img class="player-cover" id="mainCover" src="e-se-ep01-sem-internet.jpg" alt="Uma Semana Sem Internet">
 <div class="player-content">
-
-<h2 id="mainTitle">
-<span class="vv-podcast-tr" data-pt="Episódio 01 — Em preparação" data-en="Episode 01 — In preparation">Episódio 01 — Em preparação</span>
-</h2>
-
-<p id="mainDescription">
-<span class="vv-podcast-tr" data-pt="O primeiro episódio de “E Se...?” está em preparação. Aqui ficará o episódio mais recente, com os anteriores disponíveis no arquivo." data-en="The first episode of “E Se...?” is in preparation. The latest episode will appear here, with earlier episodes saved in the archive.">O primeiro episódio de “E Se...?” está em preparação. Aqui ficará o episódio mais recente, com os anteriores disponíveis no arquivo.</span>
-</p>
-
-<div class="coming-soon">
-<span class="vv-podcast-tr" data-pt="🎙️ Primeiro episódio em breve na VelvetVerse Radio." data-en="🎙️ First episode coming soon to VelvetVerse Radio.">🎙️ Primeiro episódio em breve na VelvetVerse Radio.</span>
-</div>
-
-</div>
-
-</section>
-
-<h2 class="section-title">
-<span class="vv-podcast-tr" data-pt="Arquivo E Se...?" data-en="E Se...? Archive">Arquivo E Se...?</span>
-</h2>
-
-<section class="story-list" id="archiveList">
-
-<div class="coming-soon">
-<span class="vv-podcast-tr" data-pt="Ainda não existem episódios anteriores no arquivo. Assim que o Episódio 02 for publicado, o Episódio 01 ficará aqui disponível." data-en="There are no earlier episodes in the archive yet. Once Episode 02 is released, Episode 01 will be available here.">Ainda não existem episódios anteriores no arquivo. Assim que o Episódio 02 for publicado, o Episódio 01 ficará aqui disponível.</span>
-</div>
-
-</section>
-
+<div class="player-label" id="featuredLabel">EPISÓDIO 01</div>
+<h2 id="mainTitle">Uma Semana Sem Internet</h2>
+<p id="mainDescription">O que aconteceria se o mundo ficasse sete dias sem Internet? Comunicações, trabalho, comércio e vida quotidiana perante uma interrupção global.</p>
+<div class="coming-soon" id="episodeWaiting"><span class="vv-podcast-tr" data-pt="O áudio ficará disponível depois da emissão na rádio." data-en="Audio will be available after its radio broadcast.">O áudio ficará disponível depois da emissão na rádio.</span></div>
+<div id="episodeListening" hidden><p class="listen-intro"><span class="vv-podcast-tr" data-pt="▶ Ouvir episódio completo" data-en="▶ Listen to the full episode">▶ Ouvir episódio completo</span></p><audio id="mainPlayer" controls preload="none"></audio></div>
+<button class="reset-btn" id="latestEpisodeButton" type="button"><span class="vv-podcast-tr" data-pt="↶ Voltar ao episódio mais recente" data-en="↶ Back to the latest episode">↶ Voltar ao episódio mais recente</span></button>
+</div></section>
+<h2 class="section-title"><span class="vv-podcast-tr" data-pt="Arquivo E Se...?" data-en="E Se...? Archive">Arquivo E Se...?</span></h2>
+<p class="archive-info"><span class="vv-podcast-tr" data-pt="Escolhe um episódio. Os áudios ficam disponíveis depois da respetiva emissão." data-en="Select an episode. Audio becomes available after each broadcast.">Escolhe um episódio. Os áudios ficam disponíveis depois da respetiva emissão.</span></p>
+<section class="story-list" id="archiveList"><button type="button" class="story-card" data-episode="4" aria-pressed="false"><img src="e-se-ep04-sem-satelites.jpg" alt="Uma Semana Sem Satélites" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 04" data-en="EPISODE 04">EPISÓDIO 04</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button>
+<button type="button" class="story-card" data-episode="3" aria-pressed="false"><img src="e-se-ep03-sem-eletricidade.jpg" alt="Uma Semana Sem Eletricidade" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 03" data-en="EPISODE 03">EPISÓDIO 03</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button>
+<button type="button" class="story-card" data-episode="2" aria-pressed="false"><img src="e-se-ep02-trabalhar-sobreviver.jpg" alt="Trabalhar Para Sobreviver" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 02" data-en="EPISODE 02">EPISÓDIO 02</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button>
+<button type="button" class="story-card" data-episode="1" aria-pressed="false"><img src="e-se-ep01-sem-internet.jpg" alt="Uma Semana Sem Internet" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 01" data-en="EPISODE 01">EPISÓDIO 01</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button></section>
 </div>
 
 <script>
-
-function changeStory(cover,title,description,audio){
-
-document.getElementById("mainCover").src=cover;
-document.getElementById("mainTitle").innerText=title;
-document.getElementById("mainDescription").innerText=description;
-
-const player=document.getElementById("mainPlayer");
-const source=document.getElementById("mainAudio");
-
-if(player && source && audio){
-source.src=audio;
-player.load();
+const episodes=[{"id":1,"titlePt":"Uma Semana Sem Internet","titleEn":"A Week Without Internet","cover":"e-se-ep01-sem-internet.jpg","descPt":"O que aconteceria se o mundo ficasse sete dias sem Internet? Comunicações, trabalho, comércio e vida quotidiana perante uma interrupção global.","descEn":"What would happen if the world lost Internet access for seven days? Communications, work, commerce and daily life face a global disruption.","release":"2026-11-08T22:00","src":"https://podcasts.velvetverseradio.com/01%20E-SE-EP01-INTERNET-UMA-SEMANA-FINAL.mp3"},{"id":2,"titlePt":"Trabalhar Para Sobreviver","titleEn":"Working to Survive","cover":"e-se-ep02-trabalhar-sobreviver.jpg","descPt":"E se o trabalho deixasse de ser uma escolha e passasse a ser apenas uma luta diária pela sobrevivência? Um cenário para pensar sobre o futuro.","descEn":"What if work stopped being a choice and became a daily struggle for survival? A scenario that makes us think about the future.","release":"2026-11-22T22:00","src":"https://podcasts.velvetverseradio.com/02%20E-SE-EP02-TRABALHAR-PARA-SOBREVIVER-FINAL.mp3"},{"id":3,"titlePt":"Uma Semana Sem Eletricidade","titleEn":"A Week Without Electricity","cover":"e-se-ep03-sem-eletricidade.jpg","descPt":"Imagina sete dias sem energia elétrica: transportes, hospitais, abastecimento e cidades inteiras perante um apagão prolongado.","descEn":"Imagine seven days without electricity: transport, hospitals, supplies and entire cities facing an extended blackout.","release":"2026-12-06T22:00","src":"https://podcasts.velvetverseradio.com/03%20E-SE-EP03-UMA-SEMANA-SEM-ELETRICIDADE-FINAL.mp3"},{"id":4,"titlePt":"Uma Semana Sem Satélites","titleEn":"A Week Without Satellites","cover":"e-se-ep04-sem-satelites.jpg","descPt":"E se os satélites deixassem de funcionar durante uma semana? GPS, comunicações, meteorologia e serviços essenciais seriam postos à prova.","descEn":"What if satellites stopped working for a week? GPS, communications, weather forecasting and essential services would be put to the test.","release":"2026-12-20T22:00","src":"https://podcasts.velvetverseradio.com/04%20E-SE-EP04-UMA-SEMANA-SEM-SATELITES-FINAL.mp3"}];
+const player=document.getElementById('mainPlayer'),cards=[...document.querySelectorAll('[data-episode]')];
+let selectedId=1;
+let lang='pt';
+const torontoClock=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+function torontoStamp(){const p=Object.fromEntries(torontoClock.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute}
+function isReleased(e){return torontoStamp()>=e.release}
+function newest(){return [...episodes].reverse().find(isReleased)?.id||1}
+function applyLanguage(){document.documentElement.lang=lang;document.querySelectorAll('.vv-podcast-tr').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});}
+function showEpisode(id,scroll=false){
+ const e=episodes.find(x=>x.id===id);if(!e)return;
+ selectedId=id;player.pause();player.removeAttribute('src');player.load();
+ document.getElementById('mainCover').src=e.cover;document.getElementById('mainCover').alt=lang==='en'?e.titleEn:e.titlePt;
+ document.getElementById('mainTitle').textContent=lang==='en'?e.titleEn:e.titlePt;
+ document.getElementById('featuredLabel').textContent=(lang==='en'?'EPISODE ':'EPISÓDIO ')+String(e.id).padStart(2,'0');
+ document.getElementById('mainDescription').textContent=lang==='en'?e.descEn:e.descPt;
+ const available=isReleased(e),waiting=document.getElementById('episodeWaiting');
+ waiting.hidden=available;document.getElementById('episodeListening').hidden=!available;
+ if(available){player.src=e.src;}else{const day=Number(e.release.slice(8,10)),month=e.release.slice(5,7)==='11'?'novembro':'dezembro',monthEn=e.release.slice(5,7)==='11'?'November':'December';
+ waiting.textContent=lang==='en'?'🎙️ Available from '+monthEn+' '+day+', after 10:00 PM (Toronto).':'🎙️ Disponível a '+day+' de '+month+', depois das 22h00 (Toronto).';
+ }
+ cards.forEach(c=>{const ep=episodes.find(x=>x.id===Number(c.dataset.episode));c.setAttribute('aria-pressed',String(ep.id===id));c.querySelector('[data-title]').textContent=lang==='en'?ep.titleEn:ep.titlePt;c.querySelector('.ep-status').textContent=isReleased(ep)?(lang==='en'?'▶ Available to listen':'▶ Disponível para ouvir'):(lang==='en'?'After '+(ep.release.slice(5,7)==='11'?'Nov ':'Dec ')+Number(ep.release.slice(8,10)):'Após '+Number(ep.release.slice(8,10))+' de '+(ep.release.slice(5,7)==='11'?'novembro':'dezembro'));});
+ if(scroll)document.getElementById('featuredEpisode').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
-}
-
-</script>
-
-<script id="vv-podcast-language">(function(){let l='pt';try{l=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}document.documentElement.lang=l;document.querySelectorAll('.vv-podcast-tr').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});})();</script></body>
-</html>
+cards.forEach(card=>card.addEventListener('click',()=>showEpisode(Number(card.dataset.episode),true)));
+document.getElementById('latestEpisodeButton').addEventListener('click',()=>showEpisode(newest(),true));
+try{lang=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}
+applyLanguage();showEpisode(newest());
+setInterval(()=>{const n=newest();if(n>selectedId)showEpisode(n);else if(isReleased(episodes.find(e=>e.id===selectedId))&&document.getElementById('episodeListening').hidden)showEpisode(selectedId)},60000);
+</script></body></html>
