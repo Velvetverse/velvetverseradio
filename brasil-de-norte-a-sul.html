@@ -280,6 +280,8 @@ body{
 
 }
 
+
+.story-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.story-card{text-align:left;color:#fff;font:inherit;padding:0;display:flex;flex-direction:column}.story-card:focus-visible{outline:2px solid #6ff8a4;outline-offset:3px}.story-card[aria-pressed="true"]{border-color:#40da8d;box-shadow:0 0 0 1px #40da8d}.story-card img{aspect-ratio:4/3;object-fit:cover}.story-card-content{display:flex;flex-direction:column;gap:9px;flex:1}.story-num{font-size:11px;letter-spacing:.08em;color:#6deca2}.story-name{font-size:17px;font-weight:750}.story-status{font-size:12px;color:#a7c9b2;margin-top:auto}.player-content{min-width:0}.player-cover{aspect-ratio:4/5;object-fit:cover;flex:none}#mainPlayer{width:100%;max-width:100%;margin-top:7px;accent-color:#3fe38d}.player-intro{font-weight:700;color:#65e69b!important;margin:15px 0 8px!important}#episodeListening[hidden],#episodeWaiting[hidden]{display:none}.latest-episode-btn{margin-top:17px;padding:11px 18px;border-radius:999px;border:1px solid #42b879;background:linear-gradient(120deg,#1a5238,#12394c);color:#fff;font:inherit;font-weight:750;cursor:pointer}.latest-episode-btn:hover{background:#24684b}.player-section{align-items:center}.section-title{margin-top:30px}@media(max-width:900px){.story-list{grid-template-columns:repeat(2,minmax(0,1fr))}.player-cover{max-width:380px;aspect-ratio:4/3}}@media(max-width:520px){body{padding:15px}.hero{padding:20px}.hero-logo{width:min(260px,100%)}.player-section{padding:18px}.story-list{gap:12px}.story-card-content{padding:12px}.story-name{font-size:15px}}
 </style>
 
 </head>
@@ -307,9 +309,7 @@ body{
 <span class="vv-translation" data-pt="Uma viagem pelos ritmos, sotaques, tradições e histórias que fazem cada canto do Brasil soar de maneira única. Com Lara Ingrid, descobrimos a riqueza musical e cultural de um país cheio de vozes, cores e ritmos." data-en="A journey through the rhythms, accents, traditions and stories that give every corner of Brazil its own sound. Join Lara Ingrid to explore the musical and cultural richness of a country filled with voices, colours and rhythms.">Uma viagem pelos ritmos, sotaques, tradições e histórias que fazem cada canto do Brasil soar de maneira única. Com Lara Ingrid, descobrimos a riqueza musical e cultural de um país cheio de vozes, cores e ritmos.</span>
 </p>
 
-<div class="coming-soon">
-<span class="vv-translation" data-pt="✨ Brevemente na VelvetVerse Radio ✨" data-en="✨ Coming soon to VelvetVerse Radio ✨">✨ Brevemente na VelvetVerse Radio ✨</span>
-</div>
+<div class="coming-soon"><span class="vv-translation" data-pt="📻 Sábados, 17h00–17h30 · Toronto" data-en="📻 Saturdays, 5:00–5:30 PM · Toronto">📻 Sábados, 17h00–17h30 · Toronto</span></div>
 
 <div class="live-info">
 <span class="vv-translation" data-pt="🇧🇷 Uma rubrica especial de Coração Brasileiro" data-en="🇧🇷 A special feature of Coração Brasileiro">🇧🇷 Uma rubrica especial de Coração Brasileiro</span><br>
@@ -333,97 +333,67 @@ body{
 
 </section>
 
-<section class="player-section">
-
-<img
-    class="player-cover"
-    id="mainCover"
-    src="brasil-de-norte-a-sul-logo.png"
-    alt="Brasil de Norte a Sul">
-
+<section class="player-section" id="featuredEpisode">
+<img class="player-cover" id="mainCover" src="brasil-norte-sul-ep01-bahia.jpg" alt="Bahia">
 <div class="player-content">
-
-<div class="player-label">
-<span class="vv-translation" data-pt="EPISÓDIO EM DESTAQUE" data-en="FEATURED EPISODE">EPISÓDIO EM DESTAQUE</span>
+<div class="player-label" id="featuredLabel">EPISÓDIO 01</div>
+<h2 id="mainTitle">Bahia</h2>
+<p id="mainDescription">Da energia de Salvador às tradições do Recôncavo, uma viagem pelos ritmos, pela cultura e pelas histórias da Bahia.</p>
+<div class="waiting-box" id="episodeWaiting">
+<span class="vv-translation" data-pt="🎙️ O episódio estará disponível após a emissão de sábado, dia 7, às 17h30 (Toronto)." data-en="🎙️ The episode will be available after Saturday's broadcast, November 7 at 5:30 PM (Toronto).">🎙️ O episódio estará disponível após a emissão de sábado, dia 7, às 17h30 (Toronto).</span>
 </div>
-
-<h2 id="mainTitle">
-<span class="vv-translation" data-pt="Em preparação" data-en="In preparation">Em preparação</span>
-</h2>
-
-<p id="mainDescription">
-<span class="vv-translation" data-pt="A primeira viagem do Brasil de Norte a Sul está a ser preparada. Em breve, Lara Ingrid vai guiar os ouvintes pelos sons, histórias, tradições e curiosidades das diferentes regiões do Brasil." data-en="The first journey of Brasil de Norte a Sul is being prepared. Soon, Lara Ingrid will take listeners through the sounds, stories, traditions and curiosities of Brazil's different regions.">A primeira viagem do Brasil de Norte a Sul está a ser preparada. Em breve, Lara Ingrid vai guiar os ouvintes pelos sons, histórias, tradições e curiosidades das diferentes regiões do Brasil.</span>
-</p>
-
-<div class="waiting-box">
-<span class="vv-translation" data-pt="✨ O primeiro episódio estará disponível brevemente." data-en="✨ The first episode will be available soon.">✨ O primeiro episódio estará disponível brevemente.</span>
+<div id="episodeListening" hidden><p class="player-intro"><span class="vv-translation" data-pt="▶ Ouve o episódio completo" data-en="▶ Listen to the full episode">▶ Ouve o episódio completo</span></p><audio id="mainPlayer" controls preload="none"></audio></div>
+<button type="button" id="latestEpisodeButton" class="latest-episode-btn"><span class="vv-translation" data-pt="↶ Voltar ao episódio mais recente" data-en="↶ Back to the latest episode">↶ Voltar ao episódio mais recente</span></button>
 </div>
-
-</div>
-
 </section>
-
-<h2 class="section-title">
-<span class="vv-translation" data-pt="Arquivo Brasil de Norte a Sul" data-en="Brasil de Norte a Sul Archive">Arquivo Brasil de Norte a Sul</span>
-</h2>
-
-<p class="section-subtitle">
-<span class="vv-translation" data-pt="Depois da estreia, os episódios anteriores ficarão disponíveis aqui para ouvires sempre que quiseres." data-en="After the premiere, previous episodes will be available here to listen to whenever you like.">Depois da estreia, os episódios anteriores ficarão disponíveis aqui para ouvires sempre que quiseres.</span>
-</p>
-
-<section
-    class="story-list"
-    id="archiveList">
-
-<div class="empty-archive">
-
-<strong>
-<span class="vv-translation" data-pt="🇧🇷 Os episódios estão a caminho" data-en="🇧🇷 Episodes are on the way">🇧🇷 Os episódios estão a caminho</span>
-</strong>
-
-<span>
-<span class="vv-translation" data-pt="Assim que o Brasil de Norte a Sul estrear, o episódio mais recente ficará em destaque e os anteriores estarão disponíveis neste arquivo." data-en="Once Brasil de Norte a Sul premieres, the newest episode will be featured and earlier episodes will appear in this archive.">Assim que o Brasil de Norte a Sul estrear, o episódio mais recente ficará em destaque e os anteriores estarão disponíveis neste arquivo.</span>
-</span>
-
-</div>
-
+<h2 class="section-title"><span class="vv-translation" data-pt="Arquivo Brasil de Norte a Sul" data-en="Brasil de Norte a Sul Archive">Arquivo Brasil de Norte a Sul</span></h2>
+<p class="section-subtitle"><span class="vv-translation" data-pt="Escolhe uma região para ver o episódio em destaque. Os áudios ficam disponíveis após a respetiva emissão." data-en="Choose a region to see its episode above. Audio becomes available after each broadcast.">Escolhe uma região para ver o episódio em destaque. Os áudios ficam disponíveis após a respetiva emissão.</span></p>
+<section class="story-list" id="archiveList">
+<button class="story-card" type="button" data-episode="4" aria-pressed="false"><img src="brasil-norte-sul-ep04-minas-gerais.jpg" alt="Minas Gerais" loading="lazy"><span class="story-card-content"><strong class="story-num"><span class="vv-translation" data-pt="EPISÓDIO 04" data-en="EPISODE 04">EPISÓDIO 04</span></strong><span class="story-name">Minas Gerais</span><span class="story-status"></span></span></button>
+<button class="story-card" type="button" data-episode="3" aria-pressed="false"><img src="brasil-norte-sul-ep03-rio-janeiro.jpg" alt="Rio de Janeiro" loading="lazy"><span class="story-card-content"><strong class="story-num"><span class="vv-translation" data-pt="EPISÓDIO 03" data-en="EPISODE 03">EPISÓDIO 03</span></strong><span class="story-name">Rio de Janeiro</span><span class="story-status"></span></span></button>
+<button class="story-card" type="button" data-episode="2" aria-pressed="false"><img src="brasil-norte-sul-ep02-pernambuco.jpg" alt="Pernambuco" loading="lazy"><span class="story-card-content"><strong class="story-num"><span class="vv-translation" data-pt="EPISÓDIO 02" data-en="EPISODE 02">EPISÓDIO 02</span></strong><span class="story-name">Pernambuco</span><span class="story-status"></span></span></button>
+<button class="story-card" type="button" data-episode="1" aria-pressed="false"><img src="brasil-norte-sul-ep01-bahia.jpg" alt="Bahia" loading="lazy"><span class="story-card-content"><strong class="story-num"><span class="vv-translation" data-pt="EPISÓDIO 01" data-en="EPISODE 01">EPISÓDIO 01</span></strong><span class="story-name">Bahia</span><span class="story-status"></span></span></button>
 </section>
-
 </div>
 
 <script>
-
-function changeStory(
-    cover,
-    title,
-    description,
-    audio
-){
-
-    document.getElementById("mainCover").src = cover;
-
-    document.getElementById("mainTitle").innerText = title;
-
-    document.getElementById("mainDescription").innerText = description;
-
-    const player =
-        document.getElementById("mainPlayer");
-
-    const source =
-        document.getElementById("mainAudio");
-
-    if(player && source){
-
-        source.src = audio;
-
-        player.load();
-
-    }
-
+const brazilEpisodes=[{"id":1,"pt":"Bahia","en":"Bahia","image":"brasil-norte-sul-ep01-bahia.jpg","descPt":"Da energia de Salvador às tradições do Recôncavo, uma viagem pelos ritmos, pela cultura e pelas histórias da Bahia.","descEn":"From Salvador's vibrant energy to the traditions of the Recôncavo, a journey through Bahia's rhythms, culture and stories.","file":"01 BRASIL-DE-NORTE-A-SUL-EP01-BAHIA-FINAL.mp3","release":"2026-11-7T17:30","src":"https://podcasts.velvetverseradio.com/01%20BRASIL-DE-NORTE-A-SUL-EP01-BAHIA-FINAL.mp3"},{"id":2,"pt":"Pernambuco","en":"Pernambuco","image":"brasil-norte-sul-ep02-pernambuco.jpg","descPt":"Uma viagem por Pernambuco, pelo frevo, maracatu e pelas tradições que fazem desta região um lugar singular.","descEn":"A journey through Pernambuco, frevo, maracatu and the traditions that give this region its distinctive identity.","file":"02 BRASIL-DE-NORTE-A-SUL-EP02-PERNAMBUCO-FINAL.mp3","release":"2026-11-14T17:30","src":"https://podcasts.velvetverseradio.com/02%20BRASIL-DE-NORTE-A-SUL-EP02-PERNAMBUCO-FINAL.mp3"},{"id":3,"pt":"Rio de Janeiro","en":"Rio de Janeiro","image":"brasil-norte-sul-ep03-rio-janeiro.jpg","descPt":"Do samba às paisagens cariocas, uma descoberta dos sons e das histórias do Rio de Janeiro.","descEn":"From samba to the city's iconic scenery, discover the sounds and stories of Rio de Janeiro.","file":"03 BRASIL-DE-NORTE-A-SUL-EP03-RIO-DE-JANEIRO-FINAL.mp3","release":"2026-11-21T17:30","src":"https://podcasts.velvetverseradio.com/03%20BRASIL-DE-NORTE-A-SUL-EP03-RIO-DE-JANEIRO-FINAL.mp3"},{"id":4,"pt":"Minas Gerais","en":"Minas Gerais","image":"brasil-norte-sul-ep04-minas-gerais.jpg","descPt":"Entre cidades históricas e tradições musicais, descobrimos a identidade e os encantos de Minas Gerais.","descEn":"Through historic towns and musical traditions, discover the identity and charm of Minas Gerais.","file":"04 BRASIL-DE-NORTE-A-SUL-EP04-MINAS-GERAIS-FINAL.mp3","release":"2026-11-28T17:30","src":"https://podcasts.velvetverseradio.com/04%20BRASIL-DE-NORTE-A-SUL-EP04-MINAS-GERAIS-FINAL.mp3"}];
+const audioPlayer=document.getElementById('mainPlayer');
+let currentEpisode=1;
+let currentLanguage='pt';
+const clockToronto=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+function torontoNow(){const p=Object.fromEntries(clockToronto.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute}
+function episodeAvailable(e){return torontoNow()>=e.release}
+function lastAvailable(){return [...brazilEpisodes].reverse().find(episodeAvailable)?.id||1}
+function updateTranslations(){
+ document.documentElement.lang=currentLanguage==='en'?'en':'pt-BR';
+ document.querySelectorAll('.vv-translation').forEach(x=>x.textContent=x.getAttribute('data-'+currentLanguage));
 }
-
-</script>
-
-<script id="vv-brasil-language">(function(){let lang='pt';try{lang=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}document.documentElement.lang=lang==='en'?'en':'pt-BR';document.querySelectorAll('.vv-translation').forEach(el=>{el.textContent=el.getAttribute('data-'+lang)});})();</script></body>
-
+function displayBrazilEpisode(id,scroll=false){
+ const e=brazilEpisodes.find(x=>x.id===id);if(!e)return;
+ currentEpisode=id;audioPlayer.pause();audioPlayer.removeAttribute('src');audioPlayer.load();
+ document.getElementById('mainCover').src=e.image;document.getElementById('mainCover').alt=e.pt;
+ document.getElementById('mainTitle').textContent=currentLanguage==='en'?e.en:e.pt;
+ document.getElementById('featuredLabel').textContent=(currentLanguage==='en'?'EPISODE ':'EPISÓDIO ')+String(id).padStart(2,'0');
+ document.getElementById('mainDescription').textContent=currentLanguage==='en'?e.descEn:e.descPt;
+ const ready=episodeAvailable(e);
+ document.getElementById('episodeListening').hidden=!ready;
+ const waiting=document.getElementById('episodeWaiting');waiting.hidden=ready;
+ if(ready){audioPlayer.src=e.src}else{
+  const n=Number(e.release.slice(8,10));
+  waiting.textContent=currentLanguage==='en'?'🎙️ Available on November '+n+' after 5:30 PM (Toronto).':'🎙️ Disponível a '+n+' de novembro, depois das 17h30 (Toronto).';
+ }
+ document.querySelectorAll('[data-episode]').forEach(card=>{
+  const ep=brazilEpisodes.find(x=>x.id===Number(card.dataset.episode)),active=ep.id===id;
+  card.setAttribute('aria-pressed',String(active));
+  card.querySelector('.story-status').textContent=episodeAvailable(ep)?(currentLanguage==='en'?'▶ Available to listen':'▶ Disponível para ouvir'):(currentLanguage==='en'?'After Nov '+Number(ep.release.slice(8,10)):'Após '+Number(ep.release.slice(8,10))+' de novembro');
+ });
+ if(scroll)document.getElementById('featuredEpisode').scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.querySelectorAll('[data-episode]').forEach(el=>el.addEventListener('click',()=>displayBrazilEpisode(Number(el.dataset.episode),true)));
+document.getElementById('latestEpisodeButton').addEventListener('click',()=>displayBrazilEpisode(lastAvailable(),true));
+try{currentLanguage=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}
+updateTranslations();displayBrazilEpisode(lastAvailable());
+setInterval(()=>{const newest=lastAvailable();if(newest>currentEpisode)displayBrazilEpisode(newest);else if(audioPlayer.closest('#episodeListening').hidden&&episodeAvailable(brazilEpisodes.find(e=>e.id===currentEpisode)))displayBrazilEpisode(currentEpisode)},60000);
+</script></body>
 </html>
