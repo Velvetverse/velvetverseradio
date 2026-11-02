@@ -229,6 +229,8 @@ width:100%;
 
 }
 
+
+.player-label{color:#74d5ff;font-size:13px;letter-spacing:1.5px;font-weight:850;margin-bottom:12px}.player-cover{aspect-ratio:4/5;object-fit:cover;flex:none}.player-content{min-width:0}.player-content #mainTitle{line-height:1.16}.listen-intro{color:#83d8ff!important;font-weight:700;margin:15px 0 8px!important}.story-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.story-card{padding:0;color:#fff;font:inherit;text-align:left;display:flex;flex-direction:column}.story-card[aria-pressed=true]{border-color:#5ac4fc;box-shadow:0 0 0 1px #57b6ed}.story-card:focus-visible{outline:2px solid #70c9fa;outline-offset:3px}.story-card img{aspect-ratio:4/3;object-fit:cover}.story-card-content{padding:15px;display:flex;flex-direction:column;gap:8px;flex:1}.ep-no{color:#77d6ff;letter-spacing:.08em;font-size:11px}.ep-title{font-size:16px;line-height:1.35}.ep-status{color:#b7cbdb;font-size:12px;line-height:1.3;margin-top:auto}.archive-info{color:#bbb;margin:-10px 0 22px;line-height:1.6}#episodeWaiting[hidden],#episodeListening[hidden]{display:none}#mainPlayer{width:100%;max-width:100%}@media(max-width:900px){.story-list{grid-template-columns:repeat(2,minmax(0,1fr))}.player-cover{width:100%;max-width:420px;aspect-ratio:4/3}}@media(max-width:520px){body{padding:15px}.hero,.player-section{padding:20px}.hero-logo{max-width:100%}.story-list{gap:12px}.story-card-content{padding:11px}.ep-title{font-size:14px}}
 </style>
 </head>
 
@@ -254,7 +256,7 @@ alt="Um Futuro Próximo">
 
 <div class="live-info">
 
-<span class="vv-podcast-tr" data-pt="📻 Domingos alternados • 10:00 — hora de Toronto" data-en="📻 Alternate Sundays • 10:00 — Toronto time">📻 Domingos alternados • 10:00 — hora de Toronto</span><br>
+<span class="vv-podcast-tr" data-pt="📻 Domingos alternados • 21h30–22h00 — Toronto" data-en="📻 Alternate Sundays • 9:30–10:00 PM — Toronto time">📻 Domingos alternados • 10:00 — hora de Toronto</span><br>
 <span class="vv-podcast-tr" data-pt="🎙️ Exclusivo VelvetVerse Radio" data-en="🎙️ Exclusively on VelvetVerse Radio">🎙️ Exclusivo VelvetVerse Radio</span>
 
 </div>
@@ -274,64 +276,52 @@ alt="Um Futuro Próximo">
 
 </section>
 
-<section class="player-section">
-
-<img class="player-cover"
-id="mainCover"
-src="logo-um-futuro-proximo.png"
-alt="Um Futuro Próximo">
-
+<section class="player-section" id="featuredEpisode">
+<img class="player-cover" id="mainCover" src="um-futuro-proximo-ep01-cidades.png" alt="Cidades do Futuro">
 <div class="player-content">
-
-<h2 id="mainTitle">
-<span class="vv-podcast-tr" data-pt="Episódio 01 — Em preparação" data-en="Episode 01 — In preparation">Episódio 01 — Em preparação</span>
-</h2>
-
-<p id="mainDescription">
-<span class="vv-podcast-tr" data-pt="O primeiro episódio de “Um Futuro Próximo” está em preparação. Aqui ficará o episódio mais recente, com os anteriores disponíveis no arquivo." data-en="The first episode of “Um Futuro Próximo” is in preparation. The latest episode will appear here, with earlier episodes saved in the archive.">O primeiro episódio de “Um Futuro Próximo” está em preparação. Aqui ficará o episódio mais recente, com os anteriores disponíveis no arquivo.</span>
-</p>
-
-<div class="coming-soon">
-<span class="vv-podcast-tr" data-pt="🎙️ Primeiro episódio em breve na VelvetVerse Radio." data-en="🎙️ First episode coming soon to VelvetVerse Radio.">🎙️ Primeiro episódio em breve na VelvetVerse Radio.</span>
-</div>
-
-</div>
-
-</section>
-
-<h2 class="section-title">
-<span class="vv-podcast-tr" data-pt="Arquivo Um Futuro Próximo" data-en="Um Futuro Próximo Archive">Arquivo Um Futuro Próximo</span>
-</h2>
-
-<section class="story-list" id="archiveList">
-
-<div class="coming-soon">
-<span class="vv-podcast-tr" data-pt="Ainda não existem episódios anteriores no arquivo. Assim que o Episódio 02 for publicado, o Episódio 01 ficará aqui disponível." data-en="There are no earlier episodes in the archive yet. Once Episode 02 is released, Episode 01 will be available here.">Ainda não existem episódios anteriores no arquivo. Assim que o Episódio 02 for publicado, o Episódio 01 ficará aqui disponível.</span>
-</div>
-
-</section>
-
+<div class="player-label" id="featuredLabel">EPISÓDIO 01</div>
+<h2 id="mainTitle">Cidades do Futuro</h2>
+<p id="mainDescription">Como poderão ser as cidades de amanhã? Mobilidade inteligente, energia limpa e novas formas de viver em comunidade.</p>
+<div class="coming-soon" id="episodeWaiting"><span class="vv-podcast-tr" data-pt="O áudio fica disponível depois da emissão." data-en="Audio will be available after the radio broadcast.">O áudio fica disponível depois da emissão.</span></div>
+<div id="episodeListening" hidden><p class="listen-intro"><span class="vv-podcast-tr" data-pt="▶ Ouvir episódio completo" data-en="▶ Listen to the full episode">▶ Ouvir episódio completo</span></p><audio id="mainPlayer" controls preload="none"></audio></div>
+<button class="reset-btn" id="latestEpisodeButton" type="button"><span class="vv-podcast-tr" data-pt="↶ Voltar ao episódio mais recente" data-en="↶ Back to the latest episode">↶ Voltar ao episódio mais recente</span></button>
+</div></section>
+<h2 class="section-title"><span class="vv-podcast-tr" data-pt="Arquivo Um Futuro Próximo" data-en="Um Futuro Próximo Archive">Arquivo Um Futuro Próximo</span></h2>
+<p class="archive-info"><span class="vv-podcast-tr" data-pt="Escolhe um episódio. Os áudios ficam disponíveis após a respetiva emissão na rádio." data-en="Select an episode. Audio becomes available after each radio broadcast.">Escolhe um episódio. Os áudios ficam disponíveis após a respetiva emissão na rádio.</span></p>
+<section class="story-list" id="archiveList"><button type="button" class="story-card" data-episode="4" aria-pressed="false"><img src="um-futuro-proximo-ep04-alimentacao.png" alt="Alimentação do Futuro" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 04" data-en="EPISODE 04">EPISÓDIO 04</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button>
+<button type="button" class="story-card" data-episode="3" aria-pressed="false"><img src="um-futuro-proximo-ep03-saude-medicina.png" alt="Saúde e Medicina no Futuro" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 03" data-en="EPISODE 03">EPISÓDIO 03</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button>
+<button type="button" class="story-card" data-episode="2" aria-pressed="false"><img src="um-futuro-proximo-ep02-trabalho.png" alt="Trabalho no Futuro" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 02" data-en="EPISODE 02">EPISÓDIO 02</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button>
+<button type="button" class="story-card" data-episode="1" aria-pressed="false"><img src="um-futuro-proximo-ep01-cidades.png" alt="Cidades do Futuro" loading="lazy"><span class="story-card-content"><strong class="ep-no"><span class="vv-podcast-tr" data-pt="EPISÓDIO 01" data-en="EPISODE 01">EPISÓDIO 01</span></strong><strong class="ep-title" data-title></strong><span class="ep-status"></span></span></button></section>
 </div>
 
 <script>
-
-function changeStory(cover,title,description,audio){
-
-document.getElementById("mainCover").src=cover;
-document.getElementById("mainTitle").innerText=title;
-document.getElementById("mainDescription").innerText=description;
-
-const player=document.getElementById("mainPlayer");
-const source=document.getElementById("mainAudio");
-
-if(player && source && audio){
-source.src=audio;
-player.load();
+const episodes=[{"id":1,"pt":"Cidades do Futuro","en":"Cities of the Future","image":"um-futuro-proximo-ep01-cidades.png","descPt":"Como poderão ser as cidades de amanhã? Mobilidade inteligente, energia limpa e novas formas de viver em comunidade.","descEn":"What might tomorrow's cities look like? Smart mobility, clean energy and new ways of living together.","file":"01 UM-FUTURO-PROXIMO-EP01-CIDADES-DO-FUTURO-FINAL.mp3","release":"2026-11-15T22:00","src":"https://podcasts.velvetverseradio.com/01%20UM-FUTURO-PROXIMO-EP01-CIDADES-DO-FUTURO-FINAL.mp3"},{"id":2,"pt":"Trabalho no Futuro","en":"Work in the Future","image":"um-futuro-proximo-ep02-trabalho.png","descPt":"Inteligência artificial, automação e profissões em transformação: como poderá mudar o trabalho nas próximas décadas?","descEn":"Artificial intelligence, automation and changing professions: how might work evolve over the coming decades?","file":"02 UM-FUTURO-PROXIMO-EP02-TRABALHO-DO-FUTURO-FINAL.mp3","release":"2026-11-29T22:00","src":"https://podcasts.velvetverseradio.com/02%20UM-FUTURO-PROXIMO-EP02-TRABALHO-DO-FUTURO-FINAL.mp3"},{"id":3,"pt":"Saúde e Medicina no Futuro","en":"Health and Medicine in the Future","image":"um-futuro-proximo-ep03-saude-medicina.png","descPt":"Da medicina personalizada aos novos instrumentos de diagnóstico, exploramos possibilidades para a saúde em 2050.","descEn":"From personalized medicine to new diagnostic technologies, we explore possibilities for healthcare in 2050.","file":"03 UM-FUTURO-PROXIMO-EP03-SAUDE-E-MEDICINA-EM-2050-FINAL.mp3","release":"2026-12-13T22:00","src":"https://podcasts.velvetverseradio.com/03%20UM-FUTURO-PROXIMO-EP03-SAUDE-E-MEDICINA-EM-2050-FINAL.mp3"},{"id":4,"pt":"Alimentação do Futuro","en":"Food of the Future","image":"um-futuro-proximo-ep04-alimentacao.png","descPt":"Agricultura vertical, novas tecnologias alimentares e sustentabilidade: o que poderemos comer no futuro?","descEn":"Vertical farming, new food technologies and sustainability: what might we eat in the future?","file":"04 UM-FUTURO-PROXIMO-EP04-A-ALIMENTACAO-EM-2050-FINAL.mp3","release":"2026-12-27T22:00","src":"https://podcasts.velvetverseradio.com/04%20UM-FUTURO-PROXIMO-EP04-A-ALIMENTACAO-EM-2050-FINAL.mp3"}];
+const player=document.getElementById('mainPlayer'),cards=[...document.querySelectorAll('[data-episode]')];
+let selectedId=1,lang='pt';
+const torontoClock=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+function torontoStamp(){const p=Object.fromEntries(torontoClock.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute}
+function isReleased(e){return torontoStamp()>=e.release}
+function newest(){return [...episodes].reverse().find(isReleased)?.id||1}
+function applyLanguage(){document.documentElement.lang=lang;document.querySelectorAll('.vv-podcast-tr').forEach(el=>el.textContent=el.getAttribute('data-'+lang));}
+function showEpisode(id,scroll=false){
+ const e=episodes.find(x=>x.id===id);if(!e)return;
+ selectedId=id;player.pause();player.removeAttribute('src');player.load();
+ document.getElementById('mainCover').src=e.image;document.getElementById('mainCover').alt=lang==='en'?e.en:e.pt;
+ document.getElementById('mainTitle').textContent=lang==='en'?e.en:e.pt;
+ document.getElementById('featuredLabel').textContent=(lang==='en'?'EPISODE ':'EPISÓDIO ')+String(e.id).padStart(2,'0');
+ document.getElementById('mainDescription').textContent=lang==='en'?e.descEn:e.descPt;
+ const ready=isReleased(e),waiting=document.getElementById('episodeWaiting');
+ waiting.hidden=ready;document.getElementById('episodeListening').hidden=!ready;
+ if(ready){player.src=e.src;}else{
+  const day=Number(e.release.slice(8,10)),month=e.release.slice(5,7)==='11'?'novembro':'dezembro',monthEn=e.release.slice(5,7)==='11'?'November':'December';
+  waiting.textContent=lang==='en'?'🎙️ Available from '+monthEn+' '+day+', after 10:00 PM (Toronto).':'🎙️ Disponível a '+day+' de '+month+', depois das 22h00 (Toronto).';
+ }
+ cards.forEach(c=>{const ep=episodes.find(x=>x.id===Number(c.dataset.episode));c.setAttribute('aria-pressed',String(ep.id===id));c.querySelector('[data-title]').textContent=lang==='en'?ep.en:ep.pt;c.querySelector('.ep-status').textContent=isReleased(ep)?(lang==='en'?'▶ Available to listen':'▶ Disponível para ouvir'):(lang==='en'?'After '+(ep.release.slice(5,7)==='11'?'Nov ':'Dec ')+Number(ep.release.slice(8,10)):'Após '+Number(ep.release.slice(8,10))+' de '+(ep.release.slice(5,7)==='11'?'novembro':'dezembro'));});
+ if(scroll)document.getElementById('featuredEpisode').scrollIntoView({behavior:'smooth',block:'start'});
 }
-
-}
-
-</script>
-
-<script id="vv-podcast-language">(function(){let l='pt';try{l=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}document.documentElement.lang=l;document.querySelectorAll('.vv-podcast-tr').forEach(el=>{el.textContent=el.getAttribute('data-'+l)});})();</script></body>
-</html>
+cards.forEach(card=>card.addEventListener('click',()=>showEpisode(Number(card.dataset.episode),true)));
+document.getElementById('latestEpisodeButton').addEventListener('click',()=>showEpisode(newest(),true));
+try{lang=localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){}
+applyLanguage();showEpisode(newest());
+setInterval(()=>{const n=newest();if(n>selectedId)showEpisode(n);else if(isReleased(episodes.find(e=>e.id===selectedId))&&document.getElementById('episodeListening').hidden)showEpisode(selectedId)},60000);
+</script></body></html>
