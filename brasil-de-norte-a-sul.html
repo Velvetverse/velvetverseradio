@@ -282,6 +282,8 @@ body{
 
 
 .story-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.story-card{text-align:left;color:#fff;font:inherit;padding:0;display:flex;flex-direction:column}.story-card:focus-visible{outline:2px solid #6ff8a4;outline-offset:3px}.story-card[aria-pressed="true"]{border-color:#40da8d;box-shadow:0 0 0 1px #40da8d}.story-card img{aspect-ratio:4/3;object-fit:cover}.story-card-content{display:flex;flex-direction:column;gap:9px;flex:1}.story-num{font-size:11px;letter-spacing:.08em;color:#6deca2}.story-name{font-size:17px;font-weight:750}.story-status{font-size:12px;color:#a7c9b2;margin-top:auto}.player-content{min-width:0}.player-cover{aspect-ratio:4/5;object-fit:cover;flex:none}#mainPlayer{width:100%;max-width:100%;margin-top:7px;accent-color:#3fe38d}.player-intro{font-weight:700;color:#65e69b!important;margin:15px 0 8px!important}#episodeListening[hidden],#episodeWaiting[hidden]{display:none}.latest-episode-btn{margin-top:17px;padding:11px 18px;border-radius:999px;border:1px solid #42b879;background:linear-gradient(120deg,#1a5238,#12394c);color:#fff;font:inherit;font-weight:750;cursor:pointer}.latest-episode-btn:hover{background:#24684b}.player-section{align-items:center}.section-title{margin-top:30px}@media(max-width:900px){.story-list{grid-template-columns:repeat(2,minmax(0,1fr))}.player-cover{max-width:380px;aspect-ratio:4/3}}@media(max-width:520px){body{padding:15px}.hero{padding:20px}.hero-logo{width:min(260px,100%)}.player-section{padding:18px}.story-list{gap:12px}.story-card-content{padding:12px}.story-name{font-size:15px}}
+
+.photo-credits{margin:36px 0 8px;color:#bed7c5;font-size:13px}.photo-credits summary{display:inline-block;list-style:none;border:1px solid #347c59;border-radius:12px;background:#14231a;color:#c8f9d9;padding:10px 16px;cursor:pointer}.photo-credits summary::-webkit-details-marker{display:none}.photo-credits summary:hover{background:#1c3829}.photo-credits-body{border:1px solid #28543c;border-radius:14px;padding:14px 18px;background:#0b1710;margin-top:12px}.photo-credits-body p{margin:8px 0 15px;line-height:1.6}.photo-credits-body .source{display:block;color:#a8c1ae;font-size:11px;overflow-wrap:anywhere}
 </style>
 
 </head>
@@ -354,6 +356,15 @@ body{
 <button class="story-card" type="button" data-episode="2" aria-pressed="false"><img src="brasil-norte-sul-ep02-pernambuco.jpg" alt="Pernambuco" loading="lazy"><span class="story-card-content"><strong class="story-num"><span class="vv-translation" data-pt="EPISÓDIO 02" data-en="EPISODE 02">EPISÓDIO 02</span></strong><span class="story-name">Pernambuco</span><span class="story-status"></span></span></button>
 <button class="story-card" type="button" data-episode="1" aria-pressed="false"><img src="brasil-norte-sul-ep01-bahia.jpg" alt="Bahia" loading="lazy"><span class="story-card-content"><strong class="story-num"><span class="vv-translation" data-pt="EPISÓDIO 01" data-en="EPISODE 01">EPISÓDIO 01</span></strong><span class="story-name">Bahia</span><span class="story-status"></span></span></button>
 </section>
+<details class="photo-credits">
+<summary><span class="vv-translation" data-pt="📷 Créditos das fotografias" data-en="📷 Photo credits">📷 Créditos das fotografias</span></summary>
+<div class="photo-credits-body">
+<p><strong>Bahia — Pelourinho, Salvador</strong><br>TMorata · CC BY-SA 4.0<span class="source">commons.wikimedia.org/wiki/File:Pelourinho,_Salvador,_Bahia.jpg</span><span class="source">creativecommons.org/licenses/by-sa/4.0/</span></p>
+<p><strong>Pernambuco — Marco Zero, Recife</strong><br>Luís Guilherme · CC BY-SA 2.0<span class="source">commons.wikimedia.org/wiki/File:Marco_Zero_-_Recife_-_Pernambuco_-_Brasil.jpg</span><span class="source">creativecommons.org/licenses/by-sa/2.0/</span></p>
+<p><strong>Rio de Janeiro — Cristo Redentor</strong><br>acediscovery · CC BY 4.0<span class="source">commons.wikimedia.org/wiki/File:Christ-Redeemer-Rio-de-Janeiro.jpg</span><span class="source">creativecommons.org/licenses/by/4.0/</span></p>
+<p><strong>Minas Gerais — Ouro Preto</strong><br><span class="vv-translation" data-pt="Fotografia de Adam Jones" data-en="Photo by Adam Jones">Fotografia de Adam Jones</span> · CC BY-SA 3.0<span class="source">commons.wikimedia.org/wiki/File:View_over_the_Town_from_the_Road_into_Town_-_Ouro_Preto_-_Minas_Gerais_-_Brazil.jpg</span><span class="source">creativecommons.org/licenses/by-sa/3.0/</span></p>
+</div></details>
+
 </div>
 
 <script>
