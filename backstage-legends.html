@@ -220,6 +220,8 @@ width:100%;
 
 }
 
+
+.upcoming-backstage{font:inherit;text-align:left;color:white;padding:0;display:flex;flex-direction:column}.upcoming-backstage img{aspect-ratio:1/1;object-fit:cover}.upcoming-backstage .story-card-content{display:flex;flex-direction:column;gap:8px;flex:1}.backstage-number{font-size:11px;letter-spacing:.07em;color:#e7b56a}.backstage-name{font-size:18px}.backstage-release-state{font-size:12px;line-height:1.5;color:#cbb38d;margin-top:auto}.upcoming-backstage[aria-pressed=true]{outline:2px solid #e0b36a;outline-offset:2px}.upcoming-backstage:focus-visible{outline:2px solid #e0b36a;outline-offset:3px}.player-content{min-width:0}.player-cover{aspect-ratio:1/1;object-fit:cover;flex:none}.backstage-pending{margin:15px 0;padding:14px 18px;border:1px solid #86643b;border-radius:12px;background:#241b12;color:#efcb98}.backstage-pending[hidden]{display:none}@media(max-width:900px){.player-cover{width:100%;max-width:420px}}
 </style>
 </head>
 
@@ -266,7 +268,7 @@ src="backstage-legends-logo.png">
 
 </section>
 
-<section class="player-section">
+<section class="player-section" id="featuredEpisode">
 
 <img class="player-cover"
 id="mainCover"
@@ -282,13 +284,14 @@ Queen
 <span class="vv-translation" data-pt="Nesta edição de Backstage Legends viajamos pela extraordinária história dos Queen, desde a formação da banda em Londres até se tornarem um dos maiores nomes da história do rock. Recordamos Freddie Mercury, Brian May, Roger Taylor e John Deacon, os grandes êxitos, os momentos marcantes e o legado inesquecível que continua a inspirar milhões de fãs em todo o mundo." data-en="Explore the extraordinary story of Queen, from the band's early days in London to becoming one of rock's greatest names. We revisit Freddie Mercury, Brian May, Roger Taylor and John Deacon, their biggest hits, defining moments and enduring legacy.">Nesta edição de Backstage Legends viajamos pela extraordinária história dos Queen, desde a formação da banda em Londres até se tornarem um dos maiores nomes da história do rock. Recordamos Freddie Mercury, Brian May, Roger Taylor e John Deacon, os grandes êxitos, os momentos marcantes e o legado inesquecível que continua a inspirar milhões de fãs em todo o mundo.</span>
 </p>
 
+<div id="backstagePending" class="backstage-pending" hidden></div>
 <audio id="mainPlayer" controls>
 <source id="mainAudio"
 src="Queen- Episodio 08.mp3"
 type="audio/mpeg">
 </audio>
 
-  <button class="reset-btn" onclick="location.reload()">
+  <button type="button" class="reset-btn" id="backstageReset">
 <span class="vv-translation" data-pt="🎙️ Voltar ao episódio em destaque" data-en="🎙️ Back to Featured Episode">🎙️ Voltar ao episódio em destaque</span>
 </button>
 
@@ -301,6 +304,39 @@ type="audio/mpeg">
 </h2>
 
 <section class="story-list">
+<button type="button" class="story-card upcoming-backstage" data-backstage-release="11" aria-pressed="false">
+<img src="ChatGPT Image Nov 2, 2026, 01_50_35 PM-4.png" alt="Backstage Legends — Trovante" loading="lazy">
+<span class="story-card-content">
+<strong class="backstage-number">EPISÓDIO 11</strong>
+<strong class="backstage-name">Trovante</strong>
+<span class="backstage-release-state"></span>
+</span>
+</button>
+<button type="button" class="story-card upcoming-backstage" data-backstage-release="10" aria-pressed="false">
+<img src="ChatGPT Image Nov 2, 2026, 01_50_34 PM-3.png" alt="Backstage Legends — Rui Veloso" loading="lazy">
+<span class="story-card-content">
+<strong class="backstage-number">EPISÓDIO 10</strong>
+<strong class="backstage-name">Rui Veloso</strong>
+<span class="backstage-release-state"></span>
+</span>
+</button>
+<button type="button" class="story-card upcoming-backstage" data-backstage-release="9" aria-pressed="false">
+<img src="ChatGPT Image Nov 2, 2026, 01_50_33 PM-2.png" alt="Backstage Legends — Pink Floyd" loading="lazy">
+<span class="story-card-content">
+<strong class="backstage-number">EPISÓDIO 09</strong>
+<strong class="backstage-name">Pink Floyd</strong>
+<span class="backstage-release-state"></span>
+</span>
+</button>
+<button type="button" class="story-card upcoming-backstage" data-backstage-release="8" aria-pressed="false">
+<img src="ChatGPT Image Nov 2, 2026, 01_50_32 PM-1.png" alt="Backstage Legends — Eagles" loading="lazy">
+<span class="story-card-content">
+<strong class="backstage-number">EPISÓDIO 08</strong>
+<strong class="backstage-name">Eagles</strong>
+<span class="backstage-release-state"></span>
+</span>
+</button>
+
 
   <div class="story-card"
 onclick="changeStory(
@@ -459,34 +495,49 @@ onclick="changeStory(
 </div>
 
 <script>
-
-function changeStory(cover,title,description,audio){
-
-document.getElementById("mainCover").src=cover;
-
-document.getElementById("mainTitle").innerText=title;
-
-document.getElementById("mainDescription").innerText=description;
-
-document.getElementById("mainAudio").src=audio;
-
-document.getElementById("mainPlayer").load();
-
+const backstageUpcoming=[{"title":"Eagles","cover":"ChatGPT Image Nov 2, 2026, 01_50_32 PM-1.png","file":"BACKSTAGE-EP08-EAGLES-FINAL.mp3","release":"2026-11-08T15:00","pt":"Os Eagles, das origens na Califórnia ao sucesso mundial, numa viagem pelos álbuns, pelas canções e pelo legado de uma das bandas mais marcantes do rock.","en":"The Eagles: from their Californian beginnings to worldwide success, exploring the albums, songs and legacy of one of rock's defining bands.","number":8,"src":"https://podcasts.velvetverseradio.com/BACKSTAGE-EP08-EAGLES-FINAL.mp3"},{"title":"Pink Floyd","cover":"ChatGPT Image Nov 2, 2026, 01_50_33 PM-2.png","file":"BACKSTAGE-PINK-FLOYD-FINAL.mp3","release":"2026-11-15T15:00","pt":"A história dos Pink Floyd: a experimentação musical, os grandes álbuns, as mudanças na banda e a influência que deixaram na história do rock.","en":"The story of Pink Floyd: musical experimentation, landmark albums, changes within the band and their enduring influence on rock.","number":9,"src":"https://podcasts.velvetverseradio.com/BACKSTAGE-PINK-FLOYD-FINAL.mp3"},{"title":"Rui Veloso","cover":"ChatGPT Image Nov 2, 2026, 01_50_34 PM-3.png","file":"BACKSTAGE-RUI-VELOSO-FINAL.mp3","release":"2026-11-22T15:00","pt":"Uma viagem pela carreira de Rui Veloso, pelas canções que marcaram gerações e pelo seu lugar especial na história do rock português.","en":"Explore Rui Veloso's career, the songs that shaped generations and his special place in the history of Portuguese rock.","number":10,"src":"https://podcasts.velvetverseradio.com/BACKSTAGE-RUI-VELOSO-FINAL.mp3"},{"title":"Trovante","cover":"ChatGPT Image Nov 2, 2026, 01_50_35 PM-4.png","file":"BACKSTAGE-TROVANTE-FINAL.mp3","release":"2026-11-29T15:00","pt":"Descobrimos a história dos Trovante, as suas canções e a forma como marcaram a música portuguesa com uma identidade inconfundível.","en":"Discover the history of Trovante, their songs and the distinctive mark they left on Portuguese music.","number":11,"src":"https://podcasts.velvetverseradio.com/BACKSTAGE-TROVANTE-FINAL.mp3"}];
+const backstageTranslations={"Bonnie Tyler":"In this special tribute, we celebrate Bonnie Tyler's remarkable career, from her early days to worldwide hits such as Total Eclipse of the Heart and Holding Out for a Hero, and remember her musical legacy.","Dire Straits":"Discover the remarkable story of Dire Straits, from Mark Knopfler's early days in London to worldwide success with Sultans of Swing, and the band's lasting influence.","AC/DC":"Follow AC/DC from their earliest Sydney concerts to global success, through the loss of Bon Scott, Brian Johnson's arrival and some of the greatest anthems in rock history.","Scorpions • Parte 2":"Part two follows Scorpions through their international success, albums, changes and challenges, and the lasting legacy of one of rock's great bands.","Scorpions • Parte 1":"The story of Scorpions, from their early years in Germany to their biggest international hits and their rise to worldwide rock fame.","Def Leppard":"From Sheffield rehearsals to worldwide success, explore Def Leppard's journey through Rick Allen's life-changing accident and the band's determination to carry on.","Leo Sayer":"Discover the remarkable story of Leo Sayer, the moments behind his career, his greatest hits and the memories he created for generations."};
+const queenPt="Nesta edição de Backstage Legends viajamos pela extraordinária história dos Queen, desde a formação da banda em Londres até se tornarem um dos maiores nomes da história do rock. Recordamos Freddie Mercury, Brian May, Roger Taylor e John Deacon, os grandes êxitos, os momentos marcantes e o legado inesquecível que continua a inspirar milhões de fãs em todo o mundo.";
+const queenEn="Explore the extraordinary story of Queen, from the band's early days in London to becoming one of rock's greatest names. We revisit Freddie Mercury, Brian May, Roger Taylor and John Deacon, their biggest hits, defining moments and enduring legacy.";
+const queenFeature={title:'Queen',cover:'Queen- Episodio 08.png',src:'Queen- Episodio 08.mp3',pt:queenPt,en:queenEn};
+const mainPlayer=document.getElementById('mainPlayer'),mainAudio=document.getElementById('mainAudio'),pending=document.getElementById('backstagePending');
+let selected=queenFeature;
+const clockToronto=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+function torontoStamp(){const p=Object.fromEntries(clockToronto.formatToParts(new Date()).filter(x=>x.type!=='literal').map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day+'T'+p.hour+':'+p.minute}
+function released(ep){return !ep.release||torontoStamp()>=ep.release}
+function latestEpisode(){return [...backstageUpcoming].reverse().find(released)||queenFeature}
+function getLang(){try{return localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){return 'pt'}}
+function refreshLabels(){
+ const lang=getLang();document.documentElement.lang=lang;
+ document.querySelectorAll('.vv-translation').forEach(el=>el.textContent=el.getAttribute('data-'+lang));
+ document.getElementById('mainDescription').textContent=lang==='en'?selected.en:selected.pt;
+ document.querySelectorAll('[data-backstage-release]').forEach(card=>{
+ const ep=backstageUpcoming.find(x=>x.number===Number(card.dataset.backstageRelease));
+ card.querySelector('.backstage-number').textContent=(lang==='en'?'EPISODE ':'EPISÓDIO ')+String(ep.number).padStart(2,'0');
+ const day=Number(ep.release.slice(8,10));
+ card.querySelector('.backstage-release-state').textContent=released(ep)?(lang==='en'?'▶ Available to listen':'▶ Disponível para ouvir'):(lang==='en'?'Available Nov '+day+' after 3 PM':'Disponível a '+day+' de novembro, após as 15h00');
+ card.setAttribute('aria-pressed',String(selected.title===ep.title));
+ });
 }
-
-</script>
-
-<script id="vv-backstage-language">
-(function(){
-const translations={"Bonnie Tyler":"In this special tribute, we celebrate Bonnie Tyler's remarkable career, from her early days to worldwide hits such as Total Eclipse of the Heart and Holding Out for a Hero, and remember her musical legacy.","Dire Straits":"Discover the remarkable story of Dire Straits, from Mark Knopfler's early days in London to worldwide success with Sultans of Swing, and the band's lasting influence.","AC/DC":"Follow AC/DC from their earliest Sydney concerts to global success, through the loss of Bon Scott, Brian Johnson's arrival and some of the greatest anthems in rock history.","Scorpions • Parte 2":"Part two follows Scorpions through their international success, albums, changes and challenges, and the lasting legacy of one of rock's great bands.","Scorpions • Parte 1":"The story of Scorpions, from their early years in Germany to their biggest international hits and their rise to worldwide rock fame.","Def Leppard":"From Sheffield rehearsals to worldwide success, explore Def Leppard's journey through Rick Allen's life-changing accident and the band's determination to carry on.","Leo Sayer":"Discover the remarkable story of Leo Sayer, the moments behind his career, his greatest hits and the memories he created for generations."};
-const featureEn="Explore the extraordinary story of Queen, from the band's early days in London to becoming one of rock's greatest names. We revisit Freddie Mercury, Brian May, Roger Taylor and John Deacon, their biggest hits, defining moments and enduring legacy.";
-const main=document.getElementById('mainDescription');const originalFeature=main.textContent.trim();let currentTitle='Queen',currentPt=originalFeature;
-function lang(){try{return localStorage.getItem('vv_site_lang')==='en'?'en':'pt'}catch(e){return 'pt'}}
-function refresh(){const l=lang();document.documentElement.lang=l;document.querySelectorAll('.vv-translation').forEach(el=>el.textContent=el.getAttribute('data-'+l));main.textContent=l==='en'?(currentTitle==='Queen'?featureEn:(translations[currentTitle]||currentPt)):currentPt}
-const originalChange=window.changeStory;
-window.changeStory=function(cover,title,description,audio){currentTitle=title;currentPt=description;originalChange(cover,title,description,audio);refresh()};
-const reset=document.querySelector('.reset-btn');if(reset)reset.addEventListener('click',()=>{});
-refresh();
-})();
-</script></body>
-</html>
+function displayEpisode(ep,scroll=false){
+ selected=ep;mainPlayer.pause();mainAudio.removeAttribute('src');mainPlayer.load();
+ document.getElementById('mainCover').src=ep.cover;document.getElementById('mainCover').alt=ep.title;
+ document.getElementById('mainTitle').textContent=ep.title;
+ const available=released(ep);
+ mainPlayer.hidden=!available;pending.hidden=available;
+ if(available){mainAudio.src=ep.src;mainPlayer.load()}else{
+ const day=Number(ep.release.slice(8,10));
+ pending.textContent=getLang()==='en'?'🎙️ Available on November '+day+', after 3:00 PM (Toronto).':'🎙️ Disponível a '+day+' de novembro, depois das 15h00 (Toronto).';
+ }
+ refreshLabels();
+ if(scroll)document.getElementById('featuredEpisode').scrollIntoView({behavior:'smooth',block:'start'});
+}
+window.changeStory=function(cover,title,description,audio){
+ const langEn=backstageTranslations[title]||description;
+ displayEpisode({cover,title,pt:description,en:langEn,src:audio},true);
+};
+document.querySelectorAll('[data-backstage-release]').forEach(el=>el.addEventListener('click',()=>displayEpisode(backstageUpcoming.find(x=>x.number===Number(el.dataset.backstageRelease)),true)));
+document.getElementById('backstageReset').addEventListener('click',()=>displayEpisode(latestEpisode(),true));
+displayEpisode(latestEpisode());
+setInterval(()=>{const newest=latestEpisode();if(newest.number&&(!selected.number||newest.number>selected.number))displayEpisode(newest);else if(selected.release&&released(selected)&&mainPlayer.hidden)displayEpisode(selected)},60000);
+</script></body></html>
