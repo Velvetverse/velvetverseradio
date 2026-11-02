@@ -74,6 +74,8 @@ cards.forEach(c=>c.addEventListener('click',()=>showEpisode(Number(c.dataset.epi
 document.getElementById('reset-episode').addEventListener('click',()=>showEpisode(newestEpisode()));
 function setLanguage(l){document.documentElement.lang=l==='en'?'en':'pt';showEpisode(selected,false)}
 let savedLanguage='pt';try{savedLanguage=localStorage.getItem('vv_site_lang')||'pt'}catch(e){}
+const incomingLang=new URLSearchParams(location.search).get('lang');
+if(incomingLang==='en'||incomingLang==='pt'){savedLanguage=incomingLang;try{localStorage.setItem('vv_site_lang',savedLanguage)}catch(e){}}
 setLanguage(savedLanguage);
 showEpisode(newestEpisode(),false);
 setInterval(()=>{const latest=newestEpisode();if(latest>selected)showEpisode(latest,false);else if(released(episodes.find(x=>x.id===selected))&&audio.hidden)showEpisode(selected,false)},60000);
