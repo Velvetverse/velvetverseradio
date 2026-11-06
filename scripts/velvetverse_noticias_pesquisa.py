@@ -46,15 +46,18 @@ def weather(city, lat, lon, tz):
     params = urllib.parse.urlencode({
         "latitude":lat, "longitude":lon, "timezone":tz,
         "daily":"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max",
-        "forecast_days":3,
+        "forecast_days":8,
     })
     raw=json.loads(get("https://api.open-meteo.com/v1/forecast?"+params))
     d=raw["daily"]
     result=[]
     localtoday=NOW.astimezone(ZoneInfo(tz)).date()
+    days_until_sunday=(6-localtoday.weekday())%7
+    target_sunday=localtoday+dt.timedelta(days=days_until_sunday)
+    target_monday=target_sunday+dt.timedelta(days=1)
     for i,date in enumerate(d["time"]):
         day=dt.date.fromisoformat(date)
-        if day not in {localtoday, localtoday+dt.timedelta(days=1)}: continue
+        if day not in {target_sunday, target_monday}: continue
         result.append({"data":date,"min_c":d["temperature_2m_min"][i],
                        "max_c":d["temperature_2m_max"][i],
                        "prob_chuva_pct":d["precipitation_probability_max"][i],
