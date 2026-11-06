@@ -88,7 +88,7 @@ def render():
     paragraphs=validate(data)
     key=os.getenv("FISH_AUDIO_API_KEY")
     voice=os.getenv("FISH_VOICE_REFERENCE_ID")
-    model=os.getenv("FISH_TTS_MODEL","s2.1-pro")
+    model=os.getenv("FISH_TTS_MODEL") or "s2.1-pro-free"
     if not key or not voice:raise ValueError("Faltam credenciais da API Fish Audio ou referência da voz.")
     directory=OUT/"audio-parts"
     directory.mkdir(parents=True,exist_ok=True)
