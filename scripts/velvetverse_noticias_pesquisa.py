@@ -18,6 +18,9 @@ OUT.mkdir(parents=True, exist_ok=True)
 HEADERS = {"User-Agent": "VelvetVerseNoticias-Research/0.1 (radio editorial test)"}
 SOURCES = {
     "rtp_ultimas": "https://www.rtp.pt/noticias/rss",
+    "rtp_desporto": "https://www.rtp.pt/noticias/rss/desporto",
+    "cbc_sports": "https://www.cbc.ca/webfeed/rss/rss-sports",
+    "cbc_world": "https://www.cbc.ca/webfeed/rss/rss-world",
 }
 CITIES = {
     "Toronto": (43.6532, -79.3832, "America/Toronto"),
@@ -81,6 +84,15 @@ lines=["# VelvetVerse Noticias — pesquisa experimental","",
        "**RASCUNHO — NAO EMITIR**. Sem verificação jornalística, sem áudio.","",
        "## Títulos RTP (para revisão, nunca texto de locução)",""]
 for item in record["noticias"].get("rtp_ultimas",[])[:20]:
+    lines.append(f"- {item['titulo']} — {item['data_publicacao']} — {item['url']}")
+lines += ["","## Candidatos desporto RTP (pesquisa, não emitidos)",""]
+for item in record["noticias"].get("rtp_desporto",[])[:12]:
+    lines.append(f"- {item['titulo']} — {item['data_publicacao']} — {item['url']}")
+lines += ["","## Candidatos desporto Canadá CBC (pesquisa, não emitidos)",""]
+for item in record["noticias"].get("cbc_sports",[])[:12]:
+    lines.append(f"- {item['titulo']} — {item['data_publicacao']} — {item['url']}")
+lines += ["","## Candidatos internacionais CBC (pesquisa, não emitidos)",""]
+for item in record["noticias"].get("cbc_world",[])[:12]:
     lines.append(f"- {item['titulo']} — {item['data_publicacao']} — {item['url']}")
 lines += ["","## Previsões (Open-Meteo, CC BY 4.0)",""]
 for city,days in record["meteorologia"].items():
