@@ -1,0 +1,59 @@
+name: VelvetVerse Noticias - piloto de redacao e audio (manual)
+on:
+  workflow_dispatch:
+    inputs:
+      etapa:
+        description: "Escolher rascunho_ia ou audio_aprovado"
+        required: true
+        default: rascunho_ia
+        type: choice
+        options:
+          - rascunho_ia
+          - audio_aprovado
+permissions:
+  contents: read
+concurrency:
+  group: noticias-piloto
+  cancel-in-progress: false
+jobs:
+  piloto:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: ${{ vars.VV_OPENAI_MODEL }}
+      FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
+      FISH_VOICE_REFERENCE_ID: ${{ secrets.FISH_VOICE_REFERENCE_ID }}
+      FISH_TTS_MODEL: ${{ vars.VV_FISH_MODEL }}
+      VV_APPROVED_SCRIPT: noticias-aprovado.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Pesquisa e meteorologia
+        run: python scripts/velvetverse_noticias_pesquisa.py
+      - name: Auditar títulos
+        run: python scripts/velvetverse_noticias_auditoria.py
+      - name: Produzir rascunho IA pesquisado (consome API apenas se selecionado)
+        if: ${{ inputs.etapa == 'rascunho_ia' }}
+        run: python scripts/velvetverse_noticias_producao.py draft
+      - name: Confirmar existencia de guiao previamente aprovado
+        if: ${{ inputs.etapa == 'audio_aprovado' }}
+        run: |
+          test -f "$VV_APPROVED_SCRIPT" || { echo "::error::Não existe noticias-aprovado.json revisto. Não gerar áudio."; exit 1; }
+          python scripts/velvetverse_noticias_producao.py validate
+      - name: Gerar MP3 de ensaio privado (consome Fish API)
+        if: ${{ inputs.etapa == 'audio_aprovado' }}
+        run: python scripts/velvetverse_noticias_producao.py render
+      - name: Guardar resultados de ensaio por 1 dia
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: noticias-piloto-privado
+          path: |
+            noticias-teste/rascunho-ia.json
+            noticias-teste/auditoria.md
+            noticias-teste/*-ENSAIO.mp3
+          retention-days: 1
+          if-no-files-found: ignore
