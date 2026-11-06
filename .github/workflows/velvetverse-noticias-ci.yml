@@ -1,0 +1,31 @@
+name: VelvetVerse Noticias - verificar codigo (sem APIs)
+on:
+  push:
+    paths:
+      - 'scripts/velvetverse_noticias_*.py'
+      - '.github/workflows/velvetverse-noticias-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verificar:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verificar sintaxe de todos os scripts
+        run: python -m compileall -q scripts/velvetverse_noticias_*.py
+      - name: Garantir que um rascunho nunca e aprovado automaticamente
+        run: |
+          python - <<'PY'
+          from scripts.velvetverse_noticias_producao import validate
+          try:
+              validate({"estado":"RASCUNHO","edicao":"2026-11-08"})
+          except ValueError:
+              print("OK: rascunho BLOQUEADO")
+          else:
+              raise SystemExit("ERRO: rascunho não foi bloqueado")
+          PY
