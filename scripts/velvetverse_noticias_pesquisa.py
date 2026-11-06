@@ -95,7 +95,19 @@ rtp=record["noticias"].get("rtp_ultimas",[])
 rtps=record["noticias"].get("rtp_desporto",[])
 international=lambda x: "/mundo/" in x["url"] or "/guerra-" in x["url"]
 portugal=lambda x: any(k in x["url"] for k in ("/pais/","/politica/","/economia/"))
-football=lambda x: (any(k in x["url"] for k in ("/futebol","/benfica/","/sporting/","/fc-porto/","/selecao-nacional/")) or any(k in x["titulo"].casefold() for k in ("i liga", "liga dos campeões", "futebol", "benfica", "sporting", "fc porto", "seleção")))
+def football(item):
+    """Heuristica conservadora: retirar modalidades nao futebolisticas e jogos estrangeiros."""
+    url=item["url"].lower()
+    title=item["titulo"].casefold()
+    if any(x in title for x in ("andebol","hóquei","basquetebol","futsal","voleibol","natação","atletismo","triatlo")):
+        return False
+    if "/futebol-internacional/" in url and not any(x in title for x in ("portugal","português","portuguesa","benfica","sporting","porto","braga")):
+        return False
+    if any(x in url for x in ("/futebol-nacional/","/1a-liga/","/selecao-nacional/","/ligadasnacoes/")):
+        return True
+    if any(x in url for x in ("/benfica/","/sporting/","/fc-porto/","/futebol-internacional/")):
+        return any(x in title for x in ("futebol","liga","taça","treinador","jogo","equipa","benfica","sporting","porto","champions","mundial","seleção","marcador","golo"))
+    return any(x in title for x in ("primeira liga","i liga","ii liga","liga dos campeões","futebol português","seleção portuguesa","mundial2030"))
 ordem=[
     ("noticias_internacionais", select(rtp, 7, international)),
     ("noticias_portugal",select(rtp, 9, portugal)),
