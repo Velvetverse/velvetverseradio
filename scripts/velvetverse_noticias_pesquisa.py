@@ -78,11 +78,57 @@ for label,url in SOURCES.items():
 for city,(lat,lon,tz) in CITIES.items():
     try: record["meteorologia"][city]=weather(city,lat,lon,tz)
     except Exception as exc: record["erros"].append(f"{city}: {type(exc).__name__}: {exc}")
+# Alinhamento experimental por secção: apenas candidatos, NÃO texto pronto a emitir.
+def select(items, limit, predicate=lambda item: True):
+    found=[]
+    used=set()
+    for item in items:
+        title=item["titulo"].strip().casefold()
+        if title in used or not predicate(item): continue
+        if title.startswith(("20h ", "21h ", "22h ", "19h ", "18h ")): continue
+        found.append(item)
+        used.add(title)
+        if len(found)>=limit: break
+    return found
+
+rtp=record["noticias"].get("rtp_ultimas",[])
+rtps=record["noticias"].get("rtp_desporto",[])
+international=lambda x: "/mundo/" in x["url"] or "/guerra-" in x["url"]
+portugal=lambda x: any(k in x["url"] for k in ("/pais/","/politica/","/economia/"))
+football=lambda x: (any(k in x["url"] for k in ("/futebol","/benfica/","/sporting/","/fc-porto/","/selecao-nacional/")) or any(k in x["titulo"].casefold() for k in ("i liga", "liga dos campeões", "futebol", "benfica", "sporting", "fc porto", "seleção")))
+ordem=[
+    ("noticias_internacionais", select(rtp, 7, international)),
+    ("noticias_portugal",select(rtp, 9, portugal)),
+    ("separador_desporto",[]),
+    ("desporto_canada", select(record["noticias"].get("cbc_sports",[]),7)),
+    ("futebol_portugal",select(rtps+rtp, 10, football)),
+    ("separador_meteorologia",[]),
+    ("meteorologia_canada",record["meteorologia"].get("Toronto",[])),
+    ("meteorologia_portugal",{city:record["meteorologia"].get(city,[]) for city in ("Lisboa","Porto","Faro")}),
+]
+record["ordem_editorial_candidatos"]=[{"secao":name,"dados":data} for name,data in ordem]
+record["avisos"].append("A selecção por palavras-chave é preliminar e pode conter erros de categoria; requer leitura, confirmação independente e aprovação editorial.")
+
 (OUT/"pesquisa.json").write_text(json.dumps(record,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 lines=["# VelvetVerse Noticias — pesquisa experimental","",
        f"Gerado: {NOW.isoformat()} (Toronto)","",
        "**RASCUNHO — NAO EMITIR**. Sem verificação jornalística, sem áudio.","",
        "## Títulos RTP (para revisão, nunca texto de locução)",""]
+lines += ["## Alinhamento de candidatos (NÃO EMITIR)",""]
+for sec in record["ordem_editorial_candidatos"]:
+    lines.append("### "+sec["secao"].replace("_"," ").title())
+    dados=sec["dados"]
+    if isinstance(dados,list):
+        for item in dados:
+            if "titulo" in item:
+                lines.append(f"- {item['titulo']} — {item['data_publicacao']} — {item['url']}")
+            else:
+                lines.append(f"- {json.dumps(item,ensure_ascii=False)}")
+    elif isinstance(dados,dict):
+        for cidade, dias in dados.items():
+            lines.append(f"- {cidade}: {json.dumps(dias,ensure_ascii=False)}")
+    lines.append("")
+lines += ["## Títulos RTP (consulta geral)",""]
 for item in record["noticias"].get("rtp_ultimas",[])[:20]:
     lines.append(f"- {item['titulo']} — {item['data_publicacao']} — {item['url']}")
 lines += ["","## Candidatos desporto RTP (pesquisa, não emitidos)",""]
