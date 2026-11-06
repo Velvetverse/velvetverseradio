@@ -60,7 +60,7 @@ jobs:
       - name: Enviar áudio aprovado para R2 privado (SEM RadioDJ)
         if: ${{ inputs.etapa == 'audio_aprovado' && inputs.enviar_para_r2 }}
         run: |
-          python scripts/velvetverse_noticias_transferencia.py upload --file "noticias-teste/velvetverse-noticias-$(TZ=America/Toronto date +%Y-%m-%d)-ENSAIO.mp3"
+          python scripts/velvetverse_noticias_transferencia.py upload --file "$(find noticias-teste -maxdepth 1 -name 'velvetverse-noticias-*-ENSAIO.mp3' -print -quit)"
       - name: Guardar resultados de ensaio por 1 dia
         if: always()
         uses: actions/upload-artifact@v4
