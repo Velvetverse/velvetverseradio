@@ -16,6 +16,8 @@ jobs:
           python-version: '3.12'
       - name: Recolher metadados RSS e previsoes (sem emissao)
         run: python scripts/velvetverse_noticias_pesquisa.py
+      - name: Criar guiao PT-PT de ensaio (incompleto, nao emitir)
+        run: python scripts/velvetverse_noticias_guiao_teste.py
       - name: Guardar ficheiros de teste privados como artifact
         if: always()
         uses: actions/upload-artifact@v4
