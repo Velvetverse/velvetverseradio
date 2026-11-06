@@ -1,7 +1,7 @@
 # VelvetVerse Notícias — implementação e limites (6 nov 2026)
 
 ## Estado
-**PILOTO MANUAL, SEM EMISSÃO, SEM PUBLICAÇÃO.** O GitHub Actions recolhe RTP e CBC (metadados RSS), produz previsão Open-Meteo e relatório editorial. Novo workflow opcional separado gera rascunho por IA com pesquisa web ou MP3 de ensaio a partir de um guião aprovado. Não há cron automático do noticiário, nem eventos RadioDJ, nem publicação em R2.
+**PILOTO MANUAL, SEM EMISSÃO, SEM PUBLICAÇÃO.** O GitHub Actions recolhe RTP e CBC (metadados RSS), produz previsão Open-Meteo e relatório editorial. Novo workflow opcional separado gera rascunho por IA com pesquisa web ou MP3 de ensaio a partir de um guião aprovado; pode opcionalmente copiar o MP3 para Cloudflare R2 privado. Não há cron automático do noticiário, nem eventos RadioDJ, nem publicação em R2.
 
 ## Linha editorial aprovada
 Domingo, às 12h00 de Toronto, janela até 12h30 (não duração obrigatória). Linguagem PT-PT, tom profissional. Ordem: abertura; 2 internacionais; 2 a 3 de Portugal; separador; 1 desporto Canadá; 3 futebol português; separador; meteorologia Toronto domingo e segunda-feira; meteorologia Lisboa, Porto e Faro domingo e segunda-feira; fecho. Tempo ideal 15-20 min, sem forçar extensão.
@@ -32,6 +32,12 @@ Não introduzir segredos no repositório público. A chave não permite por si s
 5. Modo audio_aprovado verifica estrutura e datas, invoca Fish TTS, junta segmentos em MP3 normalizado com FFmpeg e mede duração real. MP3 **fica apenas como artefacto temporário privado**, nunca é transmitido.
 6. Adicionar no futuro vinhetas musicais aprovadas; atualmente existem transições faladas entre blocos, não separadores musicais acabados.
 
+## Transporte R2 para Windows: preparado, não configurado
+- scripts/velvetverse_noticias_transferencia.py usa boto3 para enviar um MP3 aprovado para o Cloudflare R2 PRIVADO, com manifesto e SHA256. O upload é opcional e está desligado por defeito no novo workflow.
+- Segredos GitHub adicionais necessários: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY e R2_BUCKET. A política R2 deve restringir permissões à pasta privada de staging; nunca utilizar bucket público.
+- Num PC Windows da rádio, depois de configurar Python e boto3 e as mesmas credenciais R2 numa forma segura, executar: python scripts/velvetverse_noticias_transferencia.py receive --destination "C:\\RadioWeb\\Noticias\\Staging". Recebe o MP3 do próximo domingo, valida o SHA256 e coloca-o na pasta temporária; não mexe no RadioDJ.
+- O agente receptor ainda NÃO está agendado e o PC ainda NÃO foi configurado. Este mecanismo não é o evento de emissão.
+
 ## Entrega ao RadioDJ: ainda NÃO implementada
 Para completar 100% autónomo, precisamos definir armazenamento privado/Cloudflare R2, agente Windows autenticado que descarregue apenas a edição correta com checksum, modo seguro de carregar o MP3 na biblioteca RadioDJ, e evento agendado com fallback para a rotação normal. Validar com ensaio sem antena; não copiar diretamente ficheiros por cima dos já indexados nem editar MariaDB.
 
@@ -47,4 +53,4 @@ Para completar 100% autónomo, precisamos definir armazenamento privado/Cloudfla
 O GitHub Actions pode ter limites de minutos/armazenamento; APIs OpenAI/Fish podem cobrar independentemente das assinaturas web. Nada foi debitado por criar estes ficheiros, e o novo workflow não corre até ser acionado. Verificar licenças de notícias, voz e meteorologia antes da emissão pública.
 
 ## Estado de verificação
-Os fluxos de pesquisa 1 a 7 foram executados com êxito. Os novos modos de IA/TTS foram **escritos, mas não executados**, por falta de chaves privadas e do guião aprovado. Um êxito de GitHub Actions não constitui verificação jornalística.
+Os fluxos de pesquisa 1 a 7 foram executados com êxito. Os novos modos de IA/TTS/R2 foram **escritos, mas não executados**, por falta de chaves privadas e do guião aprovado. Um êxito de GitHub Actions não constitui verificação jornalística.
