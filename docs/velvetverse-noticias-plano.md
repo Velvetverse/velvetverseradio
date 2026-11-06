@@ -4,9 +4,22 @@ Estado: desenho técnico; não está em produção e NÃO altera eventos RadioDJ
 
 ## Objetivo
 - Domingo às 12:00 America/Toronto, integrado em Alma Portuguesa.
-- 8–10 minutos, PT-PT, locução séria e profissional.
-- 2 notícias internacionais, 2–3 Portugal, 2 desporto Portugal/Canadá; previsão para domingo e segunda-feira.
+- Duração variável, idealmente 15–20 minutos, com limite absoluto de 30 minutos (12:00–12:30); PT-PT, locução séria e profissional.
+- Ordem editorial fixa: notícias internacionais, notícias de Portugal; separador; desporto do Canadá, depois futebol de Portugal; separador; meteorologia do Canadá, depois Portugal.
+- 2 notícias internacionais; 2–3 notícias de Portugal; 1 destaque desportivo do Canadá e 3 notícias de futebol português; previsão para domingo e segunda-feira.
 - Emissão autónoma; se a edição não estiver válida, manter a música normal, nunca emitir notícias antigas.
+
+## Alinhamento de emissão (ordem obrigatória)
+1. Abertura e identificação do noticiário.
+2. Notícias internacionais (2).
+3. Notícias de Portugal (2 a 3).
+4. Separador para desporto.
+5. Desporto Canadá (1 destaque relevante).
+6. Futebol Portugal (3 notícias relevantes, resultados confirmados ou agenda distinguida).
+7. Separador para meteorologia.
+8. Meteorologia Canadá (Toronto, domingo e segunda-feira).
+9. Meteorologia Portugal (Lisboa, Porto e Faro, domingo e segunda-feira).
+10. Fecho e regresso ao Alma Portuguesa; sem preencher artificialmente os 30 minutos.
 
 ## Pipeline proposto
 1. GitHub Actions inicia de manhã no domingo (considerar horário de verão de Toronto).
