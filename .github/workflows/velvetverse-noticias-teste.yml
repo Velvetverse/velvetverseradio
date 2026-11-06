@@ -18,6 +18,8 @@ jobs:
         run: python scripts/velvetverse_noticias_pesquisa.py
       - name: Criar guiao PT-PT de ensaio (incompleto, nao emitir)
         run: python scripts/velvetverse_noticias_guiao_teste.py
+      - name: Validar rascunho e bloquear guiao incompleto
+        run: python scripts/velvetverse_noticias_validar.py
       - name: Mostrar guiao nos registos (sem ficheiros para descarregar)
         run: |
           python - <<'PY'
