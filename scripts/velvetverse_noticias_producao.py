@@ -61,6 +61,10 @@ def validate(data):
     if set(data.get("secoes",{}))!=set(SECTIONS):raise ValueError("Secções incompletas.")
     parts=[data.get("abertura","")]
     for name in SECTIONS:
+        if name=="desporto_canada":
+            parts.append("E agora, as notícias do desporto.")
+        if name=="meteorologia_canada":
+            parts.append("Passamos agora à previsão meteorológica para domingo e segunda-feira.")
         items=data["secoes"][name]
         if not items:raise ValueError("Sem notícias: "+name)
         for x in items:
