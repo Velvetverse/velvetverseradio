@@ -117,11 +117,11 @@ def render():
     if not key or not voice:raise ValueError("Faltam credenciais da API Fish Audio ou referência da voz.")
     # Confirmar todas as vinhetas ANTES de chamar uma API que consome créditos.
     jingles={}
-    for key,filename in VINHETAS.items():
+    for vinheta_id,filename in VINHETAS.items():
         j=VINHETAS_DIR/filename
         if not j.is_file() or j.stat().st_size<1000:
             raise ValueError("Vinheta obrigatória em falta: "+str(j))
-        jingles["__VV_"+key.upper()+"__"]=j.resolve()
+        jingles["__VV_"+vinheta_id.upper()+"__"]=j.resolve()
     directory=OUT/"audio-parts"
     directory.mkdir(parents=True,exist_ok=True)
     files=[]
