@@ -38,7 +38,7 @@ if errorlevel 1 (
   pause
   exit /b 2
 )
-set "DST=C:\RadioWeb\Noticias\Staging"
+set "DST=C:\VelvetVerseNoticias\Staging"
 echo A receber ficheiro privado para: %DST%
 %PY% "scripts\velvetverse_noticias_transferencia.py" receive --destination "%DST%"
 if errorlevel 1 (
