@@ -136,11 +136,24 @@ def render():
             raise ValueError("A API não devolveu MP3 válido.")
         p=directory/("segmento-%03d.mp3"%i)
         p.write_bytes(audio);files.append(p)
+    # Convert MP3s to matching stereo 48kHz WAV before concatenating.
+    # This protects Suno 48kHz stereo vs Fish 44.1kHz mono transitions.
+    normalized=directory/"normalizados"
+    normalized.mkdir(parents=True,exist_ok=True)
+    wavefiles=[]
+    for i,p in enumerate(files):
+        wav=normalized/("audio-%03d.wav"%i)
+        subprocess.run(["ffmpeg","-nostdin","-y","-hide_banner","-loglevel","error",
+            "-i",str(p),"-vn","-ac","2","-ar","48000",
+            "-c:a","pcm_s16le",str(wav)],check=True)
+        wavefiles.append(wav)
     manifest=directory/"concat.txt"
-    manifest.write_text("\n".join("file '"+p.resolve().as_posix()+"'" for p in files)+"\n",encoding="utf-8")
+    manifest.write_text("\n".join("file '"+p.resolve().as_posix()+"'" for p in wavefiles)+"\n",encoding="utf-8")
     dest=OUT/("velvetverse-noticias-"+data["edicao"]+"-ENSAIO.mp3")
-    subprocess.run(["ffmpeg","-y","-hide_banner","-loglevel","error","-f","concat","-safe","0","-i",str(manifest),
-        "-af","loudnorm=I=-16:TP=-1.5:LRA=11","-c:a","libmp3lame","-b:a","192k",str(dest)],check=True)
+    subprocess.run(["ffmpeg","-nostdin","-y","-hide_banner","-loglevel","error",
+        "-f","concat","-safe","0","-i",str(manifest),
+        "-af","loudnorm=I=-16:TP=-1.5:LRA=11",
+        "-codec:a","libmp3lame","-b:a","192k",str(dest)],check=True)
     secs=float(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration",
         "-of","default=noprint_wrappers=1:nokey=1",str(dest)]).strip())
     if secs>1800 or secs<60:
