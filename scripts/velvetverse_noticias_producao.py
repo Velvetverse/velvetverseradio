@@ -35,7 +35,7 @@ def draft():
         ("noticias_internacionais","noticias_portugal","desporto_canada","futebol_portugal")}
     prompt=("Cria RASCUNHO editorial para rádio em português europeu, com pesquisa web e factos atribuídos. "
         "O apresentador oficial é Ricky Sousa (não confundir com o nome da voz sintética). "
-        "A abertura deve identificar expressamente: VelvetVerse Notícias, com Ricky Sousa. "
+        "A abertura deve identificar expressamente: Notícias, com Ricky Sousa. Não mencionar o nome da estação na abertura. "
         "Não copies notícias. Nunca inventes detalhes ou resultados. Se sem confirmação deixa secção vazia. "
         "Estrutura JSON simples: edicao (data YYYY-MM-DD), estado (RASCUNHO), abertura (str), fecho (str), "
         "secoes (objeto: internacional, portugal, desporto_canada, futebol_portugal, meteorologia_canada, "
@@ -74,8 +74,8 @@ def validate(data):
         raise ValueError("Guiao não aprovado para o domingo correspondente.")
     if not data.get("aprovado_por") or not data.get("aprovado_em"):raise ValueError("Aprovação sem identificação e data.")
     if set(data.get("secoes",{}))!=set(SECTIONS):raise ValueError("Secções incompletas.")
-    if "ricky sousa" not in data.get("abertura","").casefold():
-        raise ValueError("A abertura tem de identificar o apresentador Ricky Sousa.")
+    if "notícias, com ricky sousa" not in data.get("abertura","").casefold():
+        raise ValueError("A abertura deve incluir: Notícias, com Ricky Sousa.")
     parts=["__VV_ABERTURA__",data.get("abertura","")]
     for name in SECTIONS:
         if name=="desporto_canada":
