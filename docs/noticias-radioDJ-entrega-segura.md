@@ -41,3 +41,16 @@ O primeiro seleciona ficheiros pelo nome da data; o segundo reanalisa a duraçã
 ### Bloqueios de segurança
 
 Não copiar ficheiros por cima de faixas já indexadas sem validar o comportamento real do RadioDJ. Não alterar tabelas MariaDB nem eventos por scripts externos. Não ativar recargas, horários ou emissões automáticas enquanto não existir segurança editorial e fallback comprovado.
+
+## Configuração observada no PC (capturas de 7 de novembro de 2026)
+Capturas reais do RadioDJ **v2.0.4.5** mostram:
+
+- `12 CLOCK ALMA PORTUGUESA` executa-se às **12:00** em **Repeat by Day**, com **todos os dias MON–SUN marcados**, **Smart Timing ativo**.
+- Ações desse evento: **Load Track By ID** (locução de horas) e, a seguir, **Load Track From Category** (música da rotação).
+- `ALMA PORTUGUESA SWEEPER 3` aparece às **12:30** todos os dias; seu comportamento detalhado ainda não foi inspecionado.
+- `CORAÇÕES & MEMÓRIAS` aparece às **12:59** e continua a ter de assumir a hora seguinte.
+- O campo de data do gestor de eventos não filtrou a lista como esperado; as linhas continuaram com 7/11 apesar de selecionar 8/11. Não inferir execução exclusiva de domingo pela apresentação da data.
+
+**Importante: ainda NÃO retirar domingo ao evento das 12h00 nem criar evento concorrente.** A primeira ação é locução horária; a segunda carrega uma música e pode colidir com o jornal se forem criados dois eventos no mesmo momento. Também é necessário verificar se o sweeper das 12h30 pode entrar antes de terminar um jornal mais longo. Verificar modo de inserção, Smart Timing e efeito da ausência do MP3 antes de permitir emissão automática.
+
+**Fluxo de configuração de domingo após validação e MP3 aprovado:** preservar a configuração original, separar o evento diário de 12:00 em Seg–Sáb e um evento dominical (horário e comportamento a testar), sem duplicar ações. Configurar uma única chamada às Notícias com fallback validado, e nunca interromper a programação de 12:59. A programação musical continua no caso de falta da edição. O RadioDJ suporta oficialmente o tipo de faixa `File By Date` que seleciona `yyyy-MM-dd.mp3` na pasta configurada; testar o comportamento concreto na instalação antes de confiar nesse fallback: https://www.radiodj.ro/tutorials/track-types-in-radiodj.html.
