@@ -54,9 +54,11 @@ def weather(city, lat, lon, tz):
     raw=json.loads(get("https://api.open-meteo.com/v1/forecast?"+params))
     d=raw["daily"]
     result=[]
-    localtoday=NOW.astimezone(ZoneInfo(tz)).date()
-    days_until_sunday=(6-localtoday.weekday())%7
-    target_sunday=localtoday+dt.timedelta(days=days_until_sunday)
+    # O noticiário é datado por Toronto; Portugal usa as MESMAS datas civis.
+    # Caso contrário, ao fim do sábado em Toronto Portugal pode estar já domingo.
+    today_toronto=NOW.date()
+    days_until_sunday=(6-today_toronto.weekday())%7
+    target_sunday=today_toronto+dt.timedelta(days=days_until_sunday)
     target_monday=target_sunday+dt.timedelta(days=1)
     for i,date in enumerate(d["time"]):
         day=dt.date.fromisoformat(date)
