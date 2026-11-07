@@ -162,7 +162,7 @@ def validate(data):
             raise ValueError("Quantidade insuficiente para "+name+": esperado "+str(count))
     # A previsão só é válida quando cobre o domingo atual e a segunda-feira.
     # A verificação de factos, incluindo atualizações de última hora, continua manual.
-    if len(text.split())<150 or len(text.split())>3400:
+    if len(text.split())<2400 or len(text.split())>3400:
         raise ValueError("Duração de locução potencialmente inadequada.")
     return parts
 def render():
@@ -181,6 +181,12 @@ def render():
         if not j.is_file() or j.stat().st_size<1000:
             raise ValueError("Vinheta obrigatória em falta: "+str(j))
         jingles["__VV_"+vinheta_id.upper()+"__"]=j.resolve()
+    # Preflight validation for all segments, before any billable TTS request.
+    for para in paragraphs:
+        if para in jingles:
+            continue
+        if len(para.encode("utf-8")) > 3000:
+            raise ValueError("Segmento de voz demasiado longo para API Fish.")
     directory=OUT/"audio-parts"
     directory.mkdir(parents=True,exist_ok=True)
     files=[]
