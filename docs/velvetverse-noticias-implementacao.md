@@ -4,7 +4,9 @@
 **PILOTO MANUAL, SEM EMISSÃO, SEM PUBLICAÇÃO.** O GitHub Actions recolhe RTP e CBC (metadados RSS), produz previsão Open-Meteo e relatório editorial. Novo workflow opcional separado gera rascunho por IA com pesquisa web ou MP3 de ensaio a partir de um guião aprovado; pode opcionalmente copiar o MP3 para Cloudflare R2 privado. Não há cron automático do noticiário, nem eventos RadioDJ, nem publicação em R2.
 
 ## Identidade em antena
-**Apresentador do VelvetVerse Notícias: Ricky Sousa.** A abertura deve dizer «Notícias, com Ricky Sousa», sem repetir o nome da rádio. A voz de síntese atualmente testada no Fish Audio é uma implementação técnica e não altera o nome do apresentador.\n\n## Linha editorial aprovada
+**Apresentador do VelvetVerse Notícias: Ricky Sousa.** A abertura deve dizer «Notícias, com Ricky Sousa», sem repetir o nome da rádio. A voz de síntese atualmente testada no Fish Audio é uma implementação técnica e não altera o nome do apresentador.
+
+## Linha editorial aprovada
 Domingo, às 12h00 de Toronto, janela até 12h30 (não duração obrigatória). Linguagem PT-PT, tom profissional. Ordem: abertura; 2 internacionais; 2 a 3 de Portugal; separador; 1 desporto Canadá; 3 futebol português; separador; meteorologia Toronto domingo e segunda-feira; meteorologia Lisboa, Porto e Faro domingo e segunda-feira; fecho. Tempo ideal 15-20 min, sem forçar extensão.
 
 ## Ficheiros e ferramentas
@@ -81,3 +83,11 @@ Os fluxos de pesquisa 1 a 7 foram executados com êxito. Os novos modos de IA/TT
 - No guião aprovado, a sequência está definida: vinheta de abertura, locução de abertura «Notícias, com Ricky Sousa», notícias internacionais, Portugal, vinheta do desporto, desporto Canadá, futebol Portugal, vinheta da meteorologia, previsão Canadá, previsão Portugal e fecho.
 - Foi testada localmente uma montagem técnica curta usando os três MP3 enviados e uma amostra de voz existente. A composição foi convertida para estéreo a 48 kHz antes do MP3 final para evitar incompatibilidades 48 kHz estéreo/44,1 kHz mono. O teste local teve cerca de 88 segundos, **não representa uma edição jornalística validada**.
 - Ainda não se realizou um teste do fluxo total com redação OpenAI + revisão editorial + voz Fish + vinhetas; não há envio ao RadioDJ.
+
+## Consolidação de segurança e custos — 6 novembro 2026
+- Foi realizado um teste real de redação da API com 24 902 tokens de entrada, 2 111 de saída e duas pesquisas web. O primeiro texto foi demasiado curto e não pode ser emitido.
+- Não voltar a executar `rascunho_ia` repetidamente sem necessidade. Cada nova execução pode gastar créditos; os testes de código devem ser **offline**.
+- O script prepara meteorologia diretamente a partir dos dados estruturados e regista avaliação editorial, mas a atualização destes pontos ainda não foi testada com uma execução real.
+- A montagem de áudio exige as três vinhetas aprovadas e no mínimo 2400 palavras num guião validado; verifica os tamanhos dos segmentos **antes** de consumir a API da voz.
+- A revisão humana dos factos, do português, de direitos de reprodução e da meteorologia do próprio domingo continua indispensável antes da emissão.
+- A integração R2/PC/RadioDJ só pode avançar depois de testes seguros, sem tocar na emissão atual.
