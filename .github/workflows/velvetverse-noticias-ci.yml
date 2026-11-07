@@ -29,3 +29,16 @@ jobs:
           else:
               raise SystemExit("ERRO: rascunho não foi bloqueado")
           PY
+      - name: Testar estimativa de custos do jornal longo sem chamar APIs
+        run: |
+          VV_ONLY_ESTIMATE=true python scripts/velvetverse_noticias_teste_custo.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("noticias-teste/custo-voz.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          assert d["segmentos"] == 15
+          assert d["palavras"] > 1500
+          assert d["custo_fish_s21_pro_free_usd"] == 0.0
+          print("OK: estimativa offline sem gerar voz ou despesa.")
+          PY
