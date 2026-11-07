@@ -9,7 +9,6 @@ import datetime as dt
 import hashlib
 import json
 import os
-import shutil
 import sys
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -60,13 +59,24 @@ def main():
         manifest=json.loads(s3.get_object(Bucket=bucket,Key=objbase+"/manifest.json")["Body"].read())
         if manifest.get("edicao")!=target or manifest.get("estado")!="PRIVADO_STAGING_NAO_EMITIR":
             raise RuntimeError("Manifesto fora de data ou não autorizado.")
-        staged=base/("vv-noticias-"+target+".download")
-        s3.download_file(bucket,objbase+"/edicao.mp3",str(staged))
-        if staged.stat().st_size!=manifest["tamanho"] or hfile(staged)!=manifest["sha256"]:
-            staged.unlink(missing_ok=True)
-            raise RuntimeError("Integridade do áudio inválida.")
         dest=base/("vv-noticias-"+target+"-STAGING.mp3")
-        staged.replace(dest)
+        # Idempotência: nao voltar a descarregar nem substituir ficheiro validado.
+        if dest.is_file():
+            if dest.stat().st_size==manifest["tamanho"] and hfile(dest)==manifest["sha256"]:
+                print("Edição já recebida e verificada:",dest)
+                print("SEM EMISSAO AUTOMATICA; ficheiro de staging inalterado.")
+                return
+            raise RuntimeError("Ja existe MP3 diferente em staging: revisao manual necessaria.")
+        staged=base/("vv-noticias-"+target+".download")
+        # Limpar apenas a transferencia temporaria, nunca apagar um MP3 existente.
+        staged.unlink(missing_ok=True)
+        try:
+            s3.download_file(bucket,objbase+"/edicao.mp3",str(staged))
+            if staged.stat().st_size!=manifest["tamanho"] or hfile(staged)!=manifest["sha256"]:
+                raise RuntimeError("Integridade do áudio inválida.")
+            staged.replace(dest)
+        finally:
+            staged.unlink(missing_ok=True)
         print("MP3 recebido e verificado:",dest)
         print("STAGING APENAS: ainda não está carregado no RadioDJ ou agendado para emissão.")
 if __name__=="__main__":
