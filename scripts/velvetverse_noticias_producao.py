@@ -111,7 +111,7 @@ def draft():
                            ("futebol_portugal",3),("meteorologia_canada",1),("meteorologia_portugal",3)):
         if counts[name]<min_count:
             reasons.append(f"{name}: {counts[name]} de {min_count} peças mínimas")
-    if word_count<2200:
+    if word_count<2500:
         reasons.append(f"Texto com {word_count} palavras: insuficiente para 15-20 minutos.")
     if word_count>3400:
         reasons.append(f"Texto com {word_count} palavras: rever limite máximo de 30 min.")
