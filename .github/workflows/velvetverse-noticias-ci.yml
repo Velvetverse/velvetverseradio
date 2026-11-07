@@ -18,6 +18,8 @@ jobs:
           python-version: '3.12'
       - name: Verificar sintaxe de todos os scripts
         run: python -m compileall -q scripts/velvetverse_noticias_*.py
+      - name: Verificar as tres vinhetas reais sem chamadas pagas
+        run: python scripts/velvetverse_noticias_preflight.py --json noticias-teste/preflight.json
       - name: Garantir que um rascunho nunca e aprovado automaticamente
         run: |
           python - <<'PY'
