@@ -1,13 +1,11 @@
 # Vinhetas aprovadas — VelvetVerse Notícias
 
-Colocar nesta pasta os três ficheiros MP3 aprovados no Suno, com estes nomes exatos:
+Os três MP3 já estão na **raiz do repositório**, verificados no GitHub:
 
-- `intro-noticias.mp3` — abertura do jornal (aprox. 14,8 s)
-- `vinheta-desporto.mp3` — antes da secção de desporto do Canadá
-- `vinheta-meteorologia.mp3` — antes da secção de meteorologia de Toronto
+- `/intro-noticias.mp3` — abertura
+- `/vinheta-desporto.mp3` — antes das notícias desportivas do Canadá
+- `/vinheta-meteorologia.mp3` — antes das previsões de Canadá e Portugal
 
-O script `scripts/velvetverse_noticias_producao.py` valida que os três MP3 existem **antes** de pedir ao Fish Audio que gere os segmentos de voz.
+**Não mover nem voltar a enviar.** O script `scripts/velvetverse_noticias_producao.py` utiliza agora a raiz por defeito como pasta das vinhetas (variável opcional `VV_VINHETAS_DIR`).
 
-O áudio final ainda é **ensaio privado**, sem emissão no RadioDJ.
-
-Os MP3 só devem ser enviados para um repositório público se houver autorização para a sua publicação.
+A montagem final continua um ensaio privado e não é enviada ao RadioDJ automaticamente. O texto deve ser confirmado editorialmente antes da geração de um jornal para emissão.
