@@ -60,7 +60,7 @@ jobs:
                     "de montagem, não representa uma notícia verdadeira. ")
           for name in SECTIONS:
               base["secoes"][name]=[{
-                  "texto":sentence*18,"fontes":["https://example.org/"],
+                  "texto":sentence*14,"fontes":["https://example.org/"],
                   "confirmado":True} for _ in range(counts[name])]
           assert len(" ".join(x["texto"] for sec in base["secoes"].values() for x in sec).split())>=2400
           seq=validate(base)
