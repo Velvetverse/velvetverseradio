@@ -54,3 +54,23 @@ O GitHub Actions pode ter limites de minutos/armazenamento; APIs OpenAI/Fish pod
 
 ## Estado de verificação
 Os fluxos de pesquisa 1 a 7 foram executados com êxito. Os novos modos de IA/TTS/R2 foram **escritos, mas não executados**, por falta de chaves privadas e do guião aprovado. Um êxito de GitHub Actions não constitui verificação jornalística.
+
+
+## Evolução técnica concluída após o ensaio completo
+- O Fish Audio com a voz Beto e modelo gratuito gerou **15/15 segmentos**, que foram unidos com FFmpeg: **10,31 minutos**, 1.823 palavras, cerca de 14,8 MB. Este é um ensaio narrativo, **não um noticiário factual pronto para emissão**.
+- Foi corrigida a ausência de FFmpeg no GitHub Actions e o teste seguinte concluiu-se com sucesso.
+- O teste de voz gratuito reportou custo calculado US$0,00 para o modelo escolhido; confirmar custo efetivamente faturado na conta Fish Audio.
+- O modo `rascunho_ia` agora regista `consumo-redacao.json` com modelo, tokens e chamadas de pesquisa reportados, para consulta e comparação com o extrato faturado. Este modo ainda não foi testado porque faltam a chave da API OpenAI e `VV_OPENAI_MODEL`.
+- Foi incluído `caderno-revisao.md`, com o texto do rascunho, fontes propostas e lista editorial de validação. A presença de um caderno não significa aprovação.
+- Os scripts de validação exigem secções e quantidades mínimas; não verificam sozinhos a verdade de cada notícia.
+- A CI tem um ensaio offline do custo e da estrutura dos 15 segmentos; não depende de credenciais.
+
+## Pendências intransponíveis sem intervenção autorizada
+1. **Conta OpenAI API:** criar a chave e definir limite orçamental na consola da API; inserir em `OPENAI_API_KEY` como secret GitHub e escolher `VV_OPENAI_MODEL` como variável. ChatGPT Plus não dá automaticamente crédito API.
+2. **Custos reais de redação:** uma execução `rascunho_ia` com a API e a pesquisa web necessárias. Medir tokens/pesquisas e confirmar faturação na consola; a estimativa de US$1–5/mês continua não verificada.
+3. **Licenças e verificação editorial:** definir como confirmar factos recentes, contexto, duplicações, traduções e direitos das notícias antes de emissão. A IA não certifica independentemente o que escreveu.
+4. **Vinhetas:** faltam os ficheiros de separadores desportivos e meteorológicos aprovados e a respetiva montagem, em vez de simples transições faladas.
+5. **R2 e PC Windows:** configurar credenciais privadas, agente receptor e permissões, e testar a integração de uma edição de demonstração com o RadioDJ num ambiente sem antena.
+6. **Agendamento real:** só criar o evento de domingo às 12h00 depois de comprovar as salvaguardas, o fallback musical e a duração absoluta de 30 minutos.
+
+**Segurança:** Não pôr senhas, tokens ou chaves em páginas, prints ou mensagens. Não desativar avisos de malware do browser para descarregar artefactos.
