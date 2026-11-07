@@ -15,6 +15,8 @@ from zoneinfo import ZoneInfo
 
 OUT=Path("noticias-teste")
 SECTIONS=("internacional","portugal","desporto_canada","futebol_portugal","meteorologia_canada","meteorologia_portugal")
+VINHETAS={"abertura":"intro-noticias.mp3","desporto":"vinheta-desporto.mp3","meteorologia":"vinheta-meteorologia.mp3"}
+VINHETAS_DIR=Path(os.getenv("VV_VINHETAS_DIR","assets/noticias"))
 def target_date():
     today=dt.datetime.now(ZoneInfo("America/Toronto")).date()
     return (today+dt.timedelta(days=(6-today.weekday())%7)).isoformat()
@@ -70,12 +72,12 @@ def validate(data):
         raise ValueError("Guiao não aprovado para o domingo correspondente.")
     if not data.get("aprovado_por") or not data.get("aprovado_em"):raise ValueError("Aprovação sem identificação e data.")
     if set(data.get("secoes",{}))!=set(SECTIONS):raise ValueError("Secções incompletas.")
-    parts=[data.get("abertura","")]
+    parts=["__VV_ABERTURA__",data.get("abertura","")]
     for name in SECTIONS:
         if name=="desporto_canada":
-            parts.append("E agora, as notícias do desporto.")
+            parts.append("__VV_DESPORTO__")
         if name=="meteorologia_canada":
-            parts.append("Passamos agora à previsão meteorológica para domingo e segunda-feira.")
+            parts.append("__VV_METEOROLOGIA__")
         items=data["secoes"][name]
         if not items:raise ValueError("Sem notícias: "+name)
         for x in items:
@@ -86,7 +88,7 @@ def validate(data):
             if len(t)<60:raise ValueError("Texto incompleto: "+name)
             parts.append(t)
     parts.append(data.get("fecho",""))
-    text="\n\n".join(parts)
+    text="\n\n".join(x for x in parts if not x.startswith("__VV_"))
     if any(x in text.upper() for x in ("NÃO EMITIR","NÃO LOCUTAR","[VERIFICAR","[INSERIR","TODO")) or "[" in text or "]" in text:
         raise ValueError("Marcadores de trabalho presentes.")
     # Contagem editorial mínima, para evitar um jornal com notícias em falta.
@@ -109,10 +111,20 @@ def render():
     voice=os.getenv("FISH_VOICE_REFERENCE_ID")
     model=os.getenv("FISH_TTS_MODEL") or "s2.1-pro-free"
     if not key or not voice:raise ValueError("Faltam credenciais da API Fish Audio ou referência da voz.")
+    # Confirmar todas as vinhetas ANTES de chamar uma API que consome créditos.
+    jingles={}
+    for key,filename in VINHETAS.items():
+        j=VINHETAS_DIR/filename
+        if not j.is_file() or j.stat().st_size<1000:
+            raise ValueError("Vinheta obrigatória em falta: "+str(j))
+        jingles["__VV_"+key.upper()+"__"]=j.resolve()
     directory=OUT/"audio-parts"
     directory.mkdir(parents=True,exist_ok=True)
     files=[]
     for i,para in enumerate(paragraphs):
+        if para in jingles:
+            files.append(jingles[para])
+            continue
         if len(para.encode("utf-8"))>3000:raise ValueError("Parágrafo demasiado longo para API.")
         audio=post_json("https://api.fish.audio/v1/tts",
            {"text":para,"reference_id":voice,"format":"mp3"},key,{"model":model})
