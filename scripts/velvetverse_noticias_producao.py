@@ -25,9 +25,9 @@ def post_json(url,payload,key,headers=None):
         return r.read()
 def draft():
     key=os.getenv("OPENAI_API_KEY")
-    model=os.getenv("OPENAI_MODEL")
-    if not key or not model:
-        raise ValueError("Faltam OPENAI_API_KEY e/ou OPENAI_MODEL; nenhum custo gerado.")
+    model=os.getenv("OPENAI_MODEL") or "gpt-6.1-terra"
+    if not key:
+        raise ValueError("Falta OPENAI_API_KEY; nenhuma chamada paga realizada.")
     raw=json.loads((OUT/"pesquisa.json").read_text(encoding="utf-8"))
     sample={x["secao"]:x["dados"][:8] for x in raw["ordem_editorial_candidatos"] if x["secao"] in
         ("noticias_internacionais","noticias_portugal","desporto_canada","futebol_portugal")}
