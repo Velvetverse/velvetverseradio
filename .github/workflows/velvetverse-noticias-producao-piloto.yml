@@ -50,6 +50,13 @@ jobs:
               print(key+': '+('CONFIGURADO' if os.environ.get(key) else 'EM FALTA'))
           print('PRE-FLIGHT SEM CHAMADAS A OPENAI OU FISH AUDIO; CUSTO API = USD 0.00')
           PY
+      - name: Instalar FFmpeg para montagem do audio
+        if: ${{ inputs.etapa == 'teste_custo_voz_gratis' || inputs.etapa == 'audio_aprovado' }}
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+          ffmpeg -version | head -n 1
+          ffprobe -version | head -n 1
       - name: Ensaiar um noticiario longo com Fish Audio gratis (sem RadioDJ)
         if: ${{ inputs.etapa == 'teste_custo_voz_gratis' }}
         env:
