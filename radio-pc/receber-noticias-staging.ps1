@@ -17,7 +17,7 @@ else {
     if(-not $py){ Write-Error 'Python nao encontrado'; exit 2 }
     $program='python'; $prefix=@()
 }
-$destination='C:\RadioWeb\Noticias\Staging'
+$destination='C:\VelvetVerseNoticias\Staging'
 $cmdargs=@($prefix)+@('scripts/velvetverse_noticias_transferencia.py','receive','--destination',$destination)
 & $program @cmdargs
 if($LASTEXITCODE -ne 0){ exit $LASTEXITCODE }
