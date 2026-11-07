@@ -8,7 +8,7 @@
 - 3 MP3 aprovados na raiz do GitHub: `intro-noticias.mp3`, `vinheta-desporto.mp3`, `vinheta-meteorologia.mp3`.
 - Locução sintetizada testada; nome em antena **Ricky Sousa**, anúncio «Notícias, com Ricky Sousa».
 - Montagem Fish+FFmpeg e upload opcional para R2 privado — **ainda não validados ponta a ponta**.
-- Transporte de R2 para `C:\RadioWeb\Noticias\Staging` — só staging, não é uma ordem de emissão.
+- Transporte de R2 para `C:\VelvetVerseNoticias\Staging` — só staging, não é uma ordem de emissão.
 
 ## Escolha técnica recomendada para estudar no PC
 
