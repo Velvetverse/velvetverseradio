@@ -4,7 +4,7 @@
 **PILOTO MANUAL, SEM EMISSÃO, SEM PUBLICAÇÃO.** O GitHub Actions recolhe RTP e CBC (metadados RSS), produz previsão Open-Meteo e relatório editorial. Novo workflow opcional separado gera rascunho por IA com pesquisa web ou MP3 de ensaio a partir de um guião aprovado; pode opcionalmente copiar o MP3 para Cloudflare R2 privado. Não há cron automático do noticiário, nem eventos RadioDJ, nem publicação em R2.
 
 ## Identidade em antena
-**Apresentador do VelvetVerse Notícias: Ricky Sousa.** A abertura deve dizer «VelvetVerse Notícias, com Ricky Sousa». A voz de síntese atualmente testada no Fish Audio é uma implementação técnica e não altera o nome do apresentador.\n\n## Linha editorial aprovada
+**Apresentador do VelvetVerse Notícias: Ricky Sousa.** A abertura deve dizer «Notícias, com Ricky Sousa», sem repetir o nome da rádio. A voz de síntese atualmente testada no Fish Audio é uma implementação técnica e não altera o nome do apresentador.\n\n## Linha editorial aprovada
 Domingo, às 12h00 de Toronto, janela até 12h30 (não duração obrigatória). Linguagem PT-PT, tom profissional. Ordem: abertura; 2 internacionais; 2 a 3 de Portugal; separador; 1 desporto Canadá; 3 futebol português; separador; meteorologia Toronto domingo e segunda-feira; meteorologia Lisboa, Porto e Faro domingo e segunda-feira; fecho. Tempo ideal 15-20 min, sem forçar extensão.
 
 ## Ficheiros e ferramentas
