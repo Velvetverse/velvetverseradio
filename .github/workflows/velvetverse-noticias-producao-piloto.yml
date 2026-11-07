@@ -99,6 +99,7 @@ jobs:
             noticias-teste/rascunho-ia.json
             noticias-teste/caderno-revisao.md
             noticias-teste/consumo-redacao.json
+            noticias-teste/avaliacao-redacao.json
             noticias-teste/auditoria.md
             noticias-teste/*-ENSAIO.mp3
           retention-days: 1
