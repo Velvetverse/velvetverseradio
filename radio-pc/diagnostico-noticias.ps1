@@ -14,8 +14,8 @@ foreach ($cmd in $commands) {
 }
 $dirs = @(
   'C:\RadioWeb',
-  'C:\RadioWeb\Noticias',
-  'C:\RadioWeb\Noticias\Staging',
+  'C:\VelvetVerseNoticias',
+  'C:\VelvetVerseNoticias\Staging',
   'C:\Program Files\RadioDJ',
   'C:\RadioDJ',
   'D:\RadioDJ'
