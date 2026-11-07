@@ -16,7 +16,7 @@ from zoneinfo import ZoneInfo
 OUT=Path("noticias-teste")
 SECTIONS=("internacional","portugal","desporto_canada","futebol_portugal","meteorologia_canada","meteorologia_portugal")
 VINHETAS={"abertura":"intro-noticias.mp3","desporto":"vinheta-desporto.mp3","meteorologia":"vinheta-meteorologia.mp3"}
-VINHETAS_DIR=Path(os.getenv("VV_VINHETAS_DIR","assets/noticias"))
+VINHETAS_DIR=Path(os.getenv("VV_VINHETAS_DIR","."))
 def target_date():
     today=dt.datetime.now(ZoneInfo("America/Toronto")).date()
     return (today+dt.timedelta(days=(6-today.weekday())%7)).isoformat()
