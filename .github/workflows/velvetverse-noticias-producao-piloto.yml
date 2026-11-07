@@ -12,6 +12,10 @@ on:
           - rascunho_ia
           - audio_aprovado
           - teste_custo_voz_gratis
+      autorizar_chamadas_pagas:
+        description: 'Autorizo explicitamente chamadas a APIs (só para rascunho_ia ou áudio)'
+        type: boolean
+        default: false
       enviar_para_r2:
         description: 'Apenas guardar MP3 aprovado em R2 PRIVADO (não ligar RadioDJ)'
         type: boolean
@@ -41,6 +45,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Bloquear custos sem autorizacao explicita
+        if: ${{ (inputs.etapa == 'rascunho_ia' || inputs.etapa == 'audio_aprovado' || inputs.etapa == 'teste_custo_voz_gratis') && !inputs.autorizar_chamadas_pagas }}
+        run: |
+          echo "::error::Chamadas a APIs bloqueadas. É necessária autorização explícita na execução."
+          exit 1
       - name: Verificar configuracao da API sem chamadas pagas
         if: ${{ inputs.etapa == 'verificar_sem_custos' }}
         run: |
