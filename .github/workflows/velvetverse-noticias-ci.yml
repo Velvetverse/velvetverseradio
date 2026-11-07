@@ -42,3 +42,39 @@ jobs:
           assert d["custo_fish_s21_pro_free_usd"] == 0.0
           print("OK: estimativa offline sem gerar voz ou despesa.")
           PY
+      - name: Testar ordem das vinhetas e limite de palavras sem gastar APIs
+        run: |
+          python - <<'PY'
+          import copy
+          from scripts.velvetverse_noticias_producao import SECTIONS, validate, target_date
+          base={
+              "edicao":target_date(),"estado":"APROVADO_POR_EDITOR",
+              "aprovado_por":"editor-teste","aprovado_em":"TESTE-LOCAL",
+              "abertura":"Boa tarde. Notícias, com Ricky Sousa.",
+              "fecho":"Obrigado por acompanhar o noticiário.",
+              "secoes":{}
+          }
+          counts={"internacional":2,"portugal":2,"desporto_canada":1,
+                  "futebol_portugal":3,"meteorologia_canada":1,"meteorologia_portugal":3}
+          sentence=("Esta frase é apenas texto fictício para testar o código "
+                    "de montagem, não representa uma notícia verdadeira. ")
+          for name in SECTIONS:
+              base["secoes"][name]=[{
+                  "texto":sentence*18,"fontes":["https://example.org/"],
+                  "confirmado":True} for _ in range(counts[name])]
+          assert len(" ".join(x["texto"] for sec in base["secoes"].values() for x in sec).split())>=2400
+          seq=validate(base)
+          assert seq[0]=="__VV_ABERTURA__"
+          assert seq.index("__VV_DESPORTO__")<seq.index(base["secoes"]["desporto_canada"][0]["texto"])
+          assert seq.index("__VV_METEOROLOGIA__")<seq.index(base["secoes"]["meteorologia_canada"][0]["texto"])
+          short=copy.deepcopy(base)
+          for sec in short["secoes"].values():
+              for item in sec:item["texto"]=sentence
+          try:
+              validate(short)
+          except ValueError:
+              pass
+          else:
+              raise AssertionError("Guião curto indevidamente aceite")
+          print("PASS: ordem de vinhetas, duração mínima, sem chamadas externas.")
+          PY
