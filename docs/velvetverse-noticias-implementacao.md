@@ -75,3 +75,9 @@ Os fluxos de pesquisa 1 a 7 foram executados com êxito. Os novos modos de IA/TT
 6. **Agendamento real:** só criar o evento de domingo às 12h00 depois de comprovar as salvaguardas, o fallback musical e a duração absoluta de 30 minutos.
 
 **Segurança:** Não pôr senhas, tokens ou chaves em páginas, prints ou mensagens. Não desativar avisos de malware do browser para descarregar artefactos.
+
+## Vinhetas reais e teste de montagem — novembro de 2026
+- MP3s confirmados na raiz do GitHub: `intro-noticias.mp3`, `vinheta-desporto.mp3`, `vinheta-meteorologia.mp3`; o script usa estes nomes na raiz, sem ter de mover ficheiros.
+- No guião aprovado, a sequência está definida: vinheta de abertura, locução de abertura «Notícias, com Ricky Sousa», notícias internacionais, Portugal, vinheta do desporto, desporto Canadá, futebol Portugal, vinheta da meteorologia, previsão Canadá, previsão Portugal e fecho.
+- Foi testada localmente uma montagem técnica curta usando os três MP3 enviados e uma amostra de voz existente. A composição foi convertida para estéreo a 48 kHz antes do MP3 final para evitar incompatibilidades 48 kHz estéreo/44,1 kHz mono. O teste local teve cerca de 88 segundos, **não representa uma edição jornalística validada**.
+- Ainda não se realizou um teste do fluxo total com redação OpenAI + revisão editorial + voz Fish + vinhetas; não há envio ao RadioDJ.
