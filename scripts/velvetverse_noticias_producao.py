@@ -42,9 +42,14 @@ def draft():
         "meteorologia_portugal; cada uma lista de objetos com texto, fontes (URLs HTTPS), confirmado (sempre false), "
         "observacoes). Ordem: 2 notícias internacionais, 2-3 Portugal, 1 desporto Canadá, 3 futebol português, "
         "meteorologia Toronto depois Lisboa, Porto, Faro. Meteorologia deve ser atualizada no domingo. "
+        "O jornal deverá durar 15 a 20 minutos: idealmente 2500 a 3000 palavras de conteúdo verificável. "
+        "Desenvolve cada notícia apenas a partir de factos documentados nas fontes consultadas, com contexto "
+        "verdadeiro e sem especulações ou prolongamento artificial. Quando não houver factos suficientes, "
+        "prefere secções curtas e assinala claramente o que falta confirmar. "
+        "A meteorologia será acrescentada separadamente de dados estruturados, NÃO inventes temperaturas. "
         "Nunca marques notícia como confirmada. Data do domingo: "+target_date()+". "
         "Dados de pesquisa e previsão: "+json.dumps({"noticias":sample,"meteorologia":raw["meteorologia"]},ensure_ascii=False))
-    payload={"model":model,"tools":[{"type":"web_search"}],"input":prompt,"max_output_tokens":6500}
+    payload={"model":model,"tools":[{"type":"web_search"}],"input":prompt,"max_output_tokens":11500}
     response=json.loads(post_json("https://api.openai.com/v1/responses",payload,key))
     # Registar consumo reportado pela API, sem inventar preço do modelo nem de pesquisa.
     usage=response.get("usage",{})
@@ -64,6 +69,60 @@ def draft():
     data=json.loads(text)
     if data.get("estado")!="RASCUNHO" or data.get("edicao")!=target_date() or set(data.get("secoes",{}))!=set(SECTIONS):
         raise ValueError("Formato de rascunho inesperado.")
+    # Fill Sunday/Monday forecast from the structured weather API already collected.
+    # Never ask the language model to guess a weather report.
+    conditions={0:"céu limpo",1:"céu geralmente limpo",2:"céu parcialmente nublado",
+        3:"céu encoberto",45:"nevoeiro",48:"nevoeiro gelado",51:"chuvisco fraco",
+        53:"chuvisco moderado",55:"chuvisco intenso",61:"chuva fraca",
+        63:"chuva moderada",65:"chuva forte",71:"neve fraca",73:"neve moderada",
+        75:"neve forte",80:"aguaceiros fracos",81:"aguaceiros moderados",
+        82:"aguaceiros fortes",95:"trovoada"}
+    sunday=dt.date.fromisoformat(target_date())
+    monday=sunday+dt.timedelta(days=1)
+    pt_days={sunday.isoformat():"domingo",monday.isoformat():"segunda-feira"}
+    def make_forecast(city):
+        by_date={x["data"]:x for x in raw["meteorologia"].get(city,[])}
+        if not all(day in by_date for day in pt_days):
+            return None
+        sentences=[]
+        for date,dayname in pt_days.items():
+            x=by_date[date]
+            desc=conditions.get(x.get("codigo_tempo"),"condições meteorológicas variáveis")
+            sentences.append(
+                f"Na {dayname}, dia {dt.date.fromisoformat(date).day}, em {city}, "
+                f"prevê-se {desc}, com temperaturas entre {x['min_c']} e {x['max_c']} graus "
+                f"Celsius e probabilidade máxima de precipitação de {x['prob_chuva_pct']} por cento.")
+        return {"texto":" ".join(sentences),
+                "fontes":["https://open-meteo.com/"],
+                "confirmado":False,
+                "observacoes":"Previsão automática Open-Meteo, sujeita a alteração. Rever no domingo antes da emissão."}
+    toronto=make_forecast("Toronto")
+    data["secoes"]["meteorologia_canada"]=[toronto] if toronto else []
+    data["secoes"]["meteorologia_portugal"]=[
+        x for x in (make_forecast(city) for city in ("Lisboa","Porto","Faro")) if x]
+    data["notas_automaticas"]=["Meteorologia criada por dados Open-Meteo, não pelo modelo.",
+        "Previsões e notícias exigem verificação editorial no dia da emissão."]
+    # Explicit report of editorial completeness: workflow success != broadcast approval.
+    counts={name:len(data["secoes"][name]) for name in SECTIONS}
+    word_count=sum(len(x.get("texto","").split()) for name in SECTIONS
+                   for x in data["secoes"][name])
+    reasons=[]
+    for name,min_count in (("internacional",2),("portugal",2),("desporto_canada",1),
+                           ("futebol_portugal",3),("meteorologia_canada",1),("meteorologia_portugal",3)):
+        if counts[name]<min_count:
+            reasons.append(f"{name}: {counts[name]} de {min_count} peças mínimas")
+    if word_count<2200:
+        reasons.append(f"Texto com {word_count} palavras: insuficiente para 15-20 minutos.")
+    if word_count>3400:
+        reasons.append(f"Texto com {word_count} palavras: rever limite máximo de 30 min.")
+    quality={"edicao":target_date(),"estado":"RASCUNHO — NÃO EMITIR",
+             "palavras":word_count,"quantidades":counts,
+             "pronto_para_locucao":False,
+             "motivos_de_revisao":reasons,
+             "revisao_de_factos":"OBRIGATÓRIA mesmo que motivos_de_revisao esteja vazio"}
+    (OUT/"avaliacao-redacao.json").write_text(
+        json.dumps(quality,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print("AVALIACAO EDITORIAL:",json.dumps(quality,ensure_ascii=False),flush=True)
     for name in SECTIONS:
         for item in data["secoes"][name]:
             if item.get("confirmado") is not False: raise ValueError("O modelo tentou declarar factos aprovados.")
