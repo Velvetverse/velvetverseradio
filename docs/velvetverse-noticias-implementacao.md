@@ -18,7 +18,7 @@ Emissão dominical às **12h00 Toronto** no RadioDJ, de preferência 15–20 min
 - `scripts/velvetverse_noticias_preflight.py`: diagnóstico local sem APIs nem despesas, apenas presença de credenciais e validação de vinhetas.
 - `scripts/velvetverse_noticias_transferencia.py`: transferência para/do R2 **privado**, com manifesto e SHA256; modo receção destina-se só a staging.
 - `radio-pc/diagnostico-noticias.ps1`: diagnóstico de leitura do Windows, não altera RadioDJ.
-- `radio-pc/receber-noticias-teste.bat`: receção manual para `C:\RadioWeb\Noticias\Staging` **se** credenciais R2 estiverem disponíveis.
+- `radio-pc/receber-noticias-teste.bat`: receção manual para `C:\VelvetVerseNoticias\Staging` **se** credenciais R2 estiverem disponíveis.
 - `.github/workflows/velvetverse-noticias-producao-piloto.yml`: piloto manual; chamadas pagas agora exigem autorização explícita, opção desmarcada por defeito; R2 desligado por defeito.
 - `.github/workflows/velvetverse-noticias-ci.yml`: validações offline em commits; testes de CI ainda devem ser confirmados em GitHub Actions após as últimas alterações.
 
@@ -36,3 +36,6 @@ Emissão dominical às **12h00 Toronto** no RadioDJ, de preferência 15–20 min
 
 ## Próximo contacto no PC da rádio
 Executar apenas o diagnóstico de leitura `radio-pc/diagnostico-noticias.ps1` e observar os eventos atuais do RadioDJ. **Não agendar ainda a estreia.** Consultar [plano de entrega ao RadioDJ](noticias-radioDJ-entrega-segura.md).
+
+## Pasta Windows definitiva
+A receção do jornal fica isolada em `C:\VelvetVerseNoticias\Staging` no computador da rádio. Não utilizar `C:\RadioWeb` para os MP3 do jornal. O script de receção Windows e o diagnóstico foram atualizados, mas a pasta ainda precisa de ser criada no PC; nenhuma tarefa foi ativada.
