@@ -54,3 +54,11 @@ Capturas reais do RadioDJ **v2.0.4.5** mostram:
 **Importante: ainda NÃO retirar domingo ao evento das 12h00 nem criar evento concorrente.** A primeira ação é locução horária; a segunda carrega uma música e pode colidir com o jornal se forem criados dois eventos no mesmo momento. Também é necessário verificar se o sweeper das 12h30 pode entrar antes de terminar um jornal mais longo. Verificar modo de inserção, Smart Timing e efeito da ausência do MP3 antes de permitir emissão automática.
 
 **Fluxo de configuração de domingo após validação e MP3 aprovado:** preservar a configuração original, separar o evento diário de 12:00 em Seg–Sáb e um evento dominical (horário e comportamento a testar), sem duplicar ações. Configurar uma única chamada às Notícias com fallback validado, e nunca interromper a programação de 12:59. A programação musical continua no caso de falta da edição. O RadioDJ suporta oficialmente o tipo de faixa `File By Date` que seleciona `yyyy-MM-dd.mp3` na pasta configurada; testar o comportamento concreto na instalação antes de confiar nesse fallback: https://www.radiodj.ro/tutorials/track-types-in-radiodj.html.
+
+## Atualização — eventos reais e receptor automático preparado
+
+A janela de edição do RadioDJ confirmou que **ALMA PORTUGUESA SWEEPER 3** está às **12:30**, com **Repeat by Day** para todos os dias, **Smart Timing** ativado e uma única ação `Load Track From Category` (sweeper da categoria Alma Portuguesa). Não alterar este evento antes de testes sem antena.
+
+Foi acrescentado `radio-pc/receber-noticias-staging.ps1` para receber automaticamente edições privadas, sem pausas nem interação, usando o Python/boto3 e o mecanismo já existente em `scripts/velvetverse_noticias_transferencia.py`. Este último agora não substitui silenciosamente um MP3 existente no staging: se já estiver íntegro, termina sem novo download; se houver divergência, bloqueia.
+
+O ficheiro `radio-pc/instalar-rececao-staging.ps1` **apenas prepara uma tarefa Windows DESATIVADA**, com calendário de domingo às 11h30. Ainda não foi executado no PC e não cria nenhum evento RadioDJ. Antes de ativar é preciso verificar fuso horário, credenciais R2 e receção no Windows, e testar o fallback sem antena.
