@@ -42,6 +42,17 @@ def draft():
         "Dados de pesquisa e previsão: "+json.dumps({"noticias":sample,"meteorologia":raw["meteorologia"]},ensure_ascii=False))
     payload={"model":model,"tools":[{"type":"web_search"}],"input":prompt,"max_output_tokens":6500}
     response=json.loads(post_json("https://api.openai.com/v1/responses",payload,key))
+    # Registar consumo reportado pela API, sem inventar preço do modelo nem de pesquisa.
+    usage=response.get("usage",{})
+    searches=sum(1 for item in response.get("output",[]) if item.get("type") in ("web_search_call","web_search"))
+    costs={"edicao":target_date(),"modelo":model,"ferramenta_pesquisa":"web_search",
+           "pesquisas_observadas":searches,"tokens_entrada":usage.get("input_tokens"),
+           "tokens_saida":usage.get("output_tokens"),
+           "tokens_total":usage.get("total_tokens"),
+           "usd_faturados":"CONSULTAR PAINEL OFICIAL: sem tarifário verificado pelo script",
+           "estado":"MÉTRICAS DE CONSUMO; NÃO APROVA EMISSÃO"}
+    (OUT/"consumo-redacao.json").write_text(json.dumps(costs,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print("METRICAS REDACAO:",json.dumps(costs,ensure_ascii=False),flush=True)
     text="\n".join(part.get("text","") for item in response.get("output",[])
                      if item.get("type")=="message" for part in item.get("content",[])
                      if part.get("type")=="output_text").strip()
@@ -78,6 +89,14 @@ def validate(data):
     text="\n\n".join(parts)
     if any(x in text.upper() for x in ("NÃO EMITIR","NÃO LOCUTAR","[VERIFICAR","[INSERIR","TODO")) or "[" in text or "]" in text:
         raise ValueError("Marcadores de trabalho presentes.")
+    # Contagem editorial mínima, para evitar um jornal com notícias em falta.
+    expected={"internacional":2,"portugal":2,"desporto_canada":1,"futebol_portugal":3,
+              "meteorologia_canada":1,"meteorologia_portugal":3}
+    for name,count in expected.items():
+        if len(data["secoes"][name])<count:
+            raise ValueError("Quantidade insuficiente para "+name+": esperado "+str(count))
+    # A previsão só é válida quando cobre o domingo atual e a segunda-feira.
+    # A verificação de factos, incluindo atualizações de última hora, continua manual.
     if len(text.split())<150 or len(text.split())>3400:
         raise ValueError("Duração de locução potencialmente inadequada.")
     return parts
