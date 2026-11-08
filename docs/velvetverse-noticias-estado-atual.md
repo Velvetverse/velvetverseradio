@@ -55,3 +55,12 @@ Noticiário dominical às 12h00 de Toronto. Abertura «Notícias, com Ricky Sous
 - O pipeline não escolhe modelos API não verificados automaticamente; o modelo deve estar configurado pelo operador.
 - Novo teste `tests/test_noticias_autorizacao.py` e CI ligado; resultado de execução dos testes ainda não foi consultado.
 - Emissão RadioDJ e receção agendada continuam desativadas; nenhum jornal real foi emitido.
+
+## 8 novembro 2026 — correção após o primeiro rascunho pago
+- A execução GitHub Actions nº 42439772637 concluiu redação por OpenAI e guardou um artefacto de relatório, sem MP3.
+- A avaliação efetiva indicou 977 palavras em 9 peças e meteorologia para as quatro cidades, insuficientes para 15–20 minutos; a redação não foi aprovada.
+- Atualizado o briefing de redação: abertura «Notícias, com Ricky Sousa. Boa tarde», nove assuntos com objetivos editoriais de desenvolvimento **apenas se existirem factos**, fontes HTTPS e aviso obrigatório de incertezas. Sem enchimento nem invenção para cumprir a duração.
+- Atualizada avaliação para contar também abertura e fecho, reportar extensão por secção e assinalar secções demasiado curtas.
+- Acrescentado teste offline simulado que confirma que textos curtos não passam a estado de locução e que a meteorologia é montada a partir de dados estruturados.
+- **Nenhuma chamada adicional à OpenAI ou Fish Audio foi efetuada para estas correções.** Não repetir uma execução paga até confirmar os testes CI e rever a qualidade dos dados.
+- Mesmo um rascunho longo não autoriza automaticamente produção de voz ou emissão; permanece indispensável validar os factos.
