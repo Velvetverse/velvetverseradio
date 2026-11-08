@@ -110,6 +110,9 @@ jobs:
             noticias-teste/consumo-redacao.json
             noticias-teste/avaliacao-redacao.json
             noticias-teste/auditoria.md
+            noticias-teste/auditoria.json
+            noticias-teste/pesquisa.md
+            noticias-teste/pesquisa.json
             noticias-teste/*-ENSAIO.mp3
           retention-days: 1
           if-no-files-found: ignore
