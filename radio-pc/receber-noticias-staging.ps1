@@ -4,7 +4,7 @@
 $ErrorActionPreference = 'Stop'
 Set-Location (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 # As credenciais são guardadas com DPAPI, acessíveis só ao mesmo utilizador Windows.
-$cfgRoot='C:\VelvetVerseNoticias'
+$cfgRoot=Join-Path $env:USERPROFILE 'VelvetVerseNoticias'
 $securePath=Join-Path $cfgRoot 'r2-download-credential.xml'
 $metaPath=Join-Path $cfgRoot 'r2-download-account.txt'
 if(-not (Test-Path -LiteralPath $securePath) -or -not (Test-Path -LiteralPath $metaPath)){
