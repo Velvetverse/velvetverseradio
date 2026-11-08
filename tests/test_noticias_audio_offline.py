@@ -51,6 +51,7 @@ def main():
             prod.VINHETAS_DIR=ROOT
             with patch.dict(os.environ,{
                 "VV_ALLOW_BILLABLE":"yes",
+                "VV_OFFLINE_AUDIO_TEST":"yes",
                 "VV_APPROVED_SCRIPT":str(script),
                 "FISH_AUDIO_API_KEY":"FAKE_OFFLINE_KEY",
                 "FISH_VOICE_REFERENCE_ID":"FAKE_OFFLINE_VOICE",
