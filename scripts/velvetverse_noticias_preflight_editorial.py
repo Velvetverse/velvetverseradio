@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 from pathlib import Path
 
 PATH=Path("noticias-teste/alinhamento-automatico.json")
-QUOTAS={"noticias_internacionais":2,"noticias_portugal":2,
+QUOTAS={"noticias_internacionais":2,"noticias_portugal":3,
         "desporto_canada":1,"futebol_portugal":3}
 CITIES=("Toronto","Lisboa","Porto","Faro")
 def check(data):
