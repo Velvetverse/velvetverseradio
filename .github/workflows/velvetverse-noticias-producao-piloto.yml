@@ -106,7 +106,10 @@ jobs:
         if: ${{ inputs.etapa == 'audio_rascunho_privado' }}
         run: |
           mkdir -p noticias-teste
-          gh run download 42442634064 --repo "${{ github.repository }}" --name noticias-piloto-privado --dir noticias-teste
+          mkdir -p /tmp/vv-noticias-rascunho-original
+          gh run download 42442634064 --repo "${{ github.repository }}" --name noticias-piloto-privado --dir /tmp/vv-noticias-rascunho-original
+          test -s /tmp/vv-noticias-rascunho-original/rascunho-ia.json
+          cp /tmp/vv-noticias-rascunho-original/rascunho-ia.json noticias-teste/rascunho-ia.json
           test -s noticias-teste/rascunho-ia.json
           python - <<'PY'
           import json,datetime
