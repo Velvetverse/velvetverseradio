@@ -13,7 +13,7 @@ def fixture():
     return {"estado":"ALINHAMENTO AUTOMATICO — NÃO EMITIR",
         "edicao":sunday.isoformat(),"gerado_em":now.isoformat(),
         "seccoes":{k:[{"url":"https://example.org/noticia-"+str(i)} for i in range(n)]
-            for k,n in (("noticias_internacionais",2),("noticias_portugal",2),
+            for k,n in (("noticias_internacionais",2),("noticias_portugal",3),
                         ("desporto_canada",1),("futebol_portugal",3))},
         "meteorologia":{city:[{"data":sunday.isoformat()},{"data":monday.isoformat()}] for city in
                        ("Toronto","Lisboa","Porto","Faro")}}
