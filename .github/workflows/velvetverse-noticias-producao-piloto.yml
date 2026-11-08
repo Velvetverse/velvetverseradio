@@ -12,6 +12,13 @@ on:
           - rascunho_ia
           - audio_aprovado
           - teste_custo_voz_gratis
+      modelo_redacao:
+        description: 'Modelo de redação da API OpenAI (confirmado na documentação)'
+        required: true
+        default: gpt-5-mini
+        type: choice
+        options:
+          - gpt-5-mini
       autorizar_chamadas_pagas:
         description: 'Autorizo explicitamente chamadas a APIs (só para rascunho_ia ou áudio)'
         type: boolean
@@ -32,7 +39,7 @@ jobs:
     env:
       VV_ALLOW_BILLABLE: ${{ inputs.autorizar_chamadas_pagas && 'yes' || 'no' }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      OPENAI_MODEL: ${{ vars.VV_OPENAI_MODEL }}
+      OPENAI_MODEL: ${{ inputs.modelo_redacao }}
       FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
       FISH_VOICE_REFERENCE_ID: ${{ secrets.FISH_VOICE_REFERENCE_ID }}
       FISH_TTS_MODEL: ${{ vars.VV_FISH_MODEL }}
@@ -84,7 +91,7 @@ jobs:
       - name: Verificar modelo antes de qualquer pedido pago de redacao
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: |
-          test -n "$OPENAI_MODEL" || { echo "::error::Definir vars.VV_OPENAI_MODEL antes de qualquer gasto. Nenhuma chamada feita."; exit 1; }
+          test "$OPENAI_MODEL" = 'gpt-5-mini' || { echo '::error::Modelo não autorizado'; exit 1; }
       - name: Produzir rascunho IA pesquisado (consome API apenas se selecionado)
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: python scripts/velvetverse_noticias_producao.py draft
