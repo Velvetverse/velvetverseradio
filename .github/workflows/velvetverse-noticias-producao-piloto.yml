@@ -15,10 +15,10 @@ on:
       modelo_redacao:
         description: 'Modelo de redação da API OpenAI (confirmado na documentação)'
         required: true
-        default: gpt-5-mini
+        default: gpt-5.6-terra
         type: choice
         options:
-          - gpt-5-mini
+          - gpt-5.6-terra
       autorizar_chamadas_pagas:
         description: 'Autorizo explicitamente chamadas a APIs (só para rascunho_ia ou áudio)'
         type: boolean
@@ -91,7 +91,7 @@ jobs:
       - name: Verificar modelo antes de qualquer pedido pago de redacao
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: |
-          test "$OPENAI_MODEL" = 'gpt-5-mini' || { echo '::error::Modelo não autorizado'; exit 1; }
+          test "$OPENAI_MODEL" = 'gpt-5.6-terra' || { echo '::error::Modelo não autorizado'; exit 1; }
       - name: Produzir rascunho IA pesquisado (consome API apenas se selecionado)
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: python scripts/velvetverse_noticias_producao.py draft
