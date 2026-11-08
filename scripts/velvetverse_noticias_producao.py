@@ -98,7 +98,7 @@ def draft():
             x=by_date[date]
             desc=conditions.get(x.get("codigo_tempo"),"condições meteorológicas variáveis")
             sentences.append(
-                f"No {dayname}, dia {dt.date.fromisoformat(date).day}, em {city}, "
+                f"{'No' if dayname == 'domingo' else 'Na'} {dayname}, dia {dt.date.fromisoformat(date).day}, em {city}, "
                 f"prevê-se {desc}, com temperaturas entre {x['min_c']} e {x['max_c']} graus "
                 f"Celsius e probabilidade máxima de precipitação de {x['prob_chuva_pct']} por cento.")
         return {"texto":" ".join(sentences),
