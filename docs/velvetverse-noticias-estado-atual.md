@@ -39,3 +39,12 @@ Noticiário dominical às 12h00 de Toronto. Abertura «Notícias, com Ricky Sous
 - [Pesquisa automática](../.github/workflows/velvetverse-noticias-pesquisa-semanal.yml)
 - [Produção piloto](../.github/workflows/velvetverse-noticias-producao-piloto.yml)
 - [Recetor Windows](../radio-pc/receber-noticias-staging.ps1)
+
+## Alterações posteriores — segurança e testes do pipeline
+- Seleção de candidatos atualizada com pesquisa internacional RTP e CBC.
+- Etapa `preflight_editorial.py` adicionada antes de qualquer tentativa paga de rascunho; confirma quantidades, HTTPS, data de edição, frescura da pesquisa (máximo 6 horas) e meteorologia de domingo/segunda.
+- Novo teste offline de transporte completo com R2 simulado: manifesto privado, hash SHA256, receção idempotente e recusa de MP3 modificado.
+- CI configurado para executar testes offline de seleção, preflight, transferência e verificação de proteção de custos, sem usar OpenAI/Fish.
+- Estas alterações são commits de código, **não confirmação de execução em produção**. É necessário ver CI verde e ensaio real do jornal aprovado antes de transmissão.
+- A configuração `VV_OPENAI_MODEL` permanece por verificar; modelo API não deve ser inventado.
+- O agendador de receção Windows permanece desativado até haver edição válida e verificação no PC da rádio.
