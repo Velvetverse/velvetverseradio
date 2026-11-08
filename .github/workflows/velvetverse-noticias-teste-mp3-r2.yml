@@ -1,0 +1,34 @@
+name: VelvetVerse Noticias - MP3 tecnico de teste R2 (sem IA)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  teste:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
+    steps:
+      - name: Instalar boto3
+        run: python3 -m pip install --quiet --break-system-packages boto3
+      - name: Criar silencio tecnico e enviar para area de teste privada
+        run: |
+          ffmpeg -hide_banner -loglevel error -f lavfi -i anullsrc=r=44100:cl=mono -t 2 -codec:a libmp3lame -b:a 64k -y /tmp/NAO-EMITIR-teste-silencio.mp3
+          python3 - <<'PY'
+          import os,boto3
+          if os.environ.get('R2_BUCKET')!='velvetverse-noticias': raise SystemExit('Bucket não autorizado')
+          s3=boto3.client('s3',
+              endpoint_url='https://'+os.environ['R2_ACCOUNT_ID']+'.r2.cloudflarestorage.com',
+              aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
+              aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
+              region_name='auto')
+          key='noticias/teste-tecnico/NAO-EMITIR-teste-silencio.mp3'
+          s3.upload_file('/tmp/NAO-EMITIR-teste-silencio.mp3',os.environ['R2_BUCKET'],key,
+                         ExtraArgs={'ContentType':'audio/mpeg'})
+          print('SUCESSO: MP3 silencioso técnico carregado em área isolada do R2.')
+          print('NÃO EMITIR: não foi publicado nenhum manifesto de edição nem alterado RadioDJ.')
+          PY
