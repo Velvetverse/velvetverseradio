@@ -1,3 +1,4 @@
+param([switch]$Teste)
 # Recebe a edicao aprovada do R2 para STAGING, sem tocar na radio.
 # Preparado para execucao automatica pelo Agendador de Tarefas Windows.
 # Necessita de Python+boto3 e credenciais R2 no ambiente do utilizador Windows.
@@ -27,7 +28,10 @@ else {
     $program='python'; $prefix=@()
 }
 $destination='C:\VelvetVerseNoticias\Staging'
-$cmdargs=@($prefix)+@('scripts/velvetverse_noticias_transferencia.py','receive','--destination',$destination)
+if($Teste){ $destination=Join-Path $destination 'Teste' }
+$mode='receive'
+if($Teste){$mode='test-receive'}
+$cmdargs=@($prefix)+@('scripts/velvetverse_noticias_transferencia.py',$mode,'--destination',$destination)
 & $program @cmdargs
 if($LASTEXITCODE -ne 0){ exit $LASTEXITCODE }
 Write-Output 'Rececao de staging concluida. Nenhum evento RadioDJ foi alterado.'
