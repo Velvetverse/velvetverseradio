@@ -27,12 +27,19 @@ def post_json(url,payload,key,headers=None):
         return r.read()
 def draft():
     key=os.getenv("OPENAI_API_KEY")
-    model=os.getenv("OPENAI_MODEL") or "gpt-6.1-terra"
-    if not key:
-        raise ValueError("Falta OPENAI_API_KEY; nenhuma chamada paga realizada.")
+    model=os.getenv("OPENAI_MODEL","").strip()
+    if not key or not model:
+        raise ValueError("Falta OPENAI_API_KEY ou OPENAI_MODEL; nenhuma chamada paga realizada.")
     raw=json.loads((OUT/"pesquisa.json").read_text(encoding="utf-8"))
-    sample={x["secao"]:x["dados"][:8] for x in raw["ordem_editorial_candidatos"] if x["secao"] in
-        ("noticias_internacionais","noticias_portugal","desporto_canada","futebol_portugal")}
+    selected_path=OUT/"alinhamento-automatico.json"
+    if selected_path.is_file():
+        selected=json.loads(selected_path.read_text(encoding="utf-8"))
+        if selected.get("edicao")!=target_date():
+            raise ValueError("Alinhamento automático de outra edição; sem chamada paga.")
+        sample={k:v for k,v in selected["seccoes"].items()}
+    else:
+        sample={x["secao"]:x["dados"][:8] for x in raw["ordem_editorial_candidatos"] if x["secao"] in
+            ("noticias_internacionais","noticias_portugal","desporto_canada","futebol_portugal")}
     prompt=("Cria RASCUNHO editorial para rádio em português europeu, com pesquisa web e factos atribuídos. "
         "O apresentador oficial é Ricky Sousa (não confundir com o nome da voz sintética). "
         "A abertura deve identificar expressamente: Notícias, com Ricky Sousa. Não mencionar o nome da estação na abertura. "
@@ -181,12 +188,28 @@ def render():
         if not j.is_file() or j.stat().st_size<1000:
             raise ValueError("Vinheta obrigatória em falta: "+str(j))
         jingles["__VV_"+vinheta_id.upper()+"__"]=j.resolve()
-    # Preflight validation for all segments, before any billable TTS request.
+    # Dividir os textos por frases antes de gerar audio; nunca fazer pedido com mais de 3000 bytes.
+    def split_for_tts(text,limit=2600):
+        if len(text.encode("utf-8"))<=limit:return [text]
+        sentences=re.split(r"(?<=[.!?;])\\s+",text)
+        chunks=[];current=""
+        for sentence in sentences:
+            if len(sentence.encode("utf-8"))>limit:
+                raise ValueError("Frase demasiado longa para TTS; rever antes de gastar.")
+            candidate=(current+" "+sentence).strip()
+            if current and len(candidate.encode("utf-8"))>limit:
+                chunks.append(current);current=sentence
+            else:current=candidate
+        if current:chunks.append(current)
+        return chunks
+    expanded=[]
     for para in paragraphs:
-        if para in jingles:
-            continue
-        if len(para.encode("utf-8")) > 3000:
+        expanded.extend([para] if para in jingles else split_for_tts(para))
+    paragraphs=expanded
+    for para in paragraphs:
+        if para not in jingles and len(para.encode("utf-8"))>3000:
             raise ValueError("Segmento de voz demasiado longo para API Fish.")
+    OUT.mkdir(parents=True,exist_ok=True)
     directory=OUT/"audio-parts"
     directory.mkdir(parents=True,exist_ok=True)
     files=[]
