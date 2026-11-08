@@ -26,20 +26,22 @@ def post_json(url,payload,key,headers=None):
     with urllib.request.urlopen(req,timeout=300) as r:
         return r.read()
 def draft():
+    if os.getenv("VV_ALLOW_BILLABLE")!="yes":
+        raise ValueError("Chamadas pagas bloqueadas: falta autorização explícita.")
     key=os.getenv("OPENAI_API_KEY")
     model=os.getenv("OPENAI_MODEL","").strip()
     if not key or not model:
         raise ValueError("Falta OPENAI_API_KEY ou OPENAI_MODEL; nenhuma chamada paga realizada.")
     raw=json.loads((OUT/"pesquisa.json").read_text(encoding="utf-8"))
     selected_path=OUT/"alinhamento-automatico.json"
-    if selected_path.is_file():
-        selected=json.loads(selected_path.read_text(encoding="utf-8"))
-        if selected.get("edicao")!=target_date():
-            raise ValueError("Alinhamento automático de outra edição; sem chamada paga.")
-        sample={k:v for k,v in selected["seccoes"].items()}
-    else:
-        sample={x["secao"]:x["dados"][:8] for x in raw["ordem_editorial_candidatos"] if x["secao"] in
-            ("noticias_internacionais","noticias_portugal","desporto_canada","futebol_portugal")}
+    if not selected_path.is_file():
+        raise ValueError("Alinhamento automático ausente; sem chamada paga.")
+    from velvetverse_noticias_preflight_editorial import check as check_editorial
+    selected=json.loads(selected_path.read_text(encoding="utf-8"))
+    blocks=check_editorial(selected)
+    if blocks:
+        raise ValueError("Preflight bloqueou chamada paga: "+"; ".join(blocks))
+    sample={k:v for k,v in selected["seccoes"].items()}
     prompt=("Cria RASCUNHO editorial para rádio em português europeu, com pesquisa web e factos atribuídos. "
         "O apresentador oficial é Ricky Sousa (não confundir com o nome da voz sintética). "
         "A abertura deve identificar expressamente: Notícias, com Ricky Sousa. Não mencionar o nome da estação na abertura. "
@@ -96,7 +98,7 @@ def draft():
             x=by_date[date]
             desc=conditions.get(x.get("codigo_tempo"),"condições meteorológicas variáveis")
             sentences.append(
-                f"Na {dayname}, dia {dt.date.fromisoformat(date).day}, em {city}, "
+                f"No {dayname}, dia {dt.date.fromisoformat(date).day}, em {city}, "
                 f"prevê-se {desc}, com temperaturas entre {x['min_c']} e {x['max_c']} graus "
                 f"Celsius e probabilidade máxima de precipitação de {x['prob_chuva_pct']} por cento.")
         return {"texto":" ".join(sentences),
@@ -173,6 +175,8 @@ def validate(data):
         raise ValueError("Duração de locução potencialmente inadequada.")
     return parts
 def render():
+    if os.getenv("VV_ALLOW_BILLABLE")!="yes":
+        raise ValueError("Chamadas pagas bloqueadas: falta autorização explícita.")
     source=os.environ.get("VV_APPROVED_SCRIPT")
     if not source:raise ValueError("VV_APPROVED_SCRIPT deve indicar um ficheiro autorizado.")
     data=json.loads(Path(source).read_text(encoding="utf-8"))
