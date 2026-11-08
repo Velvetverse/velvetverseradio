@@ -37,13 +37,34 @@ def hfile(p):
     return h.hexdigest()
 def main():
     ap=argparse.ArgumentParser()
-    ap.add_argument("action",choices=["upload","receive"])
+    ap.add_argument("action",choices=["upload","receive","test-receive"])
     ap.add_argument("--file",help="MP3 previamente aprovado a enviar")
     ap.add_argument("--destination",help="pasta local temporária (sem RadioDJ)")
     args=ap.parse_args()
     target=sunday()
     objbase="noticias/piloto/"+target
     s3,bucket=config()
+    if args.action=="test-receive":
+        if not args.destination:raise ValueError("--destination obrigatório")
+        base=Path(args.destination)
+        base.mkdir(parents=True,exist_ok=True)
+        key="noticias/teste-tecnico/NAO-EMITIR-teste-silencio.mp3"
+        dest=base/"NAO-EMITIR-teste-silencio.mp3"
+        temp=base/"NAO-EMITIR-teste-silencio.download"
+        temp.unlink(missing_ok=True)
+        try:
+            obj=s3.head_object(Bucket=bucket,Key=key)
+            if obj.get("ContentLength",0)<100:
+                raise RuntimeError("MP3 de teste inválido ou demasiado pequeno")
+            s3.download_file(bucket,key,str(temp))
+            if temp.stat().st_size != obj["ContentLength"]:
+                raise RuntimeError("Transferência de teste incompleta")
+            temp.replace(dest)
+        finally:
+            temp.unlink(missing_ok=True)
+        print("SUCESSO: MP3 técnico descarregado:",dest)
+        print("NAO EMITIR — nenhuma alteração feita no RadioDJ.")
+        return
     if args.action=="upload":
         if not args.file:raise ValueError("--file obrigatório")
         p=Path(args.file)
