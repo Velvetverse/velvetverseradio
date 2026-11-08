@@ -5,6 +5,7 @@ on:
       - 'scripts/velvetverse_noticias_*.py'
       - '.github/workflows/velvetverse-noticias-ci.yml'
       - 'tests/test_noticias_selecao.py'
+      - 'tests/test_noticias_preflight_editorial.py'
       - '.github/workflows/velvetverse-noticias-producao-piloto.yml'
   workflow_dispatch:
 permissions:
@@ -22,6 +23,8 @@ jobs:
         run: python -m compileall -q scripts/velvetverse_noticias_*.py
       - name: Testar selecao automatica de noticias com dados locais
         run: python tests/test_noticias_selecao.py
+      - name: Testar bloqueio antes de despesas com IA
+        run: python tests/test_noticias_preflight_editorial.py
       - name: Confirmar bloqueios de despesa e emissao
         run: |
           python - <<'PY'
