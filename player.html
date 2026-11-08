@@ -1149,33 +1149,84 @@ audio.volume = .70;
 
 /* PLAY / PAUSE */
 
-playButton.addEventListener("click",async()=>{
-
-  if(!audio.paused){
-
-    audio.pause();
-    return;
-
-  }
-
-  audio.src =
-    "https://stream.rcast.net/73595?ts=" +
-    Date.now();
-
-  try{
-
+const VV_STREAM_URL = "https://stream.rcast.net/73595";
+let vvWantsAudio = false;
+let vvRetryTimer = null;
+let vvRetryCount = 0;
+let vvConnectingSince = 0;
+let vvRecovering = false;
+let vvLastProgress = Date.now();
+let vvLastTime = -1;
+function vvClearRetry() {
+  if (vvRetryTimer !== null) clearTimeout(vvRetryTimer);
+  vvRetryTimer = null;
+}
+function vvScheduleRetry(reason) {
+  if (!vvWantsAudio || vvRetryTimer !== null) return;
+  const delay = Math.min(30000, 2000 * Math.pow(2, Math.min(vvRetryCount, 4)));
+  vvRetryCount++;
+  console.info("VelvetVerse stream: reconectar", reason, delay);
+  vvRetryTimer = setTimeout(() => {
+    vvRetryTimer = null;
+    vvConnect();
+  }, delay);
+}
+async function vvConnect() {
+  if (!vvWantsAudio) return;
+  vvRecovering = true;
+  vvConnectingSince = Date.now();
+  vvLastProgress = Date.now();
+  vvLastTime = -1;
+  audio.src = VV_STREAM_URL + "?ts=" + Date.now();
+  audio.load();
+  try {
     await audio.play();
-
-  }catch(error){
-
-    console.log(
-      "Não foi possível iniciar a emissão."
-    );
-
+  } catch (error) {
+    if (vvWantsAudio) vvScheduleRetry("play");
+  } finally {
+    vvRecovering = false;
   }
-
+}
+playButton.addEventListener("click", () => {
+  if (vvWantsAudio) {
+    vvWantsAudio = false;
+    vvRecovering = false;
+    vvConnectingSince = 0;
+    vvClearRetry();
+    audio.pause();
+  } else {
+    vvWantsAudio = true;
+    vvRetryCount = 0;
+    vvConnect();
+  }
 });
-
+audio.addEventListener("timeupdate", () => {
+  if (audio.currentTime !== vvLastTime) {
+    vvLastTime = audio.currentTime;
+    vvLastProgress = Date.now();
+  }
+});
+audio.addEventListener("playing", () => {
+  vvLastProgress = Date.now();
+  vvConnectingSince = 0;
+  vvRetryCount = 0;
+  vvClearRetry();
+});
+audio.addEventListener("stalled", () => vvScheduleRetry("stalled"));
+audio.addEventListener("error", () => vvScheduleRetry("error"));
+audio.addEventListener("ended", () => vvScheduleRetry("ended"));
+audio.addEventListener("pause", () => {
+  if (vvWantsAudio && !vvRecovering) vvScheduleRetry("unexpected pause");
+});
+setInterval(() => {
+  if (!vvWantsAudio || vvRetryTimer !== null) return;
+  if (vvConnectingSince && Date.now() - vvConnectingSince > 20000) {
+    vvScheduleRetry("connection timeout");
+  } else if (!audio.paused && audio.readyState < HTMLMediaElement.HAVE_FUTURE_DATA &&
+             Date.now() - vvLastProgress > 16000) {
+    vvScheduleRetry("buffer timeout");
+  }
+}, 5000);
 
 audio.addEventListener("playing",()=>{
 
