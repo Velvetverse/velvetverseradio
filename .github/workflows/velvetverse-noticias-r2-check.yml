@@ -1,0 +1,60 @@
+name: VelvetVerse Noticias - testar acesso R2 (sem custos de IA)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verificar_r2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
+    steps:
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar biblioteca S3
+        run: python -m pip install --disable-pip-version-check boto3
+      - name: Verificar acesso privado ao bucket sem alterar ficheiros
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os,sys
+          import boto3
+          from botocore.config import Config
+          from botocore.exceptions import ClientError, EndpointConnectionError, BotoCoreError
+          names=('R2_ACCOUNT_ID','R2_ACCESS_KEY_ID','R2_SECRET_ACCESS_KEY','R2_BUCKET')
+          missing=[x for x in names if not os.environ.get(x)]
+          if missing:
+              print('ERRO: falta configurar '+', '.join(missing))
+              sys.exit(2)
+          account=os.environ['R2_ACCOUNT_ID']
+          bucket=os.environ['R2_BUCKET']
+          if bucket!='velvetverse-noticias':
+              print('ERRO: bucket inesperado. Nenhum acesso efetuado.')
+              sys.exit(2)
+          try:
+              client=boto3.client('s3',
+                 endpoint_url='https://'+account+'.r2.cloudflarestorage.com',
+                 aws_access_key_id=os.environ['R2_ACCESS_KEY_ID'],
+                 aws_secret_access_key=os.environ['R2_SECRET_ACCESS_KEY'],
+                 region_name='auto',config=Config(signature_version='s3v4',
+                    connect_timeout=8,read_timeout=12,retries={'max_attempts':2}))
+              result=client.list_objects_v2(Bucket=bucket,MaxKeys=1)
+              print('SUCESSO: ligação e permissão de listagem ao bucket confirmadas.')
+              print('Bucket:',bucket)
+              print('Contém objetos:',bool(result.get('KeyCount',0)))
+              print('Nenhum MP3 criado, enviado, apagado ou publicado.')
+              print('Nenhuma chamada às APIs OpenAI ou Fish Audio.')
+          except (ClientError,EndpointConnectionError,BotoCoreError) as exc:
+              if isinstance(exc,ClientError):
+                  code=exc.response.get('Error',{}).get('Code','erro desconhecido')
+                  print('ERRO R2 (código):',str(code)[:80])
+              else:
+                  print('ERRO: ligação R2 não estabelecida.')
+              sys.exit(1)
+          PY
