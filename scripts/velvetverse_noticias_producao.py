@@ -210,7 +210,31 @@ def render():
     source=os.environ.get("VV_APPROVED_SCRIPT")
     if not source:raise ValueError("VV_APPROVED_SCRIPT deve indicar um ficheiro autorizado.")
     data=json.loads(Path(source).read_text(encoding="utf-8"))
-    paragraphs=validate(data)
+    preview=os.getenv("VV_PREVIEW_DRAFT")=="yes"
+    if preview:
+        if data.get("estado")!="RASCUNHO" or data.get("edicao")!=target_date():
+            raise ValueError("A pré-escuta exige rascunho da edição atual.")
+        if set(data.get("secoes",{}))!=set(SECTIONS):
+            raise ValueError("Rascunho sem secções completas.")
+        spoken=data.get("abertura","")+" "+" ".join(
+            x.get("texto","") for sec in SECTIONS for x in data["secoes"][sec]
+        )+" "+data.get("fecho","")
+        if len(spoken.split())<1800:
+            raise ValueError("Rascunho demasiado curto para pré-escuta; nenhum crédito gasto.")
+        paragraphs=["__VV_ABERTURA__",
+            "Esta é uma pré-escuta privada de notícias geradas por inteligência artificial. "
+            "Os factos ainda não foram revistos. Não emitir na rádio.",
+            data["abertura"]]
+        for name in SECTIONS:
+            if name=="desporto_canada": paragraphs.append("__VV_DESPORTO__")
+            if name=="meteorologia_canada": paragraphs.append("__VV_METEOROLOGIA__")
+            for piece in data["secoes"][name]:
+                if not piece.get("texto"):raise ValueError("Secção com peça vazia.")
+                paragraphs.append(piece["texto"])
+        paragraphs += [data["fecho"],
+          "Fim da pré-escuta privada. Este áudio não está verificado nem autorizado para emissão."]
+    else:
+        paragraphs=validate(data)
     key=os.getenv("FISH_AUDIO_API_KEY")
     voice=os.getenv("FISH_VOICE_REFERENCE_ID")
     model=os.getenv("FISH_TTS_MODEL") or "s2.1-pro-free"
@@ -273,7 +297,7 @@ def render():
         wavefiles.append(wav)
     manifest=directory/"concat.txt"
     manifest.write_text("\n".join("file '"+p.resolve().as_posix()+"'" for p in wavefiles)+"\n",encoding="utf-8")
-    dest=OUT/("velvetverse-noticias-"+data["edicao"]+"-ENSAIO.mp3")
+    dest=OUT/("velvetverse-noticias-"+data["edicao"]+("-PREESCUTA-NAO-EMITIR.mp3" if preview else "-ENSAIO.mp3"))
     subprocess.run(["ffmpeg","-nostdin","-y","-hide_banner","-loglevel","error",
         "-f","concat","-safe","0","-i",str(manifest),
         "-af","loudnorm=I=-16:TP=-1.5:LRA=11",
@@ -282,7 +306,7 @@ def render():
         "-of","default=noprint_wrappers=1:nokey=1",str(dest)]).strip())
     # Uma simulação offline com silêncio curto não equivale à duração exigida em antena.
     offline_test=os.getenv("VV_OFFLINE_AUDIO_TEST")=="yes"
-    min_secs=60 if offline_test else 780
+    min_secs=60 if offline_test else (600 if preview else 780)
     max_secs=1800 if offline_test else 1380
     if secs>max_secs or secs<min_secs:
         dest.unlink(missing_ok=True)
