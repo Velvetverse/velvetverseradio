@@ -37,6 +37,9 @@ jobs:
       - name: Auditar frescura, duplicados e qualidade de candidatos
         if: steps.hora.outputs.executar == 'true'
         run: python scripts/velvetverse_noticias_auditoria.py
+      - name: Selecionar alinhamento automaticamente sem IA paga
+        if: steps.hora.outputs.executar == 'true'
+        run: python scripts/velvetverse_noticias_selecao.py
       - name: Guardar pesquisa para consulta (nunca emitir)
         if: steps.hora.outputs.executar == 'true'
         uses: actions/upload-artifact@v4
@@ -47,5 +50,7 @@ jobs:
             noticias-teste/pesquisa.md
             noticias-teste/auditoria.json
             noticias-teste/auditoria.md
+            noticias-teste/alinhamento-automatico.json
+            noticias-teste/alinhamento-automatico.md
           retention-days: 7
           if-no-files-found: error
