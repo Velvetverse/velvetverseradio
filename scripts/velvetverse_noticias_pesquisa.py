@@ -111,7 +111,7 @@ def football(item):
         return any(x in title for x in ("futebol","liga","taça","treinador","jogo","equipa","benfica","sporting","porto","champions","mundial","seleção","marcador","golo"))
     return any(x in title for x in ("primeira liga","i liga","ii liga","liga dos campeões","futebol português","seleção portuguesa","mundial2030"))
 ordem=[
-    ("noticias_internacionais", select(rtp, 7, international)),
+    ("noticias_internacionais", select(select(rtp, 7, international)+record["noticias"].get("cbc_world",[]), 9)),
     ("noticias_portugal",select(rtp, 9, portugal)),
     ("separador_desporto",[]),
     ("desporto_canada", select(record["noticias"].get("cbc_sports",[]),7)),
