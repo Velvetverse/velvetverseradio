@@ -3106,7 +3106,8 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
   document.getElementById(id).classList.add('active');
   if (id === 'top5latino') {
     const radioStream = document.getElementById('liveRadio');
-    if (radioStream && !radioStream.paused) radioStream.pause();
+    if (radioStream && window.vvStopRadio) window.vvStopRadio();
+    else if (radioStream && !radioStream.paused) radioStream.pause();
   }
   if (id === 'top5latino' && window.resumeTop5Audio) window.resumeTop5Audio();
   if (id !== 'top5latino' && window.stopTop5Audio) window.stopTop5Audio();
@@ -3259,20 +3260,96 @@ const miniVolume = document.getElementById('miniVolume');
     const miniWave = document.getElementById('miniWave');
 liveRadio.volume = 0.7;
 
-livePlay.addEventListener('click', async () => {
-  if (!liveRadio.paused) {
-    liveRadio.pause();
-    return;
-  }
-
-  liveRadio.src = 'https://stream.rcast.net/73595?ts=' + Date.now();
-
+// Radio ao vivo: reconexao controlada. Nunca recomeçar após pausa manual.
+const VV_STREAM_URL = 'https://stream.rcast.net/73595';
+let vvWantsRadio = false;
+let vvRetryTimer = null;
+let vvRetryCount = 0;
+let vvLastAudioProgress = Date.now();
+let vvLastAudioTime = -1;
+let vvRecovering = false;
+let vvConnectingSince = 0;
+function vvClearRetry() {
+  if (vvRetryTimer !== null) clearTimeout(vvRetryTimer);
+  vvRetryTimer = null;
+}
+function vvStopRadio() {
+  vvWantsRadio = false;
+  vvRecovering = false;
+  vvConnectingSince = 0;
+  vvClearRetry();
+  liveRadio.pause();
+}
+window.vvStopRadio = vvStopRadio;
+function vvScheduleRetry(reason) {
+  if (!vvWantsRadio || vvRetryTimer !== null) return;
+  const delay = Math.min(30000, 2000 * Math.pow(2, Math.min(vvRetryCount, 4)));
+  vvRetryCount++;
+  console.info('VelvetVerse: ligação interrompida; nova tentativa', reason, delay);
+  vvRetryTimer = setTimeout(() => {
+    vvRetryTimer = null;
+    vvConnectRadio();
+  }, delay);
+}
+async function vvConnectRadio() {
+  if (!vvWantsRadio) return;
+  vvRecovering = true;
+  vvConnectingSince = Date.now();
+  vvLastAudioProgress = Date.now();
+  vvLastAudioTime = -1;
+  // Cache busting apenas na reconexão; nunca interrompe stream saudável.
+  liveRadio.src = VV_STREAM_URL + '?ts=' + Date.now();
+  liveRadio.load();
   try {
     await liveRadio.play();
-  } catch (e) {
-    console.log('Não foi possível iniciar a emissão.');
+  } catch (error) {
+    if (vvWantsRadio) vvScheduleRetry('play');
+  } finally {
+    vvRecovering = false;
+  }
+}
+livePlay.addEventListener('click', () => {
+  if (vvWantsRadio) {
+    vvStopRadio();
+  } else {
+    vvWantsRadio = true;
+    vvRetryCount = 0;
+    vvConnectRadio();
   }
 });
+liveRadio.addEventListener('timeupdate', () => {
+  if (liveRadio.currentTime !== vvLastAudioTime) {
+    vvLastAudioTime = liveRadio.currentTime;
+    vvLastAudioProgress = Date.now();
+  }
+});
+liveRadio.addEventListener('playing', () => {
+  vvLastAudioProgress = Date.now();
+  vvConnectingSince = 0;
+  vvRetryCount = 0;
+  vvClearRetry();
+});
+liveRadio.addEventListener('waiting', () => {
+  if (vvWantsRadio) vvLastAudioProgress = Math.min(vvLastAudioProgress, Date.now());
+});
+liveRadio.addEventListener('stalled', () => {
+  if (vvWantsRadio) vvScheduleRetry('stalled');
+});
+liveRadio.addEventListener('error', () => vvScheduleRetry('error'));
+liveRadio.addEventListener('ended', () => vvScheduleRetry('ended'));
+liveRadio.addEventListener('pause', () => {
+  if (vvWantsRadio && !vvRecovering) vvScheduleRetry('unexpected pause');
+});
+setInterval(() => {
+  if (!vvWantsRadio || vvRetryTimer !== null) return;
+  // Espera inicial de 20 s para redes lentas; detecta stream congelado.
+  if (vvConnectingSince && Date.now() - vvConnectingSince > 20000) {
+    vvScheduleRetry('connection timeout');
+  } else if (!liveRadio.paused && liveRadio.readyState < HTMLMediaElement.HAVE_FUTURE_DATA &&
+             Date.now() - vvLastAudioProgress > 16000) {
+    vvScheduleRetry('buffer timeout');
+  }
+}, 5000);
 
 liveRadio.addEventListener('playing', () => {
   livePlay.textContent = '❚❚';
