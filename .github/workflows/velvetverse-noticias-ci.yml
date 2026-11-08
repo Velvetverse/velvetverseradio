@@ -39,7 +39,7 @@ jobs:
           w=Path('.github/workflows/velvetverse-noticias-producao-piloto.yml').read_text(encoding='utf-8')
           assert 'if not key or not model:' in p
           assert 'autorizar_chamadas_pagas' in w
-          assert 'vars.VV_OPENAI_MODEL' in w
+          assert 'inputs.modelo_redacao' in w
           print('OK: custo bloqueado sem modelo e autorizacao.')
           PY
       - name: Verificar as tres vinhetas reais sem chamadas pagas
