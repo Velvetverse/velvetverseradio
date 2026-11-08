@@ -2,8 +2,10 @@
 """Preflight sem custos: impede redacao paga quando pesquisa não tem candidatos suficientes.
 Não confirma veracidade, não aprova notícias, não chama APIs.
 """
+import datetime as dt
 import json
 import sys
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 PATH=Path("noticias-teste/alinhamento-automatico.json")
@@ -12,6 +14,20 @@ QUOTAS={"noticias_internacionais":2,"noticias_portugal":2,
 CITIES=("Toronto","Lisboa","Porto","Faro")
 def check(data):
     reasons=[]
+    today=dt.datetime.now(ZoneInfo("America/Toronto")).date()
+    sunday=today+dt.timedelta(days=(6-today.weekday())%7)
+    monday=sunday+dt.timedelta(days=1)
+    if data.get("edicao")!=sunday.isoformat():
+        reasons.append("Data da edição não corresponde ao domingo de Toronto")
+    try:
+        generated=dt.datetime.fromisoformat(data.get("gerado_em",""))
+        if generated.tzinfo is None:
+            raise ValueError("sem fuso horário")
+        age=(dt.datetime.now(dt.timezone.utc)-generated.astimezone(dt.timezone.utc)).total_seconds()
+        if age< -300 or age > 6*3600:
+            reasons.append("Pesquisa demasiado antiga ou com hora futura")
+    except (ValueError,TypeError):
+        reasons.append("Data de pesquisa inválida")
     if data.get("estado")!="ALINHAMENTO AUTOMATICO — NÃO EMITIR":
         reasons.append("Alinhamento não identificado como rascunho.")
     for section,min_count in QUOTAS.items():
@@ -22,8 +38,10 @@ def check(data):
             if not row.get("url","").startswith("https://"):
                 reasons.append(f"{section}: URL inválido")
     for city in CITIES:
-        if len(data.get("meteorologia",{}).get(city,[]))<2:
-            reasons.append(f"{city}: falta previsão para dois dias")
+        forecasts=data.get("meteorologia",{}).get(city,[])
+        dates={row.get("data") for row in forecasts}
+        if not {sunday.isoformat(),monday.isoformat()}.issubset(dates):
+            reasons.append(f"{city}: previsões de domingo e segunda incompletas ou desatualizadas")
     return reasons
 def main():
     if not PATH.is_file():
