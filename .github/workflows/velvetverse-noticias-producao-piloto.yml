@@ -77,6 +77,9 @@ jobs:
         run: python scripts/velvetverse_noticias_auditoria.py
       - name: Selecionar alinhamento automaticamente (sem custo IA)
         run: python scripts/velvetverse_noticias_selecao.py
+      - name: Bloquear redacao paga se houver noticias ou previsoes insuficientes
+        if: ${{ inputs.etapa == 'rascunho_ia' }}
+        run: python scripts/velvetverse_noticias_preflight_editorial.py
       - name: Verificar modelo antes de qualquer pedido pago de redacao
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: |
