@@ -42,22 +42,41 @@ def draft():
     if blocks:
         raise ValueError("Preflight bloqueou chamada paga: "+"; ".join(blocks))
     sample={k:v for k,v in selected["seccoes"].items()}
-    prompt=("Cria RASCUNHO editorial para rádio em português europeu, com pesquisa web e factos atribuídos. "
-        "O apresentador oficial é Ricky Sousa (não confundir com o nome da voz sintética). "
-        "A abertura deve identificar expressamente: Notícias, com Ricky Sousa. Não mencionar o nome da estação na abertura. "
-        "Não copies notícias. Nunca inventes detalhes ou resultados. Se sem confirmação deixa secção vazia. "
-        "Estrutura JSON simples: edicao (data YYYY-MM-DD), estado (RASCUNHO), abertura (str), fecho (str), "
-        "secoes (objeto: internacional, portugal, desporto_canada, futebol_portugal, meteorologia_canada, "
-        "meteorologia_portugal; cada uma lista de objetos com texto, fontes (URLs HTTPS), confirmado (sempre false), "
-        "observacoes). Ordem: 2 notícias internacionais, 2-3 Portugal, 1 desporto Canadá, 3 futebol português, "
-        "meteorologia Toronto depois Lisboa, Porto, Faro. Meteorologia deve ser atualizada no domingo. "
-        "O jornal deverá durar 15 a 20 minutos: idealmente 2500 a 3000 palavras de conteúdo verificável. "
-        "Desenvolve cada notícia apenas a partir de factos documentados nas fontes consultadas, com contexto "
-        "verdadeiro e sem especulações ou prolongamento artificial. Quando não houver factos suficientes, "
-        "prefere secções curtas e assinala claramente o que falta confirmar. "
-        "A meteorologia será acrescentada separadamente de dados estruturados, NÃO inventes temperaturas. "
-        "Nunca marques notícia como confirmada. Data do domingo: "+target_date()+". "
-        "Dados de pesquisa e previsão: "+json.dumps({"noticias":sample,"meteorologia":raw["meteorologia"]},ensure_ascii=False))
+    quotas={"noticias_internacionais":2,"noticias_portugal":3,"desporto_canada":1,"futebol_portugal":3}
+    for section,minimum in quotas.items():
+        if len(sample.get(section,[]))<minimum:
+            raise ValueError(f"Secção {section} sem informação suficiente: nenhuma chamada paga.")
+    brief=(
+        "És redator de notícias de rádio em PORTUGUÊS DE PORTUGAL (PT-PT). "
+        "Elabora apenas um RASCUNHO, nunca uma edição aprovada. Emissão prevista domingo ao MEIO-DIA "
+        "em Toronto. O apresentador é Ricky Sousa. Abertura obrigatória: 'Notícias, com Ricky Sousa.' "
+        "Cumprimenta com 'Boa tarde', NUNCA com 'Boa noite'. "
+        "Pesquisa e consulta, sempre que possível, as fontes originais dos NOVE assuntos candidatos. "
+        "Não inventes pormenores, citações, resultados, cargos, datas ou factos para cumprir a extensão. "
+        "Se uma notícia não tiver matéria verificável suficiente, escreve-a mais curta e assinala isso "
+        "em observacoes; jamais enchas texto com avisos genéricos ou explicações de como se faz jornalismo. "
+        "Não copies parágrafos de fontes. Não uses afirmações categóricas sem suporte. "
+        "Para cada peça procura explicar O QUÊ, QUEM, ONDE, QUANDO, CONTEXTO, IMPACTO comprovável "
+        "e EVENTUAIS INCERTEZAS, em linguagem natural pronta para locução, não frases telegráficas. "
+        "Objetivo de redação, APENAS SE HOUVER FACTOS: cada internacional 280-330 palavras, "
+        "cada Portugal 260-300 palavras, desporto Canadá 210-260 palavras, cada futebol Portugal "
+        "225-270 palavras; abertura 55-80 palavras, fecho 45-65 palavras. "
+        "Soma ideal da locução completa 2500-3000 palavras, nunca artificialmente alongada. "
+        "Duas internacionais, três de Portugal, uma de desporto Canadá e três de futebol Portugal. "
+        "A meteorologia será adicionada DO JSON ESTRUTURADO pelo nosso script: deixa as listas "
+        "meteorologia_canada e meteorologia_portugal vazias na resposta. "
+        "RESTITUI APENAS JSON VALIDO sem markdown: edicao (YYYY-MM-DD), estado ('RASCUNHO'), "
+        "abertura (string), fecho (string), secoes (objeto com internacional, portugal, "
+        "desporto_canada, futebol_portugal, meteorologia_canada, meteorologia_portugal; "
+        "listas de objetos com texto (parágrafos de locução), fontes (URLs HTTPS relevantes), "
+        "confirmado (sempre false), observacoes (limites de verificação)). "
+        "Se encontrares factos contraditórios, explicita-os em observacoes e não resolvas por adivinhação. "
+        "Data da edição: "+target_date()+". "
+        "ALINHAMENTO DE CANDIDATOS: "+json.dumps(sample,ensure_ascii=False)+". "
+        "PREVISÕES (só para contextualizar, serão montadas automaticamente): "
+        +json.dumps(raw["meteorologia"],ensure_ascii=False)
+    )
+    prompt=brief
     payload={"model":model,"tools":[{"type":"web_search"}],"input":prompt,"max_output_tokens":11500}
     response=json.loads(post_json("https://api.openai.com/v1/responses",payload,key))
     # Registar consumo reportado pela API, sem inventar preço do modelo nem de pesquisa.
@@ -113,19 +132,25 @@ def draft():
         "Previsões e notícias exigem verificação editorial no dia da emissão."]
     # Explicit report of editorial completeness: workflow success != broadcast approval.
     counts={name:len(data["secoes"][name]) for name in SECTIONS}
-    word_count=sum(len(x.get("texto","").split()) for name in SECTIONS
-                   for x in data["secoes"][name])
+    section_words={name:sum(len(x.get("texto","").split()) for x in data["secoes"][name])
+                   for name in SECTIONS}
+    spoken_words=sum(section_words.values())+len(data.get("abertura","").split())+len(data.get("fecho","").split())
+    word_count=spoken_words
     reasons=[]
     for name,min_count in (("internacional",2),("portugal",2),("desporto_canada",1),
                            ("futebol_portugal",3),("meteorologia_canada",1),("meteorologia_portugal",3)):
         if counts[name]<min_count:
             reasons.append(f"{name}: {counts[name]} de {min_count} peças mínimas")
     if word_count<2500:
-        reasons.append(f"Texto com {word_count} palavras: insuficiente para 15-20 minutos.")
+        reasons.append(f"Locução com {word_count} palavras: insuficiente para 15-20 minutos.")
+    for name,minimum in (("internacional",450),("portugal",600),("desporto_canada",170),
+                         ("futebol_portugal",550)):
+        if section_words[name]<minimum:
+            reasons.append(f"{name}: apenas {section_words[name]} palavras, exigir maior profundidade documental.")
     if word_count>3400:
         reasons.append(f"Texto com {word_count} palavras: rever limite máximo de 30 min.")
     quality={"edicao":target_date(),"estado":"RASCUNHO — NÃO EMITIR",
-             "palavras":word_count,"quantidades":counts,
+             "palavras":word_count,"palavras_por_seccao":section_words,"quantidades":counts,
              "pronto_para_locucao":False,
              "motivos_de_revisao":reasons,
              "revisao_de_factos":"OBRIGATÓRIA mesmo que motivos_de_revisao esteja vazio"}
