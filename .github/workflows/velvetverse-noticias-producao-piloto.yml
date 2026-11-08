@@ -11,6 +11,7 @@ on:
           - verificar_sem_custos
           - rascunho_ia
           - audio_aprovado
+          - audio_rascunho_privado
           - teste_custo_voz_gratis
       modelo_redacao:
         description: 'Modelo de redação da API OpenAI (confirmado na documentação)'
@@ -29,6 +30,7 @@ on:
         default: false
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: noticias-piloto
   cancel-in-progress: false
@@ -38,6 +40,8 @@ jobs:
     timeout-minutes: 45
     env:
       VV_ALLOW_BILLABLE: ${{ inputs.autorizar_chamadas_pagas && 'yes' || 'no' }}
+      VV_PREVIEW_DRAFT: ${{ inputs.etapa == 'audio_rascunho_privado' && 'yes' || 'no' }}
+      GH_TOKEN: ${{ github.token }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: ${{ inputs.modelo_redacao }}
       FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
@@ -54,7 +58,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Bloquear custos sem autorizacao explicita
-        if: ${{ (inputs.etapa == 'rascunho_ia' || inputs.etapa == 'audio_aprovado' || inputs.etapa == 'teste_custo_voz_gratis') && !inputs.autorizar_chamadas_pagas }}
+        if: ${{ (inputs.etapa == 'rascunho_ia' || inputs.etapa == 'audio_aprovado' || inputs.etapa == 'audio_rascunho_privado' || inputs.etapa == 'teste_custo_voz_gratis') && !inputs.autorizar_chamadas_pagas }}
         run: |
           echo "::error::Chamadas a APIs bloqueadas. É necessária autorização explícita na execução."
           exit 1
@@ -68,7 +72,7 @@ jobs:
           print('PRE-FLIGHT SEM CHAMADAS A OPENAI OU FISH AUDIO; CUSTO API = USD 0.00')
           PY
       - name: Instalar FFmpeg para montagem do audio
-        if: ${{ inputs.etapa == 'teste_custo_voz_gratis' || inputs.etapa == 'audio_aprovado' }}
+        if: ${{ inputs.etapa == 'teste_custo_voz_gratis' || inputs.etapa == 'audio_aprovado' || inputs.etapa == 'audio_rascunho_privado' }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y ffmpeg
@@ -98,6 +102,26 @@ jobs:
       - name: Gerar caderno de revisão editorial (sem aprovação)
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: python scripts/velvetverse_noticias_revisao.py
+      - name: Recuperar guião existente da execução 7 para pré-escuta, sem nova redação paga
+        if: ${{ inputs.etapa == 'audio_rascunho_privado' }}
+        run: |
+          mkdir -p noticias-teste
+          gh run download 42442634064 --repo "${{ github.repository }}" --name noticias-piloto-privado --dir noticias-teste
+          test -s noticias-teste/rascunho-ia.json
+          python - <<'PY'
+          import json,datetime
+          from zoneinfo import ZoneInfo
+          d=json.load(open("noticias-teste/rascunho-ia.json",encoding="utf-8"))
+          today=datetime.datetime.now(ZoneInfo("America/Toronto")).date()
+          sunday=today+datetime.timedelta(days=(6-today.weekday())%7)
+          assert d.get("edicao")==sunday.isoformat() and d.get("estado")=="RASCUNHO", "Guiao obsoleto ou incorrecto"
+          print("Pré-escuta da edição",d["edicao"],"sem aprovação editorial.")
+          PY
+      - name: Gerar MP3 de pré-escuta PRIVADA (não verificado, NÃO EMITIR, consome Fish)
+        if: ${{ inputs.etapa == 'audio_rascunho_privado' }}
+        env:
+          VV_APPROVED_SCRIPT: noticias-teste/rascunho-ia.json
+        run: python scripts/velvetverse_noticias_producao.py render
       - name: Confirmar existencia de guiao previamente aprovado
         if: ${{ inputs.etapa == 'audio_aprovado' }}
         run: |
@@ -133,5 +157,6 @@ jobs:
             noticias-teste/alinhamento-automatico.md
             noticias-teste/alinhamento-automatico.json
             noticias-teste/*-ENSAIO.mp3
+            noticias-teste/*-PREESCUTA-NAO-EMITIR.mp3
           retention-days: 7
           if-no-files-found: ignore
