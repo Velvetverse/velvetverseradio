@@ -31,7 +31,7 @@ jobs:
     timeout-minutes: 45
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      OPENAI_MODEL: ${{ vars.VV_OPENAI_MODEL }}
+      OPENAI_MODEL: ${{ vars.VV_OPENAI_MODEL || 'gpt-6-astra' }}
       FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
       FISH_VOICE_REFERENCE_ID: ${{ secrets.FISH_VOICE_REFERENCE_ID }}
       FISH_TTS_MODEL: ${{ vars.VV_FISH_MODEL }}
