@@ -5,6 +5,7 @@ on:
       - 'scripts/velvetverse_noticias_*.py'
       - '.github/workflows/velvetverse-noticias-ci.yml'
       - 'tests/test_noticias_selecao.py'
+      - '.github/workflows/velvetverse-noticias-producao-piloto.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,6 +22,17 @@ jobs:
         run: python -m compileall -q scripts/velvetverse_noticias_*.py
       - name: Testar selecao automatica de noticias com dados locais
         run: python tests/test_noticias_selecao.py
+      - name: Confirmar bloqueios de despesa e emissao
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('scripts/velvetverse_noticias_producao.py').read_text(encoding='utf-8')
+          w=Path('.github/workflows/velvetverse-noticias-producao-piloto.yml').read_text(encoding='utf-8')
+          assert 'if not key or not model:' in p
+          assert 'autorizar_chamadas_pagas' in w
+          assert 'vars.VV_OPENAI_MODEL' in w
+          print('OK: custo bloqueado sem modelo e autorizacao.')
+          PY
       - name: Verificar as tres vinhetas reais sem chamadas pagas
         run: python scripts/velvetverse_noticias_preflight.py --json noticias-teste/preflight.json
       - name: Garantir que um rascunho nunca e aprovado automaticamente
