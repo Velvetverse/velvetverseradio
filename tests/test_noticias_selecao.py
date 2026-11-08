@@ -8,17 +8,31 @@ import tempfile
 from pathlib import Path
 
 script=Path(__file__).resolve().parents[1]/"scripts"/"velvetverse_noticias_selecao.py"
-now=dt.datetime.now(dt.timezone.utc).astimezone(dt.timezone(dt.timedelta(hours=-5)))
+from zoneinfo import ZoneInfo
+now=dt.datetime.now(ZoneInfo("America/Toronto"))
 date=now.date().isoformat()
 names={"noticias_internacionais":2,"noticias_portugal":3,
        "desporto_canada":1,"futebol_portugal":3}
 with tempfile.TemporaryDirectory() as tmp:
     base=Path(tmp)/"noticias-teste";base.mkdir()
     sections=[];total=0
+    distinct_titles = [
+        "Aeroportos internacionais anunciam horários de ligação transatlântica",
+        "Investigadores apresentam relatório sobre conservação marinha",
+        "Hospitais portugueses atualizam serviços de atendimento regional",
+        "Assembleia debate propostas de apoio ao arrendamento",
+        "Autarquias divulgam calendário de obras rodoviárias",
+        "Equipa canadiana prepara competição nacional de hóquei",
+        "Treinador encarnado apresenta convocados para próximo encontro",
+        "Federação confirma datas da taça de clubes portugueses",
+        "Jogadores portistas regressam aos treinos após intervalo",
+    ]
+    k=0
     for section,count in names.items():
         items=[]
         for i in range(count):
-            title=f"Noticia {section} assuntoexclusivo{i} resultado{i}"
+            title=distinct_titles[k]
+            k+=1
             items.append({"titulo":title,"url":f"https://example.org/{section}/{i}",
                           "fonte":"example.org","publicado":date,"idade_horas":2,
                           "validado":False})
