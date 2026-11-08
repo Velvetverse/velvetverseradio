@@ -48,3 +48,10 @@ Noticiário dominical às 12h00 de Toronto. Abertura «Notícias, com Ricky Sous
 - Estas alterações são commits de código, **não confirmação de execução em produção**. É necessário ver CI verde e ensaio real do jornal aprovado antes de transmissão.
 - A configuração `VV_OPENAI_MODEL` permanece por verificar; modelo API não deve ser inventado.
 - O agendador de receção Windows permanece desativado até haver edição válida e verificação no PC da rádio.
+
+## Segurança reforçada
+- Chamadas a OpenAI e Fish agora exigem também `VV_ALLOW_BILLABLE=yes` no próprio script, além da opção explícita de autorização no GitHub Actions. Chamar o Python diretamente não contorna o bloqueio.
+- O gerador de rascunhos exige alinhamento presente, datado e válido, sem fallback para títulos RSS não filtrados; o preflight valida domingo e segunda e pesquisa com menos de seis horas.
+- O pipeline não escolhe modelos API não verificados automaticamente; o modelo deve estar configurado pelo operador.
+- Novo teste `tests/test_noticias_autorizacao.py` e CI ligado; resultado de execução dos testes ainda não foi consultado.
+- Emissão RadioDJ e receção agendada continuam desativadas; nenhum jornal real foi emitido.
