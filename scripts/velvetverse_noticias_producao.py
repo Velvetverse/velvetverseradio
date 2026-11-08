@@ -209,6 +209,8 @@ def render():
     key=os.getenv("FISH_AUDIO_API_KEY")
     voice=os.getenv("FISH_VOICE_REFERENCE_ID")
     model=os.getenv("FISH_TTS_MODEL") or "s2.1-pro-free"
+    if model!="s2.1-pro-free" and os.getenv("VV_ALLOW_PAID_FISH")!="yes":
+        raise ValueError("Modelo Fish possivelmente pago BLOQUEADO: autorização separada necessária.")
     if not key or not voice:raise ValueError("Faltam credenciais da API Fish Audio ou referência da voz.")
     # Confirmar todas as vinhetas ANTES de chamar uma API que consome créditos.
     jingles={}
