@@ -273,10 +273,16 @@ def render():
         "-codec:a","libmp3lame","-b:a","192k",str(dest)],check=True)
     secs=float(subprocess.check_output(["ffprobe","-v","error","-show_entries","format=duration",
         "-of","default=noprint_wrappers=1:nokey=1",str(dest)]).strip())
-    if secs>1800 or secs<60:
+    # Uma simulação offline com silêncio curto não equivale à duração exigida em antena.
+    offline_test=os.getenv("VV_OFFLINE_AUDIO_TEST")=="yes"
+    min_secs=60 if offline_test else 780
+    max_secs=1800 if offline_test else 1380
+    if secs>max_secs or secs<min_secs:
         dest.unlink(missing_ok=True)
-        raise ValueError("Áudio excedeu 30 minutos ou ficou demasiado curto.")
-    print("ENSAIO PRIVADO CRIADO:",dest,"duração",round(secs),"segundos. SEM ENTREGA AO RADIODJ.")
+        raise ValueError(f"Áudio com {round(secs)} segundos fora dos limites "
+                         f"({min_secs}-{max_secs}). MP3 descartado; NÃO EMITIR.")
+    print("ENSAIO PRIVADO CRIADO:",dest,"duração",round(secs),
+          "segundos. SEM ENTREGA AO RADIODJ.")
 if __name__=="__main__":
     parser=argparse.ArgumentParser()
     parser.add_argument("action",choices=("draft","validate","render"))
