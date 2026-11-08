@@ -13,12 +13,21 @@ jobs:
       R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
       R2_BUCKET: ${{ secrets.R2_BUCKET }}
     steps:
-      - name: Instalar boto3
-        run: python3 -m pip install --quiet --break-system-packages boto3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar dependencias de teste
+        run: |
+          python -m pip install --quiet boto3
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -version | head -n 1
       - name: Criar silencio tecnico e enviar para area de teste privada
         run: |
           ffmpeg -hide_banner -loglevel error -f lavfi -i anullsrc=r=44100:cl=mono -t 2 -codec:a libmp3lame -b:a 64k -y /tmp/NAO-EMITIR-teste-silencio.mp3
-          python3 - <<'PY'
+          python - <<'PY'
           import os,boto3
           if os.environ.get('R2_BUCKET')!='velvetverse-noticias': raise SystemExit('Bucket não autorizado')
           s3=boto3.client('s3',
