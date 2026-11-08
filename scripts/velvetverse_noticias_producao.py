@@ -191,7 +191,7 @@ def render():
     # Dividir os textos por frases antes de gerar audio; nunca fazer pedido com mais de 3000 bytes.
     def split_for_tts(text,limit=2600):
         if len(text.encode("utf-8"))<=limit:return [text]
-        sentences=re.split(r"(?<=[.!?;])\\s+",text)
+        sentences=re.split(r"(?<=[.!?;])\s+",text)
         chunks=[];current=""
         for sentence in sentences:
             if len(sentence.encode("utf-8"))>limit:
