@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """Teste offline de bloqueio de custo por falta de candidatos RSS."""
+import sys
+from pathlib import Path
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.velvetverse_noticias_preflight_editorial import check
 def fixture():
     return {"estado":"ALINHAMENTO AUTOMATICO — NÃO EMITIR",
