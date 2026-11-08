@@ -75,6 +75,12 @@ jobs:
         run: python scripts/velvetverse_noticias_pesquisa.py
       - name: Auditar títulos
         run: python scripts/velvetverse_noticias_auditoria.py
+      - name: Selecionar alinhamento automaticamente (sem custo IA)
+        run: python scripts/velvetverse_noticias_selecao.py
+      - name: Verificar modelo antes de qualquer pedido pago de redacao
+        if: ${{ inputs.etapa == 'rascunho_ia' }}
+        run: |
+          test -n "$OPENAI_MODEL" || { echo "::error::Definir vars.VV_OPENAI_MODEL antes de qualquer gasto. Nenhuma chamada feita."; exit 1; }
       - name: Produzir rascunho IA pesquisado (consome API apenas se selecionado)
         if: ${{ inputs.etapa == 'rascunho_ia' }}
         run: python scripts/velvetverse_noticias_producao.py draft
@@ -113,6 +119,8 @@ jobs:
             noticias-teste/auditoria.json
             noticias-teste/pesquisa.md
             noticias-teste/pesquisa.json
+            noticias-teste/alinhamento-automatico.md
+            noticias-teste/alinhamento-automatico.json
             noticias-teste/*-ENSAIO.mp3
-          retention-days: 1
+          retention-days: 7
           if-no-files-found: ignore
