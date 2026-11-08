@@ -64,3 +64,12 @@ Noticiário dominical às 12h00 de Toronto. Abertura «Notícias, com Ricky Sous
 - Acrescentado teste offline simulado que confirma que textos curtos não passam a estado de locução e que a meteorologia é montada a partir de dados estruturados.
 - **Nenhuma chamada adicional à OpenAI ou Fish Audio foi efetuada para estas correções.** Não repetir uma execução paga até confirmar os testes CI e rever a qualidade dos dados.
 - Mesmo um rascunho longo não autoriza automaticamente produção de voz ou emissão; permanece indispensável validar os factos.
+
+## 8 novembro — ensaio completo sem despesas
+- Teste novo `tests/test_noticias_audio_offline.py` cria um guião inteiramente fictício **só em pasta temporária**, gera silêncio via FFmpeg e simula respostas MP3 de Fish, para exercitar concatenção, normalização, três vinhetas e duração.
+- CI agora inclui esse ensaio, com `ffmpeg` e `ffprobe`, sem gastar tokens, sem rede e sem colocar áudio no R2.
+- A duração de áudio real inferior a 13 min ou superior a 23 min é rejeitada; a redução para 60 s só existe no teste com `VV_OFFLINE_AUDIO_TEST=yes`.
+- Mudanças de Fish `s2.1-pro-free` para modelo potencialmente pago são bloqueadas sem `VV_ALLOW_PAID_FISH=yes` separado.
+- O CI é acionado por alterações ao código, mas o resultado da última execução **não está verificado por este relatório**.
+- NENHUMA parte desta simulação deve ser importada no RadioDJ; é somente teste técnico.
+- A integração real com o Windows e o evento RadioDJ continua não concluída e requer atuação no computador do utilizador; não foi alegado controlo remoto.
