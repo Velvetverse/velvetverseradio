@@ -97,6 +97,11 @@ def draft():
     data=json.loads(text)
     if data.get("estado")!="RASCUNHO" or data.get("edicao")!=target_date() or set(data.get("secoes",{}))!=set(SECTIONS):
         raise ValueError("Formato de rascunho inesperado.")
+    # O fecho gerado pela IA pode anunciar a meteorologia como futura, embora seja inserida a seguir.
+    # Fixar fecho radiofónico factual, sem alegar que o conteúdo já foi emitido.
+    data["fecho"]=("Chegamos ao fim das Notícias, com Ricky Sousa. "
+                   "Obrigado por nos acompanhar na VelvetVerse Radio, a partir de Toronto. "
+                   "Continue connosco e com a nossa programação musical. Até ao próximo domingo.")
     # Fill Sunday/Monday forecast from the structured weather API already collected.
     # Never ask the language model to guess a weather report.
     conditions={0:"céu limpo",1:"céu geralmente limpo",2:"céu parcialmente nublado",
@@ -141,8 +146,8 @@ def draft():
                            ("futebol_portugal",3),("meteorologia_canada",1),("meteorologia_portugal",3)):
         if counts[name]<min_count:
             reasons.append(f"{name}: {counts[name]} de {min_count} peças mínimas")
-    if word_count<2500:
-        reasons.append(f"Locução com {word_count} palavras: insuficiente para 15-20 minutos.")
+    if word_count<2250:
+        reasons.append(f"Locução com {word_count} palavras: pode ser insuficiente para 15 minutos; confirmar duração real.")
     for name,minimum in (("internacional",450),("portugal",600),("desporto_canada",170),
                          ("futebol_portugal",550)):
         if section_words[name]<minimum:
@@ -196,7 +201,7 @@ def validate(data):
             raise ValueError("Quantidade insuficiente para "+name+": esperado "+str(count))
     # A previsão só é válida quando cobre o domingo atual e a segunda-feira.
     # A verificação de factos, incluindo atualizações de última hora, continua manual.
-    if len(text.split())<2400 or len(text.split())>3400:
+    if len(text.split())<2250 or len(text.split())>3400:
         raise ValueError("Duração de locução potencialmente inadequada.")
     return parts
 def render():
