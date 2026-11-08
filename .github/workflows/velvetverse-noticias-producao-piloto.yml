@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     env:
+      VV_ALLOW_BILLABLE: ${{ inputs.autorizar_chamadas_pagas && 'yes' || 'no' }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: ${{ vars.VV_OPENAI_MODEL }}
       FISH_AUDIO_API_KEY: ${{ secrets.FISH_AUDIO_API_KEY }}
