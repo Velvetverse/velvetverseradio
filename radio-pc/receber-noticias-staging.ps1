@@ -3,13 +3,22 @@
 # Necessita de Python+boto3 e credenciais R2 no ambiente do utilizador Windows.
 $ErrorActionPreference = 'Stop'
 Set-Location (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-$names=@('R2_ACCOUNT_ID','R2_ACCESS_KEY_ID','R2_SECRET_ACCESS_KEY','R2_BUCKET')
-foreach($name in $names){
-    if(-not [Environment]::GetEnvironmentVariable($name,'Process')){
-        Write-Error "Falta variavel R2: $name (valor nao sera apresentado)."
-        exit 2
-    }
+# As credenciais são guardadas com DPAPI, acessíveis só ao mesmo utilizador Windows.
+$cfgRoot='C:\VelvetVerseNoticias'
+$securePath=Join-Path $cfgRoot 'r2-download-credential.xml'
+$metaPath=Join-Path $cfgRoot 'r2-download-account.txt'
+if(-not (Test-Path -LiteralPath $securePath) -or -not (Test-Path -LiteralPath $metaPath)){
+    Write-Error 'Falta configuração DPAPI. Executar configurar-r2-seguro.ps1 primeiro.'
+    exit 2
 }
+$account=(Get-Content -LiteralPath $metaPath -Raw -Encoding UTF8).Trim()
+if($account -notmatch '^[a-fA-F0-9]{32}$'){ Write-Error 'Account ID inválido'; exit 2 }
+$cred=Import-Clixml -LiteralPath $securePath
+if($cred -isnot [pscredential]){Write-Error 'Credencial cifrada inválida'; exit 2}
+$env:R2_ACCOUNT_ID=$account
+$env:R2_ACCESS_KEY_ID=$cred.UserName
+$env:R2_SECRET_ACCESS_KEY=$cred.GetNetworkCredential().Password
+$env:R2_BUCKET='velvetverse-noticias'
 $py=Get-Command py -ErrorAction SilentlyContinue
 if($py){ $program='py'; $prefix=@('-3') }
 else {
