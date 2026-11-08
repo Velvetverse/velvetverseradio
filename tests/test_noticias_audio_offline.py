@@ -65,6 +65,26 @@ def main():
                 "-show_entries","format=duration","-of","default=noprint_wrappers=1:nokey=1",
                 str(audio)]).strip())
             assert 60<=length<=1800,length
+            # Segundo ensaio: pré-escuta real de um rascunho, sem aprovar factos.
+            draft=dict(approved)
+            draft["estado"]="RASCUNHO"
+            draft.pop("aprovado_por",None)
+            draft.pop("aprovado_em",None)
+            draft["secoes"]={k:[dict(piece,confirmado=False) for piece in v]
+                              for k,v in approved["secoes"].items()}
+            draftpath=root/"RASCUNHO-FICTICIO.json"
+            draftpath.write_text(json.dumps(draft,ensure_ascii=False),encoding="utf-8")
+            with patch.dict(os.environ,{
+                "VV_ALLOW_BILLABLE":"yes","VV_OFFLINE_AUDIO_TEST":"yes",
+                "VV_PREVIEW_DRAFT":"yes","VV_APPROVED_SCRIPT":str(draftpath),
+                "FISH_AUDIO_API_KEY":"FAKE_OFFLINE_KEY",
+                "FISH_VOICE_REFERENCE_ID":"FAKE_OFFLINE_VOICE",
+                "FISH_TTS_MODEL":"s2.1-pro-free"}):
+                with patch.object(prod,"post_json",return_value=sample):
+                    prod.render()
+            preview=prod.OUT/("velvetverse-noticias-"+sunday.isoformat()+"-PREESCUTA-NAO-EMITIR.mp3")
+            assert preview.is_file()
+            assert preview.stat().st_size>10000
             print("PASS: montagem de áudio offline",round(length,1),"segundos;",
                   api.call_count,"simulações TTS; sem nenhuma chamada paga, emissão ou R2.")
         finally:
