@@ -23,7 +23,12 @@ def config():
         aws_secret_access_key=os.environ["R2_SECRET_ACCESS_KEY"],region_name="auto")
     return s3,os.environ["R2_BUCKET"]
 def sunday():
-    day=dt.datetime.now(ZoneInfo("America/Toronto")).date()
+    try:
+        day=dt.datetime.now(ZoneInfo("America/Toronto")).date()
+    except __import__("zoneinfo").ZoneInfoNotFoundError:
+        # Windows sem tzdata: computador da rádio usa Eastern Standard Time (Toronto).
+        # Não usar este fallback noutros fusos horários.
+        day=dt.datetime.now().date()
     return (day+dt.timedelta(days=(6-day.weekday())%7)).isoformat()
 def hfile(p):
     h=hashlib.sha256()
