@@ -15,6 +15,17 @@ main{padding-top:28px;padding-bottom:55px}.demo{background:#382047;border:1px so
 
 .art.has-photo{background:#1e132c}.art.has-photo:before,.art.has-photo:after{display:none}.art.has-photo img{display:block;width:100%;height:100%;position:absolute;inset:0;object-fit:cover}.art.has-photo .photo-mark{position:absolute;bottom:7px;left:8px;background:#11091dcc;color:#f5e9fb;font:10px/1.25 system-ui;padding:4px 7px;border-radius:6px;z-index:1}.art.has-photo strong{display:none}.art:not(.has-photo){background:linear-gradient(145deg,#261432,#100a1c)}.art:not(.has-photo):before,.art:not(.has-photo):after{display:none}.art:not(.has-photo) strong{opacity:.7}.art:not(.has-photo) .photo-mark{max-width:90%;font-size:10px}.story .photo-mark{font-size:9px}.photo-credit{font-size:12px;color:#d9bde7;margin:7px 0}.article-view .article-image{width:100%;max-height:380px;object-fit:cover;border-radius:12px;margin:18px 0 3px}.source a{color:#e5a4ff;text-decoration:underline}.latest a{cursor:pointer}
 #featuredImage>.art{width:100%;height:100%;min-height:240px}.article-photo{width:100%;min-height:280px;margin:18px 0 4px}.article-photo img{max-height:360px}.article-photo .photo-mark{font-size:12px}@media(max-width:760px){#featuredImage>.art{height:215px;min-height:215px}}
+
+/* Enquadramento de fotografias: mostrar sempre a imagem completa, sem cortar rostos. */
+.art.has-photo{background:linear-gradient(150deg,#24132f,#0c0715)}
+.art.has-photo img{object-fit:contain!important;object-position:center center;width:100%;height:100%;max-height:none}
+#featuredImage{overflow:hidden;min-width:0}
+#featuredImage>.art{width:100%;height:100%;min-height:270px;overflow:hidden}
+.article-photo{width:100%;height:min(60vw,480px);min-height:280px;max-height:480px;margin:18px 0 4px;overflow:hidden}
+.article-photo img{width:100%;height:100%;max-height:none;object-fit:contain!important;object-position:center}
+.story .art-sm{height:100px;min-height:100px;overflow:hidden}
+.story .art-sm img{object-fit:contain!important;object-position:center}
+@media(max-width:760px){#featuredImage>.art{height:230px;min-height:230px}.article-photo{height:320px;min-height:220px}}
 </style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio"><div class="demo" data-pt="PRÉVIA PARA 10/11/2026 · Notícias verificadas e publicadas em 09/11. Fotografias apenas com licença identificada. Ainda não existem notícias confirmadas de dia 10 nesta prévia." data-en="PREVIEW FOR 10 NOV 2026 · Stories from 9 Nov only. Licensed images or no photo. No 10 Nov reports confirmed at this time.">PRÉ-VISUALIZAÇÃO · Notícias reais de 9 de novembro de 2026; fotografias identificadas. A página de testes não se atualiza automaticamente.</div>
