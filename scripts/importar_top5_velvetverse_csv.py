@@ -31,7 +31,7 @@ def is_technical(title,artist):
  words=("jingle","sweeper","sweep ","station slogan","intro","vinheta","sinal horario","hora certa","top of hour","promo","station id","radio id","identificador","00 velvet after dark","01 velvet after dark","02 velvet after dark","23 horas velvet after dark")
  if any(w in text for w in words):return True
  if text in {"unknown","unknown title","advert","advertisement"}:return True
- if performer in {"radiodj","unknown artist"}:return True
+ if performer in {"radiodj","unknown artist","cmli"}:return True
  return False
 
 def import_csv(source,week):
