@@ -20,3 +20,14 @@ O workflow `.github/workflows/top5-velvetverse-auditoria.yml` corre **todas as s
 6. **Supabase**: confirmar política por edição/limite de votos do Top 5 VelvetVerse, distinta da do Top 5 Latino, antes de ativar `voting_enabled`.
 
 Não editar `index.html`, os workflows do Top 5 Latino, a fila do RadioDJ ou o SECaster enquanto estes passos estiverem pendentes.
+
+## Módulo de importação instalado
+- `scripts/importar_top5_velvetverse_csv.py` transforma um relatório CSV com **Título / Artista / Reproduções** num **candidato** `top5-velvetverse-candidato.json`.
+- Reconhece cabeçalhos comuns em português e inglês, ordena por reproduções, verifica cinco músicas distintas e bloqueia empate no quinto lugar.
+- Exemplo (com CSV de teste, não é preciso executar agora): `python scripts/importar_top5_velvetverse_csv.py relatorio.csv --week 2026-11-09`.
+- `scripts/testar_importacao_top5_velvetverse.py` contém testes sem ligação à Internet. O workflow semanal inclui esses testes antes da auditoria.
+- O importador **não assume que o RCast fornece este CSV**; a exportação e respetivo formato ainda têm de ser confirmados. O painel público RCast documenta estatísticas de audiência e logs, mas não encontramos confirmação de um endpoint público autenticável para top de reproduções por faixa.
+- A lista candidata nunca é publicada automaticamente e não atualiza os votos.
+
+## Segurança na passagem a produção
+Não copiar chaves do R2 para GitHub nem iniciar uma tarefa automática de upload enquanto não existir um bucket específico e autorização para disponibilização dos excertos. Não alegar automatização completa enquanto a ligação ao relatório do RCast e a publicação autorizada não estiverem testadas.
