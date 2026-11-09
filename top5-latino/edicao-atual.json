@@ -1,0 +1,37 @@
+{
+  "edition_date": "2026-11-13",
+  "type": "VelvetVerse Radio editorial selection",
+  "voting_enabled": false,
+  "songs": [
+    {
+      "rank": 1,
+      "title": "Si Antes Te Hubiera Conocido",
+      "artist": "KAROL G",
+      "id": "1752031539"
+    },
+    {
+      "rank": 2,
+      "title": "Misterio",
+      "artist": "J Balvin & Gilberto Santa Rosa",
+      "id": "1831634510"
+    },
+    {
+      "rank": 3,
+      "title": "Dardos",
+      "artist": "Romeo Santos & Prince Royce",
+      "id": "1848960624"
+    },
+    {
+      "rank": 4,
+      "title": "Como en el Idilio",
+      "artist": "Marc Anthony & Nathy Peluso",
+      "id": "1870716613"
+    },
+    {
+      "rank": 5,
+      "title": "Vestido Rojo",
+      "artist": "Silvestre Dangond & Emilia",
+      "id": "1759435259"
+    }
+  ]
+}
