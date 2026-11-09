@@ -35,4 +35,22 @@ with tempfile.TemporaryDirectory() as tmp:
  except ValueError as e:
   assert "Empate" in str(e)
  else:raise AssertionError("Deveria bloquear empate em quinto lugar")
+ # Simular as colunas reais vistas no painel RCast (novembro 2026)
+ rcast=[
+  ["Track","Artist","Times played","Listener performances"],
+  ["JINGLE PRINCIPAL","cmli","148","128"],
+  ["Your Station Slogan","RadioDJ","124","86"],
+  ["The Sound of VelvetVerse","cmli","24","14"],
+  ["VELVET AFTER DARK Sweepe 1","cmli","16","11"],
+  ["Goteira|Vevo","Luedji Luna","7","6"],
+  ["Sou Camionista Madrugador","Beto","6","4"],
+  ["Deriram","Natiruts","5","4"],
+  ["Groove Bom","Natiruts & Hamilton de Holanda","4","4"],
+  ["Self Control","Beto","3","2"],
+ ]
+ with p.open("w",encoding="utf-8-sig",newline="") as f:
+  csv.writer(f).writerows(rcast)
+ candidate=mod.import_csv(p,"2026-11-09")
+ assert [s["title"] for s in candidate["songs"]]==["The Sound of VelvetVerse","Goteira|Vevo","Sou Camionista Madrugador","Deriram","Groove Bom"]
+ assert all("jingle" not in s["title"].lower() for s in candidate["songs"])
 print("TESTES PASSARAM: ranking, cinco faixas, bloqueio de empate e nao publicacao.")
