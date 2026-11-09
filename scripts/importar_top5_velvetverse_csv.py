@@ -11,7 +11,7 @@ ALIASES={
  "title":{"title","track","song","song title","track title","musica","titulo","título","faixa"},
  "artist":{"artist","artist name","artista","performer","interprete","intérprete"},
  "plays":{"plays","play count","playbacks","times played","reproducoes","reproduções","vezes tocada","count","total plays"},
- "listeners":{"listeners","audience","ouvintes","listener count","average listeners"},
+ "listeners":{"listeners","audience","ouvintes","listener count","average listeners","listener performances"},
 }
 def norm(v):
  v=unicodedata.normalize("NFKD",str(v or "")).encode("ascii","ignore").decode("ascii")
@@ -24,6 +24,16 @@ def number(v):
  s=str(v).strip().replace(" ","")
  if not re.fullmatch(r"\d{1,12}",s):raise ValueError("Numero de reproducoes invalido: "+repr(v))
  return int(s)
+def is_technical(title,artist):
+ text=norm(title)
+ performer=norm(artist)
+ # Excluir identificadores e vinhetas do ranking musical. Nao excluir nomes arbitrarios.
+ words=("jingle","sweeper","sweep ","station slogan","intro","vinheta","sinal horario","hora certa","top of hour","promo","station id","radio id","identificador","00 velvet after dark","01 velvet after dark","02 velvet after dark","23 horas velvet after dark")
+ if any(w in text for w in words):return True
+ if text in {"unknown","unknown title","advert","advertisement"}:return True
+ if performer in {"radiodj","unknown artist"}:return True
+ return False
+
 def import_csv(source,week):
  with source.open("r",encoding="utf-8-sig",newline="") as stream:
   head=stream.read(4096);stream.seek(0)
@@ -39,14 +49,14 @@ def import_csv(source,week):
    if not artist or not title:continue
    plays=number(row.get(names["plays"]) or "0")
    if plays<1:continue
-   if norm(title) in {"unknown","unknown title","station id","jingle","sweeper","advert","advertisement"}:continue
+   if is_technical(title,artist):continue
    key=(norm(artist),norm(title))
    if key not in combined:combined[key]={"artist":artist,"title":title,"plays":0}
    combined[key]["plays"]+=plays
  ranked=sorted(combined.values(),key=lambda x:(-x["plays"],norm(x["artist"]),norm(x["title"])))
  if len(ranked)<5:raise ValueError("Menos de cinco musicas validas no CSV")
  # Nao inventar desempate: a fonte pode apresentar varias musicas com a mesma contagem.
- if ranked[4]["plays"]==ranked[5]["plays"] if len(ranked)>5 else False:
+ if len(ranked)>5 and ranked[4]["plays"]==ranked[5]["plays"]:
   raise ValueError("Empate no quinto lugar: classificacao exige desempate editorial")
  if len({(s["artist"],s["title"]) for s in ranked[:5]})<5:raise ValueError("Duplicados no ranking")
  tracks=[]
