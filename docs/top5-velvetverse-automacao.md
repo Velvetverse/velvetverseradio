@@ -40,3 +40,13 @@ Não copiar chaves do R2 para GitHub nem iniciar uma tarefa automática de uploa
 - Não altera o RadioDJ/RCast, não executa upload, não publica no site, não inicia votos. Não elimina ficheiros anteriores.
 - **Ainda não instalado no PC** e não executado com o CSV real. A existência do CSV mensal não satisfaz uma classificação estritamente semanal; é preciso confirmar intervalo/periodicidade que o RCast oferece.
 - Para evitar expectativas erradas, não há agendamento local real até executar uma vez no PC e verificar a exportação automática do CSV.
+
+## Transformar os relatórios mensais RCast em semanas (09/11/2026)
+O relatório apresentado no painel RCast para novembro contém contagens cumulativas do mês. Uma única exportação mensal não permite calcular semanas retroativamente.
+
+- Nova ferramenta `scripts/top5_velvetverse_diferenca_semanal.py`: lê dois CSV do **mesmo mês**, identificados pelas datas reais da captura, normaliza títulos, elimina jingles e calcula `Times played atual - Times played anterior` por música.
+- Bloqueia contagens negativas, empate no 5.º, menos de cinco faixas e semanas com mais de oito dias entre os instantâneos.
+- Exemplo: `python scripts/top5_velvetverse_diferenca_semanal.py rcast-2026-11-09.csv rcast-2026-11-16.csv --anterior-data 2026-11-09 --atual-data 2026-11-16`.
+- Na passagem do mês, é necessário dividir a semana em duas partes usando instantâneos do fecho do mês anterior e começo do novo mês, depois somar as diferenças. A ferramenta **bloqueia** a subtração simples de meses distintos.
+- Automatizar a **captura** continua dependente de fonte/API/autorização confirmada: não guardar sessão/cookies/senhas RCast no repositório e não presumir que o GitHub Actions consegue obter o relatório autenticado.
+- O primeiro ranking semanal exato exige dois instantâneos; a lista anterior permanece provisória até aí.
