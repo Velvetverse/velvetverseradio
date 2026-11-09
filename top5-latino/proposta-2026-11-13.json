@@ -1,6 +1,6 @@
 {
   "edicao": "2026-11-13",
-  "estado": "proposta_pendente_de_aprovacao",
+  "estado": "aprovada",
   "fonte": "Biblioteca Ritmo Latino enviada em 2026-11-09",
   "tipo": "selecao_editorial",
   "votacao_publico": false,
@@ -36,5 +36,6 @@
       "titulo": "Vestido Rojo",
       "ficheiro": "Silvestre Dangond, Emilia - Vestido Rojo .m4a"
     }
-  ]
+  ],
+  "aprovada_em": "2026-11-09"
 }
