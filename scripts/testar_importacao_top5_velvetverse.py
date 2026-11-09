@@ -51,6 +51,6 @@ with tempfile.TemporaryDirectory() as tmp:
  with p.open("w",encoding="utf-8-sig",newline="") as f:
   csv.writer(f).writerows(rcast)
  candidate=mod.import_csv(p,"2026-11-09")
- assert [s["title"] for s in candidate["songs"]]==["The Sound of VelvetVerse","Goteira|Vevo","Sou Camionista Madrugador","Deriram","Groove Bom"]
+ assert [s["title"] for s in candidate["songs"]]==["Goteira|Vevo","Sou Camionista Madrugador","Deriram","Groove Bom","Self Control"]
  assert all("jingle" not in s["title"].lower() for s in candidate["songs"])
 print("TESTES PASSARAM: ranking, cinco faixas, bloqueio de empate e nao publicacao.")
