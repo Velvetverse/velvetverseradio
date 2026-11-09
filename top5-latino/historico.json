@@ -1,5 +1,37 @@
 {
   "programa": "Top 5 Latino — VelvetVerse Radio",
   "criterio": "Selecao editorial semanal, sem votacao publica e sem classificacao Billboard",
-  "edicoes": []
+  "edicoes": [
+    {
+      "data": "2026-11-13",
+      "estado": "aprovada",
+      "posicoes": [
+        {
+          "posicao": 1,
+          "artista": "KAROL G",
+          "titulo": "Si Antes Te Hubiera Conocido"
+        },
+        {
+          "posicao": 2,
+          "artista": "J Balvin, Gilberto Santa Rosa",
+          "titulo": "Misterio"
+        },
+        {
+          "posicao": 3,
+          "artista": "Romeo Santos, Prince Royce",
+          "titulo": "Dardos"
+        },
+        {
+          "posicao": 4,
+          "artista": "Marc Anthony, NATHY PELUSO",
+          "titulo": "Como en el Idilio"
+        },
+        {
+          "posicao": 5,
+          "artista": "Silvestre Dangond, Emilia",
+          "titulo": "Vestido Rojo"
+        }
+      ]
+    }
+  ]
 }
