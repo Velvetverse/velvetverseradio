@@ -24,6 +24,10 @@ def number(v):
  s=str(v).strip().replace(" ","")
  if not re.fullmatch(r"\d{1,12}",s):raise ValueError("Numero de reproducoes invalido: "+repr(v))
  return int(s)
+def clean_title(title):
+ # RCast inclui em alguns titulos etiquetas como "|Vevo"; nao fazem parte do nome da musica.
+ return re.sub(r"\s*\|\s*(?:vevo|official(?: video)?|video|audio)\s*$","",title.strip(),flags=re.I).strip()
+
 def is_technical(title,artist):
  text=norm(title)
  performer=norm(artist)
@@ -45,7 +49,7 @@ def import_csv(source,week):
   combined={}
   for line,row in enumerate(table,2):
    artist=(row.get(names["artist"]) or "").strip()
-   title=(row.get(names["title"]) or "").strip()
+   title=clean_title((row.get(names["title"]) or "").strip())
    if not artist or not title:continue
    plays=number(row.get(names["plays"]) or "0")
    if plays<1:continue
