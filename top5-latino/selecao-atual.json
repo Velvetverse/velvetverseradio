@@ -1,0 +1,37 @@
+{
+  "edicao": "2026-11-13",
+  "estado": "aprovada",
+  "origem": "top5-latino/proposta-2026-11-13.json",
+  "posicoes": [
+    {
+      "posicao": 1,
+      "artista": "KAROL G",
+      "titulo": "Si Antes Te Hubiera Conocido",
+      "ficheiro": "KAROL G - Si Antes Te Hubiera Conocido .m4a"
+    },
+    {
+      "posicao": 2,
+      "artista": "J Balvin, Gilberto Santa Rosa",
+      "titulo": "Misterio",
+      "ficheiro": "J Balvin, Gilberto Santa Rosa - Misterio (Official Music Video).m4a"
+    },
+    {
+      "posicao": 3,
+      "artista": "Romeo Santos, Prince Royce",
+      "titulo": "Dardos",
+      "ficheiro": "Romeo Santos, Prince Royce - Dardos .m4a"
+    },
+    {
+      "posicao": 4,
+      "artista": "Marc Anthony, NATHY PELUSO",
+      "titulo": "Como en el Idilio",
+      "ficheiro": "Marc Anthony, NATHY PELUSO - Como en el Idilio .m4a"
+    },
+    {
+      "posicao": 5,
+      "artista": "Silvestre Dangond, Emilia",
+      "titulo": "Vestido Rojo",
+      "ficheiro": "Silvestre Dangond, Emilia - Vestido Rojo .m4a"
+    }
+  ]
+}
