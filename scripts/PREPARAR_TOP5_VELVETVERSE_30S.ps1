@@ -12,7 +12,7 @@ $files = @(Get-ChildItem -LiteralPath $source -File | Where-Object { $_.Extensio
 $selected = @()
 foreach ($n in 1..5) {
   $matches = @($files | Where-Object { $_.BaseName -match ('^0?' + $n + '\s*[-_. ]') })
-  if ($matches.Count -ne 1) { throw "Numero $n: encontrados $($matches.Count) ficheiros. Esperava exatamente um prefixo 0$n." }
+  if ($matches.Count -ne 1) { throw "Numero ${n}: encontrados $($matches.Count) ficheiros. Esperava exatamente um prefixo 0$n." }
   $selected += $matches[0]
 }
 Write-Host 'As cinco faixas foram identificadas pela numeracao original (01 a 05):'
