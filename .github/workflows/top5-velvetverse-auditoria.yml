@@ -1,0 +1,16 @@
+name: Top 5 VelvetVerse - auditoria semanal segura
+on:
+  workflow_dispatch:
+  schedule:
+    # Segunda-feira 17:00 UTC = 12:00 Toronto em horario de inverno / 13:00 no verao.
+    - cron: '0 17 * * 1'
+permissions:
+  contents: read
+jobs:
+  verificar_edicao:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validar dados da semana e seguranca dos players
+        run: python3 scripts/auditar_top5_velvetverse.py
