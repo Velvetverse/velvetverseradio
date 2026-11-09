@@ -12,5 +12,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+      - name: Testar importador CSV do ranking
+        run: python3 scripts/testar_importacao_top5_velvetverse.py
       - name: Validar dados da semana e seguranca dos players
         run: python3 scripts/auditar_top5_velvetverse.py
