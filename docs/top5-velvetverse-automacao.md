@@ -31,3 +31,12 @@ Não editar `index.html`, os workflows do Top 5 Latino, a fila do RadioDJ ou o S
 
 ## Segurança na passagem a produção
 Não copiar chaves do R2 para GitHub nem iniciar uma tarefa automática de upload enquanto não existir um bucket específico e autorização para disponibilização dos excertos. Não alegar automatização completa enquanto a ligação ao relatório do RCast e a publicação autorizada não estiverem testadas.
+
+## Rotina única de preparação local (adicionada em 09/11)
+- `scripts/TOP5_VELVETVERSE_SEMANAL.bat` chama `scripts/TOP5_VELVETVERSE_SEMANAL.ps1`, que recebe um CSV exportado do RCast.
+- O script PowerShell usa as colunas **Track**, **Artist** e **Times played**, exclui jingles/intros/sweepers, faz ranking por reproduções e bloqueia empates no quinto lugar.
+- Antes de converter, exige encontrar de forma **inequívoca** na biblioteca `D:\mp3` as cinco faixas usando artista + título do nome do ficheiro; se não encontrar, não inventa substitutos.
+- Reutiliza o FFmpeg da preparação anterior e cria uma nova pasta `D:\mp3\Top 5 Velvetverse\SEMANAIS_CANDIDATOS\AAAA-MM-DD` com 5 ficheiros de 30 segundos e `top5-candidato.json`.
+- Não altera o RadioDJ/RCast, não executa upload, não publica no site, não inicia votos. Não elimina ficheiros anteriores.
+- **Ainda não instalado no PC** e não executado com o CSV real. A existência do CSV mensal não satisfaz uma classificação estritamente semanal; é preciso confirmar intervalo/periodicidade que o RCast oferece.
+- Para evitar expectativas erradas, não há agendamento local real até executar uma vez no PC e verificar a exportação automática do CSV.
