@@ -1,0 +1,50 @@
+{
+  "edition": "velvetverse-2026-11-09",
+  "week": "2026-11-09",
+  "source": "RCast — reproduções de 1 a 8 de novembro de 2026; desempate provisório por audiência",
+  "status": "provisional",
+  "voting_enabled": false,
+  "preview_permission_confirmed": false,
+  "previews_seconds": 30,
+  "songs": [
+    {
+      "rank": 1,
+      "id": "vv-beto-camionista",
+      "title": "Sou Camionista Madrugador",
+      "artist": "Beto",
+      "artwork": "",
+      "preview": ""
+    },
+    {
+      "rank": 2,
+      "id": "vv-beto-self-control",
+      "title": "Self Control",
+      "artist": "Beto",
+      "artwork": "",
+      "preview": ""
+    },
+    {
+      "rank": 3,
+      "id": "vv-luedji-goteira",
+      "title": "Goteira",
+      "artist": "Luedji Luna",
+      "artwork": "",
+      "preview": ""
+    },
+    {
+      "rank": 4,
+      "id": "vv-natiruts-groove-bom",
+      "title": "Groove Bom",
+      "artist": "Natiruts & Hamilton de Holanda",
+      "artwork": "",
+      "preview": ""
+    },
+    {
+      "rank": 5,
+      "id": "vv-natiruts-deriram",
+      "title": "Deriram",
+      "artist": "Natiruts",
+      "artwork": ""
+    }
+  ]
+}
