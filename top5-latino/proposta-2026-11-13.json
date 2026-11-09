@@ -1,0 +1,40 @@
+{
+  "edicao": "2026-11-13",
+  "estado": "proposta_pendente_de_aprovacao",
+  "fonte": "Biblioteca Ritmo Latino enviada em 2026-11-09",
+  "tipo": "selecao_editorial",
+  "votacao_publico": false,
+  "criterio": "Diversidade de estilos e artistas; músicas já na pasta Ritmo Latino",
+  "posicoes": [
+    {
+      "posicao": 1,
+      "artista": "KAROL G",
+      "titulo": "Si Antes Te Hubiera Conocido",
+      "ficheiro": "KAROL G - Si Antes Te Hubiera Conocido .m4a"
+    },
+    {
+      "posicao": 2,
+      "artista": "J Balvin, Gilberto Santa Rosa",
+      "titulo": "Misterio",
+      "ficheiro": "J Balvin, Gilberto Santa Rosa - Misterio (Official Music Video).m4a"
+    },
+    {
+      "posicao": 3,
+      "artista": "Romeo Santos, Prince Royce",
+      "titulo": "Dardos",
+      "ficheiro": "Romeo Santos, Prince Royce - Dardos .m4a"
+    },
+    {
+      "posicao": 4,
+      "artista": "Marc Anthony, NATHY PELUSO",
+      "titulo": "Como en el Idilio",
+      "ficheiro": "Marc Anthony, NATHY PELUSO - Como en el Idilio .m4a"
+    },
+    {
+      "posicao": 5,
+      "artista": "Silvestre Dangond, Emilia",
+      "titulo": "Vestido Rojo",
+      "ficheiro": "Silvestre Dangond, Emilia - Vestido Rojo .m4a"
+    }
+  ]
+}
