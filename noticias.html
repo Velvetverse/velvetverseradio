@@ -106,8 +106,8 @@ function drawArticle(s){
  document.querySelector('.article-sources').open=false;
 }
 function route(){const m=location.hash.match(/^#artigo-([a-z0-9-]+)$/);const s=m?stories.find(x=>x.id===m[1]):null;active=s||null;$('newsHome').classList.toggle('hidden',!!active);$('articleView').classList.toggle('hidden',!active);if(active)drawArticle(active);window.scrollTo({top:0,behavior:'instant'})}
-function openStory(id){location.hash='artigo-'+id;route()}
-document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));document.querySelectorAll('[data-filter]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filter;applyFilter()}));document.querySelectorAll('[data-filter-jump]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filterJump;applyFilter();document.querySelector('.filters').scrollIntoView({behavior:'smooth',block:'center'})}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',route);draw();route();
+function openStory(id){location.hash='artigo-'+id;route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)}
+document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));document.querySelectorAll('[data-filter]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filter;applyFilter()}));document.querySelectorAll('[data-filter-jump]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filterJump;applyFilter();document.querySelector('.filters').scrollIntoView({behavior:'smooth',block:'center'})}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
 })();
 </script>
 <script id="vv-news-embed-bridge">
