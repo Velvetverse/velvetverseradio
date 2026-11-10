@@ -82,6 +82,8 @@ for(const c of ['football','portugal','world']){const mount=$(c==='football'?'fo
 const mount=$('latestList');mount.replaceChildren();stories.filter(s=>s.category==='canada').sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).slice(0,3).forEach(s=>{const a=document.createElement('a');a.href='#artigo-'+s.id;const small=document.createElement('small');small.textContent=s.date.split('-').reverse().join('/')+' · '+s.time+' · '+labels[s.category][lang==='pt'?0:1];const label=document.createElement('span');label.textContent=newsText(s,'title');a.append(small,label);mount.append(a)});applyFilter();if(active)drawArticle(active)}
 function applyFilter(){document.querySelectorAll('[data-filter]').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.filter===filter)));document.querySelectorAll('[data-pane]').forEach(n=>n.classList.toggle('hidden',filter!=='all'&&n.dataset.pane!==filter))}
 function drawArticle(s){
+ const creditsTitle=document.querySelector('.article-sources summary');
+ if(creditsTitle){creditsTitle.dataset.pt=s.photo?'Fontes e créditos da fotografia':'Fontes da notícia';creditsTitle.dataset.en=s.photo?'Sources and photo credits':'News sources';creditsTitle.textContent=creditsTitle.dataset[lang]}
  $('articleCategory').textContent=labels[s.category][lang==='pt'?0:1];
  $('articleTitle').textContent=newsText(s,'title');
  $('articleDate').textContent=s.date.split('-').reverse().join('/')+' · '+s.time+' · '+s.source;
