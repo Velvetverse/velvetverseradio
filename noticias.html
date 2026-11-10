@@ -52,6 +52,14 @@ main{padding-top:28px;padding-bottom:55px}.demo{background:#382047;border:1px so
 .article-layout.no-photo{display:block}
 .article-layout.no-photo .article-media{display:none}
 .feature.no-photo{display:block}.feature.no-photo .feature-body{padding:28px}
+
+/* Modo integrado na página principal: o cabeçalho, menu e player pertencem à index */
+body.vv-embedded{min-height:0;background:transparent}
+body.vv-embedded header,body.vv-embedded footer{display:none!important}
+body.vv-embedded main{padding-top:16px;padding-bottom:28px}
+body.vv-embedded .wrap{max-width:1400px}
+body.vv-embedded .headline{margin-top:0}
+
 </style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio"><section id="newsHome"><div class="headline"><div><h1>VelvetVerse <span data-pt="Notícias" data-en="News">Notícias</span></h1><p data-pt="Atualidade · Portugal · Mundo · Futebol Português" data-en="Current affairs · Portugal · World · Portuguese Football">Notícias diárias · Portugal · Mundo · Futebol Português</p></div><span class="updated" data-pt="Atualizado: 10/11/2026 · Acontecimentos de 8–9/11" data-en="Updated: 10 Nov 2026 · Events of 8–9 Nov">Atualizado: 10/11/2026 · Acontecimentos de 8–9/11</span></div>
@@ -93,5 +101,23 @@ function drawArticle(s){
 function route(){const m=location.hash.match(/^#artigo-([a-z0-9-]+)$/);const s=m?stories.find(x=>x.id===m[1]):null;active=s||null;$('newsHome').classList.toggle('hidden',!!active);$('articleView').classList.toggle('hidden',!active);if(active)drawArticle(active);window.scrollTo({top:0,behavior:'instant'})}
 function openStory(id){location.hash='artigo-'+id;route()}
 document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));document.querySelectorAll('[data-filter]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filter;applyFilter()}));document.querySelectorAll('[data-filter-jump]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filterJump;applyFilter();document.querySelector('.filters').scrollIntoView({behavior:'smooth',block:'center'})}));$('featuredRead').addEventListener('click',()=>openStory('selecao'));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',route);draw();route();
+})();
+</script>
+<script id="vv-news-embed-bridge">
+(function(){
+ const embedded=new URLSearchParams(location.search).get('embed')==='1';
+ if(!embedded)return;
+ document.body.classList.add('vv-embedded');
+ function updateHeight(){try{window.parent.postMessage({type:'vv-news-size',height:Math.ceil(document.documentElement.scrollHeight)+4},location.origin)}catch(e){}}
+ window.addEventListener('load',updateHeight);
+ window.addEventListener('hashchange',()=>{updateHeight();requestAnimationFrame(updateHeight)});
+ window.addEventListener('message',event=>{
+   if(event.origin!==location.origin||!event.data||event.data.type!=='vv-news-lang')return;
+   const button=document.querySelector('[data-lang="'+(event.data.lang==='en'?'en':'pt')+'"]');
+   if(button&&button.getAttribute('aria-pressed')!=='true')button.click();
+   requestAnimationFrame(updateHeight);
+ });
+ if('ResizeObserver'in window)new ResizeObserver(updateHeight).observe(document.querySelector('main'));
+ if(window.parent!==window)window.parent.postMessage({type:'vv-news-ready'},location.origin);
 })();
 </script></body></html>
