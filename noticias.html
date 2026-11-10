@@ -94,10 +94,10 @@ function drawArticle(s){
  for(const para of (lang==='en'?s.bodyEn:s.body)){const p=document.createElement('p');p.textContent=para;body.append(p)}
  const src=$('articleSource');src.replaceChildren();
  const h=document.createElement('b');h.textContent=t('Fonte consultada: ','Source: ');
- const a=document.createElement('a');a.href=s.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=s.source;
- src.append(h,a);
+ const sourceName=document.createElement('span');sourceName.textContent=s.source;
+ src.append(h,sourceName);
  if(s.photo){const c=document.createElement('p');c.textContent=t('Imagem e contexto: ','Image and context: ')+s.photoLabel+' · '+s.credit+' · '+s.license;src.append(c)}
- if(s.photo&&s.photoLink){const link=document.createElement('a');link.href=s.photoLink;link.target='_blank';link.rel='noopener noreferrer';link.textContent=t('Ver licença e autor da fotografia','View photo credit and license');src.append(link)}
+
  document.querySelector('.article-sources').open=false;
 }
 function route(){const m=location.hash.match(/^#artigo-([a-z0-9-]+)$/);const s=m?stories.find(x=>x.id===m[1]):null;active=s||null;$('newsHome').classList.toggle('hidden',!!active);$('articleView').classList.toggle('hidden',!active);if(active)drawArticle(active);window.scrollTo({top:0,behavior:'instant'})}
