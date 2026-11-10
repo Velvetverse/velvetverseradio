@@ -4799,6 +4799,12 @@ window.addEventListener('message',e=>{
 if(e.origin!==location.origin||e.source!==frame.contentWindow||!e.data)return;
 if(e.data.type==='vv-news-size'&&Number.isFinite(e.data.height)){frame.style.height=Math.max(550,Math.min(20000,e.data.height))+'px'}
 else if(e.data.type==='vv-news-ready'){sync()}
+else if(e.data.type==='vv-news-focus'){
+ const nav=document.querySelector('header')||document.querySelector('.header');
+ const safeTop=Math.max(305,nav?nav.getBoundingClientRect().height+100:305);
+ const top=window.scrollY+frame.getBoundingClientRect().top-safeTop;
+ window.scrollTo({top:Math.max(0,top),behavior:'instant'});
+}
 });
 document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(sync)));
 })();</script></body>
