@@ -118,6 +118,19 @@ body.vv-embedded .edition-home{background:transparent}
 .editorial-latest a:hover,.pane-more:hover{color:#e0adff}
 @media(max-width:1020px){.editorial-top{grid-template-columns:1.8fr 1fr}.editorial-feature .feature-body{max-width:65%}.editorial-columns{grid-template-columns:repeat(2,minmax(0,1fr))}.editorial-pane,.editorial-pane:nth-child(4),.editorial-pane:nth-child(5){grid-column:auto}}
 @media(max-width:690px){.edition-word{display:none}.editorial-top{display:block}.editorial-feature{min-height:340px}.editorial-feature .feature-body{max-width:85%;padding:23px 21px 40px}.editorial-feature .hero-overlay{background:linear-gradient(90deg,#090c18f2,rgba(8,12,22,.62) 78%,rgba(8,12,22,.18))}.editorial-latest{margin-top:14px}.editorial-columns{display:block}.editorial-pane{margin:14px 0}.category-banner{height:132px}.editorial-feature h2{font-size:30px}}
+
+/* Imagens EXACTAS recortadas do mockup aprovado — ativadas após upload */
+body.mockup-assets-ready .banner-pt{background-image:url('banner-portugal.png');}
+body.mockup-assets-ready .banner-football{background-image:url('banner-futebol.png');}
+body.mockup-assets-ready .banner-ca{background-image:url('banner-canada.png');}
+body.mockup-assets-ready .banner-world{background-image:url('banner-mundo.png');}
+body.mockup-assets-ready .banner-motor{background-image:url('banner-motores.png');}
+body.mockup-assets-ready .category-banner{background-size:100% 100%;background-position:center;background-repeat:no-repeat}
+body.mockup-assets-ready .category-banner::before{display:none}
+body.mockup-assets-ready .category-banner h2{visibility:hidden}
+body.mockup-assets-ready .editorial-feature .hero-visual{background-image:url('destaque-mar.png');background-size:cover;background-position:center right}
+body.mockup-assets-ready .hero-disclosure{display:none}
+body.mockup-assets-ready .banner-credits{display:none}
 </style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio">
@@ -239,5 +252,12 @@ document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',(
  });
  if('ResizeObserver'in window)new ResizeObserver(updateHeight).observe(document.querySelector('main'));
  if(window.parent!==window)window.parent.postMessage({type:'vv-news-ready'},location.origin);
+})();
+</script><script id="vv-approved-mockup-assets">
+(function(){
+ const names=['banner-portugal.png','banner-futebol.png','banner-canada.png','banner-mundo.png','banner-motores.png','destaque-mar.png'];
+ Promise.all(names.map(name=>new Promise((resolve,reject)=>{
+ const img=new Image();img.onload=()=>resolve(true);img.onerror=()=>reject(name);img.src=name;
+ }))).then(()=>document.body.classList.add('mockup-assets-ready')).catch(()=>{});
 })();
 </script></body></html>
