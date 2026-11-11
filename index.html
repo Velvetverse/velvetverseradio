@@ -3102,6 +3102,14 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
   });
 
   document.getElementById(id).classList.add('active');
+  // Sempre que se entra em Notícias pelo menu, abrir a página inicial.
+  // Não recriar o iframe: mantém o player e evita recarregamentos.
+  if (id === 'noticias') {
+    const newsFrame = document.getElementById('vvNewsFrame');
+    if (newsFrame && newsFrame.contentWindow) {
+      newsFrame.contentWindow.postMessage({type:'vv-news-home'},location.origin);
+    }
+  }
   if (id === 'top5latino') {
     const radioStream = document.getElementById('liveRadio');
     if (radioStream && window.vvStopRadio) window.vvStopRadio();
