@@ -140,28 +140,28 @@ body.vv-embedded .edition-home{background:transparent}
       </div>
       <small class="hero-disclosure" data-pt="Imagem ilustrativa de arquivo · Madeira, 2025" data-en="Illustrative archive photo · Madeira, 2025">Imagem ilustrativa de arquivo · Madeira, 2025</small>
     </article>
-    <aside class="latest editorial-latest"><h2 data-pt="Últimas Notícias" data-en="Latest News">Últimas Notícias</h2><div id="latestList"></div><button type="button" class="latest-all" id="latestAll" data-pt="Ver todas as notícias ›" data-en="All news ›">Ver todas as notícias ›</button></aside>
+    <aside class="latest editorial-latest"><h2 data-pt="Últimas Notícias" data-en="Latest News">Últimas Notícias</h2><div id="latestList"></div></aside>
   </div>
   <div class="columns editorial-columns" id="sectionGrid">
     <section class="pane editorial-pane" data-pane="portugal">
       <div class="category-banner banner-pt"><h2 data-pt="Portugal — Destaque" data-en="Portugal — Highlights">Portugal — Destaque</h2></div>
-      <div class="category-stories" id="portugalList"></div><button class="pane-more" data-filter-jump="portugal" data-pt="Mais notícias de Portugal ›" data-en="More Portugal news ›">Mais notícias de Portugal ›</button>
+      <div class="category-stories" id="portugalList"></div>
     </section>
     <section class="pane editorial-pane" data-pane="football">
       <div class="category-banner banner-football"><h2 data-pt="Futebol" data-en="Football">Futebol</h2></div>
-      <div class="category-stories" id="footballList"></div><button class="pane-more" data-filter-jump="football" data-pt="Mais notícias de Futebol ›" data-en="More football news ›">Mais notícias de Futebol ›</button>
+      <div class="category-stories" id="footballList"></div>
     </section>
     <section class="pane editorial-pane" data-pane="canada">
       <div class="category-banner banner-ca"><h2 data-pt="Canadá" data-en="Canada">Canadá</h2></div>
-      <div class="category-stories" id="canadaList"></div><button class="pane-more" data-filter-jump="canada" data-pt="Mais notícias do Canadá ›" data-en="More Canada news ›">Mais notícias do Canadá ›</button>
+      <div class="category-stories" id="canadaList"></div>
     </section>
     <section class="pane editorial-pane" data-pane="world">
       <div class="category-banner banner-world"><h2 data-pt="Mundo" data-en="World">Mundo</h2></div>
-      <div class="category-stories" id="worldList"></div><button class="pane-more" data-filter-jump="world" data-pt="Mais notícias do Mundo ›" data-en="More world news ›">Mais notícias do Mundo ›</button>
+      <div class="category-stories" id="worldList"></div>
     </section>
     <section class="pane editorial-pane" data-pane="motorsport">
       <div class="category-banner banner-motor"><h2 data-pt="Motores" data-en="Motorsport">Motores</h2></div>
-      <div class="category-stories" id="motorsportList"></div><button class="pane-more" data-filter-jump="motorsport" data-pt="Mais notícias de Motores ›" data-en="More motorsport news ›">Mais notícias de Motores ›</button>
+      <div class="category-stories" id="motorsportList"></div>
     </section>
   </div>
   <div class="banner-credits"><details><summary data-pt="Créditos das imagens dos cabeçalhos" data-en="Section image credits">Créditos das imagens dos cabeçalhos</summary><p>
@@ -220,7 +220,7 @@ function drawArticle(s){
 }
 function route(){const m=location.hash.match(/^#artigo-([a-z0-9-]+)$/);const s=m?stories.find(x=>x.id===m[1]):null;active=s||null;$('newsHome').classList.toggle('hidden',!!active);$('articleView').classList.toggle('hidden',!active);if(active)drawArticle(active);window.scrollTo({top:0,behavior:'instant'})}
 function openStory(id){location.hash='artigo-'+id;route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)}
-document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));document.querySelectorAll('[data-filter-jump]').forEach(n=>n.addEventListener('click',()=>{filter='all';applyFilter();document.querySelector('[data-pane="'+n.dataset.filterJump+'"]').scrollIntoView({behavior:'smooth',block:'center'})}));$('latestAll').addEventListener('click',()=>document.getElementById('sectionGrid').scrollIntoView({behavior:'smooth',block:'start'}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
+document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
 })();
 </script>
 <script id="vv-news-embed-bridge">
