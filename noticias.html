@@ -245,7 +245,14 @@ document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',(
  window.addEventListener('load',updateHeight);
  window.addEventListener('hashchange',()=>{updateHeight();requestAnimationFrame(updateHeight)});
  window.addEventListener('message',event=>{
-   if(event.origin!==location.origin||!event.data||event.data.type!=='vv-news-lang')return;
+   if(event.origin!==location.origin||!event.data)return;
+   if(event.data.type==='vv-news-home'){
+     if(location.hash!=='#inicio')location.hash='inicio';
+     else {if(typeof route==='function')route();}
+     requestAnimationFrame(updateHeight);
+     return;
+   }
+   if(event.data.type!=='vv-news-lang')return;
    const button=document.querySelector('[data-lang="'+(event.data.lang==='en'?'en':'pt')+'"]');
    if(button&&button.getAttribute('aria-pressed')!=='true')button.click();
    requestAnimationFrame(updateHeight);
