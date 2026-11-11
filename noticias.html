@@ -68,13 +68,112 @@ body.vv-embedded .headline{margin-top:0}
 
 /* Fotografias reais nas Últimas do Canadá sem aumentar a altura do painel */
 .latest .latest-thumb{float:left;width:86px;height:69px;object-fit:contain;background:#140b1c;border-radius:8px;margin:2px 11px 6px 0}.latest a{min-height:88px;overflow:hidden}.latest a::after{content:'';display:block;clear:both}
+
+/* VelvetVerse Notícias — edição digital aprovada: cabeçalhos fotográficos fixos */
+:root{--bg:#080a12;--card:#151b27;--line:#373347;--muted:#c4c3d0;--hot:#c17af1;--white:#f7f5fc}
+body{background:#090b14;color:var(--white)}
+body.vv-embedded{background:transparent}
+body.vv-embedded .edition-home{background:transparent}
+.edition-home{font-family:Arial,system-ui,sans-serif}
+.edition-heading{padding:10px 3px 18px;border-bottom:1px solid #8634ad;margin-bottom:14px!important}
+.edition-heading h1{font-size:clamp(36px,4.9vw,65px);letter-spacing:-1.9px}
+.edition-heading h1 span{color:#a65bd5}
+.edition-heading .edition-date{font-size:13px;color:#b7bac8;letter-spacing:.2px}
+.edition-word{border-left:2px solid #a650d2;padding:8px 0 8px 27px;color:#e9e7f0;white-space:nowrap;font-size:16px}
+.editorial-top{grid-template-columns:minmax(0,2.7fr) minmax(265px,.98fr);gap:16px}
+.editorial-feature{position:relative;display:block;min-height:360px;border:1px solid #4a465c;border-radius:10px;isolation:isolate;background:#171c2b;overflow:hidden}
+.editorial-feature .hero-visual{position:absolute;inset:0;z-index:-2;background:#15243a url('https://commons.wikimedia.org/wiki/Special:FilePath/Porto%20Moniz%20(Madeira%2C%20Portugal)%2C%20Felsenk%C3%BCste%20--%202025%20--%201717.jpg?width=1200') center center/cover no-repeat}
+.editorial-feature .hero-overlay{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,12,23,.97) 0%,rgba(10,15,29,.8) 39%,rgba(11,17,28,.06) 100%),linear-gradient(0deg,rgba(6,9,17,.75),transparent 40%)}
+.editorial-feature .feature-body{padding:27px 30px 40px;position:relative;max-width:57%;z-index:1}
+.editorial-feature .tag{background:#8c44b8;border:0;border-radius:0;padding:5px 11px;font-size:12px}
+.editorial-feature h2{font:700 clamp(26px,2.7vw,38px)/1.08 Georgia,'Times New Roman',serif;margin:13px 0}
+.editorial-feature p{font-size:14px;line-height:1.47;color:#f1eff7;margin-bottom:14px}
+.editorial-feature .hero-meta{font-size:10px;color:#ddd5ea;margin:10px 0}
+.editorial-feature .read{background:rgba(12,12,23,.66);border:1px solid #ba6ee9;border-radius:8px;padding:9px 17px;color:#e0b6ff;margin-top:6px}
+.hero-disclosure{position:absolute;right:11px;bottom:9px;color:#eee9f1;background:#080a11c9;padding:3px 8px;font-size:9px;border-radius:4px}
+.editorial-latest{background:#161c27;border:1px solid #464256;border-top:2px solid #ab5cd3;border-radius:10px;box-shadow:none;padding:15px}
+.editorial-latest h2{font-size:22px;margin:0 0 6px}
+.editorial-latest a{display:grid;grid-template-columns:49px 1fr;gap:9px;align-items:start;padding:10px 0;border-top:1px solid #3c404e;font-size:12px;line-height:1.4;min-height:0;overflow:visible}
+.editorial-latest a small{display:block;color:#c47eef;font-weight:700;font-size:12px}
+.editorial-latest .latest-all{display:block;margin:13px auto 0;border:1px solid #bd74ec;border-radius:9px;color:#fff;background:transparent;padding:9px 14px;width:90%;font-size:13px;font-weight:bold}
+.editorial-columns{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:15px;margin-top:22px}
+.editorial-pane{grid-column:span 2;padding:0;background:#171d29;border:1px solid #3b3e50;border-radius:9px;min-width:0;box-shadow:none;display:flex;flex-direction:column}
+.editorial-pane:nth-child(4),.editorial-pane:nth-child(5){grid-column:span 3}
+.category-banner{height:146px;position:relative;display:flex;align-items:flex-end;padding:14px 18px;overflow:hidden;background-size:cover;background-position:center;color:white}
+.category-banner::before{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,10,18,.85),rgba(9,10,18,.06) 75%)}
+.category-banner h2{position:relative;z-index:1;font:700 clamp(26px,2.5vw,38px)/1.1 Georgia,'Times New Roman',serif;color:white;text-shadow:0 3px 8px #000d;margin:0!important}
+.banner-pt{background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Bel%C3%A9m%20Tower%20in%20Lisbon.jpg?width=850');background-position:center 56%}
+.banner-football{background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Est%C3%A1dio%20do%20drag%C3%A3o.jpg?width=850');background-position:center}
+.banner-ca{background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Toronto%20City%20Skyline.jpg?width=850');background-position:center 55%}
+.banner-world{background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/The%20Blue%20Marble.jpg?width=850');background-position:center 38%}
+.banner-motor{background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/2026%20Chinese%20GP%20-%20McLaren%20-%20Lando%20Norris%20-%20FP1.jpg?width=900');background-position:center}
+.editorial-pane .category-stories{padding:5px 18px 0;flex:1}
+.editorial-pane .story,.editorial-pane:not(.football) .story{display:grid!important;grid-template-columns:minmax(0,1fr) 47px!important;gap:10px;padding:12px 0;border:0;border-bottom:1px solid #3a3e4a;text-align:left;background:transparent;width:100%;color:#f3f1fa}
+.editorial-pane .story h3{font:500 14px/1.35 Arial,system-ui,sans-serif;margin:0}
+.editorial-pane .story .story-time{color:#c57af0;font:700 12px/1.3 Arial,system-ui,sans-serif;text-align:right;white-space:nowrap;padding-top:2px}
+.editorial-pane .story:hover h3{color:#dfb6ff}
+.editorial-pane .pane-more{color:#c67be7;font-size:13px;font-weight:700;background:transparent;border:0;text-align:left;padding:15px 18px;margin-top:auto;cursor:pointer}
+.banner-credits{margin:15px 2px 0;color:#a4a2b0;font-size:11px}
+.banner-credits summary{cursor:pointer}.banner-credits p{margin:5px 0}
+.editorial-latest a:hover,.pane-more:hover{color:#e0adff}
+@media(max-width:1020px){.editorial-top{grid-template-columns:1.8fr 1fr}.editorial-feature .feature-body{max-width:65%}.editorial-columns{grid-template-columns:repeat(2,minmax(0,1fr))}.editorial-pane,.editorial-pane:nth-child(4),.editorial-pane:nth-child(5){grid-column:auto}}
+@media(max-width:690px){.edition-word{display:none}.editorial-top{display:block}.editorial-feature{min-height:340px}.editorial-feature .feature-body{max-width:85%;padding:23px 21px 40px}.editorial-feature .hero-overlay{background:linear-gradient(90deg,#090c18f2,rgba(8,12,22,.62) 78%,rgba(8,12,22,.18))}.editorial-latest{margin-top:14px}.editorial-columns{display:block}.editorial-pane{margin:14px 0}.category-banner{height:132px}.editorial-feature h2{font-size:30px}}
 </style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
-<main class="wrap" id="inicio"><section id="newsHome"><div class="headline"><div><h1>VelvetVerse <span data-pt="Notícias" data-en="News">Notícias</span></h1><p data-pt="Atualidade · Portugal · Mundo · Futebol Português" data-en="Current affairs · Portugal · World · Portuguese Football">Notícias diárias · Portugal · Mundo · Futebol Português</p></div><span class="updated" data-pt="Atualizado: 10/11/2026 · Edição do meio-dia (Toronto)" data-en="Updated: 10 Nov 2026 · Noon edition (Toronto)">Atualizado: 10/11/2026 · Edição do meio-dia (Toronto)</span></div>
-<div class="topgrid"><article class="feature"><div id="featuredImage" style="display:flex;min-height:240px"></div><div class="feature-body"><span class="tag" id="featuredCategory" data-pt="Portugal · Mau tempo" data-en="Portugal · Severe weather">Portugal · Mau tempo</span><h2 id="featuredTitle"></h2><p id="featuredSummary"></p><div class="meta" id="featuredDate"></div><button type="button" class="read" id="featuredRead" data-pt="Ler artigo →" data-en="Read article →">Ler artigo →</button></div></article>
-<aside class="latest"><h2 data-pt="🍁 Últimas do Canadá" data-en="🍁 Latest from Canada">🍁 Últimas do Canadá</h2><div id="latestList"></div></aside></div>
-<div class="filters" role="group" aria-label="Filtrar categorias"><button data-filter="all" aria-pressed="true" data-pt="Todas" data-en="All">Todas</button><button data-filter="football" aria-pressed="false" data-pt="Futebol Português" data-en="Portuguese Football">Futebol Português</button><button data-filter="portugal" aria-pressed="false">Portugal</button><button data-filter="world" aria-pressed="false" data-pt="Mundo" data-en="World">Mundo</button><button data-filter="motorsport" aria-pressed="false" data-pt="Desporto Motorizado" data-en="Motorsport">Desporto Motorizado</button></div>
-<div class="columns"><section class="pane football" data-pane="football"><h2><span data-pt="⚽ Futebol Português" data-en="⚽ Portuguese Football">⚽ Futebol Português</span><button class="more" data-filter-jump="football" data-pt="Ver mais →" data-en="See more →">Ver mais →</button></h2><div id="footballList"></div></section><section class="pane" data-pane="portugal"><h2><span>♜ Portugal</span><button class="more" data-filter-jump="portugal" data-pt="Ver mais →" data-en="See more →">Ver mais →</button></h2><div id="portugalList"></div></section><section class="pane" data-pane="world"><h2><span data-pt="◎ Mundo" data-en="◎ World">◎ Mundo</span><button class="more" data-filter-jump="world" data-pt="Ver mais →" data-en="See more →">Ver mais →</button></h2><div id="worldList"></div></section><section class="pane" data-pane="motorsport"><h2><span data-pt="🏁 Desporto Motorizado" data-en="🏁 Motorsport">🏁 Desporto Motorizado</span><button class="more" data-filter-jump="motorsport" data-pt="Ver mais →" data-en="See more →">Ver mais →</button></h2><div id="motorsportList"></div></section></div></section>
+<main class="wrap" id="inicio">
+<section id="newsHome" class="edition-home">
+  <div class="headline edition-heading">
+    <div><h1>VelvetVerse <span data-pt="Notícias" data-en="News">Notícias</span></h1>
+      <p id="editionUpdated" class="edition-date">11 de novembro de 2026 · Toronto</p></div>
+    <div class="edition-word" data-pt="Edição Digital" data-en="Digital Edition">Edição Digital</div>
+  </div>
+  <div class="topgrid editorial-top">
+    <article class="feature editorial-feature" id="editorialFeature">
+      <div class="hero-visual" aria-hidden="true"></div>
+      <div class="hero-overlay"></div>
+      <div class="feature-body">
+        <span class="tag" data-pt="DESTAQUE" data-en="TOP STORY">DESTAQUE</span>
+        <h2 id="featuredTitle"></h2>
+        <p id="featuredSummary"></p>
+        <div class="meta hero-meta" id="featuredDate"></div>
+        <button type="button" class="read" id="featuredRead" data-pt="Ler notícia completa ›" data-en="Read full story ›">Ler notícia completa ›</button>
+      </div>
+      <small class="hero-disclosure" data-pt="Imagem ilustrativa de arquivo · Madeira, 2025" data-en="Illustrative archive photo · Madeira, 2025">Imagem ilustrativa de arquivo · Madeira, 2025</small>
+    </article>
+    <aside class="latest editorial-latest"><h2 data-pt="Últimas Notícias" data-en="Latest News">Últimas Notícias</h2><div id="latestList"></div><button type="button" class="latest-all" id="latestAll" data-pt="Ver todas as notícias ›" data-en="All news ›">Ver todas as notícias ›</button></aside>
+  </div>
+  <div class="columns editorial-columns" id="sectionGrid">
+    <section class="pane editorial-pane" data-pane="portugal">
+      <div class="category-banner banner-pt"><h2 data-pt="Portugal — Destaque" data-en="Portugal — Highlights">Portugal — Destaque</h2></div>
+      <div class="category-stories" id="portugalList"></div><button class="pane-more" data-filter-jump="portugal" data-pt="Mais notícias de Portugal ›" data-en="More Portugal news ›">Mais notícias de Portugal ›</button>
+    </section>
+    <section class="pane editorial-pane" data-pane="football">
+      <div class="category-banner banner-football"><h2 data-pt="Futebol" data-en="Football">Futebol</h2></div>
+      <div class="category-stories" id="footballList"></div><button class="pane-more" data-filter-jump="football" data-pt="Mais notícias de Futebol ›" data-en="More football news ›">Mais notícias de Futebol ›</button>
+    </section>
+    <section class="pane editorial-pane" data-pane="canada">
+      <div class="category-banner banner-ca"><h2 data-pt="Canadá" data-en="Canada">Canadá</h2></div>
+      <div class="category-stories" id="canadaList"></div><button class="pane-more" data-filter-jump="canada" data-pt="Mais notícias do Canadá ›" data-en="More Canada news ›">Mais notícias do Canadá ›</button>
+    </section>
+    <section class="pane editorial-pane" data-pane="world">
+      <div class="category-banner banner-world"><h2 data-pt="Mundo" data-en="World">Mundo</h2></div>
+      <div class="category-stories" id="worldList"></div><button class="pane-more" data-filter-jump="world" data-pt="Mais notícias do Mundo ›" data-en="More world news ›">Mais notícias do Mundo ›</button>
+    </section>
+    <section class="pane editorial-pane" data-pane="motorsport">
+      <div class="category-banner banner-motor"><h2 data-pt="Motores" data-en="Motorsport">Motores</h2></div>
+      <div class="category-stories" id="motorsportList"></div><button class="pane-more" data-filter-jump="motorsport" data-pt="Mais notícias de Motores ›" data-en="More motorsport news ›">Mais notícias de Motores ›</button>
+    </section>
+  </div>
+  <div class="banner-credits"><details><summary data-pt="Créditos das imagens dos cabeçalhos" data-en="Section image credits">Créditos das imagens dos cabeçalhos</summary><p>
+  Portugal: Lisbon Photoshoots / Wikimedia Commons, CC BY-SA 4.0 ·
+  Futebol: David Machado / Wikimedia Commons, CC BY-SA 3.0 ·
+  Canadá: Jerry Steinfield / Wikimedia Commons, CC BY 4.0 ·
+  Mundo: NASA / Apollo 17, domínio público ·
+  Motores: Liauzh / Wikimedia Commons, CC BY 4.0 ·
+  Destaque: Dietmar Rabich / Wikimedia Commons, CC BY-SA 4.0 (imagem de arquivo de 2025).
+  <span data-pt="Imagens cortadas e escurecidas para os cabeçalhos." data-en="Images cropped and darkened for the section banners.">Imagens cortadas e escurecidas para os cabeçalhos.</span>
+  </p></details></div>
+</section>
 <article id="articleView" class="article-view hidden"><button class="back" id="backBtn" data-pt="← Voltar às notícias" data-en="← Back to news">← Voltar às notícias</button><div class="article-head"><div id="articleCategory" class="tag"></div><h2 id="articleTitle"></h2><div id="articleDate" class="meta"></div></div><div class="article-layout"><div class="article-media" id="articleMedia"></div><div class="article-copy" id="articleBody"></div></div><details class="article-sources"><summary data-pt="Fontes e créditos da fotografia" data-en="Sources and image credits">Fontes e créditos da fotografia</summary><div id="articleSource" class="source"></div></details></article>
 </main><footer class="footer"><div class="wrap">VelvetVerse Radio · Notícias de Portugal, futebol português e mundo · <span data-pt="Próxima edição: atualização editorial" data-en="Next edition: editorial update">Atualização editorial regular</span></div></footer>
 <script>
@@ -85,32 +184,43 @@ const t=(pt,en)=>lang==='pt'?pt:en;const newsText=(s,field)=>lang==='en'?(s[fiel
 const labels={football:['Futebol Português','Portuguese Football'],portugal:['Portugal','Portugal'],world:['Mundo','World'],canada:['Canadá','Canada'],motorsport:['Desporto Motorizado','Motorsport']};
 function imageUrl(name){return ['Portugal.jpg','Tempestade-Charles.png'].includes(name)?name:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(name)+'?width=900'}
 function imageFile(s,small=false){const el=document.createElement('div');el.className='art'+(s.photo?' has-photo':'')+(small?' art-sm':'');if(!s.photo){const label=document.createElement('span');label.className='photo-mark';label.textContent=t('Sem fotografia autorizada do acontecimento','No licensed event photo');const badge=document.createElement('strong');badge.textContent=s.icon;el.append(badge,label);return el;}const img=document.createElement('img');img.src=imageUrl(s.photo);img.alt=s.photoLabel;img.title=s.photoLabel;img.loading=small?'lazy':'eager';img.referrerPolicy='no-referrer';img.onerror=()=>{img.remove();el.classList.remove('has-photo');if(el.classList.contains('article-photo')){el.closest('.article-layout')?.classList.add('no-photo');el.closest('.article-media')?.replaceChildren()}else if(el.closest('.story')){const card=el.closest('.story');card.classList.add('no-photo');el.remove()}else if(el.closest('#featuredImage')){el.closest('#featuredImage').style.display='none';el.closest('.feature')?.classList.add('no-photo')}else{el.remove()}};el.append(img);return el}
-function draw(){document.documentElement.lang=lang;document.querySelectorAll('[data-pt][data-en]').forEach(n=>n.textContent=n.dataset[lang]);document.querySelectorAll('[data-lang]').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.lang===lang)));const lead=stories[0];$('featuredTitle').textContent=newsText(lead,'title');$('featuredSummary').textContent=newsText(lead,'summary');$('featuredImage').replaceChildren(imageFile(lead));$('featuredDate').textContent=lead.date.split('-').reverse().join('/')+' · '+lead.time+' · '+lead.source;
-for(const c of ['football','portugal','world','motorsport']){const mount=$(c==='football'?'footballList':c==='portugal'?'portugalList':c==='world'?'worldList':'motorsportList');mount.replaceChildren();stories.filter(s=>s.category===c&&s.id!==lead.id).forEach(s=>{const b=document.createElement('button');b.type='button';b.className='story';const art=imageFile(s,true);const info=document.createElement('div');const h=document.createElement('h3');h.textContent=newsText(s,'title');const p=document.createElement('p');p.textContent=newsText(s,'summary');const meta=document.createElement('div');meta.className='meta';meta.textContent=s.date.split('-').reverse().join('/')+' · '+s.source;info.append(h,p,meta);if(s.photo){b.append(art,info)}else{b.classList.add('no-photo');b.append(info)}b.addEventListener('click',()=>openStory(s.id));mount.append(b)})}
-const mount=$('latestList');mount.replaceChildren();stories.filter(s=>s.category==='canada').sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).slice(0,3).forEach(s=>{const a=document.createElement('a');a.href='#artigo-'+s.id;const small=document.createElement('small');small.textContent=s.date.split('-').reverse().join('/')+' · '+s.time+' · '+labels[s.category][lang==='pt'?0:1];const label=document.createElement('span');label.textContent=newsText(s,'title');if(s.photo){const img=document.createElement('img');img.className='latest-thumb';img.src=imageUrl(s.photo);img.alt=s.photoLabel||'';img.loading='lazy';img.referrerPolicy='no-referrer';img.onerror=()=>img.remove();a.append(img)}a.append(small,label);mount.append(a)});applyFilter();if(active)drawArticle(active)}
-function applyFilter(){document.querySelectorAll('[data-filter]').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.filter===filter)));document.querySelectorAll('[data-pane]').forEach(n=>n.classList.toggle('hidden',filter!=='all'&&n.dataset.pane!==filter))}
+function draw(){document.documentElement.lang=lang;document.querySelectorAll('[data-pt][data-en]').forEach(n=>n.textContent=n.dataset[lang]);document.querySelectorAll('[data-lang]').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.lang===lang)));
+ const lead=stories[0];
+ $('featuredTitle').textContent=newsText(lead,'title');$('featuredSummary').textContent=newsText(lead,'summary');$('featuredDate').textContent=lead.date.split('-').reverse().join('/')+' · '+lead.time;
+ const newest=stories.map(s=>s.date).sort().reverse()[0];const dateObj=new Date(newest+'T12:00:00');const dateText=new Intl.DateTimeFormat(lang==='pt'?'pt-PT':'en-CA',{day:'numeric',month:'long',year:'numeric'}).format(dateObj);$('editionUpdated').textContent=t('Atualizado: ','Updated: ')+dateText+' · Toronto';
+ const cats={portugal:'portugalList',football:'footballList',canada:'canadaList',world:'worldList',motorsport:'motorsportList'};
+ for(const [category,id] of Object.entries(cats)){const mount=$(id);mount.replaceChildren();
+ stories.filter(s=>s.category===category&&s.id!==lead.id).sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).forEach(s=>{
+ const row=document.createElement('button');row.type='button';row.className='story';const h=document.createElement('h3');h.textContent=newsText(s,'title');
+ const time=document.createElement('span');time.className='story-time';time.textContent=s.time||'—';row.append(h,time);row.addEventListener('click',()=>openStory(s.id));mount.append(row);
+ });}
+ const mount=$('latestList');mount.replaceChildren();
+ stories.filter(s=>s.id!==lead.id).sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).slice(0,5).forEach(s=>{const row=document.createElement('a');row.href='#artigo-'+s.id;const small=document.createElement('small');small.textContent=s.time;const label=document.createElement('span');label.textContent=newsText(s,'title');row.append(small,label);mount.append(row);});
+ if(active)drawArticle(active);
+}
+function applyFilter(){document.querySelectorAll('[data-pane]').forEach(n=>n.classList.toggle('hidden',filter!=='all'&&n.dataset.pane!==filter));}
 function drawArticle(s){
  const creditsTitle=document.querySelector('.article-sources summary');
- if(creditsTitle){creditsTitle.dataset.pt=s.photo?'Fontes e créditos da fotografia':'Fontes da notícia';creditsTitle.dataset.en=s.photo?'Sources and photo credits':'News sources';creditsTitle.textContent=creditsTitle.dataset[lang]}
+ if(creditsTitle){creditsTitle.dataset.pt='Fontes da notícia';creditsTitle.dataset.en='News sources';creditsTitle.textContent=creditsTitle.dataset[lang]}
  $('articleCategory').textContent=labels[s.category][lang==='pt'?0:1];
  $('articleTitle').textContent=newsText(s,'title');
  $('articleDate').textContent=s.date.split('-').reverse().join('/')+' · '+s.time+' · '+s.source;
  const media=$('articleMedia');media.replaceChildren();
- document.querySelector('.article-layout').classList.toggle('no-photo',!s.photo);
- if(s.photo){const pic=imageFile(s);pic.classList.add('article-photo');media.append(pic)}
+ document.querySelector('.article-layout').classList.add('no-photo');
+ /* Full article focuses on text; static category banners are the site's illustrations. */
  const body=$('articleBody');body.replaceChildren();
  for(const para of (lang==='en'?s.bodyEn:s.body)){const p=document.createElement('p');p.textContent=para;body.append(p)}
  const src=$('articleSource');src.replaceChildren();
  const h=document.createElement('b');h.textContent=t('Fonte consultada: ','Source: ');
  const sourceName=document.createElement('span');sourceName.textContent=s.source;
  src.append(h,sourceName);
- if(s.photo){const c=document.createElement('p');c.textContent=t('Imagem e contexto: ','Image and context: ')+s.photoLabel+' · '+s.credit+' · '+s.license+(s.license&&s.license.startsWith('CC BY-SA 4.0')?' · https://creativecommons.org/licenses/by-sa/4.0/':'');src.append(c)}
+ 
 
  document.querySelector('.article-sources').open=false;
 }
 function route(){const m=location.hash.match(/^#artigo-([a-z0-9-]+)$/);const s=m?stories.find(x=>x.id===m[1]):null;active=s||null;$('newsHome').classList.toggle('hidden',!!active);$('articleView').classList.toggle('hidden',!active);if(active)drawArticle(active);window.scrollTo({top:0,behavior:'instant'})}
 function openStory(id){location.hash='artigo-'+id;route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)}
-document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));document.querySelectorAll('[data-filter]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filter;applyFilter()}));document.querySelectorAll('[data-filter-jump]').forEach(n=>n.addEventListener('click',()=>{filter=n.dataset.filterJump;applyFilter();document.querySelector('.filters').scrollIntoView({behavior:'smooth',block:'center'})}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
+document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));document.querySelectorAll('[data-filter-jump]').forEach(n=>n.addEventListener('click',()=>{filter='all';applyFilter();document.querySelector('[data-pane="'+n.dataset.filterJump+'"]').scrollIntoView({behavior:'smooth',block:'center'})}));$('latestAll').addEventListener('click',()=>document.getElementById('sectionGrid').scrollIntoView({behavior:'smooth',block:'start'}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
 })();
 </script>
 <script id="vv-news-embed-bridge">
