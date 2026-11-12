@@ -136,7 +136,31 @@ body.mockup-assets-ready .banner-credits{display:none}
 @keyframes wx-spin{to{transform:rotate(360deg)}}@keyframes wx-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}@keyframes wx-rain{0%{transform:translateY(-3px);opacity:0}15%{opacity:1}75%{opacity:1}100%{transform:translateY(18px);opacity:0}}@keyframes wx-snow{0%{transform:translate(0,-3px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translate(4px,16px);opacity:0}}@keyframes wx-flash{0%,76%,100%{opacity:.55}80%,88%{opacity:1;filter:drop-shadow(0 0 5px #ffdb52)}84%{opacity:.3}}@keyframes wx-twinkle{0%,100%{opacity:.45}50%{opacity:1}}@keyframes wx-fogmove{0%,100%{transform:translateX(-2px);opacity:.6}50%{transform:translateX(3px);opacity:1}}
 @media(prefers-reduced-motion:reduce){.wx-icon *{animation:none!important}.wx-icon .wx-drop,.wx-icon .wx-flake{opacity:1}}
 @media(max-width:690px){.wx-icon{width:60px;height:60px;flex-basis:60px}}
-.vv-weather{min-width:0}.wx-tabs{display:flex;gap:6px;margin:12px 0}.wx-tabs button{flex:1;border:1px solid #555064;border-radius:7px;background:transparent;color:#ddd;padding:7px 4px;cursor:pointer;font-size:12px}.wx-tabs button[aria-pressed=true]{border-color:#c27cf1;background:#39274a;color:#fff}.wx-row{padding:12px 0;border-top:1px solid #414353}.wx-row strong{font-size:15px;display:block}.wx-value{font-weight:700;color:#e7b9ff;font-size:21px;margin:4px 0}.wx-detail{font-size:12px;color:#ddd;line-height:1.6}.wx-status{font-size:11px;color:#b7bac8;margin:10px 0}.vv-weather .wx-credit{display:inline;padding:0;border:0;font-size:11px;color:#d5a4f7;text-decoration:underline}.wx-row:last-child{padding-bottom:5px}</style></head><body>
+.vv-weather{min-width:0}.wx-tabs{display:flex;gap:6px;margin:12px 0}.wx-tabs button{flex:1;border:1px solid #555064;border-radius:7px;background:transparent;color:#ddd;padding:7px 4px;cursor:pointer;font-size:12px}.wx-tabs button[aria-pressed=true]{border-color:#c27cf1;background:#39274a;color:#fff}.wx-row{padding:12px 0;border-top:1px solid #414353}.wx-row strong{font-size:15px;display:block}.wx-value{font-weight:700;color:#e7b9ff;font-size:21px;margin:4px 0}.wx-detail{font-size:12px;color:#ddd;line-height:1.6}.wx-status{font-size:11px;color:#b7bac8;margin:10px 0}.vv-weather .wx-credit{display:inline;padding:0;border:0;font-size:11px;color:#d5a4f7;text-decoration:underline}.wx-row:last-child{padding-bottom:5px}</style><style id="vv-weather-stable-layout">
+/* Stable, compact editorial lead and weather panel: switching regions never changes page height. */
+.editorial-top{align-items:stretch}
+.editorial-top .editorial-feature,.editorial-top .vv-weather{box-sizing:border-box;height:370px;min-height:370px}
+.editorial-top .editorial-feature .feature-body{max-width:65%;padding:21px 24px 24px}
+.editorial-top .editorial-feature h2{font-size:clamp(24px,2.2vw,32px);line-height:1.12;margin:10px 0}
+.editorial-top .editorial-feature p{font-size:13px;line-height:1.42;margin:8px 0}
+.editorial-top .editorial-feature .hero-meta{margin:8px 0}
+.editorial-top .editorial-feature .read{margin-top:4px;padding:7px 13px}
+.editorial-top .vv-weather{display:flex;flex-direction:column;overflow:hidden;padding:12px 14px}
+.vv-weather h2{font-size:19px;margin:0 0 4px;flex:none}
+.vv-weather .wx-tabs{margin:6px 0 8px;flex:none}
+.vv-weather .wx-tabs button{padding:5px 4px}
+#weatherRows{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#74528d transparent}
+.vv-weather .wx-row{padding:7px 0;gap:7px;min-height:0}
+.vv-weather .wx-row strong{font-size:13px;line-height:1.2}
+.vv-weather .wx-value{font-size:18px;line-height:1.15;margin:3px 0}
+.vv-weather .wx-detail{font-size:11px;line-height:1.35;overflow-wrap:anywhere}
+.vv-weather .wx-icon{width:50px;height:50px;flex:0 0 50px}
+.vv-weather .wx-status{font-size:10px;line-height:1.25;margin:6px 0 3px;flex:none}
+.vv-weather #wxSource{font-size:10px;line-height:1.25;flex:none}
+.vv-weather .wx-credit{font-size:10px}
+@media(max-width:1020px) and (min-width:691px){.editorial-top .editorial-feature .feature-body{max-width:78%;padding:18px}.editorial-top .editorial-feature h2{font-size:27px}}
+@media(max-width:690px){.editorial-top .editorial-feature{height:auto;min-height:0}.editorial-top .editorial-feature .feature-body{max-width:93%;padding:20px 18px 30px}.editorial-top .editorial-feature h2{font-size:28px}.editorial-top .vv-weather{height:370px;min-height:370px}}
+</style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio">
 <section id="newsHome" class="edition-home">
