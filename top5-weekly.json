@@ -1,7 +1,7 @@
 {
   "source": "Shazam Global Latin Chart",
-  "chart_date": "2026-11-11",
-  "week": "2026-11-11",
+  "chart_date": "2026-11-12",
+  "week": "2026-11-12",
   "verified": true,
   "source_url": "https://www.shazam.com/charts/genre/world/latin",
   "songs": [
@@ -31,9 +31,9 @@
     },
     {
       "rank": 5,
-      "title": "POKITO",
-      "artist": "Daddy Yankee & Diljit Dosanjh",
-      "id": "6826504729"
+      "title": "Y Que Fue?",
+      "artist": "Don Miguelo",
+      "id": "1708289078"
     }
   ]
 }
