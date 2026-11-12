@@ -158,7 +158,7 @@ body.mockup-assets-ready .banner-credits{display:none}
       </div>
       <small class="hero-disclosure" data-pt="Imagem ilustrativa de arquivo · Madeira, 2025" data-en="Illustrative archive photo · Madeira, 2025">Imagem ilustrativa de arquivo · Madeira, 2025</small>
     </article>
-    <aside class="latest editorial-latest vv-weather"><h2 data-pt="Meteorologia" data-en="Weather">Meteorologia</h2><div class="wx-tabs"><button id="wxCanada" type="button" aria-pressed="true">🇨🇦 Toronto</button><button id="wxPortugal" type="button" aria-pressed="false">🇵🇹 Portugal</button></div><div id="weatherRows" aria-live="off"></div><p id="weatherStatus" class="wx-status" data-pt="A obter previsão..." data-en="Loading forecast...">A obter previsão...</p><a class="wx-credit" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></aside>
+    <aside class="latest editorial-latest vv-weather"><h2 data-pt="Meteorologia" data-en="Weather">Meteorologia</h2><div class="wx-tabs"><button id="wxCanada" type="button" aria-pressed="true">🇨🇦 Toronto</button><button id="wxPortugal" type="button" aria-pressed="false">🇵🇹 Portugal</button></div><div id="weatherRows" aria-live="off"></div><p id="weatherStatus" class="wx-status" data-pt="A obter previsão..." data-en="Loading forecast...">A obter previsão...</p><div id="wxSource"></div></aside>
   </div>
   <div class="columns editorial-columns" id="sectionGrid">
     <section class="pane editorial-pane" data-pane="portugal">
@@ -238,7 +238,7 @@ function drawArticle(s){
 function route(){const m=location.hash.match(/^#artigo-([a-z0-9-]+)$/);const s=m?stories.find(x=>x.id===m[1]):null;active=s||null;$('newsHome').classList.toggle('hidden',!!active);$('articleView').classList.toggle('hidden',!active);if(active)drawArticle(active);window.scrollTo({top:0,behavior:'instant'})}
 function openStory(id){location.hash='artigo-'+id;route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)}
 
-const weatherCities=[{name:'Toronto',lat:43.6532,lon:-79.3832,tz:'America/Toronto'},{name:'Lisboa',lat:38.7223,lon:-9.1393,tz:'Europe/Lisbon'},{name:'Porto',lat:41.1579,lon:-8.6291,tz:'Europe/Lisbon'},{name:'Faro',lat:37.0194,lon:-7.9304,tz:'Europe/Lisbon'}];let wxPage=0,wxData={},wxTimer=null,wxLoading=true;const wxRound=v=>Number.isFinite(v)?Math.round(v):'—';function wxCondition(code){if(code===0)return t('Céu limpo','Clear');if(code<=2)return t('Parcialmente nublado','Partly cloudy');if(code===3)return t('Nublado','Cloudy');if(code<=48)return t('Nevoeiro','Fog');if(code<=57)return t('Chuvisco','Drizzle');if(code<=67)return t('Chuva','Rain');if(code<=77)return t('Neve','Snow');if(code<=82)return t('Aguaceiros','Showers');if(code<=86)return t('Aguaceiros de neve','Snow showers');return t('Trovoada','Thunderstorm')}
+const weatherCities=[{name:'Toronto',lat:43.6532,lon:-79.3832,tz:'America/Toronto'},{name:'Lisboa',lat:38.7223,lon:-9.1393,tz:'Europe/Lisbon'},{name:'Porto',lat:41.1579,lon:-8.6291,tz:'Europe/Lisbon'},{name:'Faro',lat:37.0194,lon:-7.9304,tz:'Europe/Lisbon'}];let wxPage=0,wxData={},wxTimer=null,wxLoading=true;const wxRound=v=>Number.isFinite(v)?Math.round(v):'—';function wxCondition(code){if(!Number.isFinite(code))return t('Indisponível','Unavailable');if(code===0)return t('Céu limpo','Clear');if(code<=2)return t('Parcialmente nublado','Partly cloudy');if(code===3)return t('Nublado','Cloudy');if(code<=48)return t('Nevoeiro','Fog');if(code<=57)return t('Chuvisco','Drizzle');if(code<=67)return t('Chuva','Rain');if(code<=77)return t('Neve','Snow');if(code<=82)return t('Aguaceiros','Showers');if(code<=86)return t('Aguaceiros de neve','Snow showers');return t('Trovoada','Thunderstorm')}
 
 function wxIcon(code,day=true){
  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
@@ -255,8 +255,85 @@ function wxIcon(code,day=true){
  svg.innerHTML=(clear||part?(day?sun:moon):'')+(!clear?cloud:'')+(rain?drops:'')+(snow?flakes:'')+(fog?foglines:'')+(thunder?'<path class="wx-lightning" d="M38 40 28 54h9l-5 15 17-21H38l6-8Z" fill="#ffdc45" stroke="#fff1a3" stroke-width=".8"/>':'');
  return svg;
 }
-function renderWeather(){const root=$('weatherRows');if(!root)return;root.replaceChildren();$('wxCanada').setAttribute('aria-pressed',String(wxPage===0));$('wxPortugal').setAttribute('aria-pressed',String(wxPage===1));const cities=wxPage===0?weatherCities.slice(0,1):weatherCities.slice(1);const line=(title,value,detail,code,day=true)=>{let r=document.createElement('div');r.className='wx-row';let copy=document.createElement('div');copy.className='wx-copy';for(const [tag,cls,txt] of [['strong','',title],['div','wx-value',value],['div','wx-detail',detail]]){let n=document.createElement(tag);n.className=cls;n.textContent=txt;copy.append(n)}r.append(copy);if(Number.isFinite(code))r.append(wxIcon(code,day));root.append(r)};for(const city of cities){let d=wxData[city.name],c=d?.current,q=d?.daily;let name=city.name==='Lisboa'?t('Lisboa','Lisbon'):city.name;if(!c||!q){line(name,'—',wxLoading?t('A carregar...','Loading...'):t('Dados indisponíveis','Data unavailable'));continue}let today=wxRound(c.temperature_2m)+'°C',rain=(Number.isFinite(c.precipitation)?c.precipitation:'—')+' mm',tom=wxRound(q.temperature_2m_min[1])+'° / '+wxRound(q.temperature_2m_max[1])+'°C',prob=wxRound(q.precipitation_probability_max[1])+'%',sum=(Number.isFinite(q.precipitation_sum[1])?q.precipitation_sum[1]:'—')+' mm';let detail=wxCondition(c.weather_code)+' · '+t('Precip.','Precip.')+' '+rain+' · '+t('Vento','Wind')+' '+wxRound(c.wind_speed_10m)+' km/h';if(wxPage===0){line(name+' · '+t('Agora','Now'),today,detail,c.weather_code,c.is_day!==0);line(t('Amanhã','Tomorrow')+' · '+q.time[1],tom,wxCondition(q.weather_code[1])+' · '+t('Prob. precip.','Precip. chance')+' '+prob+' · '+sum,q.weather_code[1],true)}else{line(name+' · '+t('Agora','Now'),today,detail+' | '+t('Amanhã','Tomorrow')+': '+tom+' · '+prob+' · '+sum,c.weather_code,c.is_day!==0)}}$('weatherStatus').removeAttribute('data-pt');$('weatherStatus').removeAttribute('data-en');$('weatherStatus').textContent=wxLoading?t('A carregar previsão...','Loading forecast...'):t('Atualização automática · horários locais','Automatic refresh · local times')}
-async function refreshWeather(){wxLoading=true;renderWeather();await Promise.allSettled(weatherCities.map(async city=>{const p=new URLSearchParams({latitude:city.lat,longitude:city.lon,timezone:city.tz,current:'temperature_2m,precipitation,weather_code,wind_speed_10m,is_day',daily:'temperature_2m_min,temperature_2m_max,precipitation_probability_max,precipitation_sum,weather_code',forecast_days:'2'});try{const res=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{cache:'no-store',signal:AbortSignal.timeout(12000)});if(!res.ok)throw Error('weather');const d=await res.json();if(!d.current||!d.daily)throw Error('weather data');wxData[city.name]=d}catch(e){delete wxData[city.name]}}));wxLoading=false;renderWeather()}function chooseWeather(page){wxPage=page;renderWeather();clearInterval(wxTimer);wxTimer=setInterval(()=>{wxPage=1-wxPage;renderWeather()},10000)}$('wxCanada').addEventListener('click',()=>chooseWeather(0));$('wxPortugal').addEventListener('click',()=>chooseWeather(1));chooseWeather(0);refreshWeather();setInterval(refreshWeather,900000);
+
+const wxNum=v=>v===null||v===undefined||String(v).trim()===''?null:(Number.isFinite(Number(v))&&Number(v)!==-99?Number(v):null);
+const wxDate=(tz,offset=0)=>{const parts=new Intl.DateTimeFormat('en-CA',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));const d=new Date(Date.UTC(+p.year,+p.month-1,+p.day+offset));return d.toISOString().slice(0,10)};
+const wxClock=(tz)=>Number(new Intl.DateTimeFormat('en-GB',{timeZone:tz,hour:'2-digit',hourCycle:'h23'}).format(new Date()));
+const wxFmtTime=(iso,tz)=>{if(!iso)return '';let d=new Date(iso);return Number.isFinite(d.getTime())?new Intl.DateTimeFormat(lang==='pt'?'pt-PT':'en-CA',{timeZone:tz,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).format(d):''};
+function ipmaCode(id){const n=+id;if(n===1)return 0;if([2,3,25].includes(n))return 2;if([4,5,24,27].includes(n))return 3;if([6,7,8,9,10,11,12,13,14].includes(n))return 61;if(n===15)return 51;if([16,17,26].includes(n))return 45;if([18,28,29,30].includes(n))return 73;if([19,20,21,23].includes(n))return 95;return null}
+function canadaCode(str){const v=String(str||'').toLowerCase();if(!v||v==='not observed')return null;if(/thunder|lightning/.test(v))return 95;if(/snow|flurr|ice pellet/.test(v))return 73;if(/freezing rain|rain|showers/.test(v))return 61;if(/drizzle/.test(v))return 51;if(/fog|mist/.test(v))return 45;if(/partly cloudy|partly sunny|mix of sun|cloudy periods|mainly sunny/.test(v))return 2;if(/cloud|overcast/.test(v))return 3;if(/sunny|clear/.test(v))return 0;return null}
+function readCanada(xml){
+ const doc=new DOMParser().parseFromString(xml,'application/xml'),c=doc.querySelector('currentConditions');
+ if(!c||doc.querySelector('parsererror'))throw Error('Invalid official data');
+ const text=(root,sel)=>root?.querySelector(sel)?.textContent.trim()||'';
+ const num=(root,sel)=>wxNum(text(root,sel));
+ const condition=text(c,'condition'),temperature=num(c,'temperature');if(temperature===null)throw Error('No official temperature');
+ const nowdate=wxDate('America/Toronto'),tomdate=wxDate('America/Toronto',1);
+ const weekday=new Date(tomdate+'T12:00:00Z').toLocaleDateString('en-US',{weekday:'long',timeZone:'UTC'}).toLowerCase();
+ const periods=[...doc.querySelectorAll('forecastGroup > forecast')];
+ const name=p=>(text(p,'period')+' '+(p.querySelector('period')?.getAttribute('textForecastName')||'')).toLowerCase();
+ const day=periods.find(p=>name(p).includes(weekday)&&!name(p).includes('night'))||periods.find(p=>name(p).includes('tomorrow')&&!name(p).includes('night'));
+ const dayIndex=periods.indexOf(day);
+ const prior=dayIndex>0&&/night|tonight/.test(name(periods[dayIndex-1]))?periods[dayIndex-1]:null;
+ const night=dayIndex>=0?periods.slice(dayIndex+1).find(p=>name(p).includes(weekday)&&name(p).includes('night')):null;
+ const high=num(day,'temperatures temperature[class="high"]')??num(day,'temperatures temperature');
+ const low=num(prior,'temperatures temperature[class="low"]')??num(prior,'temperatures temperature');
+ const summary=text(day,'abbreviatedForecast textSummary')||text(day,'textSummary');
+ const pop=num(day,'abbreviatedForecast pop')??num(day,'pop');
+ const observed=text(c,'dateTime[zone="UTC"] timeStamp');let observedISO='';
+ if(/^\d{14}$/.test(observed))observedISO=observed.slice(0,4)+'-'+observed.slice(4,6)+'-'+observed.slice(6,8)+'T'+observed.slice(8,10)+':'+observed.slice(10,12)+':'+observed.slice(12,14)+'Z';
+ const stamp=text(c,'dateTime[zone="UTC"] textSummary')||text(c,'dateTime textSummary');
+ const station=text(c,'station')||'Toronto';
+ const hour=wxClock('America/Toronto'),isDay=hour>=7&&hour<18;
+ const icon=canadaCode(condition);
+ return {source:'canada',temperature,wind:num(c,'wind speed'),feels:num(c,'windChill')??num(c,'humidex'),condition,code:icon,day:isDay,station,observed:observedISO,stamp,precip:null,tomorrow:{date:tomdate,min:low,max:high,prob:pop,code:canadaCode(summary),condition:summary,nightMin:num(night,'temperatures temperature[class="low"]')}};
+}
+function readPortugal(row,city){
+ const today=wxDate(city.tz),tomorrow=wxDate(city.tz,1);
+ const obs=row.observations.find(o=>wxNum(o.temperatura)!==null);
+ const now=row.forecast.data.find(x=>x.forecastDate===today),next=row.forecast.data.find(x=>x.forecastDate===tomorrow);
+ if(!obs||!next)throw Error('No official observations/forecast');
+ const hour=wxClock(city.tz);return {source:'ipma',temperature:wxNum(obs.temperatura),wind:wxNum(obs.intensidadeVentoKM),precip:wxNum(obs.precAcumulada),feels:null,code:ipmaCode(now?.idWeatherType),day:hour>=7&&hour<18,station:obs.localEstacao,observed:obs.time+'Z',forecastIcon:true,tomorrow:{date:tomorrow,min:wxNum(next.tMin),max:wxNum(next.tMax),prob:wxNum(next.precipitaProb),code:ipmaCode(next.idWeatherType)}};
+}
+function readFallback(d){const c=d.current,q=d.daily;if(!c||!q)throw Error('No fallback forecast');return{source:'fallback',temperature:wxNum(c.temperature_2m),feels:wxNum(c.apparent_temperature),wind:wxNum(c.wind_speed_10m),precip:wxNum(c.precipitation),code:c.weather_code,day:c.is_day!==0,stamp:c.time.replace('T',' '),tomorrow:{date:q.time[1],min:wxNum(q.temperature_2m_min[1]),max:wxNum(q.temperature_2m_max[1]),prob:wxNum(q.precipitation_probability_max[1]),sum:wxNum(q.precipitation_sum[1]),code:q.weather_code[1]}}}
+function wxConditionText(d){if(d.code===null||d.code===undefined)return t('Estado do céu não disponível','Sky condition unavailable');return wxCondition(d.code)}
+function renderWeather(){
+ const root=$('weatherRows');if(!root)return;root.replaceChildren();$('wxCanada').setAttribute('aria-pressed',String(wxPage===0));$('wxPortugal').setAttribute('aria-pressed',String(wxPage===1));
+ const cities=wxPage===0?weatherCities.slice(0,1):weatherCities.slice(1);
+ const line=(title,value,detail,code,day=true)=>{let r=document.createElement('div');r.className='wx-row';let copy=document.createElement('div');copy.className='wx-copy';for(const [tag,cls,txt] of [['strong','',title],['div','wx-value',value],['div','wx-detail',detail]]){let n=document.createElement(tag);n.className=cls;n.textContent=txt;copy.append(n)}r.append(copy);if(Number.isFinite(code))r.append(wxIcon(code,day));root.append(r)};
+ const temp=v=>Number.isFinite(v)?Math.round(v)+'°C':'—';
+ const num=(v,unit)=>Number.isFinite(v)?Math.round(v*10)/10+unit:'—';
+ const sources=new Set();
+ for(const city of cities){
+  const d=wxData[city.name],name=city.name==='Lisboa'?t('Lisboa','Lisbon'):city.name;
+  if(!d){line(name,'—',wxLoading?t('A carregar...','Loading...'):t('Dados indisponíveis','Data unavailable'));continue}
+  sources.add(d.source);const q=d.tomorrow;
+  const clock=wxFmtTime(d.observed,city.tz)||d.stamp||'';
+  const sourceName=d.source==='canada'?'Environment Canada':d.source==='ipma'?'IPMA':'Open-Meteo';
+  const current=[d.forecastIcon?t('Previsão de hoje: ','Today forecast: ')+wxConditionText(d):wxConditionText(d)];
+  if(Number.isFinite(d.feels))current.push(t('Sensação','Feels like')+' '+temp(d.feels));
+  if(Number.isFinite(d.wind))current.push(t('Vento','Wind')+' '+num(d.wind,' km/h'));
+  if(Number.isFinite(d.precip))current.push(t(d.source==='ipma'?'Precip. última hora':'Precip.','Precip. '+(d.source==='ipma'?'last hour':''))+' '+num(d.precip,' mm'));
+  if(clock)current.push(t(d.source==='fallback'?'Modelo':'Observação',d.source==='fallback'?'Model':'Observed')+' '+clock);
+  if(d.station)current.push(d.station);
+  if(d.source==='fallback')current.push(t('Estimativa Open-Meteo','Open-Meteo estimate'));
+  const tomorrow=[wxConditionText(q),t('Prob. precip.','Precip. chance')+' '+num(q.prob,'%')];
+  if(Number.isFinite(q.sum))tomorrow.push(num(q.sum,' mm'));
+  const range=temp(q.min)+' / '+temp(q.max);
+  if(wxPage===0){line(name+' · '+t('Agora','Now'),temp(d.temperature),current.join(' · '),d.code,d.day);line(t('Amanhã','Tomorrow')+' · '+q.date,range,tomorrow.join(' · '),q.code,true)}
+  else{line(name+' · '+t('Agora','Now'),temp(d.temperature),current.join(' · ')+' | '+t('Amanhã','Tomorrow')+': '+range+' · '+tomorrow.join(' · '),d.code,d.day)}
+ }
+ const status=$('weatherStatus');status.removeAttribute('data-pt');status.removeAttribute('data-en');status.textContent=wxLoading?t('A obter dados meteorológicos...','Loading weather data...'):t('Atualização automática · horários locais','Automatic refresh · local times')+(sources.has('fallback')?t(' · Fonte oficial indisponível: estimativa alternativa',' · Official source unavailable: alternative estimate'):'');
+ const credit=$('wxSource');if(credit){credit.replaceChildren();const links=wxPage===0?[['Environment Canada','https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383']]:[['IPMA','https://www.ipma.pt/']];if(sources.has('fallback'))links.push(['Open-Meteo','https://open-meteo.com/']);links.forEach(([label,url],i)=>{if(i)credit.append(document.createTextNode(' · '));const a=document.createElement('a');a.className='wx-credit';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label;credit.append(a)})}
+}
+async function fallbackCity(city){const p=new URLSearchParams({latitude:city.lat,longitude:city.lon,timezone:city.tz,current:'temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,is_day',daily:'temperature_2m_min,temperature_2m_max,precipitation_probability_max,precipitation_sum,weather_code',forecast_days:'2'});const r=await fetch('https://api.open-meteo.com/v1/forecast?'+p,{cache:'no-store',signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('fallback');return readFallback(await r.json())}
+async function refreshWeather(){
+ wxLoading=true;renderWeather();
+ const fetchOfficial=async kind=>{const r=await fetch('/api/official-weather?kind='+kind,{signal:AbortSignal.timeout(18000)});if(!r.ok)throw Error('official');return r.json()};
+ await Promise.allSettled([async()=>{try{wxData.Toronto=readCanada((await fetchOfficial('toronto')).xml)}catch(e){try{wxData.Toronto=await fallbackCity(weatherCities[0])}catch(e){delete wxData.Toronto}}},async()=>{let rows=[];try{rows=(await fetchOfficial('portugal')).cities}catch(e){}await Promise.allSettled(weatherCities.slice(1).map(async(city,i)=>{try{wxData[city.name]=readPortugal(rows[i],city)}catch(e){try{wxData[city.name]=await fallbackCity(city)}catch(e){delete wxData[city.name]}}}))}].map(fn=>fn()));
+ wxLoading=false;renderWeather();
+}
+function chooseWeather(page){wxPage=page;renderWeather();clearInterval(wxTimer);wxTimer=setInterval(()=>{wxPage=1-wxPage;renderWeather()},10000)}$('wxCanada').addEventListener('click',()=>chooseWeather(0));$('wxPortugal').addEventListener('click',()=>chooseWeather(1));chooseWeather(0);refreshWeather();setInterval(refreshWeather,900000);
 document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
 })();
 </script>
