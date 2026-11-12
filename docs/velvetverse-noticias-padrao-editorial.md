@@ -5,7 +5,7 @@ Atualizado em 11 de novembro de 2026.
 ## Formato obrigatório
 
 - A página principal apresenta títulos e resumos breves; cada artigo aberto contém uma notícia completa, em português de Portugal e inglês.
-- Notícias principais: referência de 400–700 palavras; secundárias: 250–400 palavras, quando as fontes permitem. A extensão é uma orientação, não uma quota: nunca inventar factos, repetir parágrafos ou acrescentar generalidades para atingir um número. Se não houver informação suficiente, pesquisar fontes adicionais ou escolher outra notícia.
+- SEM LIMITES DE PALAVRAS: não estabelecer mínimos, máximos ou metas de extensão. Todas as notícias devem ser completas e aprofundadas, cobrindo todos os factos relevantes disponíveis, mesmo que sejam necessárias 5.000 palavras ou mais. Investigar fontes adicionais, antecedentes, cronologia, declarações, dados, consequências e desenvolvimentos recentes sempre que pertinentes. Não omitir informação relevante para encurtar o artigo; não inventar factos nem repetir conteúdo para o alongar. Escrever uma síntese jornalística original, sem reproduzir integralmente textos de terceiros.
 - Desenvolver o acontecimento, protagonistas, local, data, antecedentes relevantes, dados concretos, consequências e próximos passos. Distinguir factos, declarações, previsões e incerteza.
 - Desporto: resultados, classificações e próximos jogos/provas quando pertinentes, devidamente confirmados. Não apresentar previsões como resultados.
 - Verificar cada fonte e URL, data do acontecimento e publicação. Não atribuir horas fictícias nem atualizar a data de notícias antigas sem novos factos.
