@@ -137,29 +137,36 @@ body.mockup-assets-ready .banner-credits{display:none}
 @media(prefers-reduced-motion:reduce){.wx-icon *{animation:none!important}.wx-icon .wx-drop,.wx-icon .wx-flake{opacity:1}}
 @media(max-width:690px){.wx-icon{width:60px;height:60px;flex-basis:60px}}
 .vv-weather{min-width:0}.wx-tabs{display:flex;gap:6px;margin:12px 0}.wx-tabs button{flex:1;border:1px solid #555064;border-radius:7px;background:transparent;color:#ddd;padding:7px 4px;cursor:pointer;font-size:12px}.wx-tabs button[aria-pressed=true]{border-color:#c27cf1;background:#39274a;color:#fff}.wx-row{padding:12px 0;border-top:1px solid #414353}.wx-row strong{font-size:15px;display:block}.wx-value{font-weight:700;color:#e7b9ff;font-size:21px;margin:4px 0}.wx-detail{font-size:12px;color:#ddd;line-height:1.6}.wx-status{font-size:11px;color:#b7bac8;margin:10px 0}.vv-weather .wx-credit{display:inline;padding:0;border:0;font-size:11px;color:#d5a4f7;text-decoration:underline}.wx-row:last-child{padding-bottom:5px}</style><style id="vv-weather-stable-layout">
-/* Stable, compact editorial lead and weather panel: switching regions never changes page height. */
+/* Equal, stable panel height; all three Portuguese cities visible without scrolling. */
 .editorial-top{align-items:stretch}
-.editorial-top .editorial-feature,.editorial-top .vv-weather{box-sizing:border-box;height:370px;min-height:370px}
-.editorial-top .editorial-feature .feature-body{max-width:65%;padding:21px 24px 24px}
-.editorial-top .editorial-feature h2{font-size:clamp(24px,2.2vw,32px);line-height:1.12;margin:10px 0}
-.editorial-top .editorial-feature p{font-size:13px;line-height:1.42;margin:8px 0}
+.editorial-top .editorial-feature,.editorial-top .vv-weather{box-sizing:border-box;height:440px;min-height:440px}
+.editorial-top .editorial-feature .feature-body{max-width:65%;padding:24px 27px 24px}
+.editorial-top .editorial-feature h2{font-size:clamp(26px,2.4vw,35px);line-height:1.12;margin:12px 0}
+.editorial-top .editorial-feature p{font-size:14px;line-height:1.46;margin:9px 0}
 .editorial-top .editorial-feature .hero-meta{margin:8px 0}
-.editorial-top .editorial-feature .read{margin-top:4px;padding:7px 13px}
-.editorial-top .vv-weather{display:flex;flex-direction:column;overflow:hidden;padding:12px 14px}
-.vv-weather h2{font-size:19px;margin:0 0 4px;flex:none}
-.vv-weather .wx-tabs{margin:6px 0 8px;flex:none}
-.vv-weather .wx-tabs button{padding:5px 4px}
-#weatherRows{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#74528d transparent}
-.vv-weather .wx-row{padding:7px 0;gap:7px;min-height:0}
+.editorial-top .editorial-feature .read{margin-top:5px;padding:8px 14px}
+.editorial-top .vv-weather{display:flex;flex-direction:column;padding:13px 14px;overflow:visible}
+.vv-weather h2{font-size:20px;margin:0 0 4px;flex:none}
+.vv-weather .wx-tabs{margin:7px 0 9px;flex:none}
+.vv-weather .wx-tabs button{padding:6px 4px}
+#weatherRows{flex:1;min-height:0;display:grid;align-content:start;overflow:visible}
+#weatherRows[data-region="portugal"]{grid-template-rows:repeat(3,minmax(0,1fr))}
+#weatherRows[data-region="toronto"]{grid-template-rows:repeat(2,minmax(0,1fr))}
+.vv-weather .wx-row{padding:7px 0;gap:6px;min-height:0;align-items:center}
+.vv-weather .wx-copy{min-width:0}
 .vv-weather .wx-row strong{font-size:13px;line-height:1.2}
-.vv-weather .wx-value{font-size:18px;line-height:1.15;margin:3px 0}
-.vv-weather .wx-detail{font-size:11px;line-height:1.35;overflow-wrap:anywhere}
-.vv-weather .wx-icon{width:50px;height:50px;flex:0 0 50px}
+.vv-weather .wx-value{font-size:18px;line-height:1.15;margin:2px 0}
+.vv-weather .wx-detail{font-size:11px;line-height:1.38;overflow-wrap:anywhere}
+.vv-weather .wx-icon{width:47px;height:47px;flex:0 0 47px}
+#weatherRows[data-region="portugal"] .wx-copy{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:5px;align-items:baseline}
+#weatherRows[data-region="portugal"] .wx-value{margin:0;font-size:18px;white-space:nowrap}
+#weatherRows[data-region="portugal"] .wx-detail{grid-column:1/-1;margin-top:3px}
+#weatherRows[data-region="portugal"] .wx-detail span{display:block}
 .vv-weather .wx-status{font-size:10px;line-height:1.25;margin:6px 0 3px;flex:none}
 .vv-weather #wxSource{font-size:10px;line-height:1.25;flex:none}
 .vv-weather .wx-credit{font-size:10px}
-@media(max-width:1020px) and (min-width:691px){.editorial-top .editorial-feature .feature-body{max-width:78%;padding:18px}.editorial-top .editorial-feature h2{font-size:27px}}
-@media(max-width:690px){.editorial-top .editorial-feature{height:auto;min-height:0}.editorial-top .editorial-feature .feature-body{max-width:93%;padding:20px 18px 30px}.editorial-top .editorial-feature h2{font-size:28px}.editorial-top .vv-weather{height:370px;min-height:370px}}
+@media(max-width:1020px) and (min-width:691px){.editorial-top .editorial-feature .feature-body{max-width:78%;padding:18px}.editorial-top .editorial-feature h2{font-size:27px}.editorial-top .editorial-feature,.editorial-top .vv-weather{height:465px;min-height:465px}}
+@media(max-width:690px){.editorial-top .editorial-feature{height:auto;min-height:0}.editorial-top .editorial-feature .feature-body{max-width:93%;padding:20px 18px 30px}.editorial-top .editorial-feature h2{font-size:28px}.editorial-top .vv-weather{height:440px;min-height:440px}}
 </style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio">
@@ -322,9 +329,9 @@ function readPortugal(row,city){
 function readFallback(d){const c=d.current,q=d.daily;if(!c||!q)throw Error('No fallback forecast');return{source:'fallback',temperature:wxNum(c.temperature_2m),feels:wxNum(c.apparent_temperature),wind:wxNum(c.wind_speed_10m),precip:wxNum(c.precipitation),code:c.weather_code,day:c.is_day!==0,stamp:c.time.replace('T',' '),tomorrow:{date:q.time[1],min:wxNum(q.temperature_2m_min[1]),max:wxNum(q.temperature_2m_max[1]),prob:wxNum(q.precipitation_probability_max[1]),sum:wxNum(q.precipitation_sum[1]),code:q.weather_code[1]}}}
 function wxConditionText(d){if(d.code===null||d.code===undefined)return t('Estado do céu não disponível','Sky condition unavailable');return wxCondition(d.code)}
 function renderWeather(){
- const root=$('weatherRows');if(!root)return;root.replaceChildren();$('wxCanada').setAttribute('aria-pressed',String(wxPage===0));$('wxPortugal').setAttribute('aria-pressed',String(wxPage===1));
+ const root=$('weatherRows');if(!root)return;root.replaceChildren();root.dataset.region=wxPage===0?'toronto':'portugal';$('wxCanada').setAttribute('aria-pressed',String(wxPage===0));$('wxPortugal').setAttribute('aria-pressed',String(wxPage===1));
  const cities=wxPage===0?weatherCities.slice(0,1):weatherCities.slice(1);
- const line=(title,value,detail,code,day=true)=>{let r=document.createElement('div');r.className='wx-row';let copy=document.createElement('div');copy.className='wx-copy';for(const [tag,cls,txt] of [['strong','',title],['div','wx-value',value],['div','wx-detail',detail]]){let n=document.createElement(tag);n.className=cls;n.textContent=txt;copy.append(n)}r.append(copy);if(Number.isFinite(code))r.append(wxIcon(code,day));root.append(r)};
+ const line=(title,value,detail,code,day=true)=>{let r=document.createElement('div');r.className='wx-row';let copy=document.createElement('div');copy.className='wx-copy';for(const [tag,cls,txt] of [['strong','',title],['div','wx-value',value],['div','wx-detail',detail]]){let n=document.createElement(tag);n.className=cls;if(Array.isArray(txt)){for(const lineText of txt){const part=document.createElement('span');part.textContent=lineText;n.append(part)}}else{n.textContent=txt}copy.append(n)}r.append(copy);if(Number.isFinite(code))r.append(wxIcon(code,day));root.append(r)};
  const temp=v=>Number.isFinite(v)?Math.round(v)+'°C':'—';
  const num=(v,unit)=>Number.isFinite(v)?Math.round(v*10)/10+unit:'—';
  const sources=new Set();
@@ -345,7 +352,7 @@ function renderWeather(){
   if(Number.isFinite(q.sum))tomorrow.push(num(q.sum,' mm'));
   const range=temp(q.min)+' / '+temp(q.max);
   if(wxPage===0){line(name+' · '+t('Agora','Now'),temp(d.temperature),current.join(' · '),d.code,d.day);line(t('Amanhã','Tomorrow')+' · '+q.date,range,tomorrow.join(' · '),q.code,true)}
-  else{line(name+' · '+t('Agora','Now'),temp(d.temperature),current.join(' · ')+' | '+t('Amanhã','Tomorrow')+': '+range+' · '+tomorrow.join(' · '),d.code,d.day)}
+  else{const compact=[(d.forecastIcon?t('Prev. hoje: ','Today forecast: '):'')+wxConditionText(d)+(Number.isFinite(d.wind)?' · '+t('Vento','Wind')+' '+num(d.wind,' km/h'):''),[Number.isFinite(d.precip)?t('Precip.','Precip.')+' '+num(d.precip,' mm'):'',clock?(d.source==='fallback'?t('Modelo','Model'):t('Obs.','Obs.'))+' '+clock:'',d.source==='fallback'?'Open-Meteo':''].filter(Boolean).join(' · '),t('Amanhã','Tomorrow')+': '+range+' · '+num(q.prob,'%')+' '+t('precip.','precip.')];line(name+' · '+t('Agora','Now'),temp(d.temperature),compact.filter(Boolean),d.code,d.day);const last=root.lastElementChild;if(last&&d.station)last.title=t('Estação: ','Station: ')+d.station}
  }
  const status=$('weatherStatus');status.removeAttribute('data-pt');status.removeAttribute('data-en');status.textContent=wxLoading?t('A obter dados meteorológicos...','Loading weather data...'):t('Atualização automática · horários locais','Automatic refresh · local times')+(sources.has('fallback')?t(' · Fonte oficial indisponível: estimativa alternativa',' · Official source unavailable: alternative estimate'):'');
  const credit=$('wxSource');if(credit){credit.replaceChildren();const links=wxPage===0?[['Environment Canada','https://weather.gc.ca/en/location/index.html?coords=43.655,-79.383']]:[['IPMA','https://www.ipma.pt/']];if(sources.has('fallback'))links.push(['Open-Meteo','https://open-meteo.com/']);links.forEach(([label,url],i)=>{if(i)credit.append(document.createTextNode(' · '));const a=document.createElement('a');a.className='wx-credit';a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=label;credit.append(a)})}
