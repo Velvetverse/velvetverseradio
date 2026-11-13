@@ -1,0 +1,96 @@
+{
+  "before_home": {
+    "path": "index.html",
+    "requests": 35,
+    "image_bytes": 66044983,
+    "missing": []
+  },
+  "after_home": {
+    "path": "index.html",
+    "requests": 23,
+    "image_bytes": 4491435,
+    "missing": []
+  },
+  "pages": [
+    {
+      "path": "index.html",
+      "requests": 23,
+      "image_bytes": 4491435,
+      "missing": []
+    },
+    {
+      "path": "noticias.html",
+      "requests": 8,
+      "image_bytes": 189238,
+      "missing": []
+    },
+    {
+      "path": "schedule-oficial-embed.html",
+      "requests": 8,
+      "image_bytes": 1510184,
+      "missing": []
+    },
+    {
+      "path": "player.html",
+      "requests": 4,
+      "image_bytes": 365116,
+      "missing": []
+    },
+    {
+      "path": "radio-app/index.html",
+      "requests": 2,
+      "image_bytes": 175632,
+      "missing": []
+    },
+    {
+      "path": "backstage-legends.html",
+      "requests": 14,
+      "image_bytes": 3306438,
+      "missing": []
+    },
+    {
+      "path": "brasil-de-norte-a-sul.html",
+      "requests": 6,
+      "image_bytes": 2411744,
+      "missing": []
+    },
+    {
+      "path": "e-se.html",
+      "requests": 6,
+      "image_bytes": 1002603,
+      "missing": []
+    },
+    {
+      "path": "um-futuro-proximo.html",
+      "requests": 6,
+      "image_bytes": 719992,
+      "missing": []
+    },
+    {
+      "path": "arquivos-do-inexplicavel.html",
+      "requests": 6,
+      "image_bytes": 1084519,
+      "missing": []
+    },
+    {
+      "path": "inside-velvetverse.html",
+      "requests": 4,
+      "image_bytes": 427640,
+      "missing": []
+    },
+    {
+      "path": "discos-pedidos.html",
+      "requests": 2,
+      "image_bytes": 197626,
+      "missing": []
+    },
+    {
+      "path": "top-5-latino.html",
+      "requests": 2,
+      "image_bytes": 99784,
+      "missing": []
+    }
+  ],
+  "display_logo_bytes_before": 764073,
+  "display_logo_bytes_after": 12202
+}

@@ -1,0 +1,43 @@
+name: Site image optimization (review branch)
+on:
+  push:
+    branches: [perf/optimize-site-20261112]
+    paths:
+      - '.github/workflows/site-image-optimization.yml'
+      - 'scripts/optimize-site-images.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0
+      - name: Optimize images and references
+        run: python scripts/optimize-site-images.py
+      - name: Review changes
+        run: |
+          git diff --stat
+          python - <<'PY'
+          import json
+          r=json.load(open('docs/site-image-optimization-report.json'))
+          print('Images optimized:',r['images_optimized'])
+          print('Original bytes:',r['original_bytes'])
+          print('Optimized bytes:',r['optimized_bytes'])
+          assert r['optimized_bytes'] < r['original_bytes']
+          PY
+      - name: Commit only to review branch
+        run: |
+          test "$GITHUB_REF_NAME" = "perf/optimize-site-20261112"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git diff --cached --quiet && exit 0
+          git commit -m "Optimize site images and local references for review"
+          git push origin HEAD:refs/heads/perf/optimize-site-20261112

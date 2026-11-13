@@ -120,15 +120,15 @@ body.vv-embedded .edition-home{background:transparent}
 @media(max-width:690px){.edition-word{display:none}.editorial-top{display:block}.editorial-feature{min-height:340px}.editorial-feature .feature-body{max-width:85%;padding:23px 21px 40px}.editorial-feature .hero-overlay{background:linear-gradient(90deg,#090c18f2,rgba(8,12,22,.62) 78%,rgba(8,12,22,.18))}.editorial-latest{margin-top:14px}.editorial-columns{display:block}.editorial-pane{margin:14px 0}.category-banner{height:132px}.editorial-feature h2{font-size:30px}}
 
 /* Imagens EXACTAS recortadas do mockup aprovado — ativadas após upload */
-body.mockup-assets-ready .banner-pt{background-image:url('banner-portugal.png');}
-body.mockup-assets-ready .banner-football{background-image:url('banner-futebol.png');}
-body.mockup-assets-ready .banner-ca{background-image:url('banner-canada.png');}
-body.mockup-assets-ready .banner-world{background-image:url('banner-mundo.png');}
-body.mockup-assets-ready .banner-motor{background-image:url('banner-motores.png');}
+body.mockup-assets-ready .banner-pt{background-image:url('banner-portugal.png.webp');}
+body.mockup-assets-ready .banner-football{background-image:url('banner-futebol.png.webp');}
+body.mockup-assets-ready .banner-ca{background-image:url('banner-canada.png.webp');}
+body.mockup-assets-ready .banner-world{background-image:url('banner-mundo.png.webp');}
+body.mockup-assets-ready .banner-motor{background-image:url('banner-motores.png.webp');}
 body.mockup-assets-ready .category-banner{background-size:100% 100%;background-position:center;background-repeat:no-repeat}
 body.mockup-assets-ready .category-banner::before{display:none}
 body.mockup-assets-ready .category-banner h2{visibility:hidden}
-body.mockup-assets-ready .editorial-feature .hero-visual{background-image:url('destaque-mar.png');background-size:cover;background-position:center right}
+body.mockup-assets-ready .editorial-feature .hero-visual{background-image:url('destaque-mar.png.webp');background-size:cover;background-position:center right}
 body.mockup-assets-ready .hero-disclosure{display:none}
 body.mockup-assets-ready .banner-credits{display:none}
 </style><style id="vv-weather-css">
@@ -167,8 +167,8 @@ body.mockup-assets-ready .banner-credits{display:none}
 .vv-weather .wx-credit{font-size:10px}
 @media(max-width:1020px) and (min-width:691px){.editorial-top .editorial-feature .feature-body{max-width:78%;padding:18px}.editorial-top .editorial-feature h2{font-size:27px}.editorial-top .editorial-feature,.editorial-top .vv-weather{height:465px;min-height:465px}}
 @media(max-width:690px){.editorial-top .editorial-feature{height:auto;min-height:0}.editorial-top .editorial-feature .feature-body{max-width:93%;padding:20px 18px 30px}.editorial-top .editorial-feature h2{font-size:28px}.editorial-top .vv-weather{height:440px;min-height:440px}}
-</style><style>body .editorial-feature.vv-lead-no-approved-image .hero-visual{background-image:url('destaque-nvidia.png'),linear-gradient(120deg,#101522,#20283b 70%,#203c34)!important;background-size:cover;background-position:center right}</style></head><body>
-<header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
+</style><style>body .editorial-feature.vv-lead-no-approved-image .hero-visual{background-image:url('destaque-nvidia.png.webp'),linear-gradient(120deg,#101522,#20283b 70%,#203c34)!important;background-size:cover;background-position:center right}</style></head><body>
+<header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png.webp" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio">
 <section id="newsHome" class="edition-home">
   <div class="headline edition-heading">
@@ -231,7 +231,7 @@ const stories=[{"id":"nvidia-saida-huang","category":"world","date":"2026-11-12"
 let lang='pt',filter='all',active=null;const $=id=>document.getElementById(id);
 const t=(pt,en)=>lang==='pt'?pt:en;const newsText=(s,field)=>lang==='en'?(s[field+'En']||s[field]):s[field];
 const labels={football:['Futebol Português','Portuguese Football'],portugal:['Portugal','Portugal'],world:['Mundo','World'],canada:['Canadá','Canada'],motorsport:['Desporto Motorizado','Motorsport']};
-function imageUrl(name){return ['Portugal.jpg','Tempestade-Charles.png'].includes(name)?name:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(name)+'?width=900'}
+function imageUrl(name){return ['Portugal.jpg.webp','Tempestade-Charles.png'].includes(name)?name:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(name)+'?width=900'}
 function imageFile(s,small=false){const el=document.createElement('div');el.className='art'+(s.photo?' has-photo':'')+(small?' art-sm':'');if(!s.photo){const label=document.createElement('span');label.className='photo-mark';label.textContent=t('Sem fotografia autorizada do acontecimento','No licensed event photo');const badge=document.createElement('strong');badge.textContent=s.icon;el.append(badge,label);return el;}const img=document.createElement('img');img.src=imageUrl(s.photo);img.alt=s.photoLabel;img.title=s.photoLabel;img.loading=small?'lazy':'eager';img.referrerPolicy='no-referrer';img.onerror=()=>{img.remove();el.classList.remove('has-photo');if(el.classList.contains('article-photo')){el.closest('.article-layout')?.classList.add('no-photo');el.closest('.article-media')?.replaceChildren()}else if(el.closest('.story')){const card=el.closest('.story');card.classList.add('no-photo');el.remove()}else if(el.closest('#featuredImage')){el.closest('#featuredImage').style.display='none';el.closest('.feature')?.classList.add('no-photo')}else{el.remove()}};el.append(img);return el}
 function draw(){document.documentElement.lang=lang;document.querySelectorAll('[data-pt][data-en]').forEach(n=>n.textContent=n.dataset[lang]);document.querySelectorAll('[data-lang]').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.lang===lang)));
  const lead=stories[0];
@@ -395,7 +395,7 @@ document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',(
 })();
 </script><script id="vv-approved-mockup-assets">
 (function(){
- const names=['banner-portugal.png','banner-futebol.png','banner-canada.png','banner-mundo.png','banner-motores.png','destaque-mar.png'];
+ const names=['banner-portugal.png.webp','banner-futebol.png.webp','banner-canada.png.webp','banner-mundo.png.webp','banner-motores.png.webp','destaque-mar.png.webp'];
  Promise.all(names.map(name=>new Promise((resolve,reject)=>{
  const img=new Image();img.onload=()=>resolve(true);img.onerror=()=>reject(name);img.src=name;
  }))).then(()=>document.body.classList.add('mockup-assets-ready')).catch(()=>{});

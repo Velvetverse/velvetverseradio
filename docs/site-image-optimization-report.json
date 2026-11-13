@@ -1,0 +1,1293 @@
+{
+  "images_examined": 230,
+  "images_optimized": 210,
+  "original_bytes": 254819606,
+  "optimized_bytes": 25180484,
+  "files_updated": [
+    "app/index.html",
+    "arquivos-do-inexplicavel.html",
+    "backstage-legends.html",
+    "brasil-de-norte-a-sul.html",
+    "discos-pedidos.html",
+    "e-se.html",
+    "home-new.html",
+    "index.html",
+    "inside-velvetverse.html",
+    "noticias.html",
+    "player.html",
+    "privacy-es.html",
+    "privacy-fr.html",
+    "privacy-pt.html",
+    "privacy.html",
+    "radio-app/index.html",
+    "schedule-oficial-embed.html",
+    "terms-es.html",
+    "terms-fr.html",
+    "terms-pt.html",
+    "terms.html",
+    "top-5-latino.html",
+    "um-futuro-proximo.html"
+  ],
+  "images": [
+    {
+      "original": "01-electric-soul-company.jpg",
+      "optimized": "01-electric-soul-company.jpg.webp",
+      "before": 7523159,
+      "after": 366068
+    },
+    {
+      "original": "02-long-haul-paul.jpg",
+      "optimized": "02-long-haul-paul.jpg.webp",
+      "before": 1064179,
+      "after": 877584
+    },
+    {
+      "original": "03-kate-greenland.jpg",
+      "optimized": "03-kate-greenland.jpg.webp",
+      "before": 3986976,
+      "after": 131394
+    },
+    {
+      "original": "04-josey-reinhardt.png",
+      "optimized": "04-josey-reinhardt.png.webp",
+      "before": 2301434,
+      "after": 160316
+    },
+    {
+      "original": "05-tia-mcgraff.jpg",
+      "optimized": "05-tia-mcgraff.jpg.webp",
+      "before": 460561,
+      "after": 282208
+    },
+    {
+      "original": "06-rebecca-jimenez.jpg",
+      "optimized": "06-rebecca-jimenez.jpg.webp",
+      "before": 169565,
+      "after": 31058
+    },
+    {
+      "original": "07-joshua-sterling.jpg",
+      "optimized": "07-joshua-sterling.jpg.webp",
+      "before": 1994641,
+      "after": 268646
+    },
+    {
+      "original": "08-gerry-reid-1.jpg",
+      "optimized": "08-gerry-reid-1.jpg.webp",
+      "before": 52444,
+      "after": 19904
+    },
+    {
+      "original": "08-gerry-reid.jpg",
+      "optimized": "08-gerry-reid.jpg.webp",
+      "before": 46034,
+      "after": 27014
+    },
+    {
+      "original": "09-lisa-haley-zydekats.jpg",
+      "optimized": "09-lisa-haley-zydekats.jpg.webp",
+      "before": 243603,
+      "after": 49770
+    },
+    {
+      "original": "10-vitor-cunha.jpg",
+      "optimized": "10-vitor-cunha.jpg.webp",
+      "before": 126782,
+      "after": 13380
+    },
+    {
+      "original": "11-faithfull.jpg",
+      "optimized": "11-faithfull.jpg.webp",
+      "before": 1774558,
+      "after": 281534
+    },
+    {
+      "original": "AC-DC Cover.png",
+      "optimized": "AC-DC Cover.png.webp",
+      "before": 2624427,
+      "after": 309686
+    },
+    {
+      "original": "Bau de Historias logo.png",
+      "optimized": "Bau de Historias logo.png.webp",
+      "before": 2284073,
+      "after": 235618
+    },
+    {
+      "original": "Beto.png",
+      "optimized": "Beto.png.webp",
+      "before": 2187925,
+      "after": 207816
+    },
+    {
+      "original": "Bonnie Tyler Cover.png",
+      "optimized": "Bonnie Tyler Cover.png.webp",
+      "before": 2441409,
+      "after": 297702
+    },
+    {
+      "original": "Carlos.png",
+      "optimized": "Carlos.png.webp",
+      "before": 2185910,
+      "after": 196860
+    },
+    {
+      "original": "ChatGPT Image Nov 2, 2026, 01_50_32 PM-1.png",
+      "optimized": "ChatGPT Image Nov 2, 2026, 01_50_32 PM-1.png.webp",
+      "before": 2614870,
+      "after": 275690
+    },
+    {
+      "original": "ChatGPT Image Nov 2, 2026, 01_50_33 PM-2.png",
+      "optimized": "ChatGPT Image Nov 2, 2026, 01_50_33 PM-2.png.webp",
+      "before": 2638976,
+      "after": 285680
+    },
+    {
+      "original": "ChatGPT Image Nov 2, 2026, 01_50_34 PM-3.png",
+      "optimized": "ChatGPT Image Nov 2, 2026, 01_50_34 PM-3.png.webp",
+      "before": 2666496,
+      "after": 292796
+    },
+    {
+      "original": "ChatGPT Image Nov 2, 2026, 01_50_35 PM-4.png",
+      "optimized": "ChatGPT Image Nov 2, 2026, 01_50_35 PM-4.png.webp",
+      "before": 2733455,
+      "after": 288700
+    },
+    {
+      "original": "Discos Pedidos Neon Radio Show.png",
+      "optimized": "Discos Pedidos Neon Radio Show.png.webp",
+      "before": 2210268,
+      "after": 174632
+    },
+    {
+      "original": "LARA.png",
+      "optimized": "LARA.png.webp",
+      "before": 2181483,
+      "after": 218518
+    },
+    {
+      "original": "Midnight Flow.png",
+      "optimized": "Midnight Flow.png.webp",
+      "before": 1915309,
+      "after": 179026
+    },
+    {
+      "original": "Moody Music Rehearsal Photo Collage.png",
+      "optimized": "Moody Music Rehearsal Photo Collage.png.webp",
+      "before": 2487820,
+      "after": 224506
+    },
+    {
+      "original": "NOIA.png",
+      "optimized": "NOIA.png.webp",
+      "before": 1752764,
+      "after": 133076
+    },
+    {
+      "original": "Open Stage_ Novos Talentos.png",
+      "optimized": "Open Stage_ Novos Talentos.png.webp",
+      "before": 2344641,
+      "after": 226038
+    },
+    {
+      "original": "Portugal.jpg",
+      "optimized": "Portugal.jpg.webp",
+      "before": 479877,
+      "after": 366158
+    },
+    {
+      "original": "Queen- Episodio 08.png",
+      "optimized": "Queen- Episodio 08.png.webp",
+      "before": 2501722,
+      "after": 284906
+    },
+    {
+      "original": "Rui Freitas.png",
+      "optimized": "Rui Freitas.png.webp",
+      "before": 2304297,
+      "after": 226188
+    },
+    {
+      "original": "Suzy.png",
+      "optimized": "Suzy.png.webp",
+      "before": 1956817,
+      "after": 182998
+    },
+    {
+      "original": "Top 5 Latino.png",
+      "optimized": "Top 5 Latino.png.webp",
+      "before": 2284636,
+      "after": 229278
+    },
+    {
+      "original": "Velvet After Dark.png",
+      "optimized": "Velvet After Dark.png.webp",
+      "before": 2027526,
+      "after": 165702
+    },
+    {
+      "original": "adrian.png",
+      "optimized": "adrian.png.webp",
+      "before": 2195286,
+      "after": 148952
+    },
+    {
+      "original": "arquivos-do-inexplicavel-logo.png",
+      "optimized": "arquivos-do-inexplicavel-logo.png.webp",
+      "before": 2368599,
+      "after": 248162
+    },
+    {
+      "original": "arquivos-ep01-hinterkaifeck.jpg",
+      "optimized": "arquivos-ep01-hinterkaifeck.jpg.webp",
+      "before": 205848,
+      "after": 76702
+    },
+    {
+      "original": "arquivos-ep02-pontefract.jpg",
+      "optimized": "arquivos-ep02-pontefract.jpg.webp",
+      "before": 1711102,
+      "after": 539590
+    },
+    {
+      "original": "arquivos-ep04-hessdalen.png",
+      "optimized": "arquivos-ep04-hessdalen.png.webp",
+      "before": 647540,
+      "after": 41678
+    },
+    {
+      "original": "backstage-button.png",
+      "optimized": "backstage-button.png.webp",
+      "before": 67134,
+      "after": 50792
+    },
+    {
+      "original": "backstage-legends-dire-straits.png",
+      "optimized": "backstage-legends-dire-straits.png.webp",
+      "before": 2151115,
+      "after": 237668
+    },
+    {
+      "original": "backstage-legends-logo.png",
+      "optimized": "backstage-legends-logo.png.webp",
+      "before": 1660858,
+      "after": 173884
+    },
+    {
+      "original": "backstage-legends-scorpions-part1.png",
+      "optimized": "backstage-legends-scorpions-part1.png.webp",
+      "before": 2089047,
+      "after": 232336
+    },
+    {
+      "original": "backstage-legends-scorpions-part2.png",
+      "optimized": "backstage-legends-scorpions-part2.png.webp",
+      "before": 2180950,
+      "after": 240934
+    },
+    {
+      "original": "banner-canada.png",
+      "optimized": "banner-canada.png.webp",
+      "before": 80437,
+      "after": 10254
+    },
+    {
+      "original": "banner-futebol.png",
+      "optimized": "banner-futebol.png.webp",
+      "before": 95019,
+      "after": 12628
+    },
+    {
+      "original": "banner-motores.png",
+      "optimized": "banner-motores.png.webp",
+      "before": 106950,
+      "after": 15440
+    },
+    {
+      "original": "banner-mundo.png",
+      "optimized": "banner-mundo.png.webp",
+      "before": 109920,
+      "after": 16684
+    },
+    {
+      "original": "banner-portugal.png",
+      "optimized": "banner-portugal.png.webp",
+      "before": 87504,
+      "after": 12658
+    },
+    {
+      "original": "beto.png",
+      "optimized": "beto.png.webp",
+      "before": 2062588,
+      "after": 120306
+    },
+    {
+      "original": "brasil-de-norte-a-sul-logo.png",
+      "optimized": "brasil-de-norte-a-sul-logo.png.webp",
+      "before": 2275028,
+      "after": 302508
+    },
+    {
+      "original": "brasil-norte-sul-ep02-pernambuco.jpg",
+      "optimized": "brasil-norte-sul-ep02-pernambuco.jpg.webp",
+      "before": 1434537,
+      "after": 402688
+    },
+    {
+      "original": "card-e-se.png",
+      "optimized": "card-e-se.png.webp",
+      "before": 2330803,
+      "after": 260386
+    },
+    {
+      "original": "card-ritmo-latino.png",
+      "optimized": "card-ritmo-latino.png.webp",
+      "before": 1834357,
+      "after": 134694
+    },
+    {
+      "original": "card-the-sound-of-velvetverse.png",
+      "optimized": "card-the-sound-of-velvetverse.png.webp",
+      "before": 2200255,
+      "after": 211790
+    },
+    {
+      "original": "card-top-5-latino.png",
+      "optimized": "card-top-5-latino.png.webp",
+      "before": 2079855,
+      "after": 204806
+    },
+    {
+      "original": "card-um-futuro-proximo.png",
+      "optimized": "card-um-futuro-proximo.png.webp",
+      "before": 2298566,
+      "after": 270512
+    },
+    {
+      "original": "carlos.png",
+      "optimized": "carlos.png.webp",
+      "before": 2035362,
+      "after": 100184
+    },
+    {
+      "original": "covers/velvetverse/25 Anos.png",
+      "optimized": "covers/velvetverse/25 Anos.png.webp",
+      "before": 1606233,
+      "after": 90552
+    },
+    {
+      "original": "covers/velvetverse/A Ponte.png",
+      "optimized": "covers/velvetverse/A Ponte.png.webp",
+      "before": 2099592,
+      "after": 250622
+    },
+    {
+      "original": "covers/velvetverse/Amei-te demais.png",
+      "optimized": "covers/velvetverse/Amei-te demais.png.webp",
+      "before": 295968,
+      "after": 33808
+    },
+    {
+      "original": "covers/velvetverse/Amor que fica MP3 Cover.png",
+      "optimized": "covers/velvetverse/Amor que fica MP3 Cover.png.webp",
+      "before": 1767626,
+      "after": 135242
+    },
+    {
+      "original": "covers/velvetverse/Amores a muitos (Mas a minha era pior).png",
+      "optimized": "covers/velvetverse/Amores a muitos (Mas a minha era pior).png.webp",
+      "before": 1387381,
+      "after": 104838
+    },
+    {
+      "original": "covers/velvetverse/Angel Wings - capa MP3.png",
+      "optimized": "covers/velvetverse/Angel Wings - capa MP3.png.webp",
+      "before": 422337,
+      "after": 40594
+    },
+    {
+      "original": "covers/velvetverse/Apaixonado por uma E.T..png",
+      "optimized": "covers/velvetverse/Apaixonado por uma E.T..png.webp",
+      "before": 313417,
+      "after": 39186
+    },
+    {
+      "original": "covers/velvetverse/Areia Fina.png",
+      "optimized": "covers/velvetverse/Areia Fina.png.webp",
+      "before": 323945,
+      "after": 18702
+    },
+    {
+      "original": "covers/velvetverse/Autoestrada para Nenhures.png",
+      "optimized": "covers/velvetverse/Autoestrada para Nenhures.png.webp",
+      "before": 629796,
+      "after": 55118
+    },
+    {
+      "original": "covers/velvetverse/Before I Run Out of Time MP3 Cover.png",
+      "optimized": "covers/velvetverse/Before I Run Out of Time MP3 Cover.png.webp",
+      "before": 473210,
+      "after": 53502
+    },
+    {
+      "original": "covers/velvetverse/Bica Bica MP3 cover.png",
+      "optimized": "covers/velvetverse/Bica Bica MP3 cover.png.webp",
+      "before": 382498,
+      "after": 31014
+    },
+    {
+      "original": "covers/velvetverse/Bruxas e Fadas.png",
+      "optimized": "covers/velvetverse/Bruxas e Fadas.png.webp",
+      "before": 356100,
+      "after": 55026
+    },
+    {
+      "original": "covers/velvetverse/Cai Neve na Cidade.png",
+      "optimized": "covers/velvetverse/Cai Neve na Cidade.png.webp",
+      "before": 336890,
+      "after": 21696
+    },
+    {
+      "original": "covers/velvetverse/Caminho de volta MP3 cover.png",
+      "optimized": "covers/velvetverse/Caminho de volta MP3 cover.png.webp",
+      "before": 320368,
+      "after": 16648
+    },
+    {
+      "original": "covers/velvetverse/Camionista Madrugador MP3 Cover.png",
+      "optimized": "covers/velvetverse/Camionista Madrugador MP3 Cover.png.webp",
+      "before": 287020,
+      "after": 31898
+    },
+    {
+      "original": "covers/velvetverse/Canto Pra Curar o Mundo MP3 Cover.png",
+      "optimized": "covers/velvetverse/Canto Pra Curar o Mundo MP3 Cover.png.webp",
+      "before": 395477,
+      "after": 36598
+    },
+    {
+      "original": "covers/velvetverse/Careless Whisper - George Michael - VelvetVerse Band Cover.png",
+      "optimized": "covers/velvetverse/Careless Whisper - George Michael - VelvetVerse Band Cover.png.webp",
+      "before": 400381,
+      "after": 39314
+    },
+    {
+      "original": "covers/velvetverse/Cavalheiro a moda antiga.png",
+      "optimized": "covers/velvetverse/Cavalheiro a moda antiga.png.webp",
+      "before": 655866,
+      "after": 40926
+    },
+    {
+      "original": "covers/velvetverse/Chama Ancestral cover mp3..png",
+      "optimized": "covers/velvetverse/Chama Ancestral cover mp3..png.webp",
+      "before": 317634,
+      "after": 44370
+    },
+    {
+      "original": "covers/velvetverse/Chamas de Aço.png",
+      "optimized": "covers/velvetverse/Chamas de Aço.png.webp",
+      "before": 451907,
+      "after": 34984
+    },
+    {
+      "original": "covers/velvetverse/Contigo Vou à Lua - mp3 cover.png",
+      "optimized": "covers/velvetverse/Contigo Vou à Lua - mp3 cover.png.webp",
+      "before": 288450,
+      "after": 17004
+    },
+    {
+      "original": "covers/velvetverse/Coração de Viana MP3 Cover.png",
+      "optimized": "covers/velvetverse/Coração de Viana MP3 Cover.png.webp",
+      "before": 419276,
+      "after": 36636
+    },
+    {
+      "original": "covers/velvetverse/Coração que Não Volta.png",
+      "optimized": "covers/velvetverse/Coração que Não Volta.png.webp",
+      "before": 275239,
+      "after": 29282
+    },
+    {
+      "original": "covers/velvetverse/DESPAUTÉRIO MP3 Cover.png",
+      "optimized": "covers/velvetverse/DESPAUTÉRIO MP3 Cover.png.webp",
+      "before": 500448,
+      "after": 57472
+    },
+    {
+      "original": "covers/velvetverse/Dança comigo MP3 cover.png",
+      "optimized": "covers/velvetverse/Dança comigo MP3 cover.png.webp",
+      "before": 392449,
+      "after": 35000
+    },
+    {
+      "original": "covers/velvetverse/Deixa o Sol Entrar.png",
+      "optimized": "covers/velvetverse/Deixa o Sol Entrar.png.webp",
+      "before": 275196,
+      "after": 28834
+    },
+    {
+      "original": "covers/velvetverse/Deixa-me  Navegar.png",
+      "optimized": "covers/velvetverse/Deixa-me  Navegar.png.webp",
+      "before": 265431,
+      "after": 29214
+    },
+    {
+      "original": "covers/velvetverse/Diz o Povo (e Tem Razao).png",
+      "optimized": "covers/velvetverse/Diz o Povo (e Tem Razao).png.webp",
+      "before": 377582,
+      "after": 54934
+    },
+    {
+      "original": "covers/velvetverse/Diz-me Porque mp3 cover.png",
+      "optimized": "covers/velvetverse/Diz-me Porque mp3 cover.png.webp",
+      "before": 402431,
+      "after": 28244
+    },
+    {
+      "original": "covers/velvetverse/Eagles in the Fire MP3 cover.png",
+      "optimized": "covers/velvetverse/Eagles in the Fire MP3 cover.png.webp",
+      "before": 384533,
+      "after": 33546
+    },
+    {
+      "original": "covers/velvetverse/Ecos da Liberdade.png",
+      "optimized": "covers/velvetverse/Ecos da Liberdade.png.webp",
+      "before": 400442,
+      "after": 32446
+    },
+    {
+      "original": "covers/velvetverse/Ela ja nao esta MP3 cover.png",
+      "optimized": "covers/velvetverse/Ela ja nao esta MP3 cover.png.webp",
+      "before": 354316,
+      "after": 23460
+    },
+    {
+      "original": "covers/velvetverse/Entre Estrelas e Sombras.png",
+      "optimized": "covers/velvetverse/Entre Estrelas e Sombras.png.webp",
+      "before": 1445004,
+      "after": 104902
+    },
+    {
+      "original": "covers/velvetverse/Entre Nos.png",
+      "optimized": "covers/velvetverse/Entre Nos.png.webp",
+      "before": 260200,
+      "after": 32364
+    },
+    {
+      "original": "covers/velvetverse/Entre a neve e a saudade mp3 Cover.png",
+      "optimized": "covers/velvetverse/Entre a neve e a saudade mp3 Cover.png.webp",
+      "before": 448322,
+      "after": 49140
+    },
+    {
+      "original": "covers/velvetverse/Entre o Céu e a Rua MP3 Cover.png",
+      "optimized": "covers/velvetverse/Entre o Céu e a Rua MP3 Cover.png.webp",
+      "before": 320356,
+      "after": 20366
+    },
+    {
+      "original": "covers/velvetverse/Eterno em mim.png",
+      "optimized": "covers/velvetverse/Eterno em mim.png.webp",
+      "before": 2361864,
+      "after": 312462
+    },
+    {
+      "original": "covers/velvetverse/Feitos de Mil Povos mp3 cover.png",
+      "optimized": "covers/velvetverse/Feitos de Mil Povos mp3 cover.png.webp",
+      "before": 2980884,
+      "after": 403800
+    },
+    {
+      "original": "covers/velvetverse/Ferias no Quintal Suzy MP3 cover.png",
+      "optimized": "covers/velvetverse/Ferias no Quintal Suzy MP3 cover.png.webp",
+      "before": 2616136,
+      "after": 307174
+    },
+    {
+      "original": "covers/velvetverse/Fiica Mais um Pouco.png",
+      "optimized": "covers/velvetverse/Fiica Mais um Pouco.png.webp",
+      "before": 343449,
+      "after": 45832
+    },
+    {
+      "original": "covers/velvetverse/Fly High Jays.png",
+      "optimized": "covers/velvetverse/Fly High Jays.png.webp",
+      "before": 406712,
+      "after": 31598
+    },
+    {
+      "original": "covers/velvetverse/Fugir da Chuva MP3 Cover.png",
+      "optimized": "covers/velvetverse/Fugir da Chuva MP3 Cover.png.webp",
+      "before": 308191,
+      "after": 16848
+    },
+    {
+      "original": "covers/velvetverse/High Voltage mp3 cover.png",
+      "optimized": "covers/velvetverse/High Voltage mp3 cover.png.webp",
+      "before": 435686,
+      "after": 43114
+    },
+    {
+      "original": "covers/velvetverse/Highway 401 - MP3 cover.png",
+      "optimized": "covers/velvetverse/Highway 401 - MP3 cover.png.webp",
+      "before": 423863,
+      "after": 42340
+    },
+    {
+      "original": "covers/velvetverse/Kira.png",
+      "optimized": "covers/velvetverse/Kira.png.webp",
+      "before": 370584,
+      "after": 42970
+    },
+    {
+      "original": "covers/velvetverse/Lines We Walk mp3 cover.png",
+      "optimized": "covers/velvetverse/Lines We Walk mp3 cover.png.webp",
+      "before": 451077,
+      "after": 45936
+    },
+    {
+      "original": "covers/velvetverse/Lisboa, Luz e Cor.png",
+      "optimized": "covers/velvetverse/Lisboa, Luz e Cor.png.webp",
+      "before": 2218408,
+      "after": 292332
+    },
+    {
+      "original": "covers/velvetverse/Louça faladora MP3 Cover.png",
+      "optimized": "covers/velvetverse/Louça faladora MP3 Cover.png.webp",
+      "before": 415224,
+      "after": 36330
+    },
+    {
+      "original": "covers/velvetverse/Mar de Ferro MP3 Cover.png",
+      "optimized": "covers/velvetverse/Mar de Ferro MP3 Cover.png.webp",
+      "before": 304084,
+      "after": 16582
+    },
+    {
+      "original": "covers/velvetverse/Mena Minha Paixao.png",
+      "optimized": "covers/velvetverse/Mena Minha Paixao.png.webp",
+      "before": 2983588,
+      "after": 446720
+    },
+    {
+      "original": "covers/velvetverse/Mistério da Vila MP3 Cover.png",
+      "optimized": "covers/velvetverse/Mistério da Vila MP3 Cover.png.webp",
+      "before": 388001,
+      "after": 30646
+    },
+    {
+      "original": "covers/velvetverse/No Azul Do Mar.png",
+      "optimized": "covers/velvetverse/No Azul Do Mar.png.webp",
+      "before": 295017,
+      "after": 36204
+    },
+    {
+      "original": "covers/velvetverse/No Fundo do Bau Mp3 cover.png",
+      "optimized": "covers/velvetverse/No Fundo do Bau Mp3 cover.png.webp",
+      "before": 322155,
+      "after": 39220
+    },
+    {
+      "original": "covers/velvetverse/No Mesmo Ritmo.png",
+      "optimized": "covers/velvetverse/No Mesmo Ritmo.png.webp",
+      "before": 294613,
+      "after": 33174
+    },
+    {
+      "original": "covers/velvetverse/Noite de Luz MP3 Cover.png",
+      "optimized": "covers/velvetverse/Noite de Luz MP3 Cover.png.webp",
+      "before": 383490,
+      "after": 31332
+    },
+    {
+      "original": "covers/velvetverse/Noite de fumo e neon.png",
+      "optimized": "covers/velvetverse/Noite de fumo e neon.png.webp",
+      "before": 1730370,
+      "after": 121104
+    },
+    {
+      "original": "covers/velvetverse/Não Brinques Com Quem Te Ama MP3 Cover.png",
+      "optimized": "covers/velvetverse/Não Brinques Com Quem Te Ama MP3 Cover.png.webp",
+      "before": 405925,
+      "after": 38468
+    },
+    {
+      "original": "covers/velvetverse/O Amor que Não Passou.png",
+      "optimized": "covers/velvetverse/O Amor que Não Passou.png.webp",
+      "before": 345760,
+      "after": 22702
+    },
+    {
+      "original": "covers/velvetverse/O Galo do vizinho MP3 Cover.png",
+      "optimized": "covers/velvetverse/O Galo do vizinho MP3 Cover.png.webp",
+      "before": 402820,
+      "after": 35492
+    },
+    {
+      "original": "covers/velvetverse/O Meu Paraíso_ MP3 cover.png",
+      "optimized": "covers/velvetverse/O Meu Paraíso_ MP3 cover.png.webp",
+      "before": 429230,
+      "after": 41212
+    },
+    {
+      "original": "covers/velvetverse/Ohos Abertos.png",
+      "optimized": "covers/velvetverse/Ohos Abertos.png.webp",
+      "before": 234100,
+      "after": 19664
+    },
+    {
+      "original": "covers/velvetverse/Olhos no Ecrã.png",
+      "optimized": "covers/velvetverse/Olhos no Ecrã.png.webp",
+      "before": 338225,
+      "after": 25446
+    },
+    {
+      "original": "covers/velvetverse/Olivia my Little Light.png",
+      "optimized": "covers/velvetverse/Olivia my Little Light.png.webp",
+      "before": 297660,
+      "after": 29702
+    },
+    {
+      "original": "covers/velvetverse/Ouve o Mar Chamar.png",
+      "optimized": "covers/velvetverse/Ouve o Mar Chamar.png.webp",
+      "before": 320037,
+      "after": 19560
+    },
+    {
+      "original": "covers/velvetverse/Parabens pr'a ti MP3 cover.png",
+      "optimized": "covers/velvetverse/Parabens pr'a ti MP3 cover.png.webp",
+      "before": 343282,
+      "after": 22232
+    },
+    {
+      "original": "covers/velvetverse/Perfume Barato.png",
+      "optimized": "covers/velvetverse/Perfume Barato.png.webp",
+      "before": 1965357,
+      "after": 185766
+    },
+    {
+      "original": "covers/velvetverse/Perto de Ti.png",
+      "optimized": "covers/velvetverse/Perto de Ti.png.webp",
+      "before": 325635,
+      "after": 19960
+    },
+    {
+      "original": "covers/velvetverse/Portugal Meu.png",
+      "optimized": "covers/velvetverse/Portugal Meu.png.webp",
+      "before": 1437188,
+      "after": 72432
+    },
+    {
+      "original": "covers/velvetverse/Portugal, vamos vencer.png",
+      "optimized": "covers/velvetverse/Portugal, vamos vencer.png.webp",
+      "before": 1586053,
+      "after": 129546
+    },
+    {
+      "original": "covers/velvetverse/Power & Shadows - MP3 cover.png",
+      "optimized": "covers/velvetverse/Power & Shadows - MP3 cover.png.webp",
+      "before": 431849,
+      "after": 44926
+    },
+    {
+      "original": "covers/velvetverse/Precisamos de Mais Pontes.png",
+      "optimized": "covers/velvetverse/Precisamos de Mais Pontes.png.webp",
+      "before": 215714,
+      "after": 20992
+    },
+    {
+      "original": "covers/velvetverse/Quando foi.png",
+      "optimized": "covers/velvetverse/Quando foi.png.webp",
+      "before": 306876,
+      "after": 29210
+    },
+    {
+      "original": "covers/velvetverse/Quando o destino Chamou - MP3 Cover.png",
+      "optimized": "covers/velvetverse/Quando o destino Chamou - MP3 Cover.png.webp",
+      "before": 281454,
+      "after": 30222
+    },
+    {
+      "original": "covers/velvetverse/Quem Roubou Meu Robot mp3 cover.png",
+      "optimized": "covers/velvetverse/Quem Roubou Meu Robot mp3 cover.png.webp",
+      "before": 395949,
+      "after": 34292
+    },
+    {
+      "original": "covers/velvetverse/Quem Sabe Um Dia.png",
+      "optimized": "covers/velvetverse/Quem Sabe Um Dia.png.webp",
+      "before": 272768,
+      "after": 9646
+    },
+    {
+      "original": "covers/velvetverse/Queremos Paz no Mundo.png",
+      "optimized": "covers/velvetverse/Queremos Paz no Mundo.png.webp",
+      "before": 286760,
+      "after": 34736
+    },
+    {
+      "original": "covers/velvetverse/Respira Terra.png",
+      "optimized": "covers/velvetverse/Respira Terra.png.webp",
+      "before": 1625959,
+      "after": 141678
+    },
+    {
+      "original": "covers/velvetverse/Retrato Antigo.png",
+      "optimized": "covers/velvetverse/Retrato Antigo.png.webp",
+      "before": 248525,
+      "after": 15554
+    },
+    {
+      "original": "covers/velvetverse/Retratos do Mundo.png",
+      "optimized": "covers/velvetverse/Retratos do Mundo.png.webp",
+      "before": 250649,
+      "after": 22988
+    },
+    {
+      "original": "covers/velvetverse/Reunited in Heaven MP3 cover.png",
+      "optimized": "covers/velvetverse/Reunited in Heaven MP3 cover.png.webp",
+      "before": 392054,
+      "after": 37452
+    },
+    {
+      "original": "covers/velvetverse/Rosa Maria MP3 Cover.png",
+      "optimized": "covers/velvetverse/Rosa Maria MP3 Cover.png.webp",
+      "before": 364459,
+      "after": 28950
+    },
+    {
+      "original": "covers/velvetverse/Rostos na Rua.png",
+      "optimized": "covers/velvetverse/Rostos na Rua.png.webp",
+      "before": 6413614,
+      "after": 418254
+    },
+    {
+      "original": "covers/velvetverse/Running High - Capa.png",
+      "optimized": "covers/velvetverse/Running High - Capa.png.webp",
+      "before": 447532,
+      "after": 46060
+    },
+    {
+      "original": "covers/velvetverse/SELF CONTROL MP3 cover.png",
+      "optimized": "covers/velvetverse/SELF CONTROL MP3 cover.png.webp",
+      "before": 438700,
+      "after": 45268
+    },
+    {
+      "original": "covers/velvetverse/SOS Cafe.png",
+      "optimized": "covers/velvetverse/SOS Cafe.png.webp",
+      "before": 271117,
+      "after": 30550
+    },
+    {
+      "original": "covers/velvetverse/Sereia do Meu Verão.png",
+      "optimized": "covers/velvetverse/Sereia do Meu Verão.png.webp",
+      "before": 327363,
+      "after": 36604
+    },
+    {
+      "original": "covers/velvetverse/Sombras de Saudade MP3 cover.png",
+      "optimized": "covers/velvetverse/Sombras de Saudade MP3 cover.png.webp",
+      "before": 168940,
+      "after": 13510
+    },
+    {
+      "original": "covers/velvetverse/Sorria p'ra Vida.png",
+      "optimized": "covers/velvetverse/Sorria p'ra Vida.png.webp",
+      "before": 1894232,
+      "after": 142912
+    },
+    {
+      "original": "covers/velvetverse/Stars in my Hands MP3 Cover.png",
+      "optimized": "covers/velvetverse/Stars in my Hands MP3 Cover.png.webp",
+      "before": 488633,
+      "after": 53802
+    },
+    {
+      "original": "covers/velvetverse/Static World - Capa - Mp3.png",
+      "optimized": "covers/velvetverse/Static World - Capa - Mp3.png.webp",
+      "before": 415133,
+      "after": 39518
+    },
+    {
+      "original": "covers/velvetverse/Storm of Love.png",
+      "optimized": "covers/velvetverse/Storm of Love.png.webp",
+      "before": 1230867,
+      "after": 67328
+    },
+    {
+      "original": "covers/velvetverse/Sussurros na Pele.png",
+      "optimized": "covers/velvetverse/Sussurros na Pele.png.webp",
+      "before": 308184,
+      "after": 17264
+    },
+    {
+      "original": "covers/velvetverse/Só Tu e Eu MP3 Cover.png",
+      "optimized": "covers/velvetverse/Só Tu e Eu MP3 Cover.png.webp",
+      "before": 372307,
+      "after": 27294
+    },
+    {
+      "original": "covers/velvetverse/Ta Tudo Chill MP3 Cover.png",
+      "optimized": "covers/velvetverse/Ta Tudo Chill MP3 Cover.png.webp",
+      "before": 257443,
+      "after": 28060
+    },
+    {
+      "original": "covers/velvetverse/Tempestade em Toronto.png",
+      "optimized": "covers/velvetverse/Tempestade em Toronto.png.webp",
+      "before": 303234,
+      "after": 24108
+    },
+    {
+      "original": "covers/velvetverse/Teu Olhar de Marfim MP3 Cover.png",
+      "optimized": "covers/velvetverse/Teu Olhar de Marfim MP3 Cover.png.webp",
+      "before": 444768,
+      "after": 46178
+    },
+    {
+      "original": "covers/velvetverse/Tomorrow Keeps Moving On - mp3 Cover.png",
+      "optimized": "covers/velvetverse/Tomorrow Keeps Moving On - mp3 Cover.png.webp",
+      "before": 478950,
+      "after": 56666
+    },
+    {
+      "original": "covers/velvetverse/Torres Vedras Chama por mim MP3 Cover.png",
+      "optimized": "covers/velvetverse/Torres Vedras Chama por mim MP3 Cover.png.webp",
+      "before": 353574,
+      "after": 30550
+    },
+    {
+      "original": "covers/velvetverse/Tribute by VelvetVerse Band to DIRE STRAITS MP3 Cover.png",
+      "optimized": "covers/velvetverse/Tribute by VelvetVerse Band to DIRE STRAITS MP3 Cover.png.webp",
+      "before": 307479,
+      "after": 19230
+    },
+    {
+      "original": "covers/velvetverse/Tropeco do Destino.png",
+      "optimized": "covers/velvetverse/Tropeco do Destino.png.webp",
+      "before": 310773,
+      "after": 31736
+    },
+    {
+      "original": "covers/velvetverse/Vamos Andando, Mano MP3 cover.png",
+      "optimized": "covers/velvetverse/Vamos Andando, Mano MP3 cover.png.webp",
+      "before": 327303,
+      "after": 39880
+    },
+    {
+      "original": "covers/velvetverse/Vamos Erguer Portugal MP3 Cover.png",
+      "optimized": "covers/velvetverse/Vamos Erguer Portugal MP3 Cover.png.webp",
+      "before": 451654,
+      "after": 51218
+    },
+    {
+      "original": "covers/velvetverse/VelvetVerse performing Lady in Red by (Chris de Burgh).png",
+      "optimized": "covers/velvetverse/VelvetVerse performing Lady in Red by (Chris de Burgh).png.webp",
+      "before": 406338,
+      "after": 36902
+    },
+    {
+      "original": "covers/velvetverse/Verão Sem Fim.png",
+      "optimized": "covers/velvetverse/Verão Sem Fim.png.webp",
+      "before": 262291,
+      "after": 25506
+    },
+    {
+      "original": "covers/velvetverse/Vida à Deriva MP3 Cover.png",
+      "optimized": "covers/velvetverse/Vida à Deriva MP3 Cover.png.webp",
+      "before": 356179,
+      "after": 26388
+    },
+    {
+      "original": "covers/velvetverse/Volta Pro Natal.png",
+      "optimized": "covers/velvetverse/Volta Pro Natal.png.webp",
+      "before": 2084367,
+      "after": 250834
+    },
+    {
+      "original": "covers/velvetverse/Voz Que Não Se Cala MP3 cover.png",
+      "optimized": "covers/velvetverse/Voz Que Não Se Cala MP3 cover.png.webp",
+      "before": 387872,
+      "after": 32298
+    },
+    {
+      "original": "covers/velvetverse/grinch cover.png",
+      "optimized": "covers/velvetverse/grinch cover.png.webp",
+      "before": 282285,
+      "after": 34112
+    },
+    {
+      "original": "def-leppard.png",
+      "optimized": "def-leppard.png.webp",
+      "before": 2328567,
+      "after": 261198
+    },
+    {
+      "original": "destaque-mar.png",
+      "optimized": "destaque-mar.png.webp",
+      "before": 210804,
+      "after": 17136
+    },
+    {
+      "original": "destaque-nvidia.png",
+      "optimized": "destaque-nvidia.png.webp",
+      "before": 1942378,
+      "after": 92236
+    },
+    {
+      "original": "discos-pedidos-mockup.png",
+      "optimized": "discos-pedidos-mockup.png.webp",
+      "before": 2040024,
+      "after": 142300
+    },
+    {
+      "original": "e-se-ep03-sem-eletricidade.jpg",
+      "optimized": "e-se-ep03-sem-eletricidade.jpg.webp",
+      "before": 181574,
+      "after": 113718
+    },
+    {
+      "original": "gallery-1.png",
+      "optimized": "gallery-1.png.webp",
+      "before": 2146682,
+      "after": 139118
+    },
+    {
+      "original": "gallery-10.png",
+      "optimized": "gallery-10.png.webp",
+      "before": 2326642,
+      "after": 187930
+    },
+    {
+      "original": "gallery-2.png",
+      "optimized": "gallery-2.png.webp",
+      "before": 1881135,
+      "after": 103124
+    },
+    {
+      "original": "gallery-3.png",
+      "optimized": "gallery-3.png.webp",
+      "before": 1872550,
+      "after": 105794
+    },
+    {
+      "original": "gallery-4.png",
+      "optimized": "gallery-4.png.webp",
+      "before": 2165581,
+      "after": 166752
+    },
+    {
+      "original": "gallery-5.png",
+      "optimized": "gallery-5.png.webp",
+      "before": 2575317,
+      "after": 189484
+    },
+    {
+      "original": "gallery-6.png",
+      "optimized": "gallery-6.png.webp",
+      "before": 2195286,
+      "after": 148952
+    },
+    {
+      "original": "gallery-7.png",
+      "optimized": "gallery-7.png.webp",
+      "before": 2062588,
+      "after": 120306
+    },
+    {
+      "original": "gallery-8.png",
+      "optimized": "gallery-8.png.webp",
+      "before": 2035362,
+      "after": 100184
+    },
+    {
+      "original": "gallery-9.png",
+      "optimized": "gallery-9.png.webp",
+      "before": 1987592,
+      "after": 103598
+    },
+    {
+      "original": "inside-velvetverse-logo-v2.png",
+      "optimized": "inside-velvetverse-logo-v2.png.webp",
+      "before": 2716903,
+      "after": 191520
+    },
+    {
+      "original": "inside-velvetverse-logo.png",
+      "optimized": "inside-velvetverse-logo.png.webp",
+      "before": 2432066,
+      "after": 292932
+    },
+    {
+      "original": "lara.png",
+      "optimized": "lara.png.webp",
+      "before": 2326642,
+      "after": 187930
+    },
+    {
+      "original": "leo-sayer-backstage-legends.png",
+      "optimized": "leo-sayer-backstage-legends.png.webp",
+      "before": 2435718,
+      "after": 266626
+    },
+    {
+      "original": "logo-e-se.png",
+      "optimized": "logo-e-se.png.webp",
+      "before": 2657615,
+      "after": 320048
+    },
+    {
+      "original": "logo-um-futuro-proximo.png",
+      "optimized": "logo-um-futuro-proximo.png.webp",
+      "before": 2422974,
+      "after": 271716
+    },
+    {
+      "original": "logo.png",
+      "optimized": "logo.png.webp",
+      "before": 764073,
+      "after": 55326
+    },
+    {
+      "original": "lurdes-ribeiro.png",
+      "optimized": "lurdes-ribeiro.png.webp",
+      "before": 1562581,
+      "after": 59832
+    },
+    {
+      "original": "michael-valenca-arquivos-do-inexplicavel.png",
+      "optimized": "michael-valenca-arquivos-do-inexplicavel.png.webp",
+      "before": 2216236,
+      "after": 133252
+    },
+    {
+      "original": "microfone-rubricas.png",
+      "optimized": "microfone-rubricas.png.webp",
+      "before": 2314404,
+      "after": 356620
+    },
+    {
+      "original": "open-stage-6-talentos.png",
+      "optimized": "open-stage-6-talentos.png.webp",
+      "before": 2048428,
+      "after": 204778
+    },
+    {
+      "original": "radio-studio.jpg",
+      "optimized": "radio-studio.jpg.webp",
+      "before": 301053,
+      "after": 105638
+    },
+    {
+      "original": "ricky-sousa-backstage-legends.png",
+      "optimized": "ricky-sousa-backstage-legends.png.webp",
+      "before": 2169977,
+      "after": 216548
+    },
+    {
+      "original": "ricky-sousa-profile.png",
+      "optimized": "ricky-sousa-profile.png.webp",
+      "before": 1940166,
+      "after": 143538
+    },
+    {
+      "original": "rui-freitas-profile-v2.png",
+      "optimized": "rui-freitas-profile-v2.png.webp",
+      "before": 2404352,
+      "after": 105510
+    },
+    {
+      "original": "rui-freitas-profile.png",
+      "optimized": "rui-freitas-profile.png.webp",
+      "before": 2219583,
+      "after": 129478
+    },
+    {
+      "original": "rui-freitas-velvetverse-experience.png",
+      "optimized": "rui-freitas-velvetverse-experience.png.webp",
+      "before": 1994494,
+      "after": 99666
+    },
+    {
+      "original": "studio-group.png",
+      "optimized": "studio-group.png.webp",
+      "before": 2165581,
+      "after": 166752
+    },
+    {
+      "original": "studio-home.png",
+      "optimized": "studio-home.png.webp",
+      "before": 1314959,
+      "after": 93458
+    },
+    {
+      "original": "suzy.png",
+      "optimized": "suzy.png.webp",
+      "before": 1987592,
+      "after": 103598
+    },
+    {
+      "original": "top-5-latino-background.jpg",
+      "optimized": "top-5-latino-background.jpg.webp",
+      "before": 174866,
+      "after": 87582
+    },
+    {
+      "original": "um-futuro-proximo-ep01-cidades.png",
+      "optimized": "um-futuro-proximo-ep01-cidades.png.webp",
+      "before": 693848,
+      "after": 103974
+    },
+    {
+      "original": "um-futuro-proximo-ep02-trabalho.png",
+      "optimized": "um-futuro-proximo-ep02-trabalho.png.webp",
+      "before": 591785,
+      "after": 69564
+    },
+    {
+      "original": "um-futuro-proximo-ep03-saude-medicina.png",
+      "optimized": "um-futuro-proximo-ep03-saude-medicina.png.webp",
+      "before": 573774,
+      "after": 68642
+    },
+    {
+      "original": "um-futuro-proximo-ep04-alimentacao.png",
+      "optimized": "um-futuro-proximo-ep04-alimentacao.png.webp",
+      "before": 607756,
+      "after": 76618
+    },
+    {
+      "original": "velvetverse-band-logo-v2.png",
+      "optimized": "velvetverse-band-logo-v2.png.webp",
+      "before": 1284677,
+      "after": 75284
+    },
+    {
+      "original": "velvetverse-band-logo.png",
+      "optimized": "velvetverse-band-logo.png.webp",
+      "before": 1108589,
+      "after": 75284
+    },
+    {
+      "original": "velvetverse-toronto-studio-banner.png",
+      "optimized": "velvetverse-toronto-studio-banner.png.webp",
+      "before": 2380589,
+      "after": 218064
+    },
+    {
+      "original": "velvetverse-toronto-studio-night-banner.png",
+      "optimized": "velvetverse-toronto-studio-night-banner.png.webp",
+      "before": 2241492,
+      "after": 194648
+    },
+    {
+      "original": "velvetverse.png",
+      "optimized": "velvetverse.png.webp",
+      "before": 2575317,
+      "after": 189484
+    }
+  ]
+}
