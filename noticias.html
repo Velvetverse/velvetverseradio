@@ -82,7 +82,7 @@ body.vv-embedded .edition-home{background:transparent}
 .edition-word{border-left:2px solid #a650d2;padding:8px 0 8px 27px;color:#e9e7f0;white-space:nowrap;font-size:16px}
 .editorial-top{grid-template-columns:minmax(0,2.7fr) minmax(265px,.98fr);gap:16px}
 .editorial-feature{position:relative;display:block;min-height:360px;border:1px solid #4a465c;border-radius:10px;isolation:isolate;background:#171c2b;overflow:hidden}
-.editorial-feature .hero-visual{position:absolute;inset:0;z-index:-2;background:#15243a url('https://commons.wikimedia.org/wiki/Special:FilePath/Porto%20Moniz%20(Madeira%2C%20Portugal)%2C%20Felsenk%C3%BCste%20--%202025%20--%201717.jpg?width=1200') center center/cover no-repeat}
+.editorial-feature .hero-visual{position:absolute;inset:0;z-index:-2;background:#15243a linear-gradient(120deg,#101522,#20283b 70%,#203c34) center center/cover no-repeat}
 .editorial-feature .hero-overlay{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(8,12,23,.97) 0%,rgba(10,15,29,.8) 39%,rgba(11,17,28,.06) 100%),linear-gradient(0deg,rgba(6,9,17,.75),transparent 40%)}
 .editorial-feature .feature-body{padding:27px 30px 40px;position:relative;max-width:57%;z-index:1}
 .editorial-feature .tag{background:#8c44b8;border:0;border-radius:0;padding:5px 11px;font-size:12px}
@@ -128,7 +128,7 @@ body.mockup-assets-ready .banner-motor{background-image:url('banner-motores.png.
 body.mockup-assets-ready .category-banner{background-size:100% 100%;background-position:center;background-repeat:no-repeat}
 body.mockup-assets-ready .category-banner::before{display:none}
 body.mockup-assets-ready .category-banner h2{visibility:hidden}
-body.mockup-assets-ready .editorial-feature .hero-visual{background-image:url('destaque-mar.png.webp');background-size:cover;background-position:center right}
+body.mockup-assets-ready .editorial-feature .hero-visual{background-image:linear-gradient(120deg,#101522,#20283b 70%,#203c34);background-size:cover;background-position:center right}
 body.mockup-assets-ready .hero-disclosure{display:none}
 body.mockup-assets-ready .banner-credits{display:none}
 </style><style id="vv-weather-css">
@@ -218,8 +218,7 @@ body.mockup-assets-ready .banner-credits{display:none}
   Futebol: David Machado / Wikimedia Commons, CC BY-SA 3.0 ·
   Canadá: Jerry Steinfield / Wikimedia Commons, CC BY 4.0 ·
   Mundo: NASA / Apollo 17, domínio público ·
-  Motores: Liauzh / Wikimedia Commons, CC BY 4.0 ·
-  Destaque: Dietmar Rabich / Wikimedia Commons, CC BY-SA 4.0 (imagem de arquivo de 2025).
+  Motores: Liauzh / Wikimedia Commons, CC BY 4.0.
   <span data-pt="Imagens cortadas e escurecidas para os cabeçalhos." data-en="Images cropped and darkened for the section banners.">Imagens cortadas e escurecidas para os cabeçalhos.</span>
   </p></details></div>
 </section>
@@ -231,7 +230,7 @@ const stories=[{"id":"microsoft-falha-global","category":"world","date":"2026-11
 let lang='pt',filter='all',active=null;const $=id=>document.getElementById(id);
 const t=(pt,en)=>lang==='pt'?pt:en;const newsText=(s,field)=>lang==='en'?(s[field+'En']||s[field]):s[field];
 const labels={football:['Futebol Português','Portuguese Football'],portugal:['Portugal','Portugal'],world:['Mundo','World'],canada:['Canadá','Canada'],motorsport:['Desporto Motorizado','Motorsport']};
-function imageUrl(name){return ['Portugal.jpg.webp','Tempestade-Charles.png'].includes(name)?name:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(name)+'?width=900'}
+function imageUrl(name){return ['Portugal.jpg.webp'].includes(name)?name:'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(name)+'?width=900'}
 function imageFile(s,small=false){const el=document.createElement('div');el.className='art'+(s.photo?' has-photo':'')+(small?' art-sm':'');if(!s.photo){const label=document.createElement('span');label.className='photo-mark';label.textContent=t('Sem fotografia autorizada do acontecimento','No licensed event photo');const badge=document.createElement('strong');badge.textContent=s.icon;el.append(badge,label);return el;}const img=document.createElement('img');img.src=imageUrl(s.photo);img.alt=s.photoLabel;img.title=s.photoLabel;img.loading=small?'lazy':'eager';img.referrerPolicy='no-referrer';img.onerror=()=>{img.remove();el.classList.remove('has-photo');if(el.classList.contains('article-photo')){el.closest('.article-layout')?.classList.add('no-photo');el.closest('.article-media')?.replaceChildren()}else if(el.closest('.story')){const card=el.closest('.story');card.classList.add('no-photo');el.remove()}else if(el.closest('#featuredImage')){el.closest('#featuredImage').style.display='none';el.closest('.feature')?.classList.add('no-photo')}else{el.remove()}};el.append(img);return el}
 function draw(){document.documentElement.lang=lang;document.querySelectorAll('[data-pt][data-en]').forEach(n=>n.textContent=n.dataset[lang]);document.querySelectorAll('[data-lang]').forEach(n=>n.setAttribute('aria-pressed',String(n.dataset.lang===lang)));
  const lead=stories[0];
@@ -395,7 +394,7 @@ document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',(
 })();
 </script><script id="vv-approved-mockup-assets">
 (function(){
- const names=['banner-portugal.png.webp','banner-futebol.png.webp','banner-canada.png.webp','banner-mundo.png.webp','banner-motores.png.webp','destaque-mar.png.webp'];
+ const names=['banner-portugal.png.webp','banner-futebol.png.webp','banner-canada.png.webp','banner-mundo.png.webp','banner-motores.png.webp'];
  Promise.all(names.map(name=>new Promise((resolve,reject)=>{
  const img=new Image();img.onload=()=>resolve(true);img.onerror=()=>reject(name);img.src=name;
  }))).then(()=>document.body.classList.add('mockup-assets-ready')).catch(()=>{});
