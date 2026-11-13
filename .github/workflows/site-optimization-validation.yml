@@ -1,0 +1,41 @@
+name: Site optimization browser validation
+on:
+  push:
+    branches: [perf/optimize-site-20261112]
+    paths:
+      - '.github/workflows/site-optimization-validation.yml'
+      - 'scripts/verify-site-performance.py'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install Pillow==11.3.0 playwright==1.51.0
+      - name: Install browser if unavailable
+        run: |
+          if ! command -v google-chrome >/dev/null && ! command -v chromium >/dev/null && ! command -v chromium-browser >/dev/null; then
+            python -m playwright install --with-deps chromium
+          fi
+      - name: Retrieve unchanged baseline
+        run: |
+          git fetch origin refs/heads/backup/pre-image-optimization-20261112 --depth=1
+          git worktree add --detach /tmp/vv-baseline FETCH_HEAD
+      - name: Test optimized pages in Chromium
+        run: python scripts/verify-site-performance.py /tmp/vv-baseline
+      - name: Commit reviewed logo and performance report
+        run: |
+          test "$GITHUB_REF_NAME" = "perf/optimize-site-20261112"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git diff --cached --quiet && exit 0
+          git commit -m "Validate optimized site in Chromium and compress display logo"
+          git push origin HEAD:refs/heads/perf/optimize-site-20261112
