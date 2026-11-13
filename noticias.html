@@ -223,7 +223,7 @@ body.mockup-assets-ready .banner-credits{display:none}
   <span data-pt="Imagens cortadas e escurecidas para os cabeçalhos." data-en="Images cropped and darkened for the section banners.">Imagens cortadas e escurecidas para os cabeçalhos.</span>
   </p></details></div>
 </section>
-<article id="articleView" class="article-view hidden"><button class="back" id="backBtn" data-pt="← Voltar às notícias" data-en="← Back to news">← Voltar às notícias</button><div class="article-head"><div id="articleCategory" class="tag"></div><h2 id="articleTitle"></h2><div id="articleDate" class="meta"></div></div><div class="article-layout"><div class="article-media" id="articleMedia"></div><div class="article-copy" id="articleBody"></div></div><details class="article-sources"><summary data-pt="Fontes e créditos da fotografia" data-en="Sources and image credits">Fontes e créditos da fotografia</summary><div id="articleSource" class="source"></div></details></article>
+<article id="articleView" class="article-view hidden"><button class="back" id="backBtn" data-pt="← Voltar às notícias" data-en="← Back to news">← Voltar às notícias</button><div class="article-head"><div id="articleCategory" class="tag"></div><h2 id="articleTitle"></h2><div id="articleDate" class="meta"></div></div><div class="article-layout"><div class="article-media" id="articleMedia"></div><div class="article-copy" id="articleBody"></div></div><details class="article-sources"><summary data-pt="Fontes e créditos da fotografia" data-en="Sources and image credits">Fontes e créditos da fotografia</summary><div id="articleSource" class="source"></div></details><button class="back" id="backBtnBottom" style="margin-top:24px" data-pt="← Voltar às notícias" data-en="← Back to news">← Voltar às notícias</button></article>
 </main><footer class="footer"><div class="wrap">VelvetVerse Radio · Notícias de Portugal, futebol português e mundo · <span data-pt="Próxima edição: atualização editorial" data-en="Next edition: editorial update">Atualização editorial regular</span></div></footer>
 <script>
 (()=>{'use strict';
@@ -366,7 +366,7 @@ async function refreshWeather(){
  wxLoading=false;renderWeather();
 }
 function chooseWeather(page){wxPage=page;renderWeather();clearInterval(wxTimer);wxTimer=setInterval(()=>{wxPage=1-wxPage;renderWeather()},10000)}$('wxCanada').addEventListener('click',()=>chooseWeather(0));$('wxPortugal').addEventListener('click',()=>chooseWeather(1));chooseWeather(0);refreshWeather();setInterval(refreshWeather,900000);
-document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
+document.querySelectorAll('[data-lang]').forEach(n=>n.addEventListener('click',()=>{lang=n.dataset.lang;draw()}));$('featuredRead').addEventListener('click',()=>openStory(stories[0].id));$('backBtn').addEventListener('click',()=>{location.hash='inicio';route()});$('backBtnBottom').addEventListener('click',()=>{location.hash='inicio';route()});window.addEventListener('hashchange',()=>{route();if(window.parent!==window)window.parent.postMessage({type:'vv-news-focus'},location.origin)});draw();route();
 })();
 </script>
 <script id="vv-news-embed-bridge">
