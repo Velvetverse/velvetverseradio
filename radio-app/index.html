@@ -98,7 +98,7 @@
     <div class="brand"><span class="brand-mark"><i></i><i></i><i></i><i></i></span><span>VelvetVerse</span><strong>Radio</strong></div>
     <div class="live"><span class="live-dot"></span>LIVE</div>
 
-    <div class="cover-shell"><img id="artwork" src="../logo.png" alt="Capa da música atual"></div>
+    <div class="cover-shell"><img id="artwork" src="../logo.png.webp" alt="Capa da música atual"></div>
 
     <div class="track" aria-live="polite">
       <div class="artist" id="artist">VelvetVerse Radio</div>
@@ -117,7 +117,7 @@
     <div class="equalizer" id="equalizer" aria-hidden="true"></div>
 
     <section class="host-card" aria-live="polite">
-      <img id="hostPhoto" src="../beto.png" alt="Locutor atual">
+      <img id="hostPhoto" src="../beto.png.webp" alt="Locutor atual">
       <div class="show-copy">
         <div class="show-name" id="showName">Rock Sem Limites</div>
         <div class="host-name" id="hostName">com Beto Sousa</div>
@@ -334,10 +334,10 @@
         return;
       }
       if(normalizeVelvetTitle(song).includes('discos pedidos')){
-        artwork.src='../Discos%20Pedidos%20Neon%20Radio%20Show.png';
+        artwork.src='../Discos%20Pedidos%20Neon%20Radio%20Show.png.webp';
         return;
       }
-      artwork.src='../logo.png';
+      artwork.src='../logo.png.webp';
       const songLower=normalizeVelvetTitle(song);
       // Igual ao player do site: dar prioridade à capa local pelo título.
       for(const [title,file] of Object.entries(velvetverseCovers)){
@@ -373,15 +373,15 @@
     }
 
     const shows=[
-      {start:420,end:600,name:'Ritmo Latino',host:'Adrian Vega (Noia)',photo:'../adrian.png'},
-      {start:600,end:780,name:'Alma Portuguesa',host:'Suzy Mendes',photo:'../suzy.png'},
-      {start:780,end:960,name:'Corações & Memórias',host:'Carlos Moreira',photo:'../carlos.png'},
-      {start:960,end:1140,name:'Coração Brasileiro',host:'Lara Ingrid',photo:'../lara.png'},
-      {start:1140,end:1260,name:'Rock Sem Limites',host:'Beto Sousa',photo:'../beto.png'},
-      {start:1260,end:1380,name:'VelvetVerse Experience',host:'Rui Freitas',photo:'../rui-freitas-velvetverse-experience.png'},
-      {start:1380,end:1440,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png'},
-      {start:0,end:180,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png'},
-      {start:180,end:420,name:'Midnight Flow',host:'VelvetVerse Radio',photo:'../velvetverse.png'}
+      {start:420,end:600,name:'Ritmo Latino',host:'Adrian Vega (Noia)',photo:'../adrian.png.webp'},
+      {start:600,end:780,name:'Alma Portuguesa',host:'Suzy Mendes',photo:'../suzy.png.webp'},
+      {start:780,end:960,name:'Corações & Memórias',host:'Carlos Moreira',photo:'../carlos.png.webp'},
+      {start:960,end:1140,name:'Coração Brasileiro',host:'Lara Ingrid',photo:'../lara.png.webp'},
+      {start:1140,end:1260,name:'Rock Sem Limites',host:'Beto Sousa',photo:'../beto.png.webp'},
+      {start:1260,end:1380,name:'VelvetVerse Experience',host:'Rui Freitas',photo:'../rui-freitas-velvetverse-experience.png.webp'},
+      {start:1380,end:1440,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png.webp'},
+      {start:0,end:180,name:'Velvet After Dark',host:'VelvetVerse Radio',photo:'../velvetverse.png.webp'},
+      {start:180,end:420,name:'Midnight Flow',host:'VelvetVerse Radio',photo:'../velvetverse.png.webp'}
     ];
     function torontoMinutes(){
       const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
@@ -397,7 +397,7 @@
       photo.src=show.photo; photo.alt=show.host;
     }
 
-    artwork.addEventListener('error',()=>{if(!artwork.src.endsWith('/logo.png')) artwork.src='../logo.png'});
+    artwork.addEventListener('error',()=>{if(!artwork.src.endsWith('/logo.png.webp')) artwork.src='../logo.png.webp'});
     updateTrack(); updateShow();
     setInterval(updateTrack,10000); setInterval(updateShow,60000);
     if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('service-worker.js'));

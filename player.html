@@ -707,7 +707,7 @@ body{
   <div class="vv-top">
 
     <div class="vv-brand">
-      <img src="logo.png" class="vv-logo" alt="VelvetVerse Radio">
+      <img src="logo.png.webp" class="vv-logo" alt="VelvetVerse Radio">
 
       <div class="vv-brand-text">
         <div class="vv-brand-title">
@@ -740,7 +740,7 @@ body{
   <div class="vv-main">
 
     <div class="vv-cover">
-      <img src="velvetverse.png" id="programCover" alt="VelvetVerse Radio">
+      <img src="velvetverse.png.webp" id="programCover" alt="VelvetVerse Radio">
     </div>
 
     <div class="vv-info">
@@ -768,7 +768,7 @@ body{
       <div class="vv-host-row">
 
         <img
-          src="carlos.png"
+          src="carlos.png.webp"
           class="vv-host-photo"
           id="hostPhoto"
           alt="Locutor">
@@ -918,8 +918,8 @@ const schedule = [
     end:10,
     name:"Ritmo Latino 🔥",
     host:"Adrian Vega (Noia)",
-    hostPhoto:"adrian.png",
-    cover:"velvetverse.png",
+    hostPhoto:"adrian.png.webp",
+    cover:"velvetverse.png.webp",
     description:"Começa o teu dia com energia e ritmo latino!",
     tags:["LATINO","SALSA","REGGAETON","RITMO"]
   },
@@ -929,8 +929,8 @@ const schedule = [
     end:13,
     name:"Alma Portuguesa 🇵🇹",
     host:"Suzy Mendes",
-    hostPhoto:"suzy.png",
-    cover:"velvetverse.png",
+    hostPhoto:"suzy.png.webp",
+    cover:"velvetverse.png.webp",
     description:"Música portuguesa com alma e emoção.",
     tags:["PORTUGAL","POP","CLÁSSICOS","ALMA"]
   },
@@ -940,8 +940,8 @@ const schedule = [
     end:16,
     name:"Corações & Memórias ❤️",
     host:"Carlos",
-    hostPhoto:"carlos.png",
-    cover:"velvetverse.png",
+    hostPhoto:"carlos.png.webp",
+    cover:"velvetverse.png.webp",
     description:"Canções que ficam no coração e na memória.",
     tags:["POP","MPB","NACIONAL","MEMÓRIAS"]
   },
@@ -951,8 +951,8 @@ const schedule = [
     end:19,
     name:"Coração Brasileiro 🇧🇷",
     host:"Lara Ingrid",
-    hostPhoto:"lara.png",
-    cover:"velvetverse.png",
+    hostPhoto:"lara.png.webp",
+    cover:"velvetverse.png.webp",
     description:"A música brasileira que toca o coração.",
     tags:["BRASIL","MPB","POP","EMOÇÃO"]
   },
@@ -962,8 +962,8 @@ const schedule = [
     end:21,
     name:"Rock Sem Limites ⚡",
     host:"Beto Sousa",
-    hostPhoto:"beto.png",
-    cover:"velvetverse.png",
+    hostPhoto:"beto.png.webp",
+    cover:"velvetverse.png.webp",
     description:"Guitarras, clássicos e rock sem fronteiras.",
     tags:["ROCK","CLASSIC ROCK","80s","90s"]
   },
@@ -973,8 +973,8 @@ const schedule = [
     end:23,
     name:"VelvetVerse Experience",
     host:"Rui Freitas",
-    hostPhoto:"rui-freitas-profile-v2.png",
-    cover:"velvetverse.png",
+    hostPhoto:"rui-freitas-profile-v2.png.webp",
+    cover:"velvetverse.png.webp",
     description:"Duas horas dentro do universo VelvetVerse.",
     tags:["MÚSICA","HISTÓRIAS","BANDA","EXPERIENCE"]
   },
@@ -984,8 +984,8 @@ const schedule = [
     end:27,
     name:"Velvet After Dark 🌙",
     host:"VelvetVerse Radio",
-    hostPhoto:"logo.png",
-    cover:"Velvet After Dark.png",
+    hostPhoto:"logo.png.webp",
+    cover:"Velvet After Dark.png.webp",
     description:"Quando a noite chega, a música continua.",
     tags:["NIGHT","CHILL","LOVE","AFTER DARK"]
   },
@@ -995,8 +995,8 @@ const schedule = [
     end:31,
     name:"Midnight Flow 🌌",
     host:"VelvetVerse Radio",
-    hostPhoto:"logo.png",
-    cover:"Midnight Flow.png",
+    hostPhoto:"logo.png.webp",
+    cover:"Midnight Flow.png.webp",
     description:"Som para atravessar a madrugada.",
     tags:["MIDNIGHT","FLOW","CHILL","NIGHT"]
   }
@@ -1456,12 +1456,12 @@ async function updateCurrentArtwork(artist, song){
 
     }
     else{
-      currentArtwork.src = "logo.png";
+      currentArtwork.src = "logo.png.webp";
     }
 
   }catch(error){
 
-    currentArtwork.src = "logo.png";
+    currentArtwork.src = "logo.png.webp";
 
   }
 
@@ -1726,7 +1726,7 @@ async function updateNowPlaying(){
       lastTrackKey = key;
 
       if (display.technical) {
-        currentArtwork.src = "logo.png";
+        currentArtwork.src = "logo.png.webp";
       } else {
         updateCurrentArtwork(
           artist,
