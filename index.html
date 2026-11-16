@@ -2661,20 +2661,21 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
 #open-stage-artists .osa-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:18px}
 #open-stage-artists h2{font-size:clamp(27px,3vw,39px);color:#f5d8ff;margin:0 0 12px}
 #open-stage-artists p{color:#cbb8dc;margin:0 0 28px;line-height:1.6}
-#open-stage-artists .osa-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+#open-stage-artists .osa-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px}
 #open-stage-artists .osa-card{overflow:hidden;background:#170d25;border:1px solid #603275;border-radius:12px}
-#open-stage-artists .osa-card img{width:100%;height:150px;display:block;object-fit:cover}
+#open-stage-artists .osa-card img{width:100%;height:138px;display:block;object-fit:contain;object-position:center;background:#100b19}
 #open-stage-artists .osa-link{display:block;transition:opacity .18s}
 #open-stage-artists .osa-link:hover{opacity:.78}
 #open-stage-artists .osa-link:focus-visible,#open-stage-artists .osa-back:focus-visible{outline:3px solid #e39fff;outline-offset:2px}
-#open-stage-artists .osa-info{padding:10px 12px 13px;display:flex;flex-direction:column;gap:4px}
+#open-stage-artists .osa-info{padding:8px 10px 10px;display:flex;flex-direction:column;gap:3px}
 #open-stage-artists .osa-info strong{font-size:14px;color:#fff}
 #open-stage-artists .osa-info span{font-size:11px;color:#dd8df3}
 #open-stage-artists .osa-back,#open-stage .osa-enter{display:inline-block;border:1px solid #af4bd5;border-radius:22px;background:#241035;color:#fff;padding:10px 17px;cursor:pointer;font:inherit;font-weight:600}
 #open-stage .osa-enter{margin:17px 0 7px}
 #open-stage-artists .osa-back:hover,#open-stage .osa-enter:hover{background:#52176d}
-@media(max-width:750px){#open-stage-artists .osa-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}#open-stage-artists .osa-card img{height:135px}}
-@media(max-width:360px){#open-stage-artists .osa-card img{height:115px}}
+@media(max-width:950px){#open-stage-artists .osa-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){#open-stage-artists .osa-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}#open-stage-artists .osa-card img{height:125px}}
+@media(max-width:360px){#open-stage-artists .osa-card img{height:110px}}
 </style><div id="open-stage-artists" class="section"><div class="osa-container"><div class="osa-top"><div><h2><span class="vv-i18n" data-pt="Artistas Open Stage" data-en="Open Stage Artists">Artistas Open Stage</span></h2></div><button type="button" class="osa-back" onclick="showSection('open-stage',document.querySelector('.main-nav a[onclick*=\'open-stage\']'));window.scrollTo(0,0)"><span class="vv-i18n" data-pt="← Voltar ao Open Stage" data-en="← Back to Open Stage">← Voltar ao Open Stage</span></button></div><p><span class="vv-i18n" data-pt="Conhece os artistas que já passaram pelo Open Stage. Clica numa fotografia para visitar a página oficial do artista, quando disponível." data-en="Meet the artists featured on Open Stage. Select a photo to visit the artist’s official page, where available.">Conhece os artistas que já passaram pelo Open Stage. Clica numa fotografia para visitar a página oficial do artista, quando disponível.</span></p><div class="osa-grid"><article class="osa-card"><a class="osa-link" href="https://delmark.com/2026/10/new-electric-soul-company-digital-full-album-release-out-now/" target="_blank" rel="noopener noreferrer" aria-label="Electric Soul Company — página do artista"><img src="01-electric-soul-company.jpg.webp" alt="Electric Soul Company" loading="lazy" decoding="async"></a><div class="osa-info"><strong>Electric Soul Company</strong><span>EUA</span></div></article>
 <article class="osa-card"><a class="osa-link" href="https://www.longhaulpaulmusic.com/" target="_blank" rel="noopener noreferrer" aria-label="Long Haul Paul — página do artista"><img src="02-long-haul-paul.jpg.webp" alt="Long Haul Paul" loading="lazy" decoding="async"></a><div class="osa-info"><strong>Long Haul Paul</strong><span>EUA</span></div></article>
 <article class="osa-card"><a class="osa-link" href="https://kategreenland.bandcamp.com/" target="_blank" rel="noopener noreferrer" aria-label="Kate Greenland — página do artista"><img src="03-kate-greenland.jpg.webp" alt="Kate Greenland" loading="lazy" decoding="async"></a><div class="osa-info"><strong>Kate Greenland</strong><span>Canadá</span></div></article>
