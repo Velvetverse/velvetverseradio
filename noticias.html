@@ -360,7 +360,7 @@ function renderWeather(){
   if(clock)current.push(t(d.source==='fallback'?'Modelo':'Observação',d.source==='fallback'?'Model':'Observed')+' '+clock);
   if(d.station)current.push(d.station);
   if(d.source==='fallback')current.push(t('Estimativa Open-Meteo','Open-Meteo estimate'));
-  const tomorrow=[wxConditionText(q),t('Prob. precip.','Precip. chance')+' '+num(q.prob,'%')];
+  const tomorrow=[wxConditionText(q),t('Prob. precip.','Precip. chance')+' '+num(q.prob,'%')+(d.precipProbSource==='open-meteo'?' (Open-Meteo)':'')];
   if(Number.isFinite(q.sum))tomorrow.push(num(q.sum,' mm'));
   const range=temp(q.min)+' / '+temp(q.max);
   if(wxPage===0){line(name+' · '+t('Agora','Now'),temp(d.temperature),current.join(' · '),d.code,d.day);line(t('Amanhã','Tomorrow')+' · '+q.date,range,tomorrow.join(' · '),q.code,true)}
@@ -373,7 +373,7 @@ async function fallbackCity(city){const p=new URLSearchParams({latitude:city.lat
 async function refreshWeather(){
  wxLoading=true;renderWeather();
  const fetchOfficial=async kind=>{const r=await fetch('/api/official-weather?kind='+kind,{signal:AbortSignal.timeout(18000)});if(!r.ok)throw Error('official');return r.json()};
- await Promise.allSettled([async()=>{try{wxData.Toronto=readCanada((await fetchOfficial('toronto')).xml)}catch(e){try{wxData.Toronto=await fallbackCity(weatherCities[0])}catch(e){delete wxData.Toronto}}},async()=>{let rows=[];try{rows=(await fetchOfficial('portugal')).cities}catch(e){}await Promise.allSettled(weatherCities.slice(1).map(async(city,i)=>{try{wxData[city.name]=readPortugal(rows[i],city)}catch(e){try{wxData[city.name]=await fallbackCity(city)}catch(e){delete wxData[city.name]}}}))}].map(fn=>fn()));
+ await Promise.allSettled([async()=>{try{wxData.Toronto=readCanada((await fetchOfficial('toronto')).xml);if(!Number.isFinite(wxData.Toronto.tomorrow.prob)){try{const forecast=await fallbackCity(weatherCities[0]);if(Number.isFinite(forecast.tomorrow.prob)){wxData.Toronto.tomorrow.prob=forecast.tomorrow.prob;wxData.Toronto.precipProbSource='open-meteo'}}catch(e){/* Keep official forecast without probability */}}}catch(e){try{wxData.Toronto=await fallbackCity(weatherCities[0])}catch(e){delete wxData.Toronto}}},async()=>{let rows=[];try{rows=(await fetchOfficial('portugal')).cities}catch(e){}await Promise.allSettled(weatherCities.slice(1).map(async(city,i)=>{try{wxData[city.name]=readPortugal(rows[i],city)}catch(e){try{wxData[city.name]=await fallbackCity(city)}catch(e){delete wxData[city.name]}}}))}].map(fn=>fn()));
  wxLoading=false;renderWeather();
 }
 function chooseWeather(page){wxPage=page;renderWeather();clearInterval(wxTimer);wxTimer=setInterval(()=>{wxPage=1-wxPage;renderWeather()},10000)}$('wxCanada').addEventListener('click',()=>chooseWeather(0));$('wxPortugal').addEventListener('click',()=>chooseWeather(1));chooseWeather(0);refreshWeather();setInterval(refreshWeather,900000);
