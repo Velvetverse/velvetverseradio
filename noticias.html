@@ -268,7 +268,9 @@ function drawArticle(s){
  document.querySelector('.article-layout').classList.add('no-photo');
  /* Full article focuses on text; static category banners are the site's illustrations. */
  const body=$('articleBody');body.replaceChildren();
- for(const para of (lang==='en'?s.bodyEn:s.body)){const p=document.createElement('p');p.textContent=para;body.append(p)}
+ const articleParagraphs=(lang==='en'&&Array.isArray(s.bodyEn)&&s.bodyEn.length?s.bodyEn:s.body)||[];
+ if(lang==='en'&&(!Array.isArray(s.bodyEn)||!s.bodyEn.length)&&articleParagraphs.length){const notice=document.createElement('p');notice.textContent='This article is currently available in Portuguese. The full text appears below.';notice.style.color='#d9b5ed';notice.style.fontStyle='italic';body.append(notice)}
+ for(const para of articleParagraphs){const p=document.createElement('p');p.textContent=para;body.append(p)}
  for(const section of (s.sections||[])){const h=document.createElement('h3');h.textContent=lang==='en'?section.titleEn:section.title;h.style.margin='26px 0 12px';h.style.fontSize='1.25em';body.append(h);for(const para of (lang==='en'?section.bodyEn:section.body)){const p=document.createElement('p');p.textContent=para;body.append(p)}}
  const src=$('articleSource');src.replaceChildren();
  const h=document.createElement('b');h.textContent=t('Fonte consultada: ','Source: ');
