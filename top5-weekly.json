@@ -1,7 +1,7 @@
 {
   "source": "Shazam Global Latin Chart",
-  "chart_date": "2026-11-21",
-  "week": "2026-11-21",
+  "chart_date": "2026-11-22",
+  "week": "2026-11-22",
   "verified": true,
   "source_url": "https://www.shazam.com/charts/genre/world/latin",
   "songs": [
@@ -13,15 +13,15 @@
     },
     {
       "rank": 2,
-      "title": "Dame Hombro",
-      "artist": "Bulin 47 & Kevin Wai",
-      "id": "6820600198"
-    },
-    {
-      "rank": 3,
       "title": "Se Me Nota (Agárrame) [Prod By B - One]",
       "artist": "Chimbala & Omega",
       "id": "1564402493"
+    },
+    {
+      "rank": 3,
+      "title": "Dame Hombro",
+      "artist": "Bulin 47 & Kevin Wai",
+      "id": "6820600198"
     },
     {
       "rank": 4,
