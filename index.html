@@ -2325,6 +2325,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
       <a href="#" onclick="showSection('home', this); return false;" class="active"><span class="vv-i18n" data-pt="Início" data-en="Home">Início</span></a>
       <a href="#" onclick="showSection('schedule', this); return false;"><span class="vv-i18n" data-pt="Programação" data-en="Schedule">Programação</span></a>
       <a href="#" onclick="showSection('noticias', this); return false;"><span class="vv-i18n" data-pt="Notícias" data-en="News">Notícias</span></a>
+      <a href="#" onclick="showSection('magazine', this); return false;">Magazine</a>
       <a href="#" onclick="showSection('gallery', this); return false;"><span class="vv-i18n" data-pt="Galeria" data-en="Gallery">Galeria</span></a>
       <div class="dropdown vv-info-dropdown">
         <button type="button" class="dropbtn" aria-haspopup="true" aria-expanded="false"><span class="vv-i18n" data-pt="Informações" data-en="Information">Informações</span> ▾</button>
@@ -2730,6 +2731,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
   </div>
 </div>
 <div id="noticias" class="section"><div class="vv-news-live"><iframe id="vvNewsFrame" title="VelvetVerse Notícias" src="noticias.html?embed=1&amp;v=20261120-edicao-bilingue" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
+<div id="magazine" class="section"><div class="vv-news-live"><iframe id="vvMagazineFrame" title="VelvetVerse Magazine" src="magazine.html?embed=1&amp;v=20261122-menu" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
 <div id="gallery" class="section">
   <div class="panel">
     <div class="panel-box">
@@ -4862,6 +4864,12 @@ dropdowns.forEach(dropdown=>{const button=dropdown.querySelector('.dropbtn');if(
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!toggle.contains(e.target))close()});
 window.addEventListener('resize',()=>{if(window.innerWidth>1450)close()});
+})();</script><script id="vv-magazine-index-bridge">(function(){
+const frame=document.getElementById('vvMagazineFrame');if(!frame)return;
+const sync=()=>{if(frame.contentWindow)frame.contentWindow.postMessage({type:'vv-magazine-lang',lang:window.vvCurrentSiteLang==='en'?'en':'pt'},location.origin)};
+frame.addEventListener('load',sync);
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame.contentWindow||!e.data)return;if(e.data.type==='vv-magazine-size'&&Number.isFinite(e.data.height)){frame.style.height=Math.max(700,Math.min(20000,e.data.height+5))+'px'}});
+document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(sync)));
 })();</script><script id="vv-news-index-bridge">(function(){
 const frame=document.getElementById('vvNewsFrame');if(!frame)return;
 const getLang=()=>window.vvCurrentSiteLang==='en'?'en':'pt';
