@@ -2326,9 +2326,14 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
       <a href="#" onclick="showSection('schedule', this); return false;"><span class="vv-i18n" data-pt="Programação" data-en="Schedule">Programação</span></a>
       <a href="#" onclick="showSection('noticias', this); return false;"><span class="vv-i18n" data-pt="Notícias" data-en="News">Notícias</span></a>
       <a href="#" onclick="showSection('gallery', this); return false;"><span class="vv-i18n" data-pt="Galeria" data-en="Gallery">Galeria</span></a>
-      <a href="#" onclick="showSection('about', this); return false;"><span class="vv-i18n" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</span></a>
-      <a href="#" onclick="showSection('contact', this); return false;"><span class="vv-i18n" data-pt="Contactos" data-en="Contact">Contactos</span></a>
-      <a href="#" onclick="showSection('comments', this); return false;"><span class="vv-i18n" data-pt="Comentários" data-en="Comments">Comentários</span></a>
+      <div class="dropdown vv-info-dropdown">
+        <button type="button" class="dropbtn" aria-haspopup="true" aria-expanded="false"><span class="vv-i18n" data-pt="Informações" data-en="Information">Informações</span> ▾</button>
+        <div class="dropdown-content">
+          <a href="#" onclick="showSection('about', this); return false;"><span class="vv-i18n" data-pt="Sobre Nós" data-en="About Us">Sobre Nós</span></a>
+          <a href="#" onclick="showSection('contact', this); return false;"><span class="vv-i18n" data-pt="Contactos" data-en="Contact">Contactos</span></a>
+          <a href="#" onclick="showSection('comments', this); return false;"><span class="vv-i18n" data-pt="Comentários" data-en="Comments">Comentários</span></a>
+        </div>
+      </div>
       <div class="dropdown">
   <button class="dropbtn">Podcasts</button>
 
@@ -4849,11 +4854,11 @@ async function submitOpenStageApplication(event){
 })();
 </script><script id="vv-mobile-menu-script">(function(){
 const nav=document.getElementById('vvMobileNav'),toggle=document.getElementById('vvMobileMenuToggle');if(!nav||!toggle)return;
-const podcast=nav.querySelector('.dropdown'),podcastButton=podcast?.querySelector('.dropbtn');
-function close(){nav.classList.remove('vv-mobile-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰';if(podcast){podcast.classList.remove('vv-submenu-open');podcastButton?.setAttribute('aria-expanded','false')}}
+const dropdowns=[...nav.querySelectorAll('.dropdown')];
+function close(){nav.classList.remove('vv-mobile-open');toggle.setAttribute('aria-expanded','false');toggle.textContent='☰';dropdowns.forEach(d=>{d.classList.remove('vv-submenu-open');d.querySelector('.dropbtn')?.setAttribute('aria-expanded','false')})}
 toggle.addEventListener('click',()=>{const open=nav.classList.toggle('vv-mobile-open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'✕':'☰'});
 nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));
-if(podcastButton){podcastButton.setAttribute('aria-expanded','false');podcastButton.addEventListener('click',()=>{if(window.innerWidth>1450)return;const open=podcast.classList.toggle('vv-submenu-open');podcastButton.setAttribute('aria-expanded',String(open))})}
+dropdowns.forEach(dropdown=>{const button=dropdown.querySelector('.dropbtn');if(!button)return;button.setAttribute('aria-expanded','false');button.addEventListener('click',()=>{if(window.innerWidth>1450)return;const open=dropdown.classList.toggle('vv-submenu-open');dropdowns.filter(d=>d!==dropdown).forEach(d=>{d.classList.remove('vv-submenu-open');d.querySelector('.dropbtn')?.setAttribute('aria-expanded','false')});button.setAttribute('aria-expanded',String(open))})});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!toggle.contains(e.target))close()});
 window.addEventListener('resize',()=>{if(window.innerWidth>1450)close()});
