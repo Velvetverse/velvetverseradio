@@ -2731,7 +2731,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
   </div>
 </div>
 <div id="noticias" class="section"><div class="vv-news-live"><iframe id="vvNewsFrame" title="VelvetVerse Notícias" src="noticias.html?embed=1&amp;v=20261120-edicao-bilingue" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
-<div id="magazine" class="section"><div class="vv-news-live"><iframe id="vvMagazineFrame" title="VelvetVerse Magazine" src="magazine.html?embed=1&amp;v=20261122-menu" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
+<div id="magazine" class="section"><div class="vv-news-live"><iframe id="vvMagazineFrame" title="VelvetVerse Magazine" src="magazine.html?embed=1&amp;v=20261122-scrollfix" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
 <div id="gallery" class="section">
   <div class="panel">
     <div class="panel-box">
@@ -4868,7 +4868,7 @@ window.addEventListener('resize',()=>{if(window.innerWidth>1450)close()});
 const frame=document.getElementById('vvMagazineFrame');if(!frame)return;
 const sync=()=>{if(frame.contentWindow)frame.contentWindow.postMessage({type:'vv-magazine-lang',lang:window.vvCurrentSiteLang==='en'?'en':'pt'},location.origin)};
 frame.addEventListener('load',sync);
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame.contentWindow||!e.data)return;if(e.data.type==='vv-magazine-size'&&Number.isFinite(e.data.height)){frame.style.height=Math.max(700,Math.min(20000,e.data.height+5))+'px'}});
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame.contentWindow||!e.data)return;if(e.data.type==='vv-magazine-size'&&Number.isFinite(e.data.height)){frame.style.height=Math.max(320,Math.min(12000,Math.ceil(e.data.height)))+'px'}});
 document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(sync)));
 })();</script><script id="vv-news-index-bridge">(function(){
 const frame=document.getElementById('vvNewsFrame');if(!frame)return;
