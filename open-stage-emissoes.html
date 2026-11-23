@@ -32,6 +32,25 @@ footer{margin-top:22px;text-align:center;font-size:12px;color:#9e8dab}
 @media(max-width:1150px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.featured{grid-template-columns:260px 1fr;gap:22px;padding:18px}.intro p{max-width:330px}}
 @media(max-width:720px){.bar{padding:12px 18px}.topLinks{display:none}.intro{display:block}.introTitle{gap:13px}.intro p{margin:15px 0 0 58px;font-size:14px}.mic{width:36px}.featured{display:block}.featured .coverArt{max-width:300px;margin:0 auto 20px}.featureContent h2{font-size:28px}.facts{font-size:13px}.player{gap:7px;padding:9px}.play{width:40px;height:40px}.volume{width:48px}.audioTime{font-size:12px}.archiveHeader{align-items:flex-start}.archiveTitle{gap:10px}.archiveTitle:after{display:none}.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.epCard .coverName{font-size:25px}.epCard .coverEpisode{font-size:14px}.shell{padding-inline:11px}.sort{max-width:120px;font-size:12px}}
 @media(max-width:400px){.cards{grid-template-columns:1fr 1fr}.epCard .coverName{font-size:21px}.epCard .coverEpisode{font-size:12px}.cardBottom{padding:8px}.cardBottom strong{font-size:13px}}
+
+/* Aproximação ao mockup aprovado: cabeçalho editorial, microfone lateral,
+   cartão em destaque de grandes dimensões e arquivo de cinco capas. */
+.intro{min-height:114px;padding:18px 8px 25px;margin-bottom:10px}
+.intro:before{inset:-30px -12px -30px;background:linear-gradient(90deg,transparent 45%,#20072266 80%),radial-gradient(ellipse at 95% 15%,#9f20ce55,transparent 45%)}
+.introTitle{max-width:65%;align-self:flex-start}.intro h1{font-size:clamp(27px,2.65vw,39px);border-image:linear-gradient(90deg,#e74eff,#5d1575) 1}
+.intro p{font-size:17px;max-width:440px;margin-right:210px;align-self:flex-start;margin-top:7px}
+.intro:after{content:"";position:absolute;pointer-events:none;right:-15px;top:-12px;width:215px;height:168px;opacity:.9;background:url("microfone-rubricas.png.webp") center/contain no-repeat;filter:drop-shadow(0 0 24px #c122dc55)}
+.featured{grid-template-columns:minmax(235px,340px) minmax(0,1fr);gap:40px;min-height:355px;padding:17px 37px 20px;border-radius:24px;background:linear-gradient(100deg,#271030 1%,#170a20 55%,#360d4188 100%)}
+.featured .coverArt{max-width:340px;aspect-ratio:1/1}.pill{padding:4px 13px;background:#8b27c2;box-shadow:0 0 11px #c32fff60}
+.featureContent h2{font-size:clamp(29px,3vw,44px)}.summary{margin:13px 0 19px}.player{height:68px;gap:18px}.play{width:52px;height:52px}
+.archiveHeader{margin:17px 0 15px}.cards{gap:24px}.epCard .coverArt{aspect-ratio:1.35/1;min-height:155px}.epCard .coverArt:before{background-size:cover;background-position:center}
+.epCard[data-episode="01"] .coverArt:before{background-image:linear-gradient(160deg,#330b0cb8,#170417cc),url("Moody Music Rehearsal Photo Collage.png.webp")}
+.epCard[data-episode="03"] .coverArt:before{background-image:linear-gradient(160deg,#1b0639b8,#150522b8),url("radio-studio.jpg.webp")}
+.epCard[data-episode="04"] .coverArt:before{background-image:linear-gradient(160deg,#351808aa,#0c051dbb),url("open-stage-6-talentos.png.webp")}
+.epCard[data-episode="05"] .coverArt:before{background-image:linear-gradient(160deg,#270533af,#100312aa),url("Open Stage_ Novos Talentos.png.webp")}
+.epCard .coverName{font-size:clamp(23px,2.45vw,37px);line-height:1}.epCard .coverEpisode{padding:2px 10px}.cardBottom strong{font-size:17px}
+@media(max-width:1150px){.intro p{margin-right:100px}.intro:after{width:145px}.cards{gap:14px}.featured{gap:25px}}
+@media(max-width:720px){.introTitle{max-width:100%}.intro p{margin-right:0;padding-right:62px}.intro:after{width:85px;top:65px;opacity:.5}.featured{min-height:0;padding:18px}.epCard .coverArt{min-height:110px}.cards{gap:11px}}
 </style></head>
 <body>
 <header class="siteBar"><div class="bar"><a href="index.html" class="logo">◖◗ VelvetVerse <em>Radio</em><small>NOT CREATED TO IMPRESS. CREATED TO EXPRESS.</small></a><nav class="topLinks"><a href="index.html">Home</a><a href="index.html">Schedule</a><a href="index.html">Podcasts</a><a href="index.html">Gallery</a></nav><div class="langSwitch"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div></div></header>
@@ -70,7 +89,7 @@ $("featuredTitle").textContent="Open Stage — "+tr("edition")+" "+ep.id;
 const f=$("featuredMeta");f.replaceChildren();for(const x of [dateText(ep.date),tr("host"),ep.duration||tr("noDate")]){const span=document.createElement("span");span.textContent=x;f.append(span)}
 $("fullTime").textContent=ep.duration||"--:--";$("featuredDesc").textContent=ep[lang];renderCards();resizeParent()}
 function renderCards(){let list=[...EPISODES];if($("sort").value==="old")list.reverse();const container=$("archiveCards");container.replaceChildren();
-for(const ep of list){const button=document.createElement("button");button.type="button";button.className="epCard"+(ep.available?"":" coming");button.disabled=!ep.available;button.setAttribute("aria-current",String(selected===ep.id));
+for(const ep of list){const button=document.createElement("button");button.type="button";button.dataset.episode=ep.id;button.className="epCard"+(ep.available?"":" coming");button.disabled=!ep.available;button.setAttribute("aria-current",String(selected===ep.id));
 const art=cover(ep,true);const bottom=document.createElement("span");bottom.className="cardBottom";const title=document.createElement("strong");title.textContent=tr("edition")+" "+ep.id;const date=document.createElement("span");date.className="cardMeta";date.textContent=ep.date?dateText(ep.date):tr("noDate");bottom.append(title,date);const label=document.createElement("span");label.className="cardMeta "+(!ep.available?"disabledLabel":"");label.textContent=ep.duration||tr("coming");bottom.append(label);button.append(art,bottom);button.onclick=()=>{displayEpisode(ep.id);if(window.parent!==window)window.parent.postMessage({type:"vv-open-archive-focus"},location.origin)};container.append(button)}}
 function refreshLanguage(next){lang=next==="en"?"en":"pt";document.documentElement.lang=lang;document.querySelectorAll("[data-t]").forEach(el=>el.textContent=tr(el.dataset.t));document.querySelectorAll("[data-lang]").forEach(el=>el.setAttribute("aria-pressed",String(el.dataset.lang===lang)));displayEpisode(selected)}
 function fmt(seconds){seconds=Math.floor(seconds||0);return Math.floor(seconds/60)+":"+String(seconds%60).padStart(2,"0")}
