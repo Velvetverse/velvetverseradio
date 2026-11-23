@@ -111,6 +111,12 @@ body{font-family:Arial,Helvetica,sans-serif;background:#050308;color:#fff}
 .coverArt{background:#09050d url("open-stage-logo..png") center center / contain no-repeat !important}
 .coverArt::before,.coverArt::after,.coverArt .coverStage,.coverArt .artObject{display:none !important}
 .epCard .coverArt{aspect-ratio:1 / 1 !important;height:auto !important;min-height:0 !important;max-height:none !important;background-size:contain !important;background-position:center center !important;background-repeat:no-repeat !important}
+
+/* Reservar espaço para Play no rodapé do cartão, sem tapar data/título. */
+.epCard .cardBottom{position:relative;padding:10px 12px 13px;min-height:100px}
+.epCard .cardBottom strong{display:block;max-width:100%;white-space:normal;overflow-wrap:break-word;font-size:15px;line-height:1.25;padding:0;margin:0 0 5px}
+.epCard .cardBottom .cardMeta{display:block;max-width:calc(100% - 48px);font-size:12px;line-height:1.4}
+.epCard .cardBottom::after{top:auto;bottom:13px;right:10px}
 </style></head>
 <body>
 <header class="siteBar"><div class="bar"><a href="index.html" class="logo">◖◗ VelvetVerse <em>Radio</em><small>NOT CREATED TO IMPRESS. CREATED TO EXPRESS.</small></a><nav class="topLinks"><a href="index.html">Home</a><a href="index.html">Schedule</a><a href="index.html">Podcasts</a><a href="index.html">Gallery</a></nav><div class="langSwitch"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div></div></header>
