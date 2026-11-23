@@ -128,7 +128,7 @@ en:"Open Stage on VelvetVerse Radio gives independent artists and original proje
 const translations={
 pageTitle:["Open Stage — Arquivo de Emissões","Open Stage — Broadcast Archive"],pageSubtitle:["Revive todas as edições do Open Stage, o palco da VelvetVerse Radio para novos talentos.","Relive Open Stage broadcasts, the VelvetVerse Radio platform for emerging talent."],highlight:["◉ EM DESTAQUE","◉ FEATURED"],archiveTitle:["Arquivo Open Stage","Open Stage Archive"],newest:["Mais recentes","Newest first"],oldest:["Mais antigas","Oldest first"],edition:["Edição","Edition"],host:["Beto Sousa","Beto Sousa"],audioPending:["Gravação ainda não disponibilizada. O player ficará ativo quando o MP3 for publicado.","Recording not yet available. The player will activate once the MP3 is published."],coming:["Em preparação","Coming soon"],noDate:["Data por confirmar","Date to be confirmed"],listen:["Ouvir edição","Play episode"],duration:["Duração","Duration"],missing:["Áudio por publicar","Audio not published"]
 };
-let lang=new URLSearchParams(location.search).get("lang")==="en"?"en":"pt",selected="02";
+let lang=new URLSearchParams(location.search).get("lang")==="en"?"en":"pt",selected="2026-11-21";
 if(new URLSearchParams(location.search).has("embed"))document.body.classList.add("embed");
 const $=id=>document.getElementById(id);const tr=k=>translations[k]?.[lang==="en"?1:0]||k;
 const audio=$("archiveAudio");
