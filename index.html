@@ -2339,6 +2339,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
   <button class="dropbtn">Podcasts ▾</button>
 
   <div class="dropdown-content">
+    <a href="#" onclick="showSection('open-stage-emissoes',this);return false;"><span class="vv-i18n" data-pt="Open Stage — Emissões" data-en="Open Stage — Broadcasts">Open Stage — Emissões</span></a>
     <a href="backstage-legends.html">Backstage Legends</a>
     <a href="inside-velvetverse.html">Inside VelvetVerse</a>
     <a href="brasil-de-norte-a-sul.html">Brasil de Norte a Sul</a>
@@ -2732,6 +2733,7 @@ background:#170a29;border:1px solid #ce53fe;border-radius:12px
 </div>
 <div id="noticias" class="section"><div class="vv-news-live"><iframe id="vvNewsFrame" title="VelvetVerse Notícias" src="noticias.html?embed=1&amp;v=20261122-cop31-banner-benfica" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
 <div id="magazine" class="section"><div class="vv-news-live"><iframe id="vvMagazineFrame" title="VelvetVerse Magazine" src="magazine.html?embed=1&amp;v=20261122-tour-editorial" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
+<div id="open-stage-emissoes" class="section"><div class="vv-news-live"><iframe id="vvOpenArchiveFrame" title="Open Stage — Arquivo de Emissões" src="open-stage-emissoes.html?embed=1&amp;v=20261122-initial" loading="lazy" class="vv-news-live-frame" scrolling="no"></iframe></div></div>
 <div id="gallery" class="section">
   <div class="panel">
     <div class="panel-box">
@@ -4864,6 +4866,15 @@ dropdowns.forEach(dropdown=>{const button=dropdown.querySelector('.dropbtn');if(
 document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 document.addEventListener('click',e=>{if(!nav.contains(e.target)&&!toggle.contains(e.target))close()});
 window.addEventListener('resize',()=>{if(window.innerWidth>1450)close()});
+})();</script><script id="vv-open-archive-index-bridge">(function(){
+ const frame=document.getElementById('vvOpenArchiveFrame');if(!frame)return;
+ const sync=()=>{if(frame.contentWindow)frame.contentWindow.postMessage({type:'vv-open-archive-lang',lang:window.vvCurrentSiteLang==='en'?'en':'pt'},location.origin)};
+ frame.addEventListener('load',sync);
+ window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==frame.contentWindow||!e.data)return;
+ if(e.data.type==='vv-open-archive-size'&&Number.isFinite(e.data.height))frame.style.height=Math.max(480,Math.min(10000,Math.ceil(e.data.height)))+'px';
+ else if(e.data.type==='vv-open-archive-focus'){const player=document.getElementById('miniPlayer');const header=document.querySelector('.top-header');const offset=Math.max(315,(header?.getBoundingClientRect().bottom||0)+15,(player?.getBoundingClientRect().bottom||0)+16);window.scrollTo({top:Math.max(0,window.scrollY+frame.getBoundingClientRect().top-offset),behavior:'instant'})}
+ });
+ document.querySelectorAll('[data-vv-lang]').forEach(b=>b.addEventListener('click',()=>requestAnimationFrame(sync)));
 })();</script><script id="vv-magazine-index-bridge">(function(){
 const frame=document.getElementById('vvMagazineFrame');if(!frame)return;
 const sync=()=>{if(frame.contentWindow)frame.contentWindow.postMessage({type:'vv-magazine-lang',lang:window.vvCurrentSiteLang==='en'?'en':'pt'},location.origin)};
