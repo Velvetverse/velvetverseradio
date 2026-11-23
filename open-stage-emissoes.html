@@ -51,6 +51,61 @@ footer{margin-top:22px;text-align:center;font-size:12px;color:#9e8dab}
 .epCard .coverName{font-size:clamp(23px,2.45vw,37px);line-height:1}.epCard .coverEpisode{padding:2px 10px}.cardBottom strong{font-size:17px}
 @media(max-width:1150px){.intro p{margin-right:100px}.intro:after{width:145px}.cards{gap:14px}.featured{gap:25px}}
 @media(max-width:720px){.introTitle{max-width:100%}.intro p{margin-right:0;padding-right:62px}.intro:after{width:85px;top:65px;opacity:.5}.featured{min-height:0;padding:18px}.epCard .coverArt{min-height:110px}.cards{gap:11px}}
+/* Modelo visual de referência aprovado para o arquivo do Open Stage */
+body{font-family:Arial,Helvetica,sans-serif;background:#050308;color:#fff}
+.shell{max-width:1648px;padding:22px clamp(20px,5.1vw,84px) 35px}
+.intro{min-height:77px;margin-bottom:20px;padding:0 10px 0;gap:28px}
+.introTitle{align-self:center;max-width:none;flex:1;gap:20px}
+.intro h1{font-size:clamp(24px,2.55vw,39px);white-space:nowrap;letter-spacing:-.6px;border-bottom:4px solid #b52edb;padding-bottom:8px}
+.intro p{margin:0 214px 0 0;padding:0 0 0 38px;max-width:475px;border-left:2px solid #db71fc;min-width:370px;font-size:17px;font-style:italic;align-self:center}
+.intro:after{right:6px;top:-21px;width:177px;height:156px;z-index:2;background:url("microfone-rubricas.png.webp") center/contain no-repeat;opacity:1}
+.featured{grid-template-columns:340px minmax(0,1fr);gap:39px;align-items:center;padding:18px 36px 18px;min-height:353px;background:linear-gradient(90deg,#200b29f2 0%,#190a20 66%,#240c31 100%);border:1px solid #8e4394;border-radius:24px}
+.featureContent h2{font-size:clamp(30px,2.65vw,45px);margin:9px 0 12px;line-height:1.13}
+.featured .coverArt{width:340px;height:318px;aspect-ratio:1 / 1;max-width:100%}
+.pill{background:#8f2bd1;font-size:14px;box-shadow:0 0 8px #9c27d6}
+.facts{gap:17px;font-size:18px}.facts span+span{border-left:2px solid #ceb1d4;padding-left:17px}
+.summary{font-size:18px;line-height:1.43;margin:14px 0 19px;max-width:980px}
+.player{background:linear-gradient(#25212f,#1a1623);border:1px solid #60536c;border-radius:18px;height:71px;padding:10px 20px;gap:22px}
+.play{width:57px;height:57px;background:linear-gradient(135deg,#b342ec,#7423c9);font-size:29px}
+.archiveHeader{margin:19px 0 18px}.archiveTitle{gap:18px}.archiveTitle h2{font-size:34px}.archiveTitle:before{content:"◇";color:#ca48ed;font-size:47px;line-height:1;transform:rotate(-13deg)}
+.cards{grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+.epCard{border-radius:17px;min-width:0;border:1px solid #7c6984;background:linear-gradient(180deg,#110c18,#211627)}
+.epCard .coverArt{aspect-ratio:1.52 / 1;min-height:185px;max-height:200px;border-radius:0}
+.epCard .coverName{font-size:clamp(28px,2.6vw,40px)}
+.epCard .coverEpisode{font-size:clamp(12px,1.4vw,19px)}
+.epCard[aria-current=true]{border:2px solid #f45bff;box-shadow:0 0 16px #e32dfc99}
+.cardBottom{padding:8px 17px 13px;min-height:89px;position:relative}.cardBottom strong{font-size:17px}
+.cardBottom:after{content:"▶";position:absolute;right:11px;top:13px;background:linear-gradient(130deg,#a131ed,#6b13be);width:37px;height:37px;line-height:37px;text-align:center;border:1px solid #edd0ff;border-radius:50%;font-size:16px;color:white}
+.epCard:disabled .cardBottom:after{content:"•";opacity:.6}
+.cardMeta{max-width:calc(100% - 35px);font-size:13px;margin-top:4px}
+.coverArt{border:1px solid #c14fee;background:radial-gradient(ellipse at 24% 21%,#c12bd166,transparent 34%),radial-gradient(ellipse at 80% 15%,#ac1fa766,transparent 39%),linear-gradient(165deg,#15071a,#250a38 70%,#09020d);position:relative;overflow:hidden;isolation:isolate}
+.coverArt:before{content:"";position:absolute;inset:0;z-index:-2;background-image:radial-gradient(ellipse at 50% 85%,#b82fe150,transparent 62%),url("Open Stage_ Novos Talentos.png.webp");background-position:center;background-size:cover;filter:brightness(.52) saturate(1.45)}
+.coverArt:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#1004173d,#08010d00 43%,#0a0316ab 90%),repeating-linear-gradient(104deg,transparent 0 76px,#bc5eff0c 78px 83px,transparent 85px 120px)}
+.coverStage{width:100%;height:100%;display:flex;align-items:center;flex-direction:column;justify-content:center;position:relative;z-index:2;padding:15px 9px}
+.artObject{position:absolute;z-index:1;right:0;top:8%;width:31%;height:72%;pointer-events:none;filter:drop-shadow(2px 7px 4px #09010d)}
+.artObject:before{content:"";display:block;width:72%;height:42%;margin:0 auto;background:repeating-linear-gradient(0deg,#e7d9f4 0 3px,#1c1424 4px 8px);border:5px solid #e9d9f7;border-radius:49% 49% 43% 43%;box-shadow:inset 0 0 10px #110422,0 0 7px #d556f5;transform:rotate(-12deg)}
+.artObject:after{content:"";position:absolute;left:49%;top:41%;height:66%;width:7%;background:linear-gradient(90deg,#dad1ed,#35253c,#c5b3ce);transform:rotate(-8deg);border-radius:2px}
+.coverTop{position:absolute;top:6%;font-size:clamp(9px,.9vw,14px);font-weight:800;letter-spacing:.2px;text-shadow:0 2px 4px #000;white-space:nowrap}
+.coverTop em{font-family:Georgia,serif;color:#de6de9}
+.coverName{font-size:clamp(40px,4.3vw,66px);font-weight:1000;font-style:italic;line-height:.91;letter-spacing:-2px;align-self:flex-start;margin-left:10%;text-shadow:3px 4px 3px #08020a,1px 0 4px #fff5;transform:skew(-7deg) rotate(-3deg)}
+.coverName span{color:#ee98fc;text-shadow:3px 4px 2px #08020a,0 0 6px #e964fb}
+.coverEpisode{transform:rotate(-7deg);font-size:clamp(15px,1.7vw,25px);font-weight:1000;letter-spacing:-1px;background:#ffe5a6;color:#160d13;padding:2px 13px;margin:11px 0 0 7%;align-self:center;box-shadow:0 5px 10px #04000699;white-space:nowrap}
+.coverBottom{position:absolute;bottom:5%;font-weight:900;font-size:13px}
+.epCard .coverTop{top:3%;font-size:10px}.epCard .coverName{margin-left:11%}.epCard .coverEpisode{margin-top:7px;padding:2px 10px}.epCard .coverBottom{display:none}
+.cover-electric:before{background-image:linear-gradient(135deg,#09020a99,#40100666),url("Moody Music Rehearsal Photo Collage.png.webp")}
+.cover-electric .artObject:before,.cover-acoustic .artObject:before{width:22%;height:61%;border-radius:6px;background:linear-gradient(90deg,#b77b2f,#f7c574,#764319);transform:rotate(35deg)}
+.cover-electric .artObject:after,.cover-acoustic .artObject:after{width:82%;height:29%;top:52%;left:14%;border-radius:45%;background:linear-gradient(125deg,#f3bd6b,#713818,#1c0a0e);transform:rotate(35deg)}
+.cover-drums:before{background-image:linear-gradient(125deg,#100426aa,#30093b88),url("radio-studio.jpg.webp")}
+.cover-drums .artObject:before{height:52%;width:70%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c28cea,#321040 70%);border:6px solid #c5a3d3}
+.cover-drums .artObject:after{width:100%;height:5%;top:17%;left:-12%;transform:rotate(10deg);background:linear-gradient(90deg,#965629,#ffd48b,#a75f27);border-radius:50%}
+.cover-acoustic:before{background-image:linear-gradient(125deg,#3b150bbb,#16080da9),url("open-stage-6-talentos.png.webp")}
+.cover-lights:before{background-image:linear-gradient(165deg,#0b041faa,#45104677),url("Open Stage_ Novos Talentos.png.webp")}
+.cover-lights .artObject:before{background:#e672fb;width:70%;height:13%;border-radius:40%;border:0;box-shadow:0 0 30px 18px #d732fe7a;transform:rotate(-15deg)}
+.cover-lights .artObject:after{display:none}
+.epCard.coming{opacity:1}.epCard.coming .coverArt:before{filter:brightness(.54) saturate(1.2)}
+@media(max-width:1250px){.intro h1{white-space:normal}.intro p{margin-right:100px;min-width:0;font-size:15px}.intro:after{width:105px}.featured{grid-template-columns:minmax(210px,280px) minmax(0,1fr);gap:20px}.featured .coverArt{height:auto}.cards{gap:13px}.epCard .coverArt{min-height:130px}.summary{font-size:15px}}
+@media(max-width:900px){.intro{display:block}.intro p{margin:12px 0 0 60px;max-width:80%}.intro:after{opacity:.3}.featured{grid-template-columns:210px minmax(0,1fr);padding:15px}.featureContent h2{font-size:27px}.facts{font-size:13px}.player{gap:9px}.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.epCard .coverArt{min-height:170px}}
+@media(max-width:620px){.shell{padding:14px 12px 35px}.featured{display:block}.featured .coverArt{max-width:275px;margin:0 auto 15px}.archiveTitle h2{font-size:23px}.archiveHeader{gap:10px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.epCard .coverArt{min-height:130px}.epCard .coverName{font-size:30px}.introTitle{align-items:flex-start}.intro h1{font-size:25px}.intro p{margin-left:0;max-width:100%;padding:0 0 0 12px}.summary{font-size:15px}.facts{gap:8px}.player{height:60px}.play{width:42px;height:42px}.volume{width:45px}}
 </style></head>
 <body>
 <header class="siteBar"><div class="bar"><a href="index.html" class="logo">◖◗ VelvetVerse <em>Radio</em><small>NOT CREATED TO IMPRESS. CREATED TO EXPRESS.</small></a><nav class="topLinks"><a href="index.html">Home</a><a href="index.html">Schedule</a><a href="index.html">Podcasts</a><a href="index.html">Gallery</a></nav><div class="langSwitch"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div></div></header>
@@ -66,13 +121,13 @@ footer{margin-top:22px;text-align:center;font-size:12px;color:#9e8dab}
 "use strict";
 /* Adicionar MP3 apenas depois de autorizado e publicado em R2. Sem URL, o player permanece inativo. */
 const EPISODES=[
-{id:"02",date:"2026-11-21",duration:"59:38",durationSeconds:3578,audioUrl:"",available:true,
+{id:"02",art:"mic",labelPt:"Edição 02",labelEn:"Edition 02",date:"2026-11-21",duration:"59:38",durationSeconds:3578,audioUrl:"",available:true,
 pt:"A segunda edição do Open Stage, o programa da VelvetVerse Radio que dá voz a artistas independentes e projetos originais. Com destaque para Mascha Sonnenburg, que apresentou a sua música «Sugar on the Snow», e WHALEN, entre outras participações especiais.",
-en:"The second edition of Open Stage celebrates independent artists and original music. Featuring Mascha Sonnenburg with “Sugar on the Snow”, WHALEN and more special guests."},
-{id:"01",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Edição anterior do Open Stage. Os detalhes e a gravação serão adicionados quando estiverem preparados.",en:"Previous Open Stage edition. Details and recording will be added when ready."},
-{id:"03",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Edição futura. Ainda sem gravação.",en:"Future edition. No recording yet."},
-{id:"04",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Edição futura. Ainda sem gravação.",en:"Future edition. No recording yet."},
-{id:"05",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Edição futura. Ainda sem gravação.",en:"Future edition. No recording yet."}
+en:"The second edition of Open Stage celebrates independent artists and original music. Featuring Mascha Sonnenburg with “Sugar on the Snow”, WHALEN and other special guests."},
+{id:"01",art:"electric",labelPt:"Edição 01",labelEn:"Edition 01",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Gravação ainda não disponibilizada.",en:"Recording not yet available."},
+{id:"00",art:"drums",labelPt:"Edição 00",labelEn:"Edition 00",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Gravação ainda não disponibilizada.",en:"Recording not yet available."},
+{id:"piloto",art:"acoustic",labelPt:"Edição Piloto",labelEn:"Pilot Episode",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Gravação ainda não disponibilizada.",en:"Recording not yet available."},
+{id:"especial",art:"lights",labelPt:"Edição Especial",labelEn:"Special Edition",date:"",duration:"",durationSeconds:0,audioUrl:"",available:false,pt:"Gravação ainda não disponibilizada.",en:"Recording not yet available."}
 ];
 const translations={
 pageTitle:["Open Stage — Arquivo de Emissões","Open Stage — Broadcast Archive"],pageSubtitle:["Revive todas as edições do Open Stage, o palco da VelvetVerse Radio para novos talentos.","Relive Open Stage broadcasts, the VelvetVerse Radio platform for emerging talent."],highlight:["◉ EM DESTAQUE","◉ FEATURED"],archiveTitle:["Arquivo Open Stage","Open Stage Archive"],newest:["Mais recentes","Newest first"],oldest:["Mais antigas","Oldest first"],edition:["Edição","Edition"],host:["Beto Sousa","Beto Sousa"],audioPending:["Gravação ainda não disponibilizada. O player ficará ativo quando o MP3 for publicado.","Recording not yet available. The player will activate once the MP3 is published."],coming:["Em preparação","Coming soon"],noDate:["Data por confirmar","Date to be confirmed"],listen:["Ouvir edição","Play episode"],duration:["Duração","Duration"],missing:["Áudio por publicar","Audio not published"]
@@ -82,15 +137,23 @@ if(new URLSearchParams(location.search).has("embed"))document.body.classList.add
 const $=id=>document.getElementById(id);const tr=k=>translations[k]?.[lang==="en"?1:0]||k;
 const audio=$("archiveAudio");
 function dateText(raw){if(!raw)return tr("noDate");return new Intl.DateTimeFormat(lang==="pt"?"pt-PT":"en-CA",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"}).format(new Date(raw+"T12:00:00Z"))}
-function cover(ep,compact=false){const el=document.createElement("div");el.className="coverArt";const name=document.createElement("div");name.className="coverName";name.append(document.createTextNode("OPEN"));const second=document.createElement("span");second.textContent="STAGE";name.append(second);const top=document.createElement("div");top.className="coverTop";top.textContent="VELVETVERSE RADIO";const label=document.createElement("div");label.className="coverEpisode";label.textContent=tr("edition").toUpperCase()+" "+ep.id;const bottom=document.createElement("div");bottom.className="coverBottom";bottom.textContent=ep.date?dateText(ep.date).toUpperCase():"";el.append(top,name,label,bottom);return el}
+function cover(ep,compact=false){
+const el=document.createElement("div");el.className="coverArt cover-"+ep.art;
+const stage=document.createElement("div");stage.className="coverStage";
+const artwork=document.createElement("div");artwork.className="artObject";
+const brand=document.createElement("div");brand.className="coverTop";brand.innerHTML="VelvetVerse <em>Radio</em>";
+const name=document.createElement("div");name.className="coverName";name.append(document.createTextNode("OPEN"));const second=document.createElement("span");second.textContent="STAGE";name.append(second);
+const label=document.createElement("div");label.className="coverEpisode";label.textContent=(lang==="en"?ep.labelEn:ep.labelPt).toUpperCase();
+const bottom=document.createElement("div");bottom.className="coverBottom";bottom.textContent=ep.date?dateText(ep.date).toUpperCase():"";
+stage.append(brand,name,label,bottom);el.append(artwork,stage);return el}
 function displayEpisode(id){const ep=EPISODES.find(e=>e.id===id);if(!ep||!ep.available)return;selected=id;audio.pause();audio.removeAttribute("src");audio.load();$("audioPlay").textContent="▶";$("playedTime").textContent="0:00";$("seek").value=0;$("seek").disabled=!ep.audioUrl;$("audioPlay").disabled=!ep.audioUrl;$("audioNotice").hidden=!!ep.audioUrl;if(ep.audioUrl)audio.src=ep.audioUrl;audio.volume=Number($("volume").value)/100;
 $("bigCover").replaceWith(cover(ep));document.querySelector(".featured>.coverArt").id="bigCover";
-$("featuredTitle").textContent="Open Stage — "+tr("edition")+" "+ep.id;
+$("featuredTitle").textContent="Open Stage — "+(lang==="en"?ep.labelEn:ep.labelPt);
 const f=$("featuredMeta");f.replaceChildren();for(const x of [dateText(ep.date),tr("host"),ep.duration||tr("noDate")]){const span=document.createElement("span");span.textContent=x;f.append(span)}
 $("fullTime").textContent=ep.duration||"--:--";$("featuredDesc").textContent=ep[lang];renderCards();resizeParent()}
 function renderCards(){let list=[...EPISODES];if($("sort").value==="old")list.reverse();const container=$("archiveCards");container.replaceChildren();
 for(const ep of list){const button=document.createElement("button");button.type="button";button.dataset.episode=ep.id;button.className="epCard"+(ep.available?"":" coming");button.disabled=!ep.available;button.setAttribute("aria-current",String(selected===ep.id));
-const art=cover(ep,true);const bottom=document.createElement("span");bottom.className="cardBottom";const title=document.createElement("strong");title.textContent=tr("edition")+" "+ep.id;const date=document.createElement("span");date.className="cardMeta";date.textContent=ep.date?dateText(ep.date):tr("noDate");bottom.append(title,date);const label=document.createElement("span");label.className="cardMeta "+(!ep.available?"disabledLabel":"");label.textContent=ep.duration||tr("coming");bottom.append(label);button.append(art,bottom);button.onclick=()=>{displayEpisode(ep.id);if(window.parent!==window)window.parent.postMessage({type:"vv-open-archive-focus"},location.origin)};container.append(button)}}
+const art=cover(ep,true);const bottom=document.createElement("span");bottom.className="cardBottom";const title=document.createElement("strong");title.textContent=lang==="en"?ep.labelEn:ep.labelPt;const date=document.createElement("span");date.className="cardMeta";date.textContent=ep.date?dateText(ep.date):tr("noDate");bottom.append(title,date);const label=document.createElement("span");label.className="cardMeta "+(!ep.available?"disabledLabel":"");label.textContent=ep.duration||tr("coming");bottom.append(label);button.append(art,bottom);button.onclick=()=>{displayEpisode(ep.id);if(window.parent!==window)window.parent.postMessage({type:"vv-open-archive-focus"},location.origin)};container.append(button)}}
 function refreshLanguage(next){lang=next==="en"?"en":"pt";document.documentElement.lang=lang;document.querySelectorAll("[data-t]").forEach(el=>el.textContent=tr(el.dataset.t));document.querySelectorAll("[data-lang]").forEach(el=>el.setAttribute("aria-pressed",String(el.dataset.lang===lang)));displayEpisode(selected)}
 function fmt(seconds){seconds=Math.floor(seconds||0);return Math.floor(seconds/60)+":"+String(seconds%60).padStart(2,"0")}
 $("sort").onchange=renderCards;$("audioPlay").onclick=()=>{if(!audio.src)return;audio.paused?audio.play().catch(()=>{}):audio.pause()};audio.onplay=()=>$("audioPlay").textContent="❚❚";audio.onpause=()=>$("audioPlay").textContent="▶";audio.ontimeupdate=()=>{$("playedTime").textContent=fmt(audio.currentTime);if(audio.duration)$("seek").value=Math.round(audio.currentTime/audio.duration*100)};audio.onended=()=>{$("audioPlay").textContent="▶"};$("seek").oninput=()=>{if(audio.duration)audio.currentTime=Number($("seek").value)*audio.duration/100};$("volume").oninput=()=>audio.volume=Number($("volume").value)/100;
