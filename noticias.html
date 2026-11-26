@@ -248,10 +248,10 @@ function draw(){document.documentElement.lang=lang;document.querySelectorAll('[d
  const lead=stories[0];
  const featurePhoto=document.querySelector('.vv-feature-row .vv-feature-photo');if(featurePhoto){featurePhoto.alt=newsText(lead,'title');if(lead.photo){const url=imageUrl(lead.photo);if(featurePhoto.getAttribute('src')!==url)featurePhoto.src=url;}}
  $('featuredTitle').textContent=newsText(lead,'title');$('featuredSummary').textContent=newsText(lead,'summary');$('featuredDate').textContent=lead.date.split('-').reverse().join('/')+' · '+lead.time;
- const newest=stories.map(s=>s.date).sort().reverse()[0];const dateObj=new Date(newest+'T12:00:00');const dateText=new Intl.DateTimeFormat(lang==='pt'?'pt-PT':'en-CA',{day:'numeric',month:'long',year:'numeric'}).format(dateObj);$('editionUpdated').textContent=t('Atualizado: ','Updated: ')+dateText+' · '+t('Edição de 24 de novembro','November 24 edition')+' · Toronto';
+ const newest=stories.map(s=>s.date).sort().reverse()[0];const dateObj=new Date(newest+'T12:00:00');const dateText=new Intl.DateTimeFormat(lang==='pt'?'pt-PT':'en-CA',{day:'numeric',month:'long',year:'numeric'}).format(dateObj);$('editionUpdated').textContent=t('Atualizado: ','Updated: ')+dateText+' · '+t('Edição de 26 de novembro','November 26 edition')+' · Toronto';
  const cats={portugal:'portugalList',football:'footballList',canada:'canadaList',world:'worldList',motorsport:'motorsportList'};
  for(const [category,id] of Object.entries(cats)){const mount=$(id);mount.replaceChildren();
- stories.filter(s=>s.category===category&&s.id!==lead.id).sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).forEach(s=>{
+ stories.filter(s=>s.category===category).sort((a,b)=>b.date.localeCompare(a.date)||b.time.localeCompare(a.time)).forEach(s=>{
  const row=document.createElement('button');row.type='button';row.className='story';const h=document.createElement('h3');h.textContent=newsText(s,'title');
  const time=document.createElement('span');time.className='story-time';time.textContent=s.time||'—';row.append(h,time);row.addEventListener('click',()=>openStory(s.id));mount.append(row);
  });}
