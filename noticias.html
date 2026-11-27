@@ -197,6 +197,13 @@ body.mockup-assets-ready .banner-credits{display:none}
 .editorial-top .vv-feature-row .vv-feature-copy{max-width:49%!important;width:49%;text-align:left;align-self:center;padding:12px 0 12px 10px}
 .editorial-top .vv-feature-row::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,transparent 38%,rgba(2,5,12,.55) 57%,rgba(2,5,12,.86) 100%)}
 @media(max-width:620px){.editorial-top .vv-feature-row .vv-feature-copy{max-width:59%!important;width:59%;padding:5px 0 5px 8px}.editorial-top .vv-feature-row h2{font-size:clamp(13px,3vw,19px)!important}}
+
+/* Correção do destaque: remover os escurecimentos antigos que escondiam as pessoas. */
+.editorial-top .vv-single-feature .vv-feature-row::after,
+.editorial-top .vv-single-feature .vv-feature-row::before{content:none!important;display:none!important;background:none!important}
+.editorial-top .vv-single-feature .vv-feature-photo{z-index:0!important;object-fit:cover!important;object-position:center center!important;filter:none!important;opacity:1!important}
+.editorial-top .vv-single-feature .vv-feature-copy{z-index:2!important;position:relative!important;max-width:47%!important;width:47%!important;margin-left:auto!important;text-shadow:0 1px 3px #000}
+@media(max-width:650px){.editorial-top .vv-single-feature .vv-feature-copy{max-width:54%!important;width:54%!important}}
 </style></head><body>
 <header><div class="wrap header"><a href="index.html" class="brand"><img src="icon-192.png.webp" alt=""><span>Velvet<em>Verse</em> Radio</span></a><nav class="nav" aria-label="Navegação"><a href="index.html" data-pt="Início" data-en="Home">Início</a><a href="index.html#schedule" data-pt="Programação" data-en="Schedule">Programação</a><a href="index.html" data-pt="Podcasts" data-en="Podcasts">Podcasts</a><a class="here" href="#inicio" data-pt="Notícias" data-en="News">Notícias</a></nav><div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div><a class="radio" href="player.html" target="VelvetVersePlayer" rel="noopener" data-pt="▶ OUVIR RÁDIO" data-en="▶ LISTEN LIVE">▶ OUVIR RÁDIO</a></div></header>
 <main class="wrap" id="inicio">
