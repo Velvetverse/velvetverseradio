@@ -1,37 +1,37 @@
 {
-  "edition_date": "2026-11-20",
+  "edition_date": "2026-11-27",
   "type": "VelvetVerse Radio editorial selection",
   "voting_enabled": false,
   "songs": [
     {
       "rank": 1,
-      "title": "POKITO",
-      "artist": "Daddy Yankee & Diljit Dosanjh",
-      "id": "6826504729"
+      "title": "DtMF",
+      "artist": "Bad Bunny",
+      "id": "1787023936"
     },
     {
       "rank": 2,
-      "title": "Últimamente (W Sound 11)",
-      "artist": "W Sound, De La Rose & Ovy On the Drums",
-      "id": "6832702900"
+      "title": "Suzuki",
+      "artist": "Fuerza Regida",
+      "id": "6812477298"
     },
     {
       "rank": 3,
-      "title": "Suave",
-      "artist": "Kany García & Rauw Alejandro",
-      "id": "6827717041"
+      "title": "Ayúdame",
+      "artist": "Los Dos de Tamaulipas",
+      "id": "1880109891"
     },
     {
       "rank": 4,
-      "title": "P-Rreo",
-      "artist": "Ivy Queen",
-      "id": "6828167907"
+      "title": "Te Estoy Correteando",
+      "artist": "LATIN MAFIA & Fred again..",
+      "id": "6796842545"
     },
     {
       "rank": 5,
-      "title": "Departamento",
-      "artist": "LATIN MAFIA",
-      "id": "6833072834"
+      "title": "Ahí",
+      "artist": "KAROL G & Drake",
+      "id": "6796864746"
     }
   ]
 }
